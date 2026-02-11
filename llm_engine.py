@@ -15,10 +15,12 @@ Supports:
 from __future__ import annotations
 
 import ast
+import base64
 import json
 import re
 import time
-from typing import Any, Dict, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
 import requests
 
@@ -47,6 +49,7 @@ class LLMEngine:
         max_retries: int = 2,
         temperature: float = 0.0,
         max_tokens: int = 4096,
+        vision_model: Optional[str] = None,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -54,6 +57,7 @@ class LLMEngine:
         self.max_retries = max_retries
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.vision_model = vision_model  # e.g. "llava:7b" for Ollama VLM
 
     # ------------------------------------------------------------------
     # Text generation
@@ -190,29 +194,109 @@ class LLMEngine:
         print(f"  [LLM] Model {self.model} unload requested (may still be releasing)")
 
     # ------------------------------------------------------------------
-    # Vision stub (future use)
+    # Vision (Ollama VLM: llava, llama3.2-vision, etc.)
     # ------------------------------------------------------------------
+
+    def _image_to_base64(self, image_path: Union[str, Path]) -> str:
+        """Read image file and return base64-encoded string."""
+        path = Path(image_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Image not found: {path}")
+        data = path.read_bytes()
+        return base64.b64encode(data).decode("utf-8")
 
     def generate_with_image(
         self,
         prompt: str,
-        image_path: str,
+        image_path: Union[str, Path],
         system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
     ) -> str:
         """
-        Generate text using a vision LLM that can see an image.
+        Generate text using a vision LLM (Ollama) that can see an image.
 
-        NOTE: This is a STUB for future implementation.
-        When a vision model is available (e.g. Groq Llama 4 Scout, GPT-4V),
-        implement this method to send the image alongside the prompt.
-
-        Raises:
-            NotImplementedError: Always, until a vision model is configured.
+        Uses Ollama /api/chat with the configured vision_model (e.g. llava:7b).
+        Image is sent as base64 in the message.
         """
-        raise NotImplementedError(
-            "Vision LLM is not yet configured. "
-            "To add vision support, implement this method in llm_engine.py "
-            "using a vision-capable model (e.g. Groq Llama 4 Scout, GPT-4V)."
+        if not self.vision_model:
+            raise ValueError(
+                "No vision_model configured. Pass vision_model='llava:7b' (or similar) to LLMEngine."
+            )
+        b64 = self._image_to_base64(image_path)
+        return self._chat_with_images(
+            prompt=prompt,
+            images=[b64],
+            system=system,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            model=self.vision_model,
+        )
+
+    def generate_with_images(
+        self,
+        prompt: str,
+        image_paths: List[Union[str, Path]],
+        system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+    ) -> str:
+        """
+        Generate text using a vision LLM with multiple images (e.g. form pages).
+        Uses the first image if model supports only one; otherwise sends all.
+        """
+        if not self.vision_model:
+            raise ValueError("No vision_model configured.")
+        b64_list = [self._image_to_base64(p) for p in image_paths]
+        return self._chat_with_images(
+            prompt=prompt,
+            images=b64_list,
+            system=system,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            model=self.vision_model,
+        )
+
+    def _chat_with_images(
+        self,
+        prompt: str,
+        images: List[str],
+        system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model: Optional[str] = None,
+    ) -> str:
+        """Ollama /api/chat with optional images (base64)."""
+        model = model or self.vision_model
+        temp = temperature if temperature is not None else self.temperature
+        tokens = max_tokens if max_tokens is not None else self.max_tokens
+        content = f"{system}\n\n{prompt}" if system else prompt
+        message = {"role": "user", "content": content, "images": images}
+        payload = {
+            "model": model,
+            "messages": [message],
+            "stream": False,
+            "options": {"temperature": temp, "num_predict": tokens},
+        }
+        last_error: Optional[Exception] = None
+        for attempt in range(1, self.max_retries + 1):
+            try:
+                resp = requests.post(
+                    f"{self.base_url}/api/chat",
+                    json=payload,
+                    timeout=self.timeout,
+                )
+                resp.raise_for_status()
+                out = resp.json()
+                return out.get("message", {}).get("content", "")
+            except (requests.RequestException, KeyError) as exc:
+                last_error = exc
+                if attempt < self.max_retries:
+                    wait = 2 ** attempt
+                    print(f"  [VLM] Attempt {attempt} failed ({exc}), retrying in {wait}s ...")
+                    time.sleep(wait)
+        raise RuntimeError(
+            f"Vision LLM failed after {self.max_retries} attempts: {last_error}"
         )
 
     # ------------------------------------------------------------------

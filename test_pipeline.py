@@ -182,6 +182,7 @@ def run_single_form(
     ocr: OCREngine,
     llm: LLMEngine,
     registry: SchemaRegistry,
+    use_vision: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -199,7 +200,7 @@ def run_single_form(
     if not pdf_path.exists():
         return {"error": f"PDF not found: {pdf_path}", "stem": stem}
 
-    extractor = ACORDExtractor(ocr, llm, registry)
+    extractor = ACORDExtractor(ocr, llm, registry, use_vision=use_vision)
 
     start = time.time()
     try:
@@ -347,6 +348,14 @@ def main():
         help="Run only one PDF per form type (e.g. 1×125, 1×127, 1×137 = 3 total)",
     )
     parser.add_argument("--gpu", action="store_true", help="Use GPU for OCR")
+    parser.add_argument(
+        "--vision", action="store_true",
+        help="Run vision pass (VLM) on form images for missing fields",
+    )
+    parser.add_argument(
+        "--vision-model", type=str, default="llava:7b",
+        help="Ollama vision model for --vision (default: llava:7b)",
+    )
     args = parser.parse_args()
 
     gpu_mode = (
@@ -372,6 +381,8 @@ def main():
     print(f"  Model: {args.model}")
     print(f"  Mode:  {gpu_mode}")
     print(f"  Forms: {', '.join(args.forms)}" + (" (one per form)" if args.one_per_form else ""))
+    if args.vision:
+        print(f"  Vision: {args.vision_model}")
     print(f"  Total PDFs to run: {total_pdfs}")
     for ft in args.forms:
         forms = all_test_forms.get(ft, [])
@@ -388,7 +399,11 @@ def main():
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=True,  # Intelligent: Docling on CPU, EasyOCR on GPU
     )
-    llm = LLMEngine(model=args.model, base_url=args.ollama_url)
+    llm = LLMEngine(
+        model=args.model,
+        base_url=args.ollama_url,
+        vision_model=args.vision_model if args.vision else None,
+    )
     schemas_dir = Path(__file__).parent / "schemas"
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
@@ -416,7 +431,9 @@ def main():
             print(f"  File: {entry['stem']}")
             print(f"{'─'*70}")
 
-            result = run_single_form(entry, form_type, ocr, llm, registry)
+            result = run_single_form(
+                entry, form_type, ocr, llm, registry, use_vision=args.vision
+            )
             type_results.append(result)
 
             # Aggressive GPU cleanup between forms to prevent fragmentation

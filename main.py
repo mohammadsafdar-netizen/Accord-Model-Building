@@ -81,6 +81,14 @@ Examples:
         "--timeout", type=int, default=300,
         help="LLM request timeout in seconds (default: 300)",
     )
+    parser.add_argument(
+        "--vision", action="store_true",
+        help="Run a vision pass with a VLM (Ollama) on form images for missing fields",
+    )
+    parser.add_argument(
+        "--vision-model", type=str, default="llava:7b",
+        help="Ollama vision model for --vision (default: llava:7b)",
+    )
 
     args = parser.parse_args()
 
@@ -91,23 +99,24 @@ Examples:
     # --- Initialise components ---
     print("\nInitialising pipeline components ...")
 
-        ocr = OCREngine(
-            dpi=args.dpi,
-            easyocr_gpu=args.gpu,
-            force_cpu=not args.gpu,
-            docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for EasyOCR + LLM
-        )
+    ocr = OCREngine(
+        dpi=args.dpi,
+        easyocr_gpu=args.gpu,
+        force_cpu=not args.gpu,
+        docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for EasyOCR + LLM
+    )
 
     llm = LLMEngine(
         model=args.model,
         base_url=args.ollama_url,
         timeout=args.timeout,
+        vision_model=args.vision_model if args.vision else None,
     )
 
     schemas_dir = args.schemas_dir or Path(__file__).parent / "schemas"
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
-    extractor = ACORDExtractor(ocr, llm, registry)
+    extractor = ACORDExtractor(ocr, llm, registry, use_vision=args.vision)
 
     # --- Run extraction ---
     result = extractor.extract(

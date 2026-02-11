@@ -126,6 +126,12 @@ python main.py path/to/form127.pdf --ground-truth path/to/gt.json
 
 # Use GPU for faster OCR
 python main.py path/to/form.pdf --gpu
+
+# Add a vision pass (VLM on form images for missing fields)
+# Requires an Ollama vision model, e.g. llava:7b
+ollama pull llava:7b
+python main.py path/to/form.pdf --vision
+python main.py path/to/form.pdf --vision --vision-model llava:13b
 ```
 
 ### Run Tests
@@ -149,15 +155,10 @@ python test_pipeline.py --model llama3.2:3b
 | ACORD 127 | Business Auto Section | 634 | Header, 13 drivers (A-M), vehicles (A-E), coverages, checkboxes |
 | ACORD 137 | Commercial Auto Section | 102 | Named insured, policy, insurer, vehicle schedule (A-F), coverage symbols |
 
-## Adding Vision LLM Later
+## Vision pass (VLM)
 
-When ready to add a vision model, only 2 files need changes:
+A **vision pass** runs after the text-based extraction and gap-fill. It uses an Ollama vision model (e.g. **llava:7b**) on the form page images to fill remaining missing fields.
 
-1. **`llm_engine.py`**: Implement `generate_with_image()` using your vision API (Groq Llama 4 Scout, GPT-4V, etc.)
-2. **`extractor.py`**: In `_extract_category()`, optionally pass page images alongside text. The prompt builder already supports dual input.
-
-The vision LLM becomes an additional signal alongside OCR text, especially useful for:
-- Checkbox detection (visual marks)
-- Complex table structures
-- Handwritten text
-- Ambiguous field boundaries
+- **CLI:** `--vision` and `--vision-model llava:7b` (default). Pull a vision model first: `ollama pull llava:7b`.
+- **Flow:** OCR → category extraction → gap-fill → **vision pass** (VLM on first 1–2 pages, batched missing fields) → verification.
+- You can switch to a larger model later (e.g. `--vision-model llava:13b` or another Ollama vision model) without code changes.

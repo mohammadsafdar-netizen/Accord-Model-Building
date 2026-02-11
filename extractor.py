@@ -33,6 +33,7 @@ from prompts import (
     build_driver_row_prompt,
     build_vehicle_prompt,
     build_gap_fill_prompt,
+    build_vision_extraction_prompt,
 )
 from spatial_extract import spatial_preextract
 
@@ -54,10 +55,12 @@ class ACORDExtractor:
         ocr_engine: OCREngine,
         llm_engine: LLMEngine,
         schema_registry: SchemaRegistry,
+        use_vision: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
         self.registry = schema_registry
+        self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
 
     # ==================================================================
     # Main entry point
@@ -202,6 +205,8 @@ class ACORDExtractor:
         if "vehicle" in schema.categories and form_type in ("127", "137"):
             total_steps += 1
         total_steps += 1  # gap-fill pass
+        if self.use_vision:
+            total_steps += 1  # vision pass
 
         for category in categories:
             if category in special:
@@ -286,6 +291,24 @@ class ACORDExtractor:
                     extracted[k] = v
                     new_count += 1
             print(f"    -> {new_count} additional fields recovered")
+
+        # ---- Vision pass (VLM on form images) ------------------------------
+        missing_after_gap = [n for n in all_field_names if n not in extracted]
+        if self.use_vision and missing_after_gap and ocr_result.clean_image_paths:
+            step += 1
+            print(f"\n  [{step}/{total_steps}] Vision pass (VLM) ({len(missing_after_gap)} missing fields) ...")
+            vision_result = self._vision_pass(
+                form_type=form_type,
+                missing_fields=missing_after_gap,
+                image_paths=ocr_result.clean_image_paths,
+                schema=schema,
+            )
+            new_count = 0
+            for k, v in vision_result.items():
+                if k not in extracted and v is not None:
+                    extracted[k] = v
+                    new_count += 1
+            print(f"    -> {new_count} additional fields from VLM")
 
         # ---- Verification ------------------------------------------------
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
@@ -454,6 +477,45 @@ class ACORDExtractor:
                     if k not in result and k in gap_batch and v is not None:
                         result[k] = v
 
+        return result
+
+    def _vision_pass(
+        self,
+        form_type: str,
+        missing_fields: List[str],
+        image_paths: List[Path],
+        schema,
+    ) -> Dict[str, Any]:
+        """
+        Use a vision LLM (Ollama VLM) to extract missing fields from form page images.
+        Uses the first page (or first two) to avoid overload; batches fields.
+        """
+        VISION_BATCH = 20
+        MAX_PAGES = 2  # Send at most 2 pages per request
+        result: Dict[str, Any] = {}
+        paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
+        if not paths:
+            return result
+        tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+        for i in range(0, len(missing_fields), VISION_BATCH):
+            batch = missing_fields[i : i + VISION_BATCH]
+            batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
+            prompt = build_vision_extraction_prompt(
+                form_type=form_type,
+                missing_fields=batch,
+                tooltips=batch_tooltips,
+            )
+            try:
+                if len(paths) == 1:
+                    response = self.llm.generate_with_image(prompt, paths[0])
+                else:
+                    response = self.llm.generate_with_images(prompt, paths)
+                batch_result = self.llm.parse_json(response)
+                for k, v in batch_result.items():
+                    if k in batch and v is not None:
+                        result[k] = v
+            except Exception as e:
+                print(f"    [VLM] Batch error: {e}")
         return result
 
     # ==================================================================

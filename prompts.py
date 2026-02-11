@@ -425,3 +425,33 @@ JSON TEMPLATE (use these EXACT keys):
 Return ONLY valid JSON:
 """
     return prompt
+
+
+def build_vision_extraction_prompt(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    Prompt for a vision LLM: look at the form image(s) and extract the listed fields.
+    Kept short so the model focuses on the image; tooltips give hints.
+    """
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    layout = _layout_hint(form_type)
+    json_tmpl = _json_template(missing_fields)
+    prompt = f"""You are looking at a scanned ACORD {form_type} form image.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== FIELDS TO EXTRACT (use EXACT key names) ===
+{field_block}
+
+From the form image, extract ONLY the fields listed above. Use the exact JSON keys.
+- Dates: MM/DD/YYYY. Checkboxes: "1" or "Off" or true/false as appropriate.
+- Leave out any field you cannot read clearly.
+
+Return ONLY a JSON object with the keys you could extract:
+{json_tmpl}
+"""
+    return prompt

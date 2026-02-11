@@ -439,19 +439,25 @@ def build_vision_extraction_prompt(
     field_block = _format_fields_with_tooltips(missing_fields, tooltips)
     layout = _layout_hint(form_type)
     json_tmpl = _json_template(missing_fields)
-    prompt = f"""You are looking at a scanned ACORD {form_type} form image.
+    # List exact keys so the model can copy them
+    keys_list = ", ".join(f'"{f}"' for f in missing_fields[:25])
+    if len(missing_fields) > 25:
+        keys_list += f", ... ({len(missing_fields)} total)"
+    prompt = f"""Look at this scanned ACORD {form_type} form image and extract the requested fields.
 
-=== FORM LAYOUT ===
+=== LAYOUT ===
 {layout}
 
-=== FIELDS TO EXTRACT (use EXACT key names) ===
+=== FIELDS (copy these EXACT key names into your JSON) ===
 {field_block}
 
-From the form image, extract ONLY the fields listed above. Use the exact JSON keys.
-- Dates: MM/DD/YYYY. Checkboxes: "1" or "Off" or true/false as appropriate.
-- Leave out any field you cannot read clearly.
+RULES:
+- Use ONLY the exact field names above (e.g. {keys_list}).
+- Dates: MM/DD/YYYY. Checkboxes: "1" or "Off".
+- Output ONLY valid JSON. No markdown, no ```, no explanation before or after.
+- Include only keys you can read clearly from the image.
 
-Return ONLY a JSON object with the keys you could extract:
+JSON (use these exact keys):
 {json_tmpl}
 """
     return prompt

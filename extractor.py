@@ -98,10 +98,10 @@ class ACORDExtractor:
         print(f"  ACORD FORM EXTRACTION")
         print(f"  PDF: {pdf_path.name}")
         print(f"{'='*60}")
-        # Unload LLM from GPU so Docling and EasyOCR can each use it
+        # Unload all LLMs so OCR has full GPU; wait for VRAM to be released
         self.llm.unload_model()
 
-        # ---- Step 1: OCR (GPU sequenced inside) --------------------------
+        # ---- Step 1: OCR (GPU sequenced inside, with unload waits) -------
         # process() does: Docling GPU → unload → EasyOCR GPU → unload
         # After this, GPU is fully free for the LLM
         ocr_result = self.ocr.process(pdf_path, output_dir)
@@ -296,6 +296,8 @@ class ACORDExtractor:
         missing_after_gap = [n for n in all_field_names if n not in extracted]
         if self.use_vision and missing_after_gap and ocr_result.clean_image_paths:
             step += 1
+            # Unload text LLM so VLM has GPU; wait for VRAM to free
+            self.llm.unload_text_model()
             print(f"\n  [{step}/{total_steps}] Vision pass (VLM) ({len(missing_after_gap)} missing fields) ...")
             vision_result = self._vision_pass(
                 form_type=form_type,
@@ -309,6 +311,8 @@ class ACORDExtractor:
                     extracted[k] = v
                     new_count += 1
             print(f"    -> {new_count} additional fields from VLM")
+            # Unload VLM so GPU is free for next form or cleanup
+            self.llm.unload_vision_model()
 
         # ---- Verification ------------------------------------------------
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
@@ -489,6 +493,7 @@ class ACORDExtractor:
         """
         Use a vision LLM (Ollama VLM) to extract missing fields from form page images.
         Uses the first page (or first two) to avoid overload; batches fields.
+        Recommended: 7B+ VLM (e.g. llava:7b, qwen2-vl:7b); 4B models often produce no usable output.
         """
         VISION_BATCH = 20
         MAX_PAGES = 2  # Send at most 2 pages per request
@@ -497,6 +502,16 @@ class ACORDExtractor:
         if not paths:
             return result
         tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+        # Normalize batch keys for matching (VLM may return different casing/underscores)
+        def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
+            if vlm_key in batch_keys:
+                return vlm_key
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
+            for b in batch_keys:
+                if b.strip().replace(" ", "_").replace("-", "_").lower() == vlm_norm:
+                    return b
+            return None
+
         for i in range(0, len(missing_fields), VISION_BATCH):
             batch = missing_fields[i : i + VISION_BATCH]
             batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
@@ -511,9 +526,23 @@ class ACORDExtractor:
                 else:
                     response = self.llm.generate_with_images(prompt, paths)
                 batch_result = self.llm.parse_json(response)
+                # Debug: log raw VLM response for first batch; log when parse returns 0 keys
+                batch_num = i // VISION_BATCH + 1
+                if batch_num == 1:
+                    preview = (response or "").strip()[:500] or "(empty)"
+                    print(f"    [VLM] Batch 1 raw response preview ({len(response or '')} chars): {preview!r}")
+                if not batch_result and response and len(response.strip()) > 50:
+                    print(f"    [VLM] Batch {batch_num}: response {len(response)} chars but parse_json returned 0 keys (check if VLM returned non-JSON)")
+                matched_this_batch = 0
                 for k, v in batch_result.items():
-                    if k in batch and v is not None:
-                        result[k] = v
+                    if v is None or (isinstance(v, str) and not v.strip()):
+                        continue
+                    canonical = _match_key(k, batch)
+                    if canonical:
+                        result[canonical] = v
+                        matched_this_batch += 1
+                if batch_result and matched_this_batch == 0:
+                    print(f"    [VLM] Batch {i // VISION_BATCH + 1}: VLM returned {list(batch_result.keys())[:5]}{'...' if len(batch_result) > 5 else ''} but none matched expected keys (exact match required)")
             except Exception as e:
                 print(f"    [VLM] Batch error: {e}")
         return result

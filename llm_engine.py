@@ -120,51 +120,59 @@ class LLMEngine:
         )
 
     # ------------------------------------------------------------------
-    # GPU memory management
+    # GPU memory management (intelligent load/unload with wait time)
     # ------------------------------------------------------------------
 
-    def unload_model(self) -> None:
-        """Unload the model from Ollama to free GPU memory.
+    UNLOAD_WAIT_SECONDS = 8  # Time to wait after stop so GPU can release VRAM
+    UNLOAD_POLL_INTERVAL = 4  # Seconds between nvidia-smi checks
+    UNLOAD_MAX_POLLS = 10    # Max ~40s waiting for GPU to free
 
-        Uses multiple strategies and verifies GPU memory is actually freed:
-          1. `ollama stop <model>` CLI command
-          2. API `keep_alive: 0` as fallback
-          3. Polls nvidia-smi to confirm GPU memory was released
-        The model will be reloaded automatically on the next generate() call.
-        """
+    def _stop_ollama_model(self, model_name: str) -> None:
+        """Stop one Ollama model via CLI and API."""
         import subprocess
-
-        # Strategy 1: CLI stop
         try:
             subprocess.run(
-                ["ollama", "stop", self.model],
+                ["ollama", "stop", model_name],
                 capture_output=True, text=True, timeout=30,
             )
         except Exception:
             pass
-
-        # Strategy 2: API keep_alive=0 (belt-and-suspenders)
         try:
             requests.post(
                 f"{self.base_url}/api/generate",
-                json={"model": self.model, "prompt": "", "keep_alive": 0},
+                json={"model": model_name, "prompt": "", "keep_alive": 0},
                 timeout=10,
             )
         except Exception:
             pass
 
-        # Strategy 3: Wait and verify GPU memory is freed
-        # Poll nvidia-smi for up to 15 seconds to confirm Ollama released VRAM
-        for attempt in range(6):
-            time.sleep(2 + attempt)  # 2, 3, 4, 5, 6, 7 seconds
+    def unload_model(self) -> None:
+        """Unload text and vision models from Ollama to free GPU memory.
+
+        Stops both models (if vision_model set), waits UNLOAD_WAIT_SECONDS,
+        then polls nvidia-smi until no process uses >1 GiB or max polls reached.
+        Gives the GPU time to actually release VRAM before OCR/LLM load.
+        """
+        import subprocess
+
+        # Stop both text and vision models so OCR has full GPU
+        self._stop_ollama_model(self.model)
+        if self.vision_model:
+            self._stop_ollama_model(self.vision_model)
+            print(f"  [LLM] Stopped {self.model} and {self.vision_model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
+        else:
+            print(f"  [LLM] Stopped {self.model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
+
+        time.sleep(self.UNLOAD_WAIT_SECONDS)
+
+        for attempt in range(self.UNLOAD_MAX_POLLS):
             try:
                 result = subprocess.run(
                     ["nvidia-smi", "--query-compute-apps=pid,used_memory",
                      "--format=csv,noheader"],
                     capture_output=True, text=True, timeout=10,
                 )
-                # Check if any process is using >1 GiB (likely the model)
-                ollama_gpu_mb = 0
+                high_mb = 0
                 for line in result.stdout.strip().split("\n"):
                     if line.strip():
                         parts = line.split(",")
@@ -173,25 +181,35 @@ class LLMEngine:
                             try:
                                 mem_mb = int(mem_str)
                                 if mem_mb > 1000:
-                                    ollama_gpu_mb = max(ollama_gpu_mb, mem_mb)
+                                    high_mb = max(high_mb, mem_mb)
                             except ValueError:
                                 pass
-                if ollama_gpu_mb == 0:
-                    print(f"  [LLM] Model {self.model} unloaded from GPU")
+                if high_mb == 0:
+                    print(f"  [LLM] GPU free (models unloaded)")
                     return
-                elif attempt < 5:
-                    # Retry the stop command
-                    try:
-                        subprocess.run(
-                            ["ollama", "stop", self.model],
-                            capture_output=True, text=True, timeout=10,
-                        )
-                    except Exception:
-                        pass
+                if attempt < self.UNLOAD_MAX_POLLS - 1:
+                    time.sleep(self.UNLOAD_POLL_INTERVAL)
+                    self._stop_ollama_model(self.model)
+                    if self.vision_model:
+                        self._stop_ollama_model(self.vision_model)
             except Exception:
                 pass
 
-        print(f"  [LLM] Model {self.model} unload requested (may still be releasing)")
+        print(f"  [LLM] Unload requested (GPU may still be releasing)")
+
+    def unload_text_model(self) -> None:
+        """Unload only the text model (e.g. before loading VLM for vision pass)."""
+        self._stop_ollama_model(self.model)
+        print(f"  [LLM] Stopped {self.model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
+        time.sleep(self.UNLOAD_WAIT_SECONDS)
+
+    def unload_vision_model(self) -> None:
+        """Unload only the vision model (e.g. after vision pass so text LLM can load again)."""
+        if not self.vision_model:
+            return
+        self._stop_ollama_model(self.vision_model)
+        print(f"  [VLM] Stopped {self.vision_model}, waiting {self.UNLOAD_WAIT_SECONDS}s...")
+        time.sleep(self.UNLOAD_WAIT_SECONDS)
 
     # ------------------------------------------------------------------
     # Vision (Ollama VLM: llava, llama3.2-vision, etc.)
@@ -278,17 +296,35 @@ class LLMEngine:
             "stream": False,
             "options": {"temperature": temp, "num_predict": tokens},
         }
+        # Vision inference can be slow (model load + forward); use longer timeout
+        vision_timeout = max(self.timeout, 180)
         last_error: Optional[Exception] = None
         for attempt in range(1, self.max_retries + 1):
             try:
                 resp = requests.post(
                     f"{self.base_url}/api/chat",
                     json=payload,
-                    timeout=self.timeout,
+                    timeout=vision_timeout,
                 )
                 resp.raise_for_status()
                 out = resp.json()
-                return out.get("message", {}).get("content", "")
+                msg = out.get("message") or {}
+                raw = msg.get("content", "") if isinstance(msg, dict) else ""
+                # Ollama can return content as string or as list of parts (e.g. [{"type":"text","text":"..."}])
+                if isinstance(raw, list):
+                    text = "".join(
+                        p.get("text", "") for p in raw if isinstance(p, dict) and p.get("type") == "text"
+                    )
+                else:
+                    text = (raw or "") if isinstance(raw, str) else ""
+                # Debug: when VLM returns empty, log what Ollama actually returned
+                if not (text or "").strip():
+                    err = out.get("error")
+                    eval_count = out.get("eval_count", "?")
+                    print(f"  [VLM] Empty content. message.content type={type(raw).__name__!r} repr={repr(raw)[:120]!r} eval_count={eval_count}")
+                    if err:
+                        print(f"  [VLM] Ollama error: {err}")
+                return text or ""
             except (requests.RequestException, KeyError) as exc:
                 last_error = exc
                 if attempt < self.max_retries:

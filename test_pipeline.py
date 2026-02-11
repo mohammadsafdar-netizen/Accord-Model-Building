@@ -354,7 +354,7 @@ def main():
     )
     parser.add_argument(
         "--vision-model", type=str, default="llava:7b",
-        help="Ollama vision model for --vision (default: llava:7b)",
+        help="Ollama vision model for --vision. Use 7B+ (e.g. llava:7b, qwen2-vl:7b); 4B VLMs often return empty (default: llava:7b)",
     )
     args = parser.parse_args()
 
@@ -436,7 +436,7 @@ def main():
             )
             type_results.append(result)
 
-            # Aggressive GPU cleanup between forms to prevent fragmentation
+            # Aggressive GPU cleanup between forms; wait so next form has a clear GPU
             ocr.cleanup()
             gc.collect()
             try:
@@ -446,6 +446,7 @@ def main():
                     torch.cuda.ipc_collect()
             except ImportError:
                 pass
+            time.sleep(5)  # Let GPU release before next form's OCR
 
             # Progress update
             if "accuracy" in result:

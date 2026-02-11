@@ -19,6 +19,7 @@ import gc
 import os
 import re
 import statistics
+import time
 
 # Must be set before torch import to reduce GPU memory fragmentation
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
@@ -285,6 +286,9 @@ class OCREngine:
     # GPU memory cleanup
     # ------------------------------------------------------------------
 
+    # Wait time after unloading so GPU can release VRAM before next model loads
+    OCR_UNLOAD_WAIT_SECONDS = 5
+
     def cleanup_docling(self):
         """Free Docling from GPU memory. Must be called before EasyOCR on GPU."""
         if self._docling_converter is not None:
@@ -292,6 +296,7 @@ class OCREngine:
             self._docling_converter = None
         cleanup_gpu_memory()
         print("  [OCR] Docling unloaded from GPU")
+        time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
     def cleanup_easyocr(self):
         """Free EasyOCR from GPU memory. Must be called before LLM on GPU."""
@@ -300,6 +305,7 @@ class OCREngine:
             self._easyocr_reader = None
         cleanup_gpu_memory()
         print("  [OCR] EasyOCR unloaded from GPU")
+        time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
     def cleanup(self):
         """Free ALL GPU memory from OCR models."""
@@ -715,8 +721,11 @@ class OCREngine:
         total_blocks = sum(len(p) for p in bbox_pages)
         print(f"  [OCR] EasyOCR found {total_blocks} text blocks")
 
-        # Unload EasyOCR from GPU before LLM
+        # Unload EasyOCR from GPU before LLM (cleanup_easyocr already waits)
         self.cleanup_easyocr()
+
+        # Extra wait so LLM has a clear GPU when it loads
+        time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
         # ---- Phase 3: Build spatial indices (CPU only, no GPU needed) ----
         print("  [OCR] Building spatial indices ...")

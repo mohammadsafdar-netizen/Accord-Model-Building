@@ -88,7 +88,7 @@ class LLMEngine:
         temp = temperature if temperature is not None else self.temperature
         tokens = max_tokens if max_tokens is not None else self.max_tokens
 
-        # Merge system + user into a single prompt for the /api/generate endpoint
+        # Merge system + user into a single prompt for Ollama /api/generate
         full_prompt = f"{system}\n\n{prompt}" if system else prompt
 
         payload = {

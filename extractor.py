@@ -34,8 +34,27 @@ from prompts import (
     build_vehicle_prompt,
     build_gap_fill_prompt,
     build_vision_extraction_prompt,
+    build_vision_extraction_prompt_with_region_descriptions,
+    build_vision_checkbox_prompt,
 )
 from spatial_extract import spatial_preextract
+
+try:
+    from vision_utils import (
+        crop_pages_to_tiles,
+        layout_regions_from_docling,
+        layout_regions_from_ocr_result,
+        regions_from_bbox_pages,
+        OCR_ENGINE_AVAILABLE as VISION_LAYOUT_AVAILABLE,
+    )
+    VISION_UTILS_AVAILABLE = True
+except ImportError:
+    crop_pages_to_tiles = None  # type: ignore
+    layout_regions_from_docling = None  # type: ignore
+    layout_regions_from_ocr_result = None  # type: ignore
+    regions_from_bbox_pages = None  # type: ignore
+    VISION_LAYOUT_AVAILABLE = False
+    VISION_UTILS_AVAILABLE = False
 
 
 class ACORDExtractor:
@@ -56,11 +75,14 @@ class ACORDExtractor:
         llm_engine: LLMEngine,
         schema_registry: SchemaRegistry,
         use_vision: bool = False,
+        use_vision_descriptions: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
         self.registry = schema_registry
         self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
+        # When True, crop pages to tiles, describe each with small VLM, then send crops+descriptions to main VLM
+        self.use_vision_descriptions = use_vision_descriptions and self.use_vision
 
     # ==================================================================
     # Main entry point
@@ -295,23 +317,55 @@ class ACORDExtractor:
         # ---- Vision pass (VLM on form images) ------------------------------
         missing_after_gap = [n for n in all_field_names if n not in extracted]
         if self.use_vision and missing_after_gap and ocr_result.clean_image_paths:
-            step += 1
-            # Unload text LLM so VLM has GPU; wait for VRAM to free
             self.llm.unload_text_model()
-            print(f"\n  [{step}/{total_steps}] Vision pass (VLM) ({len(missing_after_gap)} missing fields) ...")
-            vision_result = self._vision_pass(
-                form_type=form_type,
-                missing_fields=missing_after_gap,
-                image_paths=ocr_result.clean_image_paths,
-                schema=schema,
-            )
-            new_count = 0
-            for k, v in vision_result.items():
-                if k not in extracted and v is not None:
-                    extracted[k] = v
-                    new_count += 1
-            print(f"    -> {new_count} additional fields from VLM")
-            # Unload VLM so GPU is free for next form or cleanup
+            # Build set of checkbox field names from schema for checkbox-specific pass
+            checkbox_field_set: Set[str] = set()
+            if schema:
+                for fname, finfo in schema.fields.items():
+                    if finfo.field_type in ("checkbox", "radio"):
+                        checkbox_field_set.add(fname)
+            missing_checkboxes = [f for f in missing_after_gap if f in checkbox_field_set]
+            missing_other = [f for f in missing_after_gap if f not in checkbox_field_set]
+            if missing_checkboxes:
+                total_steps += 1  # extra step for checkbox-only vision pass
+            step += 1
+
+            # 1) Checkbox-only vision pass: VLM looks at image and returns 1/Off for each
+            if missing_checkboxes:
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes only ({len(missing_checkboxes)} missing) ...")
+                checkbox_result = self._vision_pass_checkboxes(
+                    form_type=form_type,
+                    missing_fields=missing_checkboxes,
+                    image_paths=ocr_result.clean_image_paths,
+                    schema=schema,
+                )
+                new_cb = 0
+                for k, v in checkbox_result.items():
+                    if k not in extracted and v is not None:
+                        extracted[k] = self._normalise_checkbox_value(v)
+                        new_cb += 1
+                print(f"    -> {new_cb} checkbox fields from VLM")
+
+            # 2) General vision pass for remaining non-checkbox missing fields
+            missing_remaining = [n for n in all_field_names if n not in extracted]
+            if missing_remaining:
+                step += 1
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) ({len(missing_remaining)} remaining fields) ...")
+                vision_result = self._vision_pass(
+                    form_type=form_type,
+                    missing_fields=missing_remaining,
+                    image_paths=ocr_result.clean_image_paths,
+                    schema=schema,
+                    ocr_result=ocr_result,
+                )
+                new_count = 0
+                for k, v in vision_result.items():
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        new_count += 1
+                print(f"    -> {new_count} additional fields from VLM")
+            else:
+                step += 1
             self.llm.unload_vision_model()
 
         # ---- Verification ------------------------------------------------
@@ -489,20 +543,22 @@ class ACORDExtractor:
         missing_fields: List[str],
         image_paths: List[Path],
         schema,
+        ocr_result: Any = None,
     ) -> Dict[str, Any]:
         """
         Use a vision LLM (Ollama VLM) to extract missing fields from form page images.
-        Uses the first page (or first two) to avoid overload; batches fields.
-        Recommended: 7B+ VLM (e.g. llava:7b, qwen2-vl:7b); 4B models often produce no usable output.
+        Optional: when use_vision_descriptions is True, crop to regions (layout-based
+        from Docling/EasyOCR or fixed 2x2 grid), describe each with a small VLM, then
+        send crops + descriptions to the main VLM for extraction.
         """
         VISION_BATCH = 20
-        MAX_PAGES = 2  # Send at most 2 pages per request
+        MAX_PAGES = 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
         if not paths:
             return result
         tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
-        # Normalize batch keys for matching (VLM may return different casing/underscores)
+
         def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
             if vlm_key in batch_keys:
                 return vlm_key
@@ -512,19 +568,83 @@ class ACORDExtractor:
                     return b
             return None
 
+        # Describe-then-extract: layout-based or grid crops, describe with small VLM, then main VLM
+        use_descriptions = self.use_vision_descriptions and VISION_UTILS_AVAILABLE
+        tile_paths: List[Path] = []
+        region_descriptions: List[str] = []
+        MAX_REGIONS = 16  # Cap total crops (Docling + EasyOCR) to avoid overload
+        if use_descriptions:
+            try:
+                # 1) Docling-based regions (blocks/paragraphs from Docling layout)
+                if ocr_result is not None and getattr(ocr_result, "docling_regions_per_page", None) and layout_regions_from_docling is not None:
+                    paths_for_crop = getattr(ocr_result, "clean_image_paths", None) or getattr(ocr_result, "image_paths", [])
+                    docling_crops = layout_regions_from_docling(
+                        ocr_result.docling_regions_per_page,
+                        paths_for_crop,
+                        max_pages=MAX_PAGES,
+                    )
+                    if docling_crops:
+                        tile_paths.extend(docling_crops)
+                        print(f"    [VLM] Using {len(docling_crops)} Docling region(s)")
+                # 2) EasyOCR-based regions (spatial index, then raw bbox)
+                if ocr_result is not None and VISION_LAYOUT_AVAILABLE and len(tile_paths) < MAX_REGIONS:
+                    indices = getattr(ocr_result, "spatial_indices", None)
+                    if indices and layout_regions_from_ocr_result is not None:
+                        easyocr_crops = layout_regions_from_ocr_result(ocr_result, max_pages=MAX_PAGES)
+                        if easyocr_crops:
+                            tile_paths.extend(easyocr_crops)
+                            print(f"    [VLM] Using {len(easyocr_crops)} EasyOCR layout region(s)")
+                    if len(tile_paths) < MAX_REGIONS and getattr(ocr_result, "bbox_pages", None) and regions_from_bbox_pages is not None:
+                        easyocr_crops = regions_from_bbox_pages(
+                            ocr_result.bbox_pages,
+                            getattr(ocr_result, "clean_image_paths", ocr_result.image_paths),
+                            max_pages=MAX_PAGES,
+                        )
+                        if easyocr_crops:
+                            tile_paths.extend(easyocr_crops)
+                            print(f"    [VLM] Using {len(easyocr_crops)} EasyOCR bbox region(s)")
+                if len(tile_paths) > MAX_REGIONS:
+                    tile_paths = tile_paths[:MAX_REGIONS]
+                # 3) Fallback: fixed 2x2 grid
+                if not tile_paths and crop_pages_to_tiles is not None:
+                    tile_paths = crop_pages_to_tiles(paths, grid=(2, 2), max_pages=MAX_PAGES)
+                    if tile_paths:
+                        print(f"    [VLM] Using {len(tile_paths)} grid crop(s) (2x2 per page)")
+                if tile_paths:
+                    describer = getattr(self.llm, "vision_describer_model", None) or self.llm.vision_model
+                    print(f"    [VLM] Describing {len(tile_paths)} region(s) with small VLM ...")
+                    for idx, tile in enumerate(tile_paths):
+                        desc = self.llm.describe_image(tile, model=describer)
+                        region_descriptions.append(f"Region {idx + 1}: {(desc or '').strip() or '(no description)'}")
+                    if getattr(self.llm, "unload_describer_model", None):
+                        self.llm.unload_describer_model()
+                    print(f"    [VLM] Using {len(tile_paths)} crops + descriptions for extraction")
+            except Exception as e:
+                print(f"    [VLM] Describe-step failed ({e}), falling back to full-page vision")
+                use_descriptions = False
+
+        image_paths_to_use = tile_paths if use_descriptions and tile_paths else paths
         for i in range(0, len(missing_fields), VISION_BATCH):
             batch = missing_fields[i : i + VISION_BATCH]
             batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
-            prompt = build_vision_extraction_prompt(
-                form_type=form_type,
-                missing_fields=batch,
-                tooltips=batch_tooltips,
-            )
+            if use_descriptions and region_descriptions:
+                prompt = build_vision_extraction_prompt_with_region_descriptions(
+                    form_type=form_type,
+                    missing_fields=batch,
+                    tooltips=batch_tooltips,
+                    region_descriptions=region_descriptions,
+                )
+            else:
+                prompt = build_vision_extraction_prompt(
+                    form_type=form_type,
+                    missing_fields=batch,
+                    tooltips=batch_tooltips,
+                )
             try:
-                if len(paths) == 1:
-                    response = self.llm.generate_with_image(prompt, paths[0])
+                if len(image_paths_to_use) == 1:
+                    response = self.llm.generate_with_image(prompt, image_paths_to_use[0])
                 else:
-                    response = self.llm.generate_with_images(prompt, paths)
+                    response = self.llm.generate_with_images(prompt, image_paths_to_use)
                 batch_result = self.llm.parse_json(response)
                 # Debug: log raw VLM response for first batch; log when parse returns 0 keys
                 batch_num = i // VISION_BATCH + 1
@@ -546,6 +666,68 @@ class ACORDExtractor:
             except Exception as e:
                 print(f"    [VLM] Batch error: {e}")
         return result
+
+    def _vision_pass_checkboxes(
+        self,
+        form_type: str,
+        missing_fields: List[str],
+        image_paths: List[Path],
+        schema,
+    ) -> Dict[str, Any]:
+        """
+        Vision pass for checkbox fields only: VLM looks at form image and returns
+        1 (checked) or Off (not checked) for each. Uses a focused checkbox-only prompt.
+        """
+        VISION_BATCH = 30  # Checkboxes are quick to output
+        MAX_PAGES = 2
+        result: Dict[str, Any] = {}
+        paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
+        if not paths:
+            return result
+        tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+
+        def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
+            if vlm_key in batch_keys:
+                return vlm_key
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
+            for b in batch_keys:
+                if b.strip().replace(" ", "_").replace("-", "_").lower() == vlm_norm:
+                    return b
+            return None
+
+        for i in range(0, len(missing_fields), VISION_BATCH):
+            batch = missing_fields[i : i + VISION_BATCH]
+            batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
+            prompt = build_vision_checkbox_prompt(
+                form_type=form_type,
+                missing_fields=batch,
+                tooltips=batch_tooltips,
+            )
+            try:
+                if len(paths) == 1:
+                    response = self.llm.generate_with_image(prompt, paths[0])
+                else:
+                    response = self.llm.generate_with_images(prompt, paths)
+                batch_result = self.llm.parse_json(response)
+                for k, v in batch_result.items():
+                    if v is None or (isinstance(v, str) and not v.strip()):
+                        continue
+                    canonical = _match_key(k, batch)
+                    if canonical:
+                        result[canonical] = v
+            except Exception as e:
+                print(f"    [VLM] Checkbox batch error: {e}")
+        return result
+
+    @staticmethod
+    def _normalise_checkbox_value(value: Any) -> str:
+        """Normalise a single checkbox value from LLM/VLM to '1' or 'Off'."""
+        if value is None:
+            return "Off"
+        s = str(value).strip().lower()
+        if s in ("true", "yes", "1", "on", "x", "checked", "yes"):
+            return "1"
+        return "Off"
 
     # ==================================================================
     # Driver extraction (ACORD 127)
@@ -821,20 +1003,17 @@ class ACORDExtractor:
             str_val = str(value).strip()
             if str_val in ("", "null", "None", "N/A", "n/a"):
                 continue
+            key_lower = key.lower()
 
             # Checkbox normalisation - FORCE to "1" or "Off" only
             is_checkbox = (
                 key in checkbox_fields
-                or "indicator" in key.lower()
-                or key.lower().startswith("chk")
+                or "indicator" in key_lower
+                or key_lower.startswith("chk")
             )
             if is_checkbox:
                 lower = str_val.lower()
-                if lower in ("true", "yes", "1", "on", "x", "checked"):
-                    normalised[key] = "1"
-                else:
-                    # Anything that's not clearly "checked" is treated as unchecked
-                    normalised[key] = "Off"
+                normalised[key] = "1" if lower in ("true", "yes", "1", "on", "x", "checked") else "Off"
                 continue
 
             # Boolean normalisation for non-checkbox fields
@@ -842,6 +1021,48 @@ class ACORDExtractor:
                 normalised[key] = "true" if value else "false"
                 continue
 
+            # Time field (HHMM): normalise to 4-digit string
+            if ("effectivetime" in key_lower or "expirationtime" in key_lower) and "indicator" not in key_lower:
+                digits = re.sub(r"[^\d]", "", str_val)
+                if digits and len(digits) <= 4 and digits.isdigit():
+                    normalised[key] = digits.zfill(4)
+                    continue
+
+            # Date field: try to normalise to MM/DD/YYYY
+            if "date" in key_lower and "update" not in key_lower:
+                norm_date = self._normalise_date_str(str_val)
+                if norm_date:
+                    normalised[key] = norm_date
+                    continue
+
+            # Amount-like: strip $ and commas for consistent storage
+            if any(x in key_lower for x in ("amount", "limit", "premium", "deductible")) and "count" not in key_lower:
+                cleaned = re.sub(r"[^\d.]", "", str_val)
+                if cleaned:
+                    normalised[key] = cleaned
+                    continue
+
             normalised[key] = str_val
 
         return normalised
+
+    @staticmethod
+    def _normalise_date_str(s: str) -> Optional[str]:
+        """Try to parse date and return MM/DD/YYYY; else None."""
+        from datetime import datetime
+        s = s.strip()
+        for fmt in ("%m/%d/%Y", "%m-%d-%Y", "%Y-%m-%d", "%d/%m/%Y", "%B %d, %Y", "%m/%d/%y"):
+            try:
+                dt = datetime.strptime(s, fmt)
+                return dt.strftime("%m/%d/%Y")
+            except ValueError:
+                continue
+        m = re.search(r"(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})", s)
+        if m:
+            try:
+                mo, day, yr = int(m.group(1)), int(m.group(2)), int(m.group(3))
+                if 1 <= mo <= 12 and 1 <= day <= 31:
+                    return f"{mo:02d}/{day:02d}/{yr}"
+            except (ValueError, IndexError):
+                pass
+        return None

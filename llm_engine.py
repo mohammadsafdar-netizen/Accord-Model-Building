@@ -50,6 +50,7 @@ class LLMEngine:
         temperature: float = 0.0,
         max_tokens: int = 4096,
         vision_model: Optional[str] = None,
+        vision_describer_model: Optional[str] = None,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -58,6 +59,8 @@ class LLMEngine:
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.vision_model = vision_model  # e.g. "llava:7b" for Ollama VLM
+        # Small VLM for describing image regions (crops); if None, use vision_model
+        self.vision_describer_model = vision_describer_model
 
     # ------------------------------------------------------------------
     # Text generation
@@ -209,6 +212,14 @@ class LLMEngine:
             return
         self._stop_ollama_model(self.vision_model)
         print(f"  [VLM] Stopped {self.vision_model}, waiting {self.UNLOAD_WAIT_SECONDS}s...")
+
+    def unload_describer_model(self) -> None:
+        """Unload the describer VLM after describe step so main VLM can use GPU."""
+        describer = self.vision_describer_model or self.vision_model
+        if not describer:
+            return
+        self._stop_ollama_model(describer)
+        print(f"  [VLM] Stopped describer {describer}, waiting {self.UNLOAD_WAIT_SECONDS}s...")
         time.sleep(self.UNLOAD_WAIT_SECONDS)
 
     # ------------------------------------------------------------------
@@ -222,6 +233,33 @@ class LLMEngine:
             raise FileNotFoundError(f"Image not found: {path}")
         data = path.read_bytes()
         return base64.b64encode(data).decode("utf-8")
+
+    def describe_image(
+        self,
+        image_path: Union[str, Path],
+        model: Optional[str] = None,
+    ) -> str:
+        """
+        Use a (small) vision model to describe an image region in 1-2 sentences.
+        Used for the describe-then-extract pipeline: describe crops, then send
+        crops + descriptions to the main VLM for extraction.
+        """
+        describer = model or self.vision_describer_model or self.vision_model
+        if not describer:
+            return ""
+        prompt = (
+            "Describe this form image region in 1-2 short sentences. "
+            "Mention any text, checkboxes (marked or empty), numbers, dates, and labels you see. "
+            "Be concise."
+        )
+        b64 = self._image_to_base64(image_path)
+        return self._chat_with_images(
+            prompt=prompt,
+            images=[b64],
+            temperature=0.0,
+            max_tokens=150,
+            model=describer,
+        )
 
     def generate_with_image(
         self,
@@ -296,7 +334,6 @@ class LLMEngine:
             "stream": False,
             "options": {"temperature": temp, "num_predict": tokens},
         }
-        # Vision inference can be slow (model load + forward); use longer timeout
         vision_timeout = max(self.timeout, 180)
         last_error: Optional[Exception] = None
         for attempt in range(1, self.max_retries + 1):
@@ -310,18 +347,27 @@ class LLMEngine:
                 out = resp.json()
                 msg = out.get("message") or {}
                 raw = msg.get("content", "") if isinstance(msg, dict) else ""
-                # Ollama can return content as string or as list of parts (e.g. [{"type":"text","text":"..."}])
                 if isinstance(raw, list):
                     text = "".join(
                         p.get("text", "") for p in raw if isinstance(p, dict) and p.get("type") == "text"
                     )
                 else:
                     text = (raw or "") if isinstance(raw, str) else ""
-                # Debug: when VLM returns empty, log what Ollama actually returned
+                # When we get eval_count but empty content, Ollama may have streamed internally;
+                # retry with stream=True and accumulate chunks to get the actual output.
+                eval_count = out.get("eval_count") if isinstance(out.get("eval_count"), int) else 0
+                if not (text or "").strip() and eval_count > 0:
+                    print(f"  [VLM] Empty content but eval_count={eval_count}; retrying with stream=True to collect output ...")
+                    stream_text = self._chat_with_images_streaming(
+                        prompt=prompt, images=images, system=system,
+                        temperature=temp, max_tokens=tokens, model=model,
+                        content=content, message=message, vision_timeout=vision_timeout,
+                    )
+                    if (stream_text or "").strip():
+                        return stream_text
                 if not (text or "").strip():
                     err = out.get("error")
-                    eval_count = out.get("eval_count", "?")
-                    print(f"  [VLM] Empty content. message.content type={type(raw).__name__!r} repr={repr(raw)[:120]!r} eval_count={eval_count}")
+                    print(f"  [VLM] Empty content. message.content type={type(raw).__name__!r} repr={repr(raw)[:120]!r} eval_count={out.get('eval_count', '?')}")
                     if err:
                         print(f"  [VLM] Ollama error: {err}")
                 return text or ""
@@ -334,6 +380,60 @@ class LLMEngine:
         raise RuntimeError(
             f"Vision LLM failed after {self.max_retries} attempts: {last_error}"
         )
+
+    def _chat_with_images_streaming(
+        self,
+        prompt: str,
+        images: List[str],
+        content: str,
+        message: Dict[str, Any],
+        system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model: Optional[str] = None,
+        vision_timeout: int = 180,
+    ) -> str:
+        """Call Ollama /api/chat with stream=True and accumulate message.content from chunks."""
+        payload = {
+            "model": model or self.vision_model,
+            "messages": [message],
+            "stream": True,
+            "options": {
+                "temperature": temperature or self.temperature,
+                "num_predict": max_tokens if max_tokens is not None else self.max_tokens,
+            },
+        }
+        parts: List[str] = []
+        try:
+            resp = requests.post(
+                f"{self.base_url}/api/chat",
+                json=payload,
+                timeout=vision_timeout,
+                stream=True,
+            )
+            resp.raise_for_status()
+            for line in resp.iter_lines(decode_unicode=True):
+                if not line:
+                    continue
+                try:
+                    chunk = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                msg = chunk.get("message") or {}
+                raw = msg.get("content", "")
+                if isinstance(raw, str) and raw:
+                    parts.append(raw)
+                elif isinstance(raw, list):
+                    for p in raw:
+                        if isinstance(p, dict) and p.get("type") == "text" and p.get("text"):
+                            parts.append(p["text"])
+        except (requests.RequestException, json.JSONDecodeError) as e:
+            print(f"  [VLM] Streaming fallback error: {e}")
+            return ""
+        out = "".join(parts)
+        if out.strip():
+            print(f"  [VLM] Recovered {len(out)} chars via stream=True")
+        return out
 
     # ------------------------------------------------------------------
     # JSON parsing

@@ -183,6 +183,7 @@ def run_single_form(
     llm: LLMEngine,
     registry: SchemaRegistry,
     use_vision: bool = False,
+    use_vision_descriptions: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -200,7 +201,11 @@ def run_single_form(
     if not pdf_path.exists():
         return {"error": f"PDF not found: {pdf_path}", "stem": stem}
 
-    extractor = ACORDExtractor(ocr, llm, registry, use_vision=use_vision)
+    extractor = ACORDExtractor(
+        ocr, llm, registry,
+        use_vision=use_vision,
+        use_vision_descriptions=use_vision_descriptions,
+    )
 
     start = time.time()
     try:
@@ -356,6 +361,14 @@ def main():
         "--vision-model", type=str, default="llava:7b",
         help="Ollama vision model for --vision. Use 7B+ (e.g. llava:7b, qwen2-vl:7b); 4B VLMs often return empty (default: llava:7b)",
     )
+    parser.add_argument(
+        "--vision-descriptions", action="store_true",
+        help="Use describe-then-extract: crop pages to regions, describe each with small VLM, then send crops+descriptions to main VLM",
+    )
+    parser.add_argument(
+        "--vision-describer-model", type=str, default=None,
+        help="Small VLM for describing image regions when --vision-descriptions (default: same as --vision-model)",
+    )
     args = parser.parse_args()
 
     gpu_mode = (
@@ -382,7 +395,7 @@ def main():
     print(f"  Mode:  {gpu_mode}")
     print(f"  Forms: {', '.join(args.forms)}" + (" (one per form)" if args.one_per_form else ""))
     if args.vision:
-        print(f"  Vision: {args.vision_model}")
+        print(f"  Vision: {args.vision_model}" + (" + descriptions (crop→describe→extract)" if args.vision_descriptions else ""))
     print(f"  Total PDFs to run: {total_pdfs}")
     for ft in args.forms:
         forms = all_test_forms.get(ft, [])
@@ -403,6 +416,7 @@ def main():
         model=args.model,
         base_url=args.ollama_url,
         vision_model=args.vision_model if args.vision else None,
+        vision_describer_model=args.vision_describer_model if args.vision else None,
     )
     schemas_dir = Path(__file__).parent / "schemas"
     registry = SchemaRegistry(schemas_dir=schemas_dir)
@@ -432,7 +446,9 @@ def main():
             print(f"{'─'*70}")
 
             result = run_single_form(
-                entry, form_type, ocr, llm, registry, use_vision=args.vision
+                entry, form_type, ocr, llm, registry,
+                use_vision=args.vision,
+                use_vision_descriptions=args.vision_descriptions,
             )
             type_results.append(result)
 

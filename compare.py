@@ -12,6 +12,8 @@ Compares extracted fields against a ground truth JSON and reports:
 from __future__ import annotations
 
 import json
+import re
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -23,15 +25,57 @@ from typing import Any, Dict, List, Optional
 _CHECKBOX_TRUE = {"true", "1", "on", "yes", "x", "checked"}
 _CHECKBOX_FALSE = {"false", "0", "off", "no", "unchecked", ""}
 
+# Common date formats for parsing (order matters: try more specific first)
+_DATE_FORMATS = [
+    "%m/%d/%Y", "%m-%d-%Y", "%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y",
+    "%B %d, %Y", "%b %d, %Y", "%m/%d/%y", "%Y/%m/%d",
+]
+
+
+def _normalise_date(s: str) -> str:
+    """Try to parse date string and return YYYY-MM-DD for comparison; else return original lowercased."""
+    s = s.strip()
+    for fmt in _DATE_FORMATS:
+        try:
+            dt = datetime.strptime(s, fmt)
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    # 4-digit year somewhere
+    m = re.search(r"(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})", s)
+    if m:
+        try:
+            mo, day, yr = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if 1 <= mo <= 12 and 1 <= day <= 31:
+                return f"{yr}-{mo:02d}-{day:02d}"
+        except (ValueError, IndexError):
+            pass
+    return s.lower()
+
+
+def _normalise_amount(s: str) -> str:
+    """Strip currency symbols and commas; keep digits and one decimal point for comparison."""
+    s = str(s).strip()
+    # Remove $ , and spaces; keep digits and one period
+    cleaned = re.sub(r"[^\d.]", "", s)
+    # Normalise to integer if .00
+    if cleaned and "." in cleaned:
+        a, b = cleaned.split(".", 1)
+        if b == "0" * len(b):
+            cleaned = a or "0"
+    return cleaned or s.lower()
+
 
 def normalise_value(
     value: Any,
     field_name: str = "",
     checkbox_fields: Optional[set] = None,
 ) -> str:
-    """Normalise a value to a comparable lowercase string.
+    """Normalise a value to a comparable string.
     
-    For checkbox/indicator fields, normalises to 'true' or 'false'.
+    - Checkbox/indicator fields -> 'true' or 'false'.
+    - Date-like fields (name contains 'date', not 'update') -> YYYY-MM-DD when parseable.
+    - Amount-like fields (Amount, Limit, Premium, Deductible, Cost) -> digits only.
     """
     if value is None:
         return ""
@@ -44,23 +88,39 @@ def normalise_value(
     elif isinstance(value, list):
         s = json.dumps(value, sort_keys=True).lower()
     else:
-        s = str(value).strip().lower()
+        s = str(value).strip()
 
-    # Normalise checkbox/indicator fields to true/false
+    fn_lower = field_name.lower()
+
+    # Checkbox/indicator -> true/false
     is_checkbox = (
-        "indicator" in field_name.lower()
-        or field_name.lower().startswith("chk")
+        "indicator" in fn_lower or fn_lower.startswith("chk")
         or (checkbox_fields and field_name in checkbox_fields)
     )
     if is_checkbox:
-        if s in _CHECKBOX_TRUE:
+        sl = s.lower()
+        if sl in _CHECKBOX_TRUE:
             return "true"
-        elif s in _CHECKBOX_FALSE:
+        if sl in _CHECKBOX_FALSE:
             return "false"
-        # Non-standard value for a checkbox - keep as-is for mismatch detection
-        return s
+        return s.lower()
 
-    return s
+    # Date field (name has 'date', avoid 'update' / standalone 'time')
+    if "date" in fn_lower and "update" not in fn_lower:
+        return _normalise_date(s)
+
+    # Time field (e.g. EffectiveTime): keep as digits for HHMM comparison
+    if "effectivetime" in fn_lower or "expirationtime" in fn_lower:
+        digits = re.sub(r"[^\d]", "", s)
+        if len(digits) <= 4 and digits.isdigit():
+            return digits.zfill(4)  # 1000, 0930
+        return s.lower()
+
+    # Amount-like: strip $ and commas for comparison
+    if any(x in fn_lower for x in ("amount", "limit", "premium", "deductible", "cost")) and "count" not in fn_lower:
+        return _normalise_amount(s)
+
+    return s.lower()
 
 
 # ===========================================================================

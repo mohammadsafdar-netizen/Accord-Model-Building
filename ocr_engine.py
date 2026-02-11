@@ -191,6 +191,8 @@ class OCRResult:
     image_paths: List[Path]
     clean_image_paths: List[Path]
     num_pages: int
+    # Docling layout: one list per page, each element {l, t, r, b, label?} for describe-then-extract
+    docling_regions_per_page: Optional[List[List[Dict]]] = None
 
     @property
     def full_docling_text(self) -> str:
@@ -414,20 +416,72 @@ class OCREngine:
     # Docling OCR
     # ------------------------------------------------------------------
 
-    def run_docling(self, image_paths: List[Path], use_gpu: bool = False) -> List[str]:
-        """Run Docling OCR on each page image, returning markdown per page."""
+    @staticmethod
+    def _extract_docling_regions(doc: Any) -> List[Dict]:
+        """Extract bounding boxes from a Docling document for describe-then-extract.
+        Each region dict has l, t, r, b (floats) and optional label. Coordinates follow
+        Docling's bbox (often top-left image space when input is an image).
+        """
+        out: List[Dict] = []
+        if not DOCLING_AVAILABLE or doc is None:
+            return out
+        try:
+            it = getattr(doc, "iterate_items", None)
+            if it is None:
+                return out
+            for item, _level in it():
+                prov_list = getattr(item, "prov", None)
+                if not prov_list or not isinstance(prov_list, (list, tuple)):
+                    continue
+                prov = prov_list[0]
+                bbox = getattr(prov, "bbox", None)
+                if bbox is None:
+                    continue
+                coord_origin = getattr(bbox, "coord_origin", None)
+                if hasattr(bbox, "as_tuple"):
+                    tup = bbox.as_tuple()
+                    if len(tup) >= 4:
+                        l, r = float(tup[0]), float(tup[2])
+                        t, b = float(tup[1]), float(tup[3])
+                        if t > b:
+                            t, b = b, t
+                    else:
+                        continue
+                else:
+                    l = getattr(bbox, "l", None)
+                    t = getattr(bbox, "t", None)
+                    r = getattr(bbox, "r", None)
+                    b = getattr(bbox, "b", None)
+                    if l is None or t is None or r is None or b is None:
+                        continue
+                    l, t, r, b = float(l), float(t), float(r), float(b)
+                label = getattr(item, "label", None) or getattr(type(item), "__name__", "item")
+                reg: Dict = {"l": l, "t": t, "r": r, "b": b, "label": str(label)}
+                if coord_origin is not None:
+                    reg["coord_origin"] = str(coord_origin)
+                out.append(reg)
+        except Exception:
+            pass
+        return out
+
+    def run_docling(self, image_paths: List[Path], use_gpu: bool = False) -> Tuple[List[str], List[List[Dict]]]:
+        """Run Docling OCR on each page image. Returns (markdown per page, regions per page)."""
         converter = self._get_docling(use_gpu=use_gpu)
         pages: List[str] = []
+        docling_regions_per_page: List[List[Dict]] = []
         for img_path in image_paths:
             cleanup_gpu_memory()
             try:
                 result = converter.convert(img_path)
                 md = result.document.export_to_markdown()
                 pages.append(md)
+                regions = self._extract_docling_regions(result.document)
+                docling_regions_per_page.append(regions)
             except Exception as e:
                 pages.append(f"[Docling OCR error: {e}]")
+                docling_regions_per_page.append([])
             cleanup_gpu_memory()
-        return pages
+        return pages, docling_regions_per_page
 
     # ------------------------------------------------------------------
     # EasyOCR with bounding boxes
@@ -707,7 +761,7 @@ class OCREngine:
         # ---- Phase 1: Docling OCR (CPU when offload, else GPU) ----
         docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
         print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
-        docling_pages = self.run_docling(image_paths, use_gpu=docling_use_gpu)
+        docling_pages, docling_regions_per_page = self.run_docling(image_paths, use_gpu=docling_use_gpu)
         total_chars = sum(len(p) for p in docling_pages)
         print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
 
@@ -752,4 +806,5 @@ class OCREngine:
             image_paths=image_paths,
             clean_image_paths=clean_paths,
             num_pages=len(image_paths),
+            docling_regions_per_page=docling_regions_per_page if docling_regions_per_page else None,
         )

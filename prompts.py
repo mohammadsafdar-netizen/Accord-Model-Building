@@ -97,6 +97,7 @@ _CATEGORY_HINTS = {
     "policy": (
         "POLICY fields: policy number, effective/expiration dates, "
         "status indicators (Quote/Bound/Issue). Dates in MM/DD/YYYY. "
+        "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM, e.g. 1000 for 10:00 AM, 1430 for 2:30 PM. Do NOT use a date for time fields. "
         "CRITICAL: 'Indicator' fields are CHECKBOXES - return ONLY '1' (checked) or 'Off' (not checked). "
         "Do NOT put text values or dollar amounts in Indicator fields. "
         "LineOfBusiness Indicator = is that line of business selected? '1' if checkbox is marked."
@@ -458,6 +459,85 @@ RULES:
 - Include only keys you can read clearly from the image.
 
 JSON (use these exact keys):
+{json_tmpl}
+"""
+    return prompt
+
+
+def build_vision_extraction_prompt_with_region_descriptions(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+    region_descriptions: List[str],
+) -> str:
+    """
+    Prompt for main VLM when using describe-then-extract: the images attached are
+    cropped regions; each region has a short description below. The model should
+    use both the crop images and the descriptions to extract the requested fields.
+    """
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    layout = _layout_hint(form_type)
+    json_tmpl = _json_template(missing_fields)
+    keys_list = ", ".join(f'"{f}"' for f in missing_fields[:25])
+    if len(missing_fields) > 25:
+        keys_list += f", ... ({len(missing_fields)} total)"
+    desc_block = "\n".join(region_descriptions)
+    prompt = f"""The attached images are CROPPED REGIONS of an ACORD {form_type} form (in order: Region 1, Region 2, ...).
+Use both the images and the descriptions below to extract the requested fields.
+
+=== REGION DESCRIPTIONS ===
+{desc_block}
+
+=== LAYOUT HINT ===
+{layout}
+
+=== FIELDS (copy these EXACT key names into your JSON) ===
+{field_block}
+
+RULES:
+- Use ONLY the exact field names above (e.g. {keys_list}).
+- Dates: MM/DD/YYYY. Checkboxes: "1" or "Off".
+- Output ONLY valid JSON. No markdown, no ```, no explanation.
+- Use the region images and descriptions together to find each value.
+
+JSON (use these exact keys):
+{json_tmpl}
+"""
+    return prompt
+
+
+def build_vision_checkbox_prompt(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    Prompt for a vision LLM: look at the form image and determine for each
+    checkbox field whether it is checked or not. Optimized for checkbox-only extraction.
+    """
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    keys_list = ", ".join(f'"{f}"' for f in missing_fields[:30])
+    if len(missing_fields) > 30:
+        keys_list += f", ... ({len(missing_fields)} checkboxes total)"
+    lines = ["{"]
+    for i, name in enumerate(missing_fields):
+        comma = "," if i < len(missing_fields) - 1 else ""
+        lines.append(f'  "{name}": null{comma}  // "1" if checked, "Off" if not')
+    lines.append("}")
+    json_tmpl = "\n".join(lines)
+    prompt = f"""Look at this ACORD {form_type} form image. Your task is ONLY to report whether each CHECKBOX below is CHECKED or NOT CHECKED.
+
+Each field is a checkbox on the form. If the box has an X, checkmark, or is filled in, the value is "1". Otherwise the value is "Off".
+
+=== CHECKBOX FIELDS (use these EXACT key names) ===
+{field_block}
+
+RULES:
+- Use ONLY these exact field names: {keys_list}
+- Value must be exactly "1" (checked) or "Off" (not checked). No other text.
+- Output ONLY valid JSON. No markdown, no explanation.
+
+JSON:
 {json_tmpl}
 """
     return prompt

@@ -78,7 +78,7 @@
     "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that additional drivers appear on the attached ACORD 163 Commercial Auto Driver Information Schedule. ",
+      "tooltip": "Check the box (if applicable): Indicates that additional drivers appear on the attached ACORD 163 Commercial Auto Driver Information Schedule. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "driver",
       "suffix": "_A"
@@ -206,7 +206,7 @@
     "Driver_HiredDate_A": {
       "name": "Driver_HiredDate_A",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_A"
@@ -366,7 +366,7 @@
     "Driver_HiredDate_B": {
       "name": "Driver_HiredDate_B",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_B"
@@ -526,7 +526,7 @@
     "Driver_HiredDate_C": {
       "name": "Driver_HiredDate_C",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": "01/01/1995",
       "category": "driver",
       "suffix": "_C"
@@ -686,7 +686,7 @@
     "Driver_HiredDate_D": {
       "name": "Driver_HiredDate_D",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_D"
@@ -846,7 +846,7 @@
     "Driver_HiredDate_E": {
       "name": "Driver_HiredDate_E",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_E"
@@ -1006,7 +1006,7 @@
     "Driver_HiredDate_F": {
       "name": "Driver_HiredDate_F",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": "01/01/2010",
       "category": "driver",
       "suffix": "_F"
@@ -1166,7 +1166,7 @@
     "Driver_HiredDate_G": {
       "name": "Driver_HiredDate_G",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_G"
@@ -1326,7 +1326,7 @@
     "Driver_HiredDate_H": {
       "name": "Driver_HiredDate_H",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_H"
@@ -1486,7 +1486,7 @@
     "Driver_HiredDate_I": {
       "name": "Driver_HiredDate_I",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": "02/21/1990",
       "category": "driver",
       "suffix": "_I"
@@ -1646,7 +1646,7 @@
     "Driver_HiredDate_J": {
       "name": "Driver_HiredDate_J",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_J"
@@ -1806,7 +1806,7 @@
     "Driver_HiredDate_K": {
       "name": "Driver_HiredDate_K",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_K"
@@ -1966,7 +1966,7 @@
     "Driver_HiredDate_L": {
       "name": "Driver_HiredDate_L",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_L"
@@ -2126,7 +2126,7 @@
     "Driver_HiredDate_M": {
       "name": "Driver_HiredDate_M",
       "type": "text",
-      "tooltip": "Enter date: The date the driver was hired. ",
+      "tooltip": "Enter date: The date the driver was hired. (MM/DD/YYYY).",
       "default_value": null,
       "category": "driver",
       "suffix": "_M"
@@ -2438,7 +2438,7 @@
     "AccidentConviction_TrafficViolationDate_A": {
       "name": "AccidentConviction_TrafficViolationDate_A",
       "type": "text",
-      "tooltip": "Enter date: The date the driver received the traffic violation. ",
+      "tooltip": "Enter date: The date the driver received the traffic violation. (MM/DD/YYYY).",
       "default_value": "01/15/2020",
       "category": "header",
       "suffix": "_A"
@@ -2510,7 +2510,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorDriverSafetyIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorDriverSafetyIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that driver safety is monitored. ",
+      "tooltip": "Check the box (if applicable): Indicates that driver safety is monitored. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "driver",
       "suffix": "_A"
@@ -2518,7 +2518,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_TrackFuelConsumptionIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_TrackFuelConsumptionIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a track fuel consumption device is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that a track fuel consumption device is utilized. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -2526,7 +2526,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorVehicleMaintenanceIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorVehicleMaintenanceIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a vehicle maintenance monitor device is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that a vehicle maintenance monitor device is utilized. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2534,7 +2534,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MileageTrackingDeviceIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MileageTrackingDeviceIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a mileage tracking device is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that a mileage tracking device is utilized. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2542,7 +2542,7 @@
     "CommercialVehicleLineOfBusiness_LocationTrackingDeviceIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_LocationTrackingDeviceIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a location tracking device is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that a location tracking device is utilized. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -2550,7 +2550,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_NavigationIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_NavigationIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a navigation device is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that a navigation device is utilized. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2558,7 +2558,7 @@
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_OtherIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that an electronic data monitoring device other than those listed is utilized. ",
+      "tooltip": "Check the box (if applicable): Indicates that an electronic data monitoring device other than those listed is utilized. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2598,7 +2598,7 @@
     "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that further additional interests appear on the attached ACORD 45. ",
+      "tooltip": "Check the box (if applicable): Indicates that further additional interests appear on the attached ACORD 45. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2606,7 +2606,7 @@
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
       "name": "AdditionalInterest_Interest_AdditionalInsuredIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2614,7 +2614,7 @@
     "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
       "name": "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2622,7 +2622,7 @@
     "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
       "name": "AdditionalInterest_Interest_LendersLossPayableIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2630,7 +2630,7 @@
     "AdditionalInterest_Interest_LienholderIndicator_A": {
       "name": "AdditionalInterest_Interest_LienholderIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2638,7 +2638,7 @@
     "AdditionalInterest_Interest_LossPayeeIndicator_A": {
       "name": "AdditionalInterest_Interest_LossPayeeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2646,7 +2646,7 @@
     "AdditionalInterest_Interest_OwnerIndicator_A": {
       "name": "AdditionalInterest_Interest_OwnerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2654,7 +2654,7 @@
     "AdditionalInterest_Interest_RegistrantIndicator_A": {
       "name": "AdditionalInterest_Interest_RegistrantIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2662,7 +2662,7 @@
     "AdditionalInterest_Interest_OtherIndicator_A": {
       "name": "AdditionalInterest_Interest_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2734,7 +2734,7 @@
     "AdditionalInterest_CertificateRequiredIndicator_A": {
       "name": "AdditionalInterest_CertificateRequiredIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. ",
+      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2766,7 +2766,7 @@
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_B": {
       "name": "AdditionalInterest_Interest_AdditionalInsuredIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2774,7 +2774,7 @@
     "AdditionalInterest_Interest_EmployeeAsLessorIndicator_B": {
       "name": "AdditionalInterest_Interest_EmployeeAsLessorIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_B"
@@ -2782,7 +2782,7 @@
     "AdditionalInterest_Interest_LendersLossPayableIndicator_B": {
       "name": "AdditionalInterest_Interest_LendersLossPayableIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2790,7 +2790,7 @@
     "AdditionalInterest_Interest_LienholderIndicator_B": {
       "name": "AdditionalInterest_Interest_LienholderIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_B"
@@ -2798,7 +2798,7 @@
     "AdditionalInterest_Interest_LossPayeeIndicator_B": {
       "name": "AdditionalInterest_Interest_LossPayeeIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2806,7 +2806,7 @@
     "AdditionalInterest_Interest_OwnerIndicator_B": {
       "name": "AdditionalInterest_Interest_OwnerIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2814,7 +2814,7 @@
     "AdditionalInterest_Interest_RegistrantIndicator_B": {
       "name": "AdditionalInterest_Interest_RegistrantIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_B"
@@ -2822,7 +2822,7 @@
     "AdditionalInterest_Interest_OtherIndicator_B": {
       "name": "AdditionalInterest_Interest_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2894,7 +2894,7 @@
     "AdditionalInterest_CertificateRequiredIndicator_B": {
       "name": "AdditionalInterest_CertificateRequiredIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. ",
+      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2934,7 +2934,7 @@
     "CommercialVehicleLineOfBusiness_Attachment_VehicleScheduleIndicator_A": {
       "name": "CommercialVehicleLineOfBusiness_Attachment_VehicleScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that additional vehicles appear on the attached ACORD 129. ",
+      "tooltip": "Check the box (if applicable): Indicates that additional vehicles appear on the attached ACORD 129. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2990,7 +2990,7 @@
     "Vehicle_VehicleType_PrivatePassengerIndicator_A": {
       "name": "Vehicle_VehicleType_PrivatePassengerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -2998,7 +2998,7 @@
     "Vehicle_VehicleType_SpecialIndicator_A": {
       "name": "Vehicle_VehicleType_SpecialIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3006,7 +3006,7 @@
     "Vehicle_VehicleType_CommercialIndicator_A": {
       "name": "Vehicle_VehicleType_CommercialIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3158,7 +3158,7 @@
     "Vehicle_Use_PleasureIndicator_A": {
       "name": "Vehicle_Use_PleasureIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3166,7 +3166,7 @@
     "Vehicle_Use_FarmIndicator_A": {
       "name": "Vehicle_Use_FarmIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3174,7 +3174,7 @@
     "Vehicle_Use_CommercialIndicator_A": {
       "name": "Vehicle_Use_CommercialIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3182,7 +3182,7 @@
     "Vehicle_Use_RetailIndicator_A": {
       "name": "Vehicle_Use_RetailIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3190,7 +3190,7 @@
     "Vehicle_Use_ServiceIndicator_A": {
       "name": "Vehicle_Use_ServiceIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3198,7 +3198,7 @@
     "Vehicle_Use_ForHireIndicator_A": {
       "name": "Vehicle_Use_ForHireIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3206,7 +3206,7 @@
     "Vehicle_Use_OtherIndicator_A": {
       "name": "Vehicle_Use_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3222,7 +3222,7 @@
     "Vehicle_Coverage_LiabilityIndicator_A": {
       "name": "Vehicle_Coverage_LiabilityIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3230,7 +3230,7 @@
     "Vehicle_Coverage_NoFaultIndicator_A": {
       "name": "Vehicle_Coverage_NoFaultIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3238,7 +3238,7 @@
     "Vehicle_Coverage_AdditionalNoFaultIndicator_A": {
       "name": "Vehicle_Coverage_AdditionalNoFaultIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3246,7 +3246,7 @@
     "Vehicle_Coverage_MedicalPaymentsIndicator_A": {
       "name": "Vehicle_Coverage_MedicalPaymentsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3254,7 +3254,7 @@
     "Vehicle_Coverage_UninsuredMotoristsIndicator_A": {
       "name": "Vehicle_Coverage_UninsuredMotoristsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3262,7 +3262,7 @@
     "Vehicle_Coverage_UnderinsuredMotoristsIndicator_A": {
       "name": "Vehicle_Coverage_UnderinsuredMotoristsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3270,7 +3270,7 @@
     "Vehicle_Coverage_TowingAndLabourIndicator_A": {
       "name": "Vehicle_Coverage_TowingAndLabourIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3278,7 +3278,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_A": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3286,7 +3286,7 @@
     "Vehicle_Coverage_FireIndicator_A": {
       "name": "Vehicle_Coverage_FireIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3294,7 +3294,7 @@
     "Vehicle_Coverage_FireTheftIndicator_A": {
       "name": "Vehicle_Coverage_FireTheftIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3302,7 +3302,7 @@
     "Vehicle_Coverage_FireTheftWindstormIndicator_A": {
       "name": "Vehicle_Coverage_FireTheftWindstormIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3310,7 +3310,7 @@
     "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_A": {
       "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3318,7 +3318,7 @@
     "Vehicle_Coverage_ComprehensiveIndicator_A": {
       "name": "Vehicle_Coverage_ComprehensiveIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3326,7 +3326,7 @@
     "Vehicle_Coverage_CollisionIndicator_A": {
       "name": "Vehicle_Coverage_CollisionIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3334,7 +3334,7 @@
     "Vehicle_Coverage_RentalReimbursementIndicator_A": {
       "name": "Vehicle_Coverage_RentalReimbursementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3342,7 +3342,7 @@
     "Vehicle_Coverage_FullGlassIndicator_A": {
       "name": "Vehicle_Coverage_FullGlassIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3350,7 +3350,7 @@
     "Vehicle_Coverage_OtherIndicator_A": {
       "name": "Vehicle_Coverage_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3366,7 +3366,7 @@
     "Vehicle_Coverage_ValuationActualCashValueIndicator_A": {
       "name": "Vehicle_Coverage_ValuationActualCashValueIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -3374,7 +3374,7 @@
     "Vehicle_Coverage_ValuationAgreedAmountIndicator_A": {
       "name": "Vehicle_Coverage_ValuationAgreedAmountIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3382,7 +3382,7 @@
     "Vehicle_Coverage_ValuationStatedAmountIndicator_A": {
       "name": "Vehicle_Coverage_ValuationStatedAmountIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3398,7 +3398,7 @@
     "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A": {
       "name": "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3406,7 +3406,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3430,7 +3430,7 @@
     "Vehicle_Use_UnderFifteenMilesIndicator_A": {
       "name": "Vehicle_Use_UnderFifteenMilesIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3438,7 +3438,7 @@
     "Vehicle_Use_FifteenMilesOrOverIndicator_A": {
       "name": "Vehicle_Use_FifteenMilesOrOverIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -3510,7 +3510,7 @@
     "Vehicle_VehicleType_PrivatePassengerIndicator_B": {
       "name": "Vehicle_VehicleType_PrivatePassengerIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3518,7 +3518,7 @@
     "Vehicle_VehicleType_SpecialIndicator_B": {
       "name": "Vehicle_VehicleType_SpecialIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3526,7 +3526,7 @@
     "Vehicle_VehicleType_CommercialIndicator_B": {
       "name": "Vehicle_VehicleType_CommercialIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3678,7 +3678,7 @@
     "Vehicle_Use_PleasureIndicator_B": {
       "name": "Vehicle_Use_PleasureIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3686,7 +3686,7 @@
     "Vehicle_Use_FarmIndicator_B": {
       "name": "Vehicle_Use_FarmIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3694,7 +3694,7 @@
     "Vehicle_Use_CommercialIndicator_B": {
       "name": "Vehicle_Use_CommercialIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3702,7 +3702,7 @@
     "Vehicle_Use_RetailIndicator_B": {
       "name": "Vehicle_Use_RetailIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3710,7 +3710,7 @@
     "Vehicle_Use_ServiceIndicator_B": {
       "name": "Vehicle_Use_ServiceIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3718,7 +3718,7 @@
     "Vehicle_Use_ForHireIndicator_B": {
       "name": "Vehicle_Use_ForHireIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3726,7 +3726,7 @@
     "Vehicle_Use_OtherIndicator_B": {
       "name": "Vehicle_Use_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3742,7 +3742,7 @@
     "Vehicle_Coverage_LiabilityIndicator_B": {
       "name": "Vehicle_Coverage_LiabilityIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3750,7 +3750,7 @@
     "Vehicle_Coverage_NoFaultIndicator_B": {
       "name": "Vehicle_Coverage_NoFaultIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3758,7 +3758,7 @@
     "Vehicle_Coverage_AdditionalNoFaultIndicator_B": {
       "name": "Vehicle_Coverage_AdditionalNoFaultIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3766,7 +3766,7 @@
     "Vehicle_Coverage_MedicalPaymentsIndicator_B": {
       "name": "Vehicle_Coverage_MedicalPaymentsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3774,7 +3774,7 @@
     "Vehicle_Coverage_UninsuredMotoristsIndicator_B": {
       "name": "Vehicle_Coverage_UninsuredMotoristsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3782,7 +3782,7 @@
     "Vehicle_Coverage_UnderinsuredMotoristsIndicator_B": {
       "name": "Vehicle_Coverage_UnderinsuredMotoristsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3790,7 +3790,7 @@
     "Vehicle_Coverage_TowingAndLabourIndicator_B": {
       "name": "Vehicle_Coverage_TowingAndLabourIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3798,7 +3798,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3806,7 +3806,7 @@
     "Vehicle_Coverage_FireIndicator_B": {
       "name": "Vehicle_Coverage_FireIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3814,7 +3814,7 @@
     "Vehicle_Coverage_FireTheftIndicator_B": {
       "name": "Vehicle_Coverage_FireTheftIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3822,7 +3822,7 @@
     "Vehicle_Coverage_FireTheftWindstormIndicator_B": {
       "name": "Vehicle_Coverage_FireTheftWindstormIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3830,7 +3830,7 @@
     "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B": {
       "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3838,7 +3838,7 @@
     "Vehicle_Coverage_ComprehensiveIndicator_B": {
       "name": "Vehicle_Coverage_ComprehensiveIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3846,7 +3846,7 @@
     "Vehicle_Coverage_CollisionIndicator_B": {
       "name": "Vehicle_Coverage_CollisionIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3854,7 +3854,7 @@
     "Vehicle_Coverage_RentalReimbursementIndicator_B": {
       "name": "Vehicle_Coverage_RentalReimbursementIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3862,7 +3862,7 @@
     "Vehicle_Coverage_FullGlassIndicator_B": {
       "name": "Vehicle_Coverage_FullGlassIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3870,7 +3870,7 @@
     "Vehicle_Coverage_OtherIndicator_B": {
       "name": "Vehicle_Coverage_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3886,7 +3886,7 @@
     "Vehicle_Coverage_ValuationActualCashValueIndicator_B": {
       "name": "Vehicle_Coverage_ValuationActualCashValueIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3894,7 +3894,7 @@
     "Vehicle_Coverage_ValuationAgreedAmountIndicator_B": {
       "name": "Vehicle_Coverage_ValuationAgreedAmountIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3902,7 +3902,7 @@
     "Vehicle_Coverage_ValuationStatedAmountIndicator_B": {
       "name": "Vehicle_Coverage_ValuationStatedAmountIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3918,7 +3918,7 @@
     "Vehicle_Coverage_ComprehensiveDeductibleIndicator_B": {
       "name": "Vehicle_Coverage_ComprehensiveDeductibleIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -3926,7 +3926,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_B": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3950,7 +3950,7 @@
     "Vehicle_Use_UnderFifteenMilesIndicator_B": {
       "name": "Vehicle_Use_UnderFifteenMilesIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_B"
@@ -3958,7 +3958,7 @@
     "Vehicle_Use_FifteenMilesOrOverIndicator_B": {
       "name": "Vehicle_Use_FifteenMilesOrOverIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_B"
@@ -4030,7 +4030,7 @@
     "Vehicle_VehicleType_PrivatePassengerIndicator_C": {
       "name": "Vehicle_VehicleType_PrivatePassengerIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4038,7 +4038,7 @@
     "Vehicle_VehicleType_SpecialIndicator_C": {
       "name": "Vehicle_VehicleType_SpecialIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4046,7 +4046,7 @@
     "Vehicle_VehicleType_CommercialIndicator_C": {
       "name": "Vehicle_VehicleType_CommercialIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4198,7 +4198,7 @@
     "Vehicle_Use_PleasureIndicator_C": {
       "name": "Vehicle_Use_PleasureIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4206,7 +4206,7 @@
     "Vehicle_Use_FarmIndicator_C": {
       "name": "Vehicle_Use_FarmIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4214,7 +4214,7 @@
     "Vehicle_Use_CommercialIndicator_C": {
       "name": "Vehicle_Use_CommercialIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4222,7 +4222,7 @@
     "Vehicle_Use_RetailIndicator_C": {
       "name": "Vehicle_Use_RetailIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4230,7 +4230,7 @@
     "Vehicle_Use_ServiceIndicator_C": {
       "name": "Vehicle_Use_ServiceIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4238,7 +4238,7 @@
     "Vehicle_Use_ForHireIndicator_C": {
       "name": "Vehicle_Use_ForHireIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4246,7 +4246,7 @@
     "Vehicle_Use_OtherIndicator_C": {
       "name": "Vehicle_Use_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4262,7 +4262,7 @@
     "Vehicle_Coverage_LiabilityIndicator_C": {
       "name": "Vehicle_Coverage_LiabilityIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4270,7 +4270,7 @@
     "Vehicle_Coverage_NoFaultIndicator_C": {
       "name": "Vehicle_Coverage_NoFaultIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4278,7 +4278,7 @@
     "Vehicle_Coverage_AdditionalNoFaultIndicator_C": {
       "name": "Vehicle_Coverage_AdditionalNoFaultIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4286,7 +4286,7 @@
     "Vehicle_Coverage_MedicalPaymentsIndicator_C": {
       "name": "Vehicle_Coverage_MedicalPaymentsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4294,7 +4294,7 @@
     "Vehicle_Coverage_UninsuredMotoristsIndicator_C": {
       "name": "Vehicle_Coverage_UninsuredMotoristsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4302,7 +4302,7 @@
     "Vehicle_Coverage_UnderinsuredMotoristsIndicator_C": {
       "name": "Vehicle_Coverage_UnderinsuredMotoristsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4310,7 +4310,7 @@
     "Vehicle_Coverage_TowingAndLabourIndicator_C": {
       "name": "Vehicle_Coverage_TowingAndLabourIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4318,7 +4318,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4326,7 +4326,7 @@
     "Vehicle_Coverage_FireIndicator_C": {
       "name": "Vehicle_Coverage_FireIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4334,7 +4334,7 @@
     "Vehicle_Coverage_FireTheftIndicator_C": {
       "name": "Vehicle_Coverage_FireTheftIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4342,7 +4342,7 @@
     "Vehicle_Coverage_FireTheftWindstormIndicator_C": {
       "name": "Vehicle_Coverage_FireTheftWindstormIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4350,7 +4350,7 @@
     "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C": {
       "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4358,7 +4358,7 @@
     "Vehicle_Coverage_ComprehensiveIndicator_C": {
       "name": "Vehicle_Coverage_ComprehensiveIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4366,7 +4366,7 @@
     "Vehicle_Coverage_CollisionIndicator_C": {
       "name": "Vehicle_Coverage_CollisionIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4374,7 +4374,7 @@
     "Vehicle_Coverage_RentalReimbursementIndicator_C": {
       "name": "Vehicle_Coverage_RentalReimbursementIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4382,7 +4382,7 @@
     "Vehicle_Coverage_FullGlassIndicator_C": {
       "name": "Vehicle_Coverage_FullGlassIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4390,7 +4390,7 @@
     "Vehicle_Coverage_OtherIndicator_C": {
       "name": "Vehicle_Coverage_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4406,7 +4406,7 @@
     "Vehicle_Coverage_ValuationActualCashValueIndicator_C": {
       "name": "Vehicle_Coverage_ValuationActualCashValueIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4414,7 +4414,7 @@
     "Vehicle_Coverage_ValuationAgreedAmountIndicator_C": {
       "name": "Vehicle_Coverage_ValuationAgreedAmountIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4422,7 +4422,7 @@
     "Vehicle_Coverage_ValuationStatedAmountIndicator_C": {
       "name": "Vehicle_Coverage_ValuationStatedAmountIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4438,7 +4438,7 @@
     "Vehicle_Coverage_ComprehensiveDeductibleIndicator_C": {
       "name": "Vehicle_Coverage_ComprehensiveDeductibleIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4446,7 +4446,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_C": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4470,7 +4470,7 @@
     "Vehicle_Use_UnderFifteenMilesIndicator_C": {
       "name": "Vehicle_Use_UnderFifteenMilesIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_C"
@@ -4478,7 +4478,7 @@
     "Vehicle_Use_FifteenMilesOrOverIndicator_C": {
       "name": "Vehicle_Use_FifteenMilesOrOverIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_C"
@@ -4550,7 +4550,7 @@
     "Vehicle_VehicleType_PrivatePassengerIndicator_D": {
       "name": "Vehicle_VehicleType_PrivatePassengerIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is private passenger. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4558,7 +4558,7 @@
     "Vehicle_VehicleType_SpecialIndicator_D": {
       "name": "Vehicle_VehicleType_SpecialIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is special (e.g. classic, antique automobile). Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4566,7 +4566,7 @@
     "Vehicle_VehicleType_CommercialIndicator_D": {
       "name": "Vehicle_VehicleType_CommercialIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. ",
+      "tooltip": "Check the box (if applicable): Indicates the predominant type of the vehicle is commercial. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4718,7 +4718,7 @@
     "Vehicle_Use_PleasureIndicator_D": {
       "name": "Vehicle_Use_PleasureIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for pleasure. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4726,7 +4726,7 @@
     "Vehicle_Use_FarmIndicator_D": {
       "name": "Vehicle_Use_FarmIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for farming. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4734,7 +4734,7 @@
     "Vehicle_Use_CommercialIndicator_D": {
       "name": "Vehicle_Use_CommercialIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for commercial purposes. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4742,7 +4742,7 @@
     "Vehicle_Use_RetailIndicator_D": {
       "name": "Vehicle_Use_RetailIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the retail industry. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4750,7 +4750,7 @@
     "Vehicle_Use_ServiceIndicator_D": {
       "name": "Vehicle_Use_ServiceIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for the service industry. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4758,7 +4758,7 @@
     "Vehicle_Use_ForHireIndicator_D": {
       "name": "Vehicle_Use_ForHireIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is for hire. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4766,7 +4766,7 @@
     "Vehicle_Use_OtherIndicator_D": {
       "name": "Vehicle_Use_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the primary use for the vehicle is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4782,7 +4782,7 @@
     "Vehicle_Coverage_LiabilityIndicator_D": {
       "name": "Vehicle_Coverage_LiabilityIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has liability coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4790,7 +4790,7 @@
     "Vehicle_Coverage_NoFaultIndicator_D": {
       "name": "Vehicle_Coverage_NoFaultIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4798,7 +4798,7 @@
     "Vehicle_Coverage_AdditionalNoFaultIndicator_D": {
       "name": "Vehicle_Coverage_AdditionalNoFaultIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has additional no-fault coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4806,7 +4806,7 @@
     "Vehicle_Coverage_MedicalPaymentsIndicator_D": {
       "name": "Vehicle_Coverage_MedicalPaymentsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has medical payments coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4814,7 +4814,7 @@
     "Vehicle_Coverage_UninsuredMotoristsIndicator_D": {
       "name": "Vehicle_Coverage_UninsuredMotoristsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has uninsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4822,7 +4822,7 @@
     "Vehicle_Coverage_UnderinsuredMotoristsIndicator_D": {
       "name": "Vehicle_Coverage_UnderinsuredMotoristsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has underinsured motorists coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4830,7 +4830,7 @@
     "Vehicle_Coverage_TowingAndLabourIndicator_D": {
       "name": "Vehicle_Coverage_TowingAndLabourIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has towing and labor coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4838,7 +4838,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_D": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has specified cause of loss coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4846,7 +4846,7 @@
     "Vehicle_Coverage_FireIndicator_D": {
       "name": "Vehicle_Coverage_FireIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4854,7 +4854,7 @@
     "Vehicle_Coverage_FireTheftIndicator_D": {
       "name": "Vehicle_Coverage_FireTheftIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire and theft is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4862,7 +4862,7 @@
     "Vehicle_Coverage_FireTheftWindstormIndicator_D": {
       "name": "Vehicle_Coverage_FireTheftWindstormIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates fire, theft and windstorm is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4870,7 +4870,7 @@
     "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_D": {
       "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. ",
+      "tooltip": "Check the box (if applicable): Indicates limited specified perils is a specified cause of loss on this vehicle. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4878,7 +4878,7 @@
     "Vehicle_Coverage_ComprehensiveIndicator_D": {
       "name": "Vehicle_Coverage_ComprehensiveIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4886,7 +4886,7 @@
     "Vehicle_Coverage_CollisionIndicator_D": {
       "name": "Vehicle_Coverage_CollisionIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has collision coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4894,7 +4894,7 @@
     "Vehicle_Coverage_RentalReimbursementIndicator_D": {
       "name": "Vehicle_Coverage_RentalReimbursementIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has rental reimbursement or transportation expense coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4902,7 +4902,7 @@
     "Vehicle_Coverage_FullGlassIndicator_D": {
       "name": "Vehicle_Coverage_FullGlassIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has full glass coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4910,7 +4910,7 @@
     "Vehicle_Coverage_OtherIndicator_D": {
       "name": "Vehicle_Coverage_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle has a type of coverage not specifically listed. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4926,7 +4926,7 @@
     "Vehicle_Coverage_ValuationActualCashValueIndicator_D": {
       "name": "Vehicle_Coverage_ValuationActualCashValueIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the actual cash value or market value. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4934,7 +4934,7 @@
     "Vehicle_Coverage_ValuationAgreedAmountIndicator_D": {
       "name": "Vehicle_Coverage_ValuationAgreedAmountIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the agreed amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4942,7 +4942,7 @@
     "Vehicle_Coverage_ValuationStatedAmountIndicator_D": {
       "name": "Vehicle_Coverage_ValuationStatedAmountIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. ",
+      "tooltip": "Check the box (if applicable): Indicates the valuation method used in determining the value of the vehicle at the time of loss is the stated amount. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"
@@ -4958,7 +4958,7 @@
     "Vehicle_Coverage_ComprehensiveDeductibleIndicator_D": {
       "name": "Vehicle_Coverage_ComprehensiveDeductibleIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for comprehensive or other than collision coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4966,7 +4966,7 @@
     "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_D": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils ",
+      "tooltip": "Check the box (if applicable): Indicates the deductible is for specified causes of loss.  The Specified Cause of Loss Codes are:\n\nSCL        Specified Cause of Loss\nF            Fire\nF&T        Fire and Theft\nF,T&W    Fire, Theft and Wind\nLSP        Limited Specified Perils\nSP         Specified Perils Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4990,7 +4990,7 @@
     "Vehicle_Use_UnderFifteenMilesIndicator_D": {
       "name": "Vehicle_Use_UnderFifteenMilesIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school under 15 miles one way. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_D"
@@ -4998,7 +4998,7 @@
     "Vehicle_Use_FifteenMilesOrOverIndicator_D": {
       "name": "Vehicle_Use_FifteenMilesOrOverIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. ",
+      "tooltip": "Check the box (if applicable): Indicates the vehicle is used for commuting purposes to work or school, and is driven to work or school 15 miles or over one way. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_D"

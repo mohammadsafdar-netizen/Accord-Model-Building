@@ -89,6 +89,14 @@ Examples:
         "--vision-model", type=str, default="llava:7b",
         help="Ollama vision model for --vision (default: llava:7b)",
     )
+    parser.add_argument(
+        "--vision-descriptions", action="store_true",
+        help="Crop pages to regions, describe with small VLM, then extract with crops+descriptions",
+    )
+    parser.add_argument(
+        "--vision-describer-model", type=str, default=None,
+        help="Small VLM for describing regions when --vision-descriptions (default: same as --vision-model)",
+    )
 
     args = parser.parse_args()
 
@@ -111,12 +119,17 @@ Examples:
         base_url=args.ollama_url,
         timeout=args.timeout,
         vision_model=args.vision_model if args.vision else None,
+        vision_describer_model=args.vision_describer_model if args.vision else None,
     )
 
     schemas_dir = args.schemas_dir or Path(__file__).parent / "schemas"
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
-    extractor = ACORDExtractor(ocr, llm, registry, use_vision=args.vision)
+    extractor = ACORDExtractor(
+        ocr, llm, registry,
+        use_vision=args.vision,
+        use_vision_descriptions=args.vision_descriptions,
+    )
 
     # --- Run extraction ---
     result = extractor.extract(

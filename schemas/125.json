@@ -182,7 +182,7 @@
     "Policy_Status_QuoteIndicator_A": {
       "name": "Policy_Status_QuoteIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is a quote. ",
+      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is a quote. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -190,7 +190,7 @@
     "Policy_Status_IssueIndicator_A": {
       "name": "Policy_Status_IssueIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is an issued policy. ",
+      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is an issued policy. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -198,7 +198,7 @@
     "Policy_Status_RenewIndicator_A": {
       "name": "Policy_Status_RenewIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is a renewed policy. ",
+      "tooltip": "Check the box (if applicable): Indicates the response expected from the company is a renewed policy. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -206,7 +206,7 @@
     "Policy_Status_BoundIndicator_A": {
       "name": "Policy_Status_BoundIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the coverage has been bound. ",
+      "tooltip": "Check the box (if applicable): Indicates the coverage has been bound. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -214,7 +214,7 @@
     "Policy_Status_ChangeIndicator_A": {
       "name": "Policy_Status_ChangeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being submitted for a policy change. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being submitted for a policy change. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -222,7 +222,7 @@
     "Policy_Status_CancelIndicator_A": {
       "name": "Policy_Status_CancelIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being submitted for cancellation. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being submitted for cancellation. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -246,7 +246,7 @@
     "Policy_Status_EffectiveTimeAMIndicator_A": {
       "name": "Policy_Status_EffectiveTimeAMIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the effective time of the policy status is before 12:00 pm. ",
+      "tooltip": "Check the box (if applicable): Indicates the effective time of the policy status is before 12:00 pm. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -254,7 +254,7 @@
     "Policy_Status_EffectiveTimePMIndicator_A": {
       "name": "Policy_Status_EffectiveTimePMIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the effective time of the policy status is 12:00 pm or later. ",
+      "tooltip": "Check the box (if applicable): Indicates the effective time of the policy status is 12:00 pm or later. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -262,7 +262,7 @@
     "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A": {
       "name": "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Boiler & Machinery line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Boiler & Machinery line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -278,7 +278,7 @@
     "Policy_LineOfBusiness_BusinessAutoIndicator_A": {
       "name": "Policy_LineOfBusiness_BusinessAutoIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Business Auto line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Business Auto line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "vehicle",
       "suffix": "_A"
@@ -294,7 +294,7 @@
     "Policy_LineOfBusiness_BusinessOwnersIndicator_A": {
       "name": "Policy_LineOfBusiness_BusinessOwnersIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Business Owners line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Business Owners line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -310,7 +310,7 @@
     "Policy_LineOfBusiness_CommercialGeneralLiability_A": {
       "name": "Policy_LineOfBusiness_CommercialGeneralLiability_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Commercial General Liability line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Commercial General Liability line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -326,7 +326,7 @@
     "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A": {
       "name": "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Commercial Inland Marine line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Commercial Inland Marine line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -342,7 +342,7 @@
     "Policy_LineOfBusiness_CommercialProperty_A": {
       "name": "Policy_LineOfBusiness_CommercialProperty_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Commercial Property line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Commercial Property line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -358,7 +358,7 @@
     "Policy_LineOfBusiness_CrimeIndicator_A": {
       "name": "Policy_LineOfBusiness_CrimeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Crime line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Crime line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -374,7 +374,7 @@
     "Policy_LineOfBusiness_CyberAndPrivacy_A": {
       "name": "Policy_LineOfBusiness_CyberAndPrivacy_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Cyber and Privacy line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Cyber and Privacy line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -382,7 +382,7 @@
     "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
       "name": "CyberAndPrivacyLineOfBusiness_PremiumAmount_A",
       "type": "text",
-      "tooltip": "Enter amount: The premium amount for the Cyber and Privacy line of business ",
+      "tooltip": "Enter amount: The premium amount for the Cyber and Privacy line of business Use dollar amount.",
       "default_value": "$15,000.00",
       "category": "coverage",
       "suffix": "_A"
@@ -390,7 +390,7 @@
     "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A": {
       "name": "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Fiduciary Liability line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Fiduciary Liability line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -406,7 +406,7 @@
     "Policy_LineOfBusiness_GarageAndDealersIndicator_A": {
       "name": "Policy_LineOfBusiness_GarageAndDealersIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Garage and Dealers line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Garage and Dealers line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -422,7 +422,7 @@
     "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
       "name": "Policy_LineOfBusiness_LiquorLiabilityIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Liquor Liability line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Liquor Liability line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -438,7 +438,7 @@
     "Policy_LineOfBusiness_MotorCarrierIndicator_A": {
       "name": "Policy_LineOfBusiness_MotorCarrierIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Motor Carrier line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Motor Carrier line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "insurer",
       "suffix": "_A"
@@ -454,7 +454,7 @@
     "Policy_LineOfBusiness_TruckersIndicator_A": {
       "name": "Policy_LineOfBusiness_TruckersIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Truckers line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Truckers line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -470,7 +470,7 @@
     "Policy_LineOfBusiness_UmbrellaIndicator_A": {
       "name": "Policy_LineOfBusiness_UmbrellaIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Umbrella line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Umbrella line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -486,7 +486,7 @@
     "Policy_LineOfBusiness_YachtIndicator_A": {
       "name": "Policy_LineOfBusiness_YachtIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that Yacht line of business is being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that Yacht line of business is being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -502,7 +502,7 @@
     "Policy_LineOfBusiness_OtherIndicator_A": {
       "name": "Policy_LineOfBusiness_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -526,7 +526,7 @@
     "Policy_LineOfBusiness_OtherIndicator_B": {
       "name": "Policy_LineOfBusiness_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_B"
@@ -550,7 +550,7 @@
     "Policy_LineOfBusiness_OtherIndicator_C": {
       "name": "Policy_LineOfBusiness_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_C"
@@ -574,7 +574,7 @@
     "Policy_LineOfBusiness_OtherIndicator_D": {
       "name": "Policy_LineOfBusiness_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_D"
@@ -598,7 +598,7 @@
     "Policy_LineOfBusiness_OtherIndicator_E": {
       "name": "Policy_LineOfBusiness_OtherIndicator_E",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_E"
@@ -622,7 +622,7 @@
     "Policy_LineOfBusiness_OtherIndicator_F": {
       "name": "Policy_LineOfBusiness_OtherIndicator_F",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. ",
+      "tooltip": "Check the box (if applicable): Indicates that lines of business other than those listed are being selected for coverage. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_F"
@@ -646,7 +646,7 @@
     "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
       "name": "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Accounts Receivable /  Valuable Papers section is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an Accounts Receivable /  Valuable Papers section is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -654,7 +654,7 @@
     "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
       "name": "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates ACORD 45, Additional Interest Schedule is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates ACORD 45, Additional Interest Schedule is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -662,7 +662,7 @@
     "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A": {
       "name": "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Additional Premises Information Schedule is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an Additional Premises Information Schedule is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -670,7 +670,7 @@
     "CommercialPolicy_Attachment_ApartmentBuildingSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_ApartmentBuildingSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Apartment Building Supplement is attached. ",
+      "tooltip": "Check the box (if applicable): Indicates an Apartment Building Supplement is attached. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "policy",
       "suffix": "_A"
@@ -678,7 +678,7 @@
     "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A": {
       "name": "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the condominium association bylaws are attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates the condominium association bylaws are attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -686,7 +686,7 @@
     "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Contractors Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Contractors Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -694,7 +694,7 @@
     "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A": {
       "name": "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a coverages schedule is attached. ",
+      "tooltip": "Check the box (if applicable): Indicates a coverages schedule is attached. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -702,7 +702,7 @@
     "Policy_SectionAttached_DealerIndicator_A": {
       "name": "Policy_SectionAttached_DealerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Dealers Section is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Dealers Section is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -710,7 +710,7 @@
     "Policy_SectionAttached_DriverInformationScheduleIndicator_A": {
       "name": "Policy_SectionAttached_DriverInformationScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Driver Information Schedule is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Driver Information Schedule is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "driver",
       "suffix": "_A"
@@ -718,7 +718,7 @@
     "Policy_SectionAttached_ElectronicDataProcessingIndicator_A": {
       "name": "Policy_SectionAttached_ElectronicDataProcessingIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Electronic Data Processing Section is attached to this application. ",
+      "tooltip": "Check the box (if applicable): Indicates an Electronic Data Processing Section is attached to this application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -726,7 +726,7 @@
     "Policy_SectionAttached_GlassAndSignIndicator_A": {
       "name": "Policy_SectionAttached_GlassAndSignIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Glass and Sign Section is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Glass and Sign Section is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -734,7 +734,7 @@
     "CommercialPolicy_Attachment_HotelMotelSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_HotelMotelSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Hotel / Motel Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Hotel / Motel Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -742,7 +742,7 @@
     "Policy_SectionAttached_InstallationBuildersRiskIndicator_A": {
       "name": "Policy_SectionAttached_InstallationBuildersRiskIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Installation / Builder's Risk Section is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an Installation / Builder's Risk Section is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -750,7 +750,7 @@
     "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an International Liability Exposure Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an International Liability Exposure Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -758,7 +758,7 @@
     "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an International Property Exposure Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an International Property Exposure Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -766,7 +766,7 @@
     "CommercialPolicy_Attachment_LossSummaryIndicator_A": {
       "name": "CommercialPolicy_Attachment_LossSummaryIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a loss summary report is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates that a loss summary report is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -774,7 +774,7 @@
     "Policy_SectionAttached_OpenCargoIndicator_A": {
       "name": "Policy_SectionAttached_OpenCargoIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates an Open Cargo Section is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates an Open Cargo Section is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -782,7 +782,7 @@
     "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Premium Payment Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Premium Payment Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -790,7 +790,7 @@
     "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Professional Liability Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Professional Liability Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -798,7 +798,7 @@
     "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Restaurant / Tavern Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Restaurant / Tavern Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -806,7 +806,7 @@
     "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
       "name": "CommercialPolicy_Attachment_StatementOfValuesIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Statement / Schedule of Values is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Statement / Schedule of Values is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -814,7 +814,7 @@
     "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_StateSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a state supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates that a state supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -822,7 +822,7 @@
     "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
       "name": "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Vacant Building Supplement is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Vacant Building Supplement is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -830,7 +830,7 @@
     "Policy_SectionAttached_VehicleScheduleIndicator_A": {
       "name": "Policy_SectionAttached_VehicleScheduleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a Vehicle Schedule is attached to the application. ",
+      "tooltip": "Check the box (if applicable): Indicates a Vehicle Schedule is attached to the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "vehicle",
       "suffix": "_A"
@@ -838,7 +838,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_A": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -854,7 +854,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_B": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_B"
@@ -870,7 +870,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_C": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_C"
@@ -886,7 +886,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_D": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "policy",
       "suffix": "_D"
@@ -902,7 +902,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_E": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_E",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_E"
@@ -918,7 +918,7 @@
     "CommercialPolicy_Attachment_OtherIndicator_F": {
       "name": "CommercialPolicy_Attachment_OtherIndicator_F",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. ",
+      "tooltip": "Check the box (if applicable): Indicates there is an attachment other than those listed on the application. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_F"
@@ -950,7 +950,7 @@
     "Policy_Payment_DirectBillIndicator_A": {
       "name": "Policy_Payment_DirectBillIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is to be direct billed. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is to be direct billed. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_A"
@@ -958,7 +958,7 @@
     "Policy_Payment_ProducerBillIndicator_A": {
       "name": "Policy_Payment_ProducerBillIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is to be producer / agency billed. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is to be producer / agency billed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -1110,7 +1110,7 @@
     "NamedInsured_LegalEntity_CorporationIndicator_A": {
       "name": "NamedInsured_LegalEntity_CorporationIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_A"
@@ -1118,7 +1118,7 @@
     "NamedInsured_LegalEntity_IndividualIndicator_A": {
       "name": "NamedInsured_LegalEntity_IndividualIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1126,7 +1126,7 @@
     "NamedInsured_LegalEntity_JointVentureIndicator_A": {
       "name": "NamedInsured_LegalEntity_JointVentureIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1134,7 +1134,7 @@
     "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A": {
       "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_A"
@@ -1150,7 +1150,7 @@
     "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
       "name": "NamedInsured_LegalEntity_NotForProfitIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1158,7 +1158,7 @@
     "NamedInsured_LegalEntity_PartnershipIndicator_A": {
       "name": "NamedInsured_LegalEntity_PartnershipIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1166,7 +1166,7 @@
     "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A": {
       "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_A"
@@ -1174,7 +1174,7 @@
     "NamedInsured_LegalEntity_TrustIndicator_A": {
       "name": "NamedInsured_LegalEntity_TrustIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1182,7 +1182,7 @@
     "NamedInsured_LegalEntity_OtherIndicator_A": {
       "name": "NamedInsured_LegalEntity_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1294,7 +1294,7 @@
     "NamedInsured_LegalEntity_CorporationIndicator_B": {
       "name": "NamedInsured_LegalEntity_CorporationIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_B"
@@ -1302,7 +1302,7 @@
     "NamedInsured_LegalEntity_IndividualIndicator_B": {
       "name": "NamedInsured_LegalEntity_IndividualIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1310,7 +1310,7 @@
     "NamedInsured_LegalEntity_JointVentureIndicator_B": {
       "name": "NamedInsured_LegalEntity_JointVentureIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1318,7 +1318,7 @@
     "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B": {
       "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_B"
@@ -1334,7 +1334,7 @@
     "NamedInsured_LegalEntity_NotForProfitIndicator_B": {
       "name": "NamedInsured_LegalEntity_NotForProfitIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1342,7 +1342,7 @@
     "NamedInsured_LegalEntity_PartnershipIndicator_B": {
       "name": "NamedInsured_LegalEntity_PartnershipIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1350,7 +1350,7 @@
     "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B": {
       "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_B"
@@ -1358,7 +1358,7 @@
     "NamedInsured_LegalEntity_TrustIndicator_B": {
       "name": "NamedInsured_LegalEntity_TrustIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1366,7 +1366,7 @@
     "NamedInsured_LegalEntity_OtherIndicator_B": {
       "name": "NamedInsured_LegalEntity_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1478,7 +1478,7 @@
     "NamedInsured_LegalEntity_CorporationIndicator_C": {
       "name": "NamedInsured_LegalEntity_CorporationIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_C"
@@ -1486,7 +1486,7 @@
     "NamedInsured_LegalEntity_IndividualIndicator_C": {
       "name": "NamedInsured_LegalEntity_IndividualIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Individual\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1494,7 +1494,7 @@
     "NamedInsured_LegalEntity_JointVentureIndicator_C": {
       "name": "NamedInsured_LegalEntity_JointVentureIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Joint Venture\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1502,7 +1502,7 @@
     "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_C": {
       "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Limited Liability Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_C"
@@ -1518,7 +1518,7 @@
     "NamedInsured_LegalEntity_NotForProfitIndicator_C": {
       "name": "NamedInsured_LegalEntity_NotForProfitIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Not For Profit Organization\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1526,7 +1526,7 @@
     "NamedInsured_LegalEntity_PartnershipIndicator_C": {
       "name": "NamedInsured_LegalEntity_PartnershipIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Partnership\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1534,7 +1534,7 @@
     "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C": {
       "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Subchapter S Corporation\". Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_C"
@@ -1542,7 +1542,7 @@
     "NamedInsured_LegalEntity_TrustIndicator_C": {
       "name": "NamedInsured_LegalEntity_TrustIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is \"Trust\". Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1550,7 +1550,7 @@
     "NamedInsured_LegalEntity_OtherIndicator_C": {
       "name": "NamedInsured_LegalEntity_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. ",
+      "tooltip": "Check the box (if applicable): Indicates the legal entity code for the named insured is other than those listed on the form. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_C"
@@ -1590,7 +1590,7 @@
     "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
       "name": "NamedInsured_Contact_PrimaryHomePhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a home phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a home phone. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_A"
@@ -1598,7 +1598,7 @@
     "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
       "name": "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a business phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a business phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1606,7 +1606,7 @@
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
       "name": "NamedInsured_Contact_PrimaryCellPhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a cell phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a cell phone. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_A"
@@ -1622,7 +1622,7 @@
     "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
       "name": "NamedInsured_Contact_SecondaryHomePhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a home phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a home phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1630,7 +1630,7 @@
     "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
       "name": "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a business phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a business phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1638,7 +1638,7 @@
     "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
       "name": "NamedInsured_Contact_SecondaryCellPhoneIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a cell phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a cell phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_A"
@@ -1686,7 +1686,7 @@
     "NamedInsured_Contact_PrimaryHomePhoneIndicator_B": {
       "name": "NamedInsured_Contact_PrimaryHomePhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a home phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a home phone. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_B"
@@ -1694,7 +1694,7 @@
     "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B": {
       "name": "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a business phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a business phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1702,7 +1702,7 @@
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
       "name": "NamedInsured_Contact_PrimaryCellPhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a cell phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's primary phone is a cell phone. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "named_insured",
       "suffix": "_B"
@@ -1718,7 +1718,7 @@
     "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
       "name": "NamedInsured_Contact_SecondaryHomePhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a home phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a home phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1726,7 +1726,7 @@
     "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B": {
       "name": "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a business phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a business phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1734,7 +1734,7 @@
     "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
       "name": "NamedInsured_Contact_SecondaryCellPhoneIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a cell phone. ",
+      "tooltip": "Check the box (if applicable): Indicates the contact's secondary phone number is a cell phone. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "named_insured",
       "suffix": "_B"
@@ -1822,7 +1822,7 @@
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A": {
       "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "coverage",
       "suffix": "_A"
@@ -1830,7 +1830,7 @@
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A": {
       "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "coverage",
       "suffix": "_A"
@@ -1838,7 +1838,7 @@
     "CommercialStructure_RiskLocation_OtherIndicator_A": {
       "name": "CommercialStructure_RiskLocation_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "location",
       "suffix": "_A"
@@ -1854,7 +1854,7 @@
     "CommercialStructure_InsuredInterest_OwnerIndicator_A": {
       "name": "CommercialStructure_InsuredInterest_OwnerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -1862,7 +1862,7 @@
     "CommercialStructure_InsuredInterest_TenantIndicator_A": {
       "name": "CommercialStructure_InsuredInterest_TenantIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -1870,7 +1870,7 @@
     "CommercialStructure_InsuredInterest_OtherIndicator_A": {
       "name": "CommercialStructure_InsuredInterest_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2014,7 +2014,7 @@
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B": {
       "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "coverage",
       "suffix": "_B"
@@ -2022,7 +2022,7 @@
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B": {
       "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "coverage",
       "suffix": "_B"
@@ -2030,7 +2030,7 @@
     "CommercialStructure_RiskLocation_OtherIndicator_B": {
       "name": "CommercialStructure_RiskLocation_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "location",
       "suffix": "_B"
@@ -2046,7 +2046,7 @@
     "CommercialStructure_InsuredInterest_OwnerIndicator_B": {
       "name": "CommercialStructure_InsuredInterest_OwnerIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_B"
@@ -2054,7 +2054,7 @@
     "CommercialStructure_InsuredInterest_TenantIndicator_B": {
       "name": "CommercialStructure_InsuredInterest_TenantIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2062,7 +2062,7 @@
     "CommercialStructure_InsuredInterest_OtherIndicator_B": {
       "name": "CommercialStructure_InsuredInterest_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_B"
@@ -2206,7 +2206,7 @@
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C": {
       "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "coverage",
       "suffix": "_C"
@@ -2214,7 +2214,7 @@
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C": {
       "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "coverage",
       "suffix": "_C"
@@ -2222,7 +2222,7 @@
     "CommercialStructure_RiskLocation_OtherIndicator_C": {
       "name": "CommercialStructure_RiskLocation_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "location",
       "suffix": "_C"
@@ -2238,7 +2238,7 @@
     "CommercialStructure_InsuredInterest_OwnerIndicator_C": {
       "name": "CommercialStructure_InsuredInterest_OwnerIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_C"
@@ -2246,7 +2246,7 @@
     "CommercialStructure_InsuredInterest_TenantIndicator_C": {
       "name": "CommercialStructure_InsuredInterest_TenantIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_C"
@@ -2254,7 +2254,7 @@
     "CommercialStructure_InsuredInterest_OtherIndicator_C": {
       "name": "CommercialStructure_InsuredInterest_OtherIndicator_C",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_C"
@@ -2398,7 +2398,7 @@
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D": {
       "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is within the city limits. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "coverage",
       "suffix": "_D"
@@ -2406,7 +2406,7 @@
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D": {
       "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is outside the city limits. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "coverage",
       "suffix": "_D"
@@ -2414,7 +2414,7 @@
     "CommercialStructure_RiskLocation_OtherIndicator_D": {
       "name": "CommercialStructure_RiskLocation_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. ",
+      "tooltip": "Check the box (if applicable): Indicates the building is not inside nor outside city limits.  For example, unincorporated. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "location",
       "suffix": "_D"
@@ -2430,7 +2430,7 @@
     "CommercialStructure_InsuredInterest_OwnerIndicator_D": {
       "name": "CommercialStructure_InsuredInterest_OwnerIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its owner. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_D"
@@ -2438,7 +2438,7 @@
     "CommercialStructure_InsuredInterest_TenantIndicator_D": {
       "name": "CommercialStructure_InsuredInterest_TenantIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is as its tenant. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_D"
@@ -2446,7 +2446,7 @@
     "CommercialStructure_InsuredInterest_OtherIndicator_D": {
       "name": "CommercialStructure_InsuredInterest_OtherIndicator_D",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the named insured's interest in the building is other than those listed. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_D"
@@ -2526,7 +2526,7 @@
     "BusinessInformation_BusinessType_ApartmentsIndicator_A": {
       "name": "BusinessInformation_BusinessType_ApartmentsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is apartments. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is apartments. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2534,7 +2534,7 @@
     "BusinessInformation_BusinessType_CondominiumsIndicator_A": {
       "name": "BusinessInformation_BusinessType_CondominiumsIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is condominiums. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is condominiums. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2542,7 +2542,7 @@
     "BusinessInformation_BusinessType_ContractorIndicator_A": {
       "name": "BusinessInformation_BusinessType_ContractorIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is a contractor. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is a contractor. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2550,7 +2550,7 @@
     "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
       "name": "BusinessInformation_BusinessType_InstitutionalIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is institutional. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is institutional. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2558,7 +2558,7 @@
     "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
       "name": "BusinessInformation_BusinessType_ManufacturingIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is manufacturing. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is manufacturing. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2566,7 +2566,7 @@
     "BusinessInformation_BusinessType_OfficeIndicator_A": {
       "name": "BusinessInformation_BusinessType_OfficeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is an office. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is an office. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2574,7 +2574,7 @@
     "BusinessInformation_BusinessType_RestaurantIndicator_A": {
       "name": "BusinessInformation_BusinessType_RestaurantIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is a restaurant. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is a restaurant. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2582,7 +2582,7 @@
     "BusinessInformation_BusinessType_RetailIndicator_A": {
       "name": "BusinessInformation_BusinessType_RetailIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is retail. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is retail. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2590,7 +2590,7 @@
     "BusinessInformation_BusinessType_ServiceIndicator_A": {
       "name": "BusinessInformation_BusinessType_ServiceIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is service. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is service. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2598,7 +2598,7 @@
     "BusinessInformation_BusinessType_WholesaleIndicator_A": {
       "name": "BusinessInformation_BusinessType_WholesaleIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is wholesale. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is wholesale. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2606,7 +2606,7 @@
     "BusinessInformation_BusinessType_OtherIndicator_A": {
       "name": "BusinessInformation_BusinessType_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the nature of business is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the nature of business is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2622,7 +2622,7 @@
     "NamedInsured_BusinessStartDate_A": {
       "name": "NamedInsured_BusinessStartDate_A",
       "type": "text",
-      "tooltip": "Enter date: The date the applicant began in business.  This is important because it helps the underwriter determine the expertise and business success of the applicant. ",
+      "tooltip": "Enter date: The date the applicant began in business.  This is important because it helps the underwriter determine the expertise and business success of the applicant. (MM/DD/YYYY).",
       "default_value": "03/11/2017",
       "category": "named_insured",
       "suffix": "_A"
@@ -2662,7 +2662,7 @@
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
       "name": "AdditionalInterest_Interest_AdditionalInsuredIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an additional insured. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2670,7 +2670,7 @@
     "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A": {
       "name": "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a breach of warranty. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a breach of warranty. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2678,7 +2678,7 @@
     "AdditionalInterest_Interest_CoOwnerIndicator_A": {
       "name": "AdditionalInterest_Interest_CoOwnerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a co-owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a co-owner. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2686,7 +2686,7 @@
     "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
       "name": "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an employee as lessor. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2694,7 +2694,7 @@
     "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
       "name": "AdditionalInterest_Interest_LeasebackOwnerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a leaseback owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a leaseback owner. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2702,7 +2702,7 @@
     "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
       "name": "AdditionalInterest_Interest_LendersLossPayableIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lender's loss payable. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2710,7 +2710,7 @@
     "AdditionalInterest_Interest_LienholderIndicator_A": {
       "name": "AdditionalInterest_Interest_LienholderIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a lien holder. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2718,7 +2718,7 @@
     "AdditionalInterest_Interest_LossPayeeIndicator_A": {
       "name": "AdditionalInterest_Interest_LossPayeeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a loss payee. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2726,7 +2726,7 @@
     "AdditionalInterest_Interest_MortgageeIndicator_A": {
       "name": "AdditionalInterest_Interest_MortgageeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a mortgagee. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a mortgagee. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2734,7 +2734,7 @@
     "AdditionalInterest_Interest_OwnerIndicator_A": {
       "name": "AdditionalInterest_Interest_OwnerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is an owner. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2742,7 +2742,7 @@
     "AdditionalInterest_Interest_RegistrantIndicator_A": {
       "name": "AdditionalInterest_Interest_RegistrantIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a registrant. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_A"
@@ -2750,7 +2750,7 @@
     "AdditionalInterest_Interest_TrusteeIndicator_A": {
       "name": "AdditionalInterest_Interest_TrusteeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a trustee. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest type is a trustee. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_A"
@@ -2758,7 +2758,7 @@
     "AdditionalInterest_Interest_OtherIndicator_A": {
       "name": "AdditionalInterest_Interest_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest is other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2790,7 +2790,7 @@
     "AdditionalInterest_CertificateRequiredIndicator_A": {
       "name": "AdditionalInterest_CertificateRequiredIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. ",
+      "tooltip": "Check the box (if applicable): Indicates if the additional interest requires a Certificate of Insurance. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2798,7 +2798,7 @@
     "AdditionalInterest_PolicyRequiredIndicator_A": {
       "name": "AdditionalInterest_PolicyRequiredIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the additional interest requires a copy of the policy. ",
+      "tooltip": "Check the box (if applicable): Indicates the additional interest requires a copy of the policy. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "checkbox",
       "suffix": "_A"
@@ -2806,7 +2806,7 @@
     "AdditionalInterest_SendBillIndicator_A": {
       "name": "AdditionalInterest_SendBillIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the bill should be sent to the additional interest. ",
+      "tooltip": "Check the box (if applicable): Indicates the bill should be sent to the additional interest. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -2878,7 +2878,7 @@
     "AdditionalInterest_InterestEndDate_A": {
       "name": "AdditionalInterest_InterestEndDate_A",
       "type": "text",
-      "tooltip": "Enter date: The date the interest holder's interest terminates. ",
+      "tooltip": "Enter date: The date the interest holder's interest terminates. (MM/DD/YYYY).",
       "default_value": null,
       "category": "header",
       "suffix": "_A"
@@ -3062,7 +3062,7 @@
     "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A": {
       "name": "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a safety manual is part of the formal safety program. ",
+      "tooltip": "Check the box (if applicable): Indicates a safety manual is part of the formal safety program. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"
@@ -3070,7 +3070,7 @@
     "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B": {
       "name": "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates a safety position is part of the formal safety program. ",
+      "tooltip": "Check the box (if applicable): Indicates a safety position is part of the formal safety program. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_B"
@@ -3078,7 +3078,7 @@
     "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B": {
       "name": "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates monthly meetings are part of the formal safety program. ",
+      "tooltip": "Check the box (if applicable): Indicates monthly meetings are part of the formal safety program. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_B"
@@ -3086,7 +3086,7 @@
     "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B": {
       "name": "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the formal safety program meets OSHA guidelines. ",
+      "tooltip": "Check the box (if applicable): Indicates the formal safety program meets OSHA guidelines. Return 1 if checked, Off if not.",
       "default_value": "1",
       "category": "policy",
       "suffix": "_B"
@@ -3094,7 +3094,7 @@
     "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B": {
       "name": "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there is a formal safety program other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates there is a formal safety program other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_B"
@@ -3206,7 +3206,7 @@
     "CancelNonRenew_NonPaymentIndicator_A": {
       "name": "CancelNonRenew_NonPaymentIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to non-payment of premium. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to non-payment of premium. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3214,7 +3214,7 @@
     "CancelNonRenew_NonRenewalIndicator_A": {
       "name": "CancelNonRenew_NonRenewalIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to non-renewal. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to non-renewal. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3222,7 +3222,7 @@
     "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A": {
       "name": "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled because the agent is no longer writing business for the insurer. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled because the agent is no longer writing business for the insurer. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3230,7 +3230,7 @@
     "CancelNonRenew_UnderwritingIndicator_A": {
       "name": "CancelNonRenew_UnderwritingIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to underwriting reasons. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to underwriting reasons. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3238,7 +3238,7 @@
     "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A": {
       "name": "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the underwriting condition that caused the policy to not be written has been corrected. ",
+      "tooltip": "Check the box (if applicable): Indicates the underwriting condition that caused the policy to not be written has been corrected. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3254,7 +3254,7 @@
     "CancelNonRenew_OtherIndicator_A": {
       "name": "CancelNonRenew_OtherIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to reasons other than those listed. ",
+      "tooltip": "Check the box (if applicable): Indicates the policy is being cancelled due to reasons other than those listed. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -3310,7 +3310,7 @@
     "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
       "name": "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date of any uncorrected fire code violations. ",
+      "tooltip": "Enter date: The occurrence date of any uncorrected fire code violations. (MM/DD/YYYY).",
       "default_value": "08/15/2019",
       "category": "policy",
       "suffix": "_A"
@@ -3334,7 +3334,7 @@
     "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
       "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with the fire code violation. ",
+      "tooltip": "Enter date: The resolution date associated with the fire code violation. (MM/DD/YYYY).",
       "default_value": "10/20/2020",
       "category": "policy",
       "suffix": "_A"
@@ -3342,7 +3342,7 @@
     "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_B": {
       "name": "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_B",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date of any uncorrected fire code violations. ",
+      "tooltip": "Enter date: The occurrence date of any uncorrected fire code violations. (MM/DD/YYYY).",
       "default_value": "01/11/2022",
       "category": "policy",
       "suffix": "_B"
@@ -3366,7 +3366,7 @@
     "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_B": {
       "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_B",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with the fire code violation. ",
+      "tooltip": "Enter date: The resolution date associated with the fire code violation. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3382,7 +3382,7 @@
     "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_A": {
       "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_A",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date associated with the applicant's foreclosure, repossession, bankruptcy or bankruptcy filing during the last mandated number of years. ",
+      "tooltip": "Enter date: The occurrence date associated with the applicant's foreclosure, repossession, bankruptcy or bankruptcy filing during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "12/01/2020",
       "category": "policy",
       "suffix": "_A"
@@ -3406,7 +3406,7 @@
     "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A": {
       "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with any foreclosure, repossession or bankruptcy filings within the last mandated number of years. ",
+      "tooltip": "Enter date: The resolution date associated with any foreclosure, repossession or bankruptcy filings within the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "05/01/2021",
       "category": "policy",
       "suffix": "_A"
@@ -3414,7 +3414,7 @@
     "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B": {
       "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date associated with the applicant's foreclosure, repossession, bankruptcy or bankruptcy filing during the last mandated number of years. ",
+      "tooltip": "Enter date: The occurrence date associated with the applicant's foreclosure, repossession, bankruptcy or bankruptcy filing during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "01/02/2018",
       "category": "policy",
       "suffix": "_B"
@@ -3438,7 +3438,7 @@
     "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B": {
       "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with any foreclosure, repossession or bankruptcy filings within the last mandated number of years. ",
+      "tooltip": "Enter date: The resolution date associated with any foreclosure, repossession or bankruptcy filings within the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "03/15/2019",
       "category": "policy",
       "suffix": "_B"
@@ -3454,7 +3454,7 @@
     "CommercialPolicy_JudgementOrLien_OccurrenceDate_A": {
       "name": "CommercialPolicy_JudgementOrLien_OccurrenceDate_A",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date associated with the applicant's judgement or lien during the last mandated number of years. ",
+      "tooltip": "Enter date: The occurrence date associated with the applicant's judgement or lien during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "02/01/2022",
       "category": "policy",
       "suffix": "_A"
@@ -3478,7 +3478,7 @@
     "CommercialPolicy_JudgementOrLien_ResolutionDate_A": {
       "name": "CommercialPolicy_JudgementOrLien_ResolutionDate_A",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with any judgement or lien during the last mandated number of years. ",
+      "tooltip": "Enter date: The resolution date associated with any judgement or lien during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "08/01/2022",
       "category": "policy",
       "suffix": "_A"
@@ -3486,7 +3486,7 @@
     "CommercialPolicy_JudgementOrLien_OccurrenceDate_B": {
       "name": "CommercialPolicy_JudgementOrLien_OccurrenceDate_B",
       "type": "text",
-      "tooltip": "Enter date: The occurrence date associated with the applicant's judgement or lien during the last mandated number of years. ",
+      "tooltip": "Enter date: The occurrence date associated with the applicant's judgement or lien during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": "01/11/2022",
       "category": "policy",
       "suffix": "_B"
@@ -3510,7 +3510,7 @@
     "CommercialPolicy_JudgementOrLien_ResolutionDate_B": {
       "name": "CommercialPolicy_JudgementOrLien_ResolutionDate_B",
       "type": "text",
-      "tooltip": "Enter date: The resolution date associated with any judgement or lien during the last mandated number of years. ",
+      "tooltip": "Enter date: The resolution date associated with any judgement or lien during the last mandated number of years. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3630,7 +3630,7 @@
     "PriorCoverage_GeneralLiability_EffectiveDate_A": {
       "name": "PriorCoverage_GeneralLiability_EffectiveDate_A",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior general liability policy. ",
+      "tooltip": "Enter date: The effective date of the prior general liability policy. (MM/DD/YYYY).",
       "default_value": "09/01/2021",
       "category": "policy",
       "suffix": "_A"
@@ -3638,7 +3638,7 @@
     "PriorCoverage_GeneralLiability_ExpirationDate_A": {
       "name": "PriorCoverage_GeneralLiability_ExpirationDate_A",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous general liability coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous general liability coverage. (MM/DD/YYYY).",
       "default_value": "11/02/2022",
       "category": "policy",
       "suffix": "_A"
@@ -3670,7 +3670,7 @@
     "PriorCoverage_Automobile_EffectiveDate_A": {
       "name": "PriorCoverage_Automobile_EffectiveDate_A",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior automobile policy. ",
+      "tooltip": "Enter date: The effective date of the prior automobile policy. (MM/DD/YYYY).",
       "default_value": "06/14/2022",
       "category": "vehicle",
       "suffix": "_A"
@@ -3678,7 +3678,7 @@
     "PriorCoverage_Automobile_ExpirationDate_A": {
       "name": "PriorCoverage_Automobile_ExpirationDate_A",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous automobile coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous automobile coverage. (MM/DD/YYYY).",
       "default_value": "08/15/2023",
       "category": "vehicle",
       "suffix": "_A"
@@ -3710,7 +3710,7 @@
     "PriorCoverage_Property_EffectiveDate_A": {
       "name": "PriorCoverage_Property_EffectiveDate_A",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior property policy. ",
+      "tooltip": "Enter date: The effective date of the prior property policy. (MM/DD/YYYY).",
       "default_value": "12/01/2019",
       "category": "policy",
       "suffix": "_A"
@@ -3718,7 +3718,7 @@
     "PriorCoverage_Property_ExpirationDate_A": {
       "name": "PriorCoverage_Property_ExpirationDate_A",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous property coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous property coverage. (MM/DD/YYYY).",
       "default_value": "03/31/2021",
       "category": "policy",
       "suffix": "_A"
@@ -3758,7 +3758,7 @@
     "PriorCoverage_OtherLine_EffectiveDate_A": {
       "name": "PriorCoverage_OtherLine_EffectiveDate_A",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. ",
+      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_A"
@@ -3766,7 +3766,7 @@
     "PriorCoverage_OtherLine_ExpirationDate_A": {
       "name": "PriorCoverage_OtherLine_ExpirationDate_A",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. ",
+      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_A"
@@ -3806,7 +3806,7 @@
     "PriorCoverage_GeneralLiability_EffectiveDate_B": {
       "name": "PriorCoverage_GeneralLiability_EffectiveDate_B",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior general liability policy. ",
+      "tooltip": "Enter date: The effective date of the prior general liability policy. (MM/DD/YYYY).",
       "default_value": "08/21/2022",
       "category": "policy",
       "suffix": "_B"
@@ -3814,7 +3814,7 @@
     "PriorCoverage_GeneralLiability_ExpirationDate_B": {
       "name": "PriorCoverage_GeneralLiability_ExpirationDate_B",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous general liability coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous general liability coverage. (MM/DD/YYYY).",
       "default_value": "09/20/2023",
       "category": "policy",
       "suffix": "_B"
@@ -3846,7 +3846,7 @@
     "PriorCoverage_Automobile_EffectiveDate_B": {
       "name": "PriorCoverage_Automobile_EffectiveDate_B",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior automobile policy. ",
+      "tooltip": "Enter date: The effective date of the prior automobile policy. (MM/DD/YYYY).",
       "default_value": "08/21/2022",
       "category": "vehicle",
       "suffix": "_B"
@@ -3854,7 +3854,7 @@
     "PriorCoverage_Automobile_ExpirationDate_B": {
       "name": "PriorCoverage_Automobile_ExpirationDate_B",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous automobile coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous automobile coverage. (MM/DD/YYYY).",
       "default_value": "09/20/2023",
       "category": "vehicle",
       "suffix": "_B"
@@ -3886,7 +3886,7 @@
     "PriorCoverage_Property_EffectiveDate_B": {
       "name": "PriorCoverage_Property_EffectiveDate_B",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior property policy. ",
+      "tooltip": "Enter date: The effective date of the prior property policy. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3894,7 +3894,7 @@
     "PriorCoverage_Property_ExpirationDate_B": {
       "name": "PriorCoverage_Property_ExpirationDate_B",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous property coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous property coverage. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3926,7 +3926,7 @@
     "PriorCoverage_OtherLine_EffectiveDate_B": {
       "name": "PriorCoverage_OtherLine_EffectiveDate_B",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. ",
+      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3934,7 +3934,7 @@
     "PriorCoverage_OtherLine_ExpirationDate_B": {
       "name": "PriorCoverage_OtherLine_ExpirationDate_B",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. ",
+      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_B"
@@ -3974,7 +3974,7 @@
     "PriorCoverage_GeneralLiability_EffectiveDate_C": {
       "name": "PriorCoverage_GeneralLiability_EffectiveDate_C",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior general liability policy. ",
+      "tooltip": "Enter date: The effective date of the prior general liability policy. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_C"
@@ -3982,7 +3982,7 @@
     "PriorCoverage_GeneralLiability_ExpirationDate_C": {
       "name": "PriorCoverage_GeneralLiability_ExpirationDate_C",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous general liability coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous general liability coverage. (MM/DD/YYYY).",
       "default_value": null,
       "category": "policy",
       "suffix": "_C"
@@ -4014,7 +4014,7 @@
     "PriorCoverage_Automobile_EffectiveDate_C": {
       "name": "PriorCoverage_Automobile_EffectiveDate_C",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior automobile policy. ",
+      "tooltip": "Enter date: The effective date of the prior automobile policy. (MM/DD/YYYY).",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C"
@@ -4022,7 +4022,7 @@
     "PriorCoverage_Automobile_ExpirationDate_C": {
       "name": "PriorCoverage_Automobile_ExpirationDate_C",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous automobile coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous automobile coverage. (MM/DD/YYYY).",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C"
@@ -4054,7 +4054,7 @@
     "PriorCoverage_Property_EffectiveDate_C": {
       "name": "PriorCoverage_Property_EffectiveDate_C",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior property policy. ",
+      "tooltip": "Enter date: The effective date of the prior property policy. (MM/DD/YYYY).",
       "default_value": "03/11/2018",
       "category": "policy",
       "suffix": "_C"
@@ -4062,7 +4062,7 @@
     "PriorCoverage_Property_ExpirationDate_C": {
       "name": "PriorCoverage_Property_ExpirationDate_C",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous property coverage. ",
+      "tooltip": "Enter date: The expiration date of the previous property coverage. (MM/DD/YYYY).",
       "default_value": "02/11/2021",
       "category": "policy",
       "suffix": "_C"
@@ -4094,7 +4094,7 @@
     "PriorCoverage_OtherLine_EffectiveDate_C": {
       "name": "PriorCoverage_OtherLine_EffectiveDate_C",
       "type": "text",
-      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. ",
+      "tooltip": "Enter date: The effective date of the prior policy for the other line of business. (MM/DD/YYYY).",
       "default_value": "02/11/2020",
       "category": "policy",
       "suffix": "_C"
@@ -4102,7 +4102,7 @@
     "PriorCoverage_OtherLine_ExpirationDate_C": {
       "name": "PriorCoverage_OtherLine_ExpirationDate_C",
       "type": "text",
-      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. ",
+      "tooltip": "Enter date: The expiration date of the previous  coverage for the other line of business. (MM/DD/YYYY).",
       "default_value": "01/11/2022",
       "category": "policy",
       "suffix": "_C"
@@ -4110,7 +4110,7 @@
     "LossHistory_NoPriorLossesIndicator_A": {
       "name": "LossHistory_NoPriorLossesIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates there are no prior losses or occurrences that may give rise to claims for the mandated number of years. ",
+      "tooltip": "Check the box (if applicable): Indicates there are no prior losses or occurrences that may give rise to claims for the mandated number of years. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "checkbox",
       "suffix": "_A"
@@ -4326,7 +4326,7 @@
     "Policy_InformationPracticesNoticeIndicator_A": {
       "name": "Policy_InformationPracticesNoticeIndicator_A",
       "type": "checkbox",
-      "tooltip": "Check the box (if applicable): Indicates that a copy of the Notice of Information Practices (ACORD 38 or state specific ACORD 38) has been given to the applicant.  State specific 38s are available for applicants in AZ, DE, KS, MN, ND, NY, OR, VA, and WV.  In addition, ACORD 38 contains CA and MA state specific language. ",
+      "tooltip": "Check the box (if applicable): Indicates that a copy of the Notice of Information Practices (ACORD 38 or state specific ACORD 38) has been given to the applicant.  State specific 38s are available for applicants in AZ, DE, KS, MN, ND, NY, OR, VA, and WV.  In addition, ACORD 38 contains CA and MA state specific language. Return 1 if checked, Off if not.",
       "default_value": "Off",
       "category": "policy",
       "suffix": "_A"

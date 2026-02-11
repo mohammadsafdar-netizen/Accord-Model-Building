@@ -1,9 +1,9 @@
 {
   "total_gt_fields": 576,
-  "matched": 189,
-  "partial_match": 2,
-  "missing": 334,
-  "wrong": 51,
+  "matched": 184,
+  "partial_match": 0,
+  "missing": 336,
+  "wrong": 56,
   "field_results": {
     "Form_CompletionDate_A": {
       "status": "matched",
@@ -36,9 +36,9 @@
       "extracted": "BA-95495815"
     },
     "Producer_CustomerIdentifier_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "Martin-Simmons LLC",
-      "extracted": "Martin-Simmons LLC"
+      "extracted": null
     },
     "Producer_FullName_A": {
       "status": "matched",
@@ -161,9 +161,9 @@
       "extracted": "S"
     },
     "Driver_ProducerIdentifier_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 1,
-      "extracted": "CA-95355"
+      "extracted": null
     },
     "Driver_Surname_A": {
       "status": "matched",
@@ -171,9 +171,9 @@
       "extracted": "Ramirez"
     },
     "Driver_TaxIdentifier_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "41-8102249",
-      "extracted": null
+      "extracted": "123 N. Fair Oaks Ave, CA 91105"
     },
     "Driver_Vehicle_ProducerIdentifier_A": {
       "status": "missing",
@@ -196,9 +196,9 @@
       "extracted": null
     },
     "Driver_Coverage_DriverOtherCarCode_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "100"
     },
     "Driver_ExperienceYearCount_B": {
       "status": "matched",
@@ -251,9 +251,9 @@
       "extracted": "M"
     },
     "Driver_ProducerIdentifier_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 2,
-      "extracted": "CA-95355"
+      "extracted": null
     },
     "Driver_Surname_B": {
       "status": "matched",
@@ -261,9 +261,9 @@
       "extracted": "Turner"
     },
     "Driver_TaxIdentifier_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "38-2249813",
-      "extracted": null
+      "extracted": "TErR"
     },
     "Driver_Vehicle_ProducerIdentifier_B": {
       "status": "missing",
@@ -271,9 +271,9 @@
       "extracted": null
     },
     "Driver_Vehicle_UsePercent_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "30",
-      "extracted": "100"
+      "extracted": null
     },
     "Driver_BirthDate_C": {
       "status": "matched",
@@ -281,9 +281,9 @@
       "extracted": "03/28/1996"
     },
     "Driver_Coverage_BroadenedNoFaultCode_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "N"
     },
     "Driver_Coverage_DriverOtherCarCode_C": {
       "status": "missing",
@@ -331,9 +331,9 @@
       "extracted": "90001"
     },
     "Driver_MailingAddress_StateOrProvinceCode_C": {
-      "status": "matched",
+      "status": "missing",
       "expected": "CA",
-      "extracted": "CA"
+      "extracted": null
     },
     "Driver_MaritalStatusCode_C": {
       "status": "matched",
@@ -376,9 +376,9 @@
       "extracted": "M"
     },
     "Driver_GivenName_D": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Christopher",
-      "extracted": "F M"
+      "extracted": null
     },
     "Driver_LicenseNumberIdentifier_D": {
       "status": "matched",
@@ -461,9 +461,9 @@
       "extracted": "3"
     },
     "Driver_GenderCode_E": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "F",
-      "extracted": "M M"
+      "extracted": null
     },
     "Driver_GivenName_E": {
       "status": "matched",
@@ -501,9 +501,9 @@
       "extracted": "CA"
     },
     "Driver_MaritalStatusCode_E": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "M",
-      "extracted": "M"
+      "extracted": "S"
     },
     "Driver_ProducerIdentifier_E": {
       "status": "missing",
@@ -561,9 +561,9 @@
       "extracted": "Joseph"
     },
     "Driver_HiredDate_F": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "01/01/2019",
-      "extracted": null
+      "extracted": "12/17/1997"
     },
     "Driver_LicenseNumberIdentifier_F": {
       "status": "matched",
@@ -581,9 +581,9 @@
       "extracted": "2021"
     },
     "Driver_MaritalStatusCode_F": {
-      "status": "matched",
+      "status": "missing",
       "expected": "S",
-      "extracted": "S"
+      "extracted": null
     },
     "Driver_ProducerIdentifier_F": {
       "status": "missing",
@@ -621,9 +621,9 @@
       "extracted": "7"
     },
     "Driver_GenderCode_G": {
-      "status": "partial",
+      "status": "wrong",
       "expected": "M",
-      "extracted": "F M"
+      "extracted": "F"
     },
     "Driver_GivenName_G": {
       "status": "matched",
@@ -631,9 +631,9 @@
       "extracted": "Charles"
     },
     "Driver_HiredDate_G": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "06/01/2018",
-      "extracted": null
+      "extracted": "04/04/2002"
     },
     "Driver_LicenseNumberIdentifier_G": {
       "status": "matched",
@@ -691,9 +691,9 @@
       "extracted": null
     },
     "Driver_Vehicle_UsePercent_G": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "80",
-      "extracted": null
+      "extracted": "2"
     },
     "Driver_BirthDate_H": {
       "status": "matched",
@@ -701,9 +701,9 @@
       "extracted": "12/17/1997"
     },
     "Driver_Coverage_BroadenedNoFaultCode_H": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "100"
+      "extracted": null
     },
     "Driver_Coverage_DriverOtherCarCode_H": {
       "status": "missing",
@@ -726,9 +726,9 @@
       "extracted": "Brandon"
     },
     "Driver_HiredDate_H": {
-      "status": "matched",
+      "status": "missing",
       "expected": "06/01/2018",
-      "extracted": "06/01/2018"
+      "extracted": null
     },
     "Driver_LicenseNumberIdentifier_H": {
       "status": "matched",
@@ -781,9 +781,9 @@
       "extracted": "Brown"
     },
     "Driver_TaxIdentifier_H": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "94-8955049",
-      "extracted": "CA-95355"
+      "extracted": null
     },
     "Driver_Vehicle_ProducerIdentifier_H": {
       "status": "missing",
@@ -806,9 +806,9 @@
       "extracted": null
     },
     "Driver_Coverage_DriverOtherCarCode_I": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "100"
     },
     "Driver_ExperienceYearCount_I": {
       "status": "matched",
@@ -826,9 +826,9 @@
       "extracted": "Daniel"
     },
     "Driver_HiredDate_I": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "03/15/2018",
-      "extracted": "12/17/1997"
+      "extracted": null
     },
     "Driver_LicenseNumberIdentifier_I": {
       "status": "matched",
@@ -836,9 +836,9 @@
       "extracted": "T85175638"
     },
     "Driver_LicensedStateOrProvinceCode_I": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "CA",
-      "extracted": "IN"
+      "extracted": "CA"
     },
     "Driver_LicensedYear_I": {
       "status": "matched",
@@ -886,14 +886,14 @@
       "extracted": null
     },
     "Driver_Vehicle_ProducerIdentifier_I": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "2",
-      "extracted": null
+      "extracted": "CA-95355"
     },
     "Driver_Vehicle_UsePercent_I": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "50",
-      "extracted": "2"
+      "extracted": "50"
     },
     "Driver_BirthDate_J": {
       "status": "matched",
@@ -901,9 +901,9 @@
       "extracted": "09/20/2002"
     },
     "Driver_Coverage_BroadenedNoFaultCode_J": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "N"
     },
     "Driver_Coverage_DriverOtherCarCode_J": {
       "status": "missing",
@@ -961,9 +961,9 @@
       "extracted": "S"
     },
     "Driver_ProducerIdentifier_J": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 10,
-      "extracted": "CA-95355"
+      "extracted": null
     },
     "Driver_Surname_J": {
       "status": "matched",
@@ -971,9 +971,9 @@
       "extracted": "Brown"
     },
     "Driver_TaxIdentifier_J": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "36-6532545",
-      "extracted": null
+      "extracted": "TErR"
     },
     "Driver_Vehicle_ProducerIdentifier_J": {
       "status": "missing",
@@ -1063,7 +1063,7 @@
     "Driver_TaxIdentifier_K": {
       "status": "wrong",
       "expected": "45-2587687",
-      "extracted": "J6/01/2018"
+      "extracted": "TErR"
     },
     "Driver_Vehicle_ProducerIdentifier_K": {
       "status": "missing",
@@ -1081,9 +1081,9 @@
       "extracted": "02/22/1990"
     },
     "Driver_Coverage_BroadenedNoFaultCode_L": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "N"
     },
     "Driver_Coverage_DriverOtherCarCode_L": {
       "status": "missing",
@@ -1106,9 +1106,9 @@
       "extracted": "Jennifer"
     },
     "Driver_HiredDate_L": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "01/01/2018",
-      "extracted": "04/04/2002"
+      "extracted": null
     },
     "Driver_LicenseNumberIdentifier_L": {
       "status": "matched",
@@ -1136,9 +1136,9 @@
       "extracted": "90001"
     },
     "Driver_MailingAddress_StateOrProvinceCode_L": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "OH",
-      "extracted": "CA"
+      "extracted": null
     },
     "Driver_BirthDate_M": {
       "status": "matched",
@@ -1146,9 +1146,9 @@
       "extracted": "06/07/1971"
     },
     "Driver_Coverage_BroadenedNoFaultCode_M": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "N"
     },
     "Driver_Coverage_DriverOtherCarCode_M": {
       "status": "missing",
@@ -1173,7 +1173,7 @@
     "Driver_HiredDate_M": {
       "status": "wrong",
       "expected": "10/25/2015",
-      "extracted": "12/17/1997"
+      "extracted": "06/01/2018"
     },
     "Driver_LicenseNumberIdentifier_M": {
       "status": "matched",
@@ -1211,9 +1211,9 @@
       "extracted": "M"
     },
     "Driver_ProducerIdentifier_M": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 12,
-      "extracted": null
+      "extracted": "CA-95355"
     },
     "Driver_Surname_M": {
       "status": "matched",
@@ -1231,9 +1231,9 @@
       "extracted": null
     },
     "Driver_Vehicle_UsePercent_M": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "60",
-      "extracted": "2"
+      "extracted": null
     },
     "CommercialVehicleLineOfBusiness_OperationInvolveTransportingHazardousMaterialsExplanation_A": {
       "status": "missing",
@@ -1271,9 +1271,9 @@
       "extracted": null
     },
     "CommercialVehicleLineOfBusiness_Question_KADCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "50"
     },
     "CommercialVehicleLineOfBusiness_VehicleMaintenanceProgramInOperationExplanation_A": {
       "status": "missing",
@@ -1291,9 +1291,9 @@
       "extracted": null
     },
     "Vehicle_Question_ModifiedEquipmentDescription_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Standard Equipment",
-      "extracted": "SPECIAL EQUIPMENT? (Include customized vans"
+      "extracted": null
     },
     "Vehicle_Question_ModifiedEquipmentCostAmount_B": {
       "status": "missing",
@@ -1306,19 +1306,19 @@
       "extracted": null
     },
     "AccidentConviction_DriverProducerIdentifier_A": {
-      "status": "wrong",
-      "expected": 1,
-      "extracted": "CA-95355"
-    },
-    "AccidentConviction_TrafficViolationDate_A": {
       "status": "missing",
-      "expected": "03/10/2020",
+      "expected": 1,
       "extracted": null
     },
-    "AccidentConviction_TrafficViolationDescription_A": {
+    "AccidentConviction_TrafficViolationDate_A": {
       "status": "wrong",
+      "expected": "03/10/2020",
+      "extracted": "10/25/2021"
+    },
+    "AccidentConviction_TrafficViolationDescription_A": {
+      "status": "missing",
       "expected": "Rear-end collision with a sedan",
-      "extracted": "A speeding violation of up to six (6) miles per hour (mph) that occurs in an area with a maximum posted speed limit from 30 mph through 54 mph; or"
+      "extracted": null
     },
     "AccidentConviction_ViolationYearCount_A": {
       "status": "missing",
@@ -1336,9 +1336,9 @@
       "extracted": null
     },
     "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_FleetMonitoredPercent_A": {
       "status": "missing",
@@ -1346,9 +1346,9 @@
       "extracted": null
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MileageTrackingDeviceIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorDriverSafetyIndicator_A": {
       "status": "wrong",
@@ -1356,9 +1356,9 @@
       "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorVehicleMaintenanceIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_NavigationIndicator_A": {
       "status": "matched",
@@ -1371,9 +1371,9 @@
       "extracted": null
     },
     "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_TrackFuelConsumptionIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "CommercialVehicleLineOfBusiness_GarageStorageDescription_A": {
       "status": "missing",
@@ -1391,14 +1391,14 @@
       "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_MaximumExposureAllVehiclesAmount_A": {
-      "status": "partial",
+      "status": "missing",
       "expected": "$100,000",
-      "extracted": "100"
+      "extracted": null
     },
     "CommercialVehicleLineOfBusiness_Question_AABCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_Question_AACCode_A": {
       "status": "missing",
@@ -1426,9 +1426,9 @@
       "extracted": null
     },
     "CommercialVehicleLineOfBusiness_Question_KAECode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialVehicleLineOfBusiness_Question_KAFCode_A": {
       "status": "missing",
@@ -1786,9 +1786,9 @@
       "extracted": "Off"
     },
     "AdditionalInterest_InterestRank_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Joshua Turner",
-      "extracted": null
+      "extracted": "2"
     },
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_B": {
       "status": "matched",
@@ -1806,9 +1806,9 @@
       "extracted": "Off"
     },
     "AdditionalInterest_Interest_LienholderIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": false,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "AdditionalInterest_Interest_LossPayeeIndicator_B": {
       "status": "matched",
@@ -1846,14 +1846,14 @@
       "extracted": null
     },
     "AdditionalInterest_MailingAddress_PostalCode_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "91105",
-      "extracted": "91107"
+      "extracted": null
     },
     "AdditionalInterest_MailingAddress_StateOrProvinceCode_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "CA",
-      "extracted": null
+      "extracted": "CA"
     },
     "Vehicle_BodyCode_B": {
       "status": "missing",
@@ -2751,9 +2751,9 @@
       "extracted": null
     },
     "NamedInsured_SignatureDate_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "12/31/2022",
-      "extracted": "12/17/1997"
+      "extracted": null
     },
     "Producer_AuthorizedRepresentative_FullName_A": {
       "status": "missing",
@@ -2761,14 +2761,14 @@
       "extracted": null
     },
     "Producer_NationalIdentifier_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "25-5978502",
-      "extracted": "25-5978502"
+      "extracted": null
     },
     "Producer_StateLicenseIdentifier_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "CA",
-      "extracted": "CA"
+      "extracted": null
     },
     "Driver_Coverage_NonOwnedCode_A": {
       "status": "missing",
@@ -2886,7 +2886,7 @@
       "extracted": null
     }
   },
-  "accuracy": 32.99,
-  "exact_match_rate": 32.81,
-  "coverage": 42.01
+  "accuracy": 31.94,
+  "exact_match_rate": 31.94,
+  "coverage": 41.67
 }

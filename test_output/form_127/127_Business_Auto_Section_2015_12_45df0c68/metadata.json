@@ -1,10 +1,10 @@
 {
   "form_type": "127",
   "source_pdf": "/home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_data/127_Business_Auto_Section_2015_12/127_Business_Auto_Section_2015_12_45df0c68.pdf",
-  "fields_extracted": 259,
-  "fields_verified": 258,
+  "fields_extracted": 248,
+  "fields_verified": 246,
   "total_schema_fields": 634,
   "pages": 4,
-  "extraction_time_seconds": 824.17,
+  "extraction_time_seconds": 589.38,
   "model": "qwen2.5:7b"
 }

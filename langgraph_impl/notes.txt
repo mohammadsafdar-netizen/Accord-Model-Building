@@ -1,0 +1,48 @@
+Implemented Tool Registry
+Here is the complete list of tools available for your agents:
+
+1. Orchestrator Agent (src/tools/orchestrator.py)
+route_to_agent: Decides the next agent based on the current phase and validation status.
+validate_state_transition: Ensures workflow moves legally between phases (e.g., Common -> Form Specific).
+check_workflow_completion: Determines if the current phase is complete.
+create_checkpoint / recover_from_checkpoint: Manages state persistence (Mocked).
+2. Input Validation Agent (src/tools/validator.py)
+validate_field_type: Checks primitive types (int, float, bool).
+validate_ssn: Validates Social Security Numbers.
+validate_email: Validates email addresses.
+validate_phone: Normalizes phone numbers to standard format.
+validate_date: validating and standardizing date strings.
+validate_currency: Parsing and validating currency strings.
+3. Schema Mapping Agent (src/tools/mapper.py)
+map_to_common_schema: Standardizes diverse input keys to your canonical schema.
+map_common_field_to_all_forms: Deterministically maps common fields to all 4 ACORD forms.
+convert_to_schema_type: Coerces values to the required schema types.
+navigate_nested_schema: Helper for setting deep JSON values.
+4. Conversation Manager Agent (src/tools/conversation.py)
+generate_next_question: Selects the next best question to ask the user.
+classify_user_intent: Determines if the user wants to submit, cancel, or provide info.
+track_conversation_context: Manages the chat history buffer.
+calculate_form_progress: returns the completion percentage.
+5. Form Population Agent (src/tools/form_population.py)
+fill_pdf_form_field: Writes data to PDF fields (Mocked).
+read_pdf_form_fields: Verifies data written to PDFs.
+auto_fill_common_fields_all_forms: Batch fills multiple forms with common data.
+6. Completeness Verification Agent (src/tools/completeness.py)
+check_required_fields: Identifies missing mandatory data.
+validate_business_rules: Enforces custom insurance logic (e.g., non-negative coverage).
+calculate_submission_readiness: Scores the application for submission quality.
+7. Email Processing Agent (src/tools/email.py)
+send_email_with_forms: Simulates sending emails with attachments.
+check_for_new_emails: Simulates checking the inbox.
+parse_email_message: Extracts data from raw emails.
+8. Document Intelligence Agent (src/tools/doc_intel.py)
+perform_ocr: Simulates text extraction from documents.
+extract_form_fields: Returns structured data from document images.
+detect_form_type: Identifies uploaded form types.
+9. Guidewire Integration Agent (src/tools/guidewire.py)
+call_guidewire_api: Simulates API calls to PolicyCenter.
+build_quote_request_payload: Transforms data into the Guidewire schema.
+check_quote_status: Tracks quote generation progress.
+10. Monitoring & Logging Agent (src/tools/monitoring.py)
+log_event: Structured logging for all system events.
+publish_metric: Records performance metrics (latency, success rates).

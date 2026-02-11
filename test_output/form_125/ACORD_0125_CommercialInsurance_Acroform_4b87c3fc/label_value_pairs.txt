@@ -1,0 +1,125 @@
+--- Page 1 ---
+Zurich North America Insurance Company LLC -> 16535
+IN -> 46225
+GANEACT -> Stephen Walker
+PHONFo. Extl: -> 317-123-4567
+FAX -> 317-123-4568
+ADDRESS: -> stephen:walker@hernandezcarter.com
+CODE: -> Hernandez-Carter
+CANCEL -> 01/16/2024
+CYBER AND PRIVACY -> 1000
+FIDUCIARY LIABILITY -> 5000
+BUSINESS OWNERS -> 50000
+GARAGE AND DEALERS -> 3000
+COMMERCIAL GENERAL LIABILITY -> 600000
+LIQUOR LIABILITY -> S
+COMMERCIAL INLAND MARINE -> 75000
+MOTOR CARRIER -> 50000
+COMMERCIAL PROPERTY -> 300000
+Our company has -> lemented various safety protocpls
+DIRECT -> Monthly
+NAICS -> FEIN OR SOC SEC #
+IN -> 46225
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> 2
+NAICS -> FEIN OR SOC SEC #
+BUSINESS PHONE # -> 123-4567
+IN -> 46225
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> 2
+NAICS -> FEIN OR SOC SEC #
+IN -> 46204
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> 2
+
+--- Page 2 ---
+CONTACT TYPE: -> General Information
+CONTACT NAME: -> Stephen Walker
+STREET -> 101 W Washington St
+INTEREST -> #FULL TIME EMPL
+OWNER -> 20
+OCCUPIED AREA: -> 60
+CITY: -> Indianapolis
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 40
+COUNTY: -> Marion
+TOTAL BUILDING AREA: -> 15000
+DESCRIPTION OF OPERATIONS: -> Food Service Establishment
+STREET -> 101 W Washington St
+FULL TIME EMPL -> ANNUAL REVENUES: $
+OWNER -> 20
+OCCUPIED AREA: -> 60
+CITY: -> Indianapolis
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 40
+COUNTY: -> Marion
+TOTAL BUILDING AREA: -> 9000
+DESCRIPTION OF OPERATIONS: -> Food Service Establishment
+STREET -> 101 W Washington St
+ANNUAL REVENUES: -> S
+OWNER -> 30
+OCCUPIED AREA: -> 5000
+CITY: -> Indianapolis
+OPEN TO PUBLIC AREA: -> 1000
+COUNTY: -> Marion
+TOTAL BUILDING AREA: -> 1500
+ZIP:46225 -> Full-s
+DESCRIPTION OF OPERATIONS: -> Restaurants; Bars, Events
+STREET -> 101 W Washington St
+INTEREST -> #FULL TIME EMPL
+OWNER -> 50
+OCCUPIED AREA: -> 500
+CITY: -> Indianapolis
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 1000
+COUNTY: -> Marion
+ZIP:46225 -> Indiar
+DESCRIPTION OF OPERATIONS: -> Commercial Building Construction and Full-Service Restaurant Operations
+SERVICE -> Full-Service Restaural
+0.5 -> %
+LOSS PAYEE -> 101 W Washington St
+ITEM -> N
+OWNER -> Indianapolis
+IN -> 46225
+REFERENCE -> LOAN #
+INTEREST END DATE: -> 06/30/2024
+PHONE (AC, No, Ext): -> 317-123-4567
+
+--- Page 3 ---
+RELATIONSHIP DESCRIPTION -> % OWNED
+RELATIONSHIP DESCRIPTION -> % OWNED
+HAS APPLICANT HAD A FORECLOSURE, REPOSSESSION, BANKRUPTCY OR FILED FOR BANKRUPTCY DURING THE LAST FIVE (5) YEARS? -> )pe
+REMARKS -> PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule, may be attached if more space is required)
+PROPERTY -> OTHER: 5812
+POLICY NUMBER -> BA-37810023
+PREMIUM -> $80,000.00
+EFFECTIVE DATE -> 06/01/2018
+EXPIRATION DATE -> 08/31/2021
+
+--- Page 4 ---
+PROPERTY -> OTHER: 5812
+POLICY NUMBER -> BA-37810023
+EFFECTIVE DATE -> 08/27/2021
+EXPIRATION DATE -> 08/27/2024
+CARRIER -> Zurich North America
+PREMIUM -> S150,000.00
+EFFECTIVE DATE -> 08/27/2021
+EXPIRATION DATE -> 08/27/2024
+ENTER ALL CLAIMS OR LOSSES (REGARDLESS OF FAULT AND WHETHER OR NOT INSURED) OR OCCURRENCES THAT MAY GIVE RISE TO CLAIMS -> TOTAL LOSSES: $
+GATION -> Y
+AMOUNT RESERVED -> N
+10000.0 -> 5000.0
+0.0 -> N
+0.0 -> 0.0
+0.0 -> 0.0
+Applicable in AL, AR; DC, LA, MD; NM; RI and WV: -> Any _
+benefit or knowingly (or willfully) -> presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in
+Applicable in FL and OK: -> Any
+Applicable in KS: -> Any
+presented to or by an insurer, purported insurer, broker or any agent thereof, any written statement as part of, -> or in support of, an application for the issuance
+of defrauding the company. -> Penalties (may) * include imprisonment; fines and denial of insurance benefits _
+Applicable in NJ: -> Any
+Applicable in OR: -> Any
+Applicable in PR: -> Any
+ANSWERS TO QUESTIONS ON THIS APPLICATION: -> HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+

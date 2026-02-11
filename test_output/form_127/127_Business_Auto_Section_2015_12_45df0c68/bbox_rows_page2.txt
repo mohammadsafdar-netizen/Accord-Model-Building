@@ -1,0 +1,36 @@
+y≈155: [x=406]GENERAL INFORMATION (continued) | [x=1513]AGENCY CUSTOMER ID: | [x=1909]Martin-Simmons LLC
+y≈206: [x=171]EXPLAIN ALL | [x=378]YES" RESPONSES | [x=2428]YIN
+y≈248: [x=97]83 | [x=422]ANY HOLD HARMLESS AGREEMENTS? | [x=2428]N
+y≈398: [x=98]9 | [x=586]ANY VEHICLES USED BY FAMILY MEMBERS? IF SO, IDENTIFY.
+y≈474: [x=1026]We have two vehicles in our family: one for personal use and the other for business
+y≈547: [x=108]10_ | [x=679]DOES THE APPLICANT OBTAIN MVR (Motor Vehicle Record) VERIFICATIONS? | [x=2427]N
+y≈698: [x=108]11_ | [x=663]DOES THE APPLICANT HAVE A SPECIFIC DRIVER RECRUITING METHOD?
+y≈771: [x=1039]We recruit drivers from various sources, including local job fairs and online platforms
+y≈848: [x=108]12_ | [x=626]ARE ANY DRIVERS NOT COVERED BY WORKERS COMPENSATION? | [x=2428]N
+y≈997: [x=109]13. | [x=649]ANY VEHICLES OWNED BUT NOT SCHEDULED ON THIS APPLICATION?
+y≈1063: [x=127]1,2
+y≈1147: [x=108]14_ | [x=656]ANY DRIVERS WITH CONVICTIONS FOR MOVING TRAFFIC VIOLATIONS?
+y≈1222: [x=176]1. | [x=343]APPLICABLE ONLY IN KANSAS: | [x=1084]A speeding violation of up to six (6) miles per hour (mph) that occurs in an area with a maximum posted speed Iimit trom 30 mph through 54 mph; or | [x=1268]UNDER KANSAS LAW, THE FOLLOWING TRAFFIC VIOLATIONS ARE NOT REQUIRED TO BE REPORTED TO INSURERS:
+y≈1253: [x=174]2 | [x=1075]A speeding violation of Up to ten (10) miles per hour (mph) that occurs in an area with a maximum posted speed limit from 55 mph through 75 mph:
+y≈1297: [x=203]DRV # | [x=390]DATE (MMIDDIYYYY) | [x=572]TYPE | [x=1570]PLACE (CITY, STATE) | [x=2226]#YRS REV
+y≈1348: [x=388]03/10/2020 | [x=783]Rear-end collision with & sedan | [x=2225]5
+y≈1398: [x=108]15_ | [x=405]HAS AGENT INSPECTED VEHICLES? | [x=2427]N
+y≈1561: [x=109]16. | [x=661]ARE ALL VEHICLES TO BE INCLUDED IN THIS POLICY PART OF A FLEET?
+y≈1623: [x=109]17. | [x=983]DO YOU HAVE ELECTRONIC MONITORING DEVICES THAT RECORD AND TRANSMIT DATA IN ANY OF YOUR VEHICLES? | [x=2427]N
+y≈1675: [x=563]If "YES" , what percentage of vehicles in your overall tleet are monitored (1 | [x=1034]100%) | [x=1178]80 | [x=1240]% | [x=1652]Please indicate how you utilize the devices (check all that apply):
+y≈1723: [x=387]MONITOR DRIVER SAFETY | [x=819]TRACK FUEL CONSUMPTION | [x=1334]MONITOR VEHICLE MAINTENANCE | [x=1787]MILEAGE TRACKING | [x=2155]LOCATION TRACKING
+y≈1774: [x=302]NAVIGATION | [x=1103]Describe:
+y≈1819: [x=251]DESCRIPTION OF GARAGE | [x=568]STORAGE LOCATIONS | [x=2167]MAXIMUM DOLLAR VALUE SUBJECT TO LOSS
+y≈1875: [x=342]123 Main St, Anytown CA 12345 | [x=1899]$ | [x=2005]8100,000
+y≈1928: [x=292]ADDITIONAL INTEREST | [x=734]CERTIFICATE RECIPIENT | [x=1437]ACORD 45 attached tor additional names
+y≈1972: [x=149]INTEREST | [x=206]INSURED | [x=218]EMPLOYEE | [x=221]AS LESSOR | [x=226]ADDITIONAL | [x=452]OWNER | [x=484]LOSS PAYEE | [x=728]NAME AND ADDRESS | [x=925]RANK: | [x=1192]EVIDENCE: | [x=1430]CERTIFICATE | [x=1946]VEHICLE:
+y≈2136: [x=199]PAYABLE | [x=234]LENDER'S LOSS | [x=484]REGISTRANT
+y≈2173: [x=230]LIENHOLDER | [x=698]San Diego | [x=1567]CA 92101
+y≈2284: [x=676]REFERENCE | [x=821]LOAN #:
+y≈2323: [x=149]INTEREST | [x=206]INSURED | [x=225]ADDITIONAL | [x=484]LOSS PAYEE | [x=728]NAME AND ADDRESS | [x=975]RANK: ua Tl | [x=1192]EVIDENCE: | [x=1430]CERTIFICATE | [x=1946]VEHICLE: | [x=2066]Any | [x=2173]INTEREST IN ITEM NUMBER | [x=2258]LOCATION:
+y≈2424: [x=221]ESBEGSBR | [x=452]OWNER | [x=787]123 N. Fair Oaks Ave
+y≈2485: [x=199]PAYABLE | [x=234]LENDER'S LOSS | [x=484]REGISTRANT
+y≈2524: [x=230]LIENHOLDER | [x=693]Pasadena | [x=1508]CA | [x=1606]91105
+y≈2632: [x=676]REFERENCE | [x=819]LOAN #:
+y≈2679: [x=909]REMARKS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)
+y≈3175: [x=270]ACORD 127 (2015/12) | [x=1272]Page 2 of 4

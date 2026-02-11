@@ -1,0 +1,3652 @@
+{
+  "total_gt_fields": 728,
+  "matched": 175,
+  "partial_match": 3,
+  "missing": 514,
+  "wrong": 36,
+  "field_results": {
+    "Form_CompletionDate_A": {
+      "status": "matched",
+      "expected": "05/23/2024",
+      "extracted": "05/23/2024"
+    },
+    "Insurer_FullName_A": {
+      "status": "matched",
+      "expected": "Selective Insurance Company",
+      "extracted": "Selective Insurance Company"
+    },
+    "Insurer_NAICCode_A": {
+      "status": "matched",
+      "expected": "23043",
+      "extracted": "23043"
+    },
+    "NamedInsured_FullName_A": {
+      "status": "matched",
+      "expected": "Scott Group Corporation",
+      "extracted": "Scott Group Corporation"
+    },
+    "Policy_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "06/01/2024",
+      "extracted": "06/01/2024"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "BA-78839820",
+      "extracted": "BA-78839820"
+    },
+    "Producer_CustomerIdentifier_A": {
+      "status": "matched",
+      "expected": "29-5154368",
+      "extracted": "29-5154368"
+    },
+    "Producer_FullName_A": {
+      "status": "matched",
+      "expected": "Shelly Combs",
+      "extracted": "Shelly Combs"
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "BroadenedNoFault_A": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "UseVeh_A": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "% Use": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "EffectiveDate": {
+      "status": "missing",
+      "expected": "02/01/2024",
+      "extracted": null
+    },
+    "ExpirationDate": {
+      "status": "missing",
+      "expected": "03/01/2025",
+      "extracted": null
+    },
+    "AnnualDeductible_A": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "TowingCoverage_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "RentalCoverage_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LiabilityCoverage_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CollisionCoverage_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "UMUIMCoverage_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_BirthDate_A": {
+      "status": "matched",
+      "expected": "03/07/1968",
+      "extracted": "03/07/1968"
+    },
+    "Driver_GivenName_A": {
+      "status": "matched",
+      "expected": "Amanda",
+      "extracted": "Amanda"
+    },
+    "Driver_GenderCode_A": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_LicenseNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "TX-504383",
+      "extracted": "TX-504383"
+    },
+    "Driver_LicensedStateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_A": {
+      "status": "matched",
+      "expected": "1988",
+      "extracted": "1988"
+    },
+    "Driver_ExperienceYearCount_A": {
+      "status": "matched",
+      "expected": "36",
+      "extracted": "36"
+    },
+    "Driver_TaxIdentifier_A": {
+      "status": "missing",
+      "expected": "38-3064846",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_A": {
+      "status": "wrong",
+      "expected": "50",
+      "extracted": "%"
+    },
+    "Driver_BirthDate_B": {
+      "status": "matched",
+      "expected": "03/07/1968",
+      "extracted": "03/07/1968"
+    },
+    "Driver_GivenName_B": {
+      "status": "matched",
+      "expected": "Amanda",
+      "extracted": "Amanda"
+    },
+    "Driver_GenderCode_B": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_LicenseNumberIdentifier_B": {
+      "status": "matched",
+      "expected": "TX-504383",
+      "extracted": "TX-504383"
+    },
+    "Driver_LicensedStateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_B": {
+      "status": "matched",
+      "expected": "1988",
+      "extracted": "1988"
+    },
+    "Driver_ExperienceYearCount_B": {
+      "status": "matched",
+      "expected": "36",
+      "extracted": "36"
+    },
+    "Driver_TaxIdentifier_B": {
+      "status": "wrong",
+      "expected": "38-3064846",
+      "extracted": "TErR"
+    },
+    "Driver_Vehicle_UsePercent_B": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "chk_Box_ProducerIsAuthorized": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_Box_SmallBusinessIsAuthorized": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_Box_DriverLicenseIsRequiredForCoverage": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_Box_NoFaultIsBroadened": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_Box_DocIsUsed": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Use_Veh_1": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Use_Veh_2": {
+      "status": "missing",
+      "expected": 3,
+      "extracted": null
+    },
+    "% Use_1": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "% Use_2": {
+      "status": "missing",
+      "expected": 20,
+      "extracted": null
+    },
+    "CityName_A": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "MailingAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Irving",
+      "extracted": null
+    },
+    "MailingAddress_PostalCode_B": {
+      "status": "missing",
+      "expected": "75061",
+      "extracted": null
+    },
+    "MailingAddress_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "MaritalStatusCode_A": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "ProducerIdentifier_A": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Surname_A": {
+      "status": "missing",
+      "expected": "Lara",
+      "extracted": null
+    },
+    "TaxIdentifier_A": {
+      "status": "missing",
+      "expected": "61-6407419",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_1": {
+      "status": "missing",
+      "expected": "SC-001",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_2": {
+      "status": "missing",
+      "expected": "SC-002",
+      "extracted": null
+    },
+    "chk_Box_HasVMPolicy": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_Box_PullsMVRsBeforeHiring": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_Box HasDriverViolations": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "MailingAddress_CityName_C": {
+      "status": "missing",
+      "expected": "Fort Worth",
+      "extracted": null
+    },
+    "MailingAddress_PostalCode_C": {
+      "status": "missing",
+      "expected": "76107",
+      "extracted": null
+    },
+    "MailingAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "GARAGINGLocation_CityName": {
+      "status": "missing",
+      "expected": "Frisco",
+      "extracted": null
+    },
+    "GARAGINGLocation_PostalCode_C": {
+      "status": "missing",
+      "expected": "75035",
+      "extracted": null
+    },
+    "PolicyEffectiveDate_A": {
+      "status": "missing",
+      "expected": "01/01/2023",
+      "extracted": null
+    },
+    "PolicyExpirationDate_A": {
+      "status": "missing",
+      "expected": "12/31/2024",
+      "extracted": null
+    },
+    "chk_Box_CommercialUseIsAllowed": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_Box_TransportHazMatIsAllowed": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "PurchaserName_A": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "PurchaserAddress_CityName_D": {
+      "status": "missing",
+      "expected": "Plano",
+      "extracted": null
+    },
+    "PurchaserAddress_PostalCode_D": {
+      "status": "missing",
+      "expected": "75093",
+      "extracted": null
+    },
+    "PurchaserAddress_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Driver_MailingAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_B": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Driver_Surname_B": {
+      "status": "matched",
+      "expected": "Smith",
+      "extracted": "Smith"
+    },
+    "Driver_Vehicle_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "Driver_BirthDate_C": {
+      "status": "matched",
+      "expected": "08/15/1956",
+      "extracted": "08/15/1956"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_C": {
+      "status": "matched",
+      "expected": "52",
+      "extracted": "52"
+    },
+    "Driver_GenderCode_C": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_C": {
+      "status": "matched",
+      "expected": "Cynthia",
+      "extracted": "Cynthia"
+    },
+    "Driver_HiredDate_C": {
+      "status": "wrong",
+      "expected": "01/01/2020",
+      "extracted": "03/07/1972"
+    },
+    "Driver_LicenseNumberIdentifier_C": {
+      "status": "matched",
+      "expected": "L472093795407",
+      "extracted": "L472093795407"
+    },
+    "Driver_LicensedStateOrProvinceCode_C": {
+      "status": "wrong",
+      "expected": "MD",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_C": {
+      "status": "matched",
+      "expected": "1972",
+      "extracted": "1972"
+    },
+    "Driver_MailingAddress_CityName_C": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_C": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_C": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_C": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_C": {
+      "status": "wrong",
+      "expected": 3,
+      "extracted": "60"
+    },
+    "Driver_Surname_C": {
+      "status": "matched",
+      "expected": "Harrison",
+      "extracted": "Harrison"
+    },
+    "Driver_TaxIdentifier_C": {
+      "status": "wrong",
+      "expected": "16-2408746",
+      "extracted": "TErR"
+    },
+    "Driver_Vehicle_ProducerIdentifier_C": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_C": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "Driver_BirthDate_D": {
+      "status": "matched",
+      "expected": "09/12/1994",
+      "extracted": "09/12/1994"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_D": {
+      "status": "matched",
+      "expected": "14",
+      "extracted": "14"
+    },
+    "Driver_GenderCode_D": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_D": {
+      "status": "matched",
+      "expected": "Monica",
+      "extracted": "Monica"
+    },
+    "Driver_LicenseNumberIdentifier_D": {
+      "status": "matched",
+      "expected": "TX-990898",
+      "extracted": "TX-990898"
+    },
+    "Driver_LicensedStateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_D": {
+      "status": "matched",
+      "expected": 2010,
+      "extracted": "2010"
+    },
+    "Driver_MailingAddress_CityName_D": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_D": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_D": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_D": {
+      "status": "missing",
+      "expected": 4,
+      "extracted": null
+    },
+    "Driver_Surname_D": {
+      "status": "matched",
+      "expected": "Mills",
+      "extracted": "Mills"
+    },
+    "Driver_TaxIdentifier_D": {
+      "status": "wrong",
+      "expected": "12-1181152",
+      "extracted": "TX-75277"
+    },
+    "Driver_Vehicle_UsePercent_D": {
+      "status": "wrong",
+      "expected": 100,
+      "extracted": "0.9"
+    },
+    "Driver_BirthDate_E": {
+      "status": "matched",
+      "expected": "05/19/2003",
+      "extracted": "05/19/2003"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_E": {
+      "status": "missing",
+      "expected": "4",
+      "extracted": null
+    },
+    "Driver_GenderCode_E": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_E": {
+      "status": "matched",
+      "expected": "Karen",
+      "extracted": "Karen"
+    },
+    "Driver_LicenseNumberIdentifier_E": {
+      "status": "matched",
+      "expected": "TX-643536",
+      "extracted": "TX-643536"
+    },
+    "Driver_LicensedStateOrProvinceCode_E": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_E": {
+      "status": "matched",
+      "expected": 2020,
+      "extracted": "2020"
+    },
+    "chk_BroadenedNoFaultIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_DriverOtherCarIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "box_CoverageUseVehNumber_1": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "box_CoverageUseVehNumber_2": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "box_CoverageUseVehPercent_1": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "box_CoverageUseVehPercent_2": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "chk_LesseeVehicleLeaseIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_InterstateCommerceIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_TransportHazardousMaterialsIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_VehicleMaintenanceProgramIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_MVRsBeforeHiringIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_DriverViolationsIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "box_GaragingLocation_3": {
+      "status": "missing",
+      "expected": "Dallas, TX",
+      "extracted": null
+    },
+    "chk_LoanOrLienIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_MailingAddress_CityName_E": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_E": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_E": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_E": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_E": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Driver_Surname_E": {
+      "status": "matched",
+      "expected": "Combs",
+      "extracted": "Combs"
+    },
+    "Driver_TaxIdentifier_E": {
+      "status": "missing",
+      "expected": "35-5927899",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_E": {
+      "status": "missing",
+      "expected": "Scott Group",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_E": {
+      "status": "missing",
+      "expected": "80",
+      "extracted": null
+    },
+    "Driver_BirthDate_F": {
+      "status": "matched",
+      "expected": "07/17/1960",
+      "extracted": "07/17/1960"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_F": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_F": {
+      "status": "matched",
+      "expected": "47",
+      "extracted": "47"
+    },
+    "Driver_GenderCode_F": {
+      "status": "wrong",
+      "expected": "M",
+      "extracted": "F S"
+    },
+    "Driver_GivenName_F": {
+      "status": "matched",
+      "expected": "Matthew",
+      "extracted": "Matthew"
+    },
+    "Driver_HiredDate_F": {
+      "status": "wrong",
+      "expected": "01/01/2020",
+      "extracted": "07/17/1960"
+    },
+    "Driver_LicenseNumberIdentifier_F": {
+      "status": "matched",
+      "expected": "TX-691424",
+      "extracted": "TX-691424"
+    },
+    "Driver_LicensedStateOrProvinceCode_F": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_F": {
+      "status": "matched",
+      "expected": "1977",
+      "extracted": "1977"
+    },
+    "Driver_MaritalStatusCode_F": {
+      "status": "wrong",
+      "expected": "M",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_F": {
+      "status": "wrong",
+      "expected": 6,
+      "extracted": "TErR"
+    },
+    "Driver_Surname_F": {
+      "status": "matched",
+      "expected": "Dixon",
+      "extracted": "Dixon"
+    },
+    "Driver_TaxIdentifier_F": {
+      "status": "missing",
+      "expected": "92-5994330",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_F": {
+      "status": "missing",
+      "expected": "Scott Group",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_F": {
+      "status": "missing",
+      "expected": "40",
+      "extracted": null
+    },
+    "Driver_BirthDate_G": {
+      "status": "matched",
+      "expected": "03/07/1972",
+      "extracted": "03/07/1972"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_G": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_G": {
+      "status": "matched",
+      "expected": "34",
+      "extracted": "34"
+    },
+    "Driver_GenderCode_G": {
+      "status": "missing",
+      "expected": "F",
+      "extracted": null
+    },
+    "Driver_GivenName_G": {
+      "status": "matched",
+      "expected": "Rachel",
+      "extracted": "Rachel"
+    },
+    "Driver_LicenseNumberIdentifier_G": {
+      "status": "matched",
+      "expected": "V781981849562",
+      "extracted": "V781981849562"
+    },
+    "Driver_LicensedStateOrProvinceCode_G": {
+      "status": "matched",
+      "expected": "MD",
+      "extracted": "MD"
+    },
+    "Driver_LicensedYear_G": {
+      "status": "matched",
+      "expected": "1990",
+      "extracted": "1990"
+    },
+    "Driver_MailingAddress_CityName_G": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_G": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_G": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_G": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Driver_ProducerIdentifier_G": {
+      "status": "missing",
+      "expected": 7,
+      "extracted": null
+    },
+    "Driver_Surname_G": {
+      "status": "matched",
+      "expected": "Evans",
+      "extracted": "Evans"
+    },
+    "Driver_TaxIdentifier_G": {
+      "status": "missing",
+      "expected": "99-7336983",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_G": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "Driver_BirthDate_H": {
+      "status": "matched",
+      "expected": "05/16/2001",
+      "extracted": "05/16/2001"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_H": {
+      "status": "matched",
+      "expected": "6",
+      "extracted": "6"
+    },
+    "Driver_GenderCode_H": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_H": {
+      "status": "matched",
+      "expected": "Martin",
+      "extracted": "Martin"
+    },
+    "Driver_LicenseNumberIdentifier_H": {
+      "status": "matched",
+      "expected": "TX-165979",
+      "extracted": "TX-165979"
+    },
+    "Driver_LicensedStateOrProvinceCode_H": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_H": {
+      "status": "matched",
+      "expected": "2018",
+      "extracted": "2018"
+    },
+    "Driver_MailingAddress_CityName_H": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_H": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_H": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_H": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_H": {
+      "status": "missing",
+      "expected": 8,
+      "extracted": null
+    },
+    "Driver_Surname_H": {
+      "status": "matched",
+      "expected": "Watkins",
+      "extracted": "Watkins"
+    },
+    "Driver_TaxIdentifier_H": {
+      "status": "missing",
+      "expected": "12-7114208",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_H": {
+      "status": "missing",
+      "expected": "SCOTTG",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_H": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "Driver_BirthDate_I": {
+      "status": "matched",
+      "expected": "05/16/2001",
+      "extracted": "05/16/2001"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_I": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_I": {
+      "status": "partial",
+      "expected": "6",
+      "extracted": "60"
+    },
+    "Driver_GenderCode_I": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_I": {
+      "status": "matched",
+      "expected": "Martin",
+      "extracted": "Martin"
+    },
+    "Driver_HiredDate_I": {
+      "status": "wrong",
+      "expected": "01/10/2022",
+      "extracted": "03/07/1972"
+    },
+    "Driver_LicenseNumberIdentifier_I": {
+      "status": "matched",
+      "expected": "TX-165979",
+      "extracted": "TX-165979"
+    },
+    "Driver_LicensedStateOrProvinceCode_I": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_I": {
+      "status": "matched",
+      "expected": "2018",
+      "extracted": "2018"
+    },
+    "Driver_MailingAddress_CityName_I": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_I": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_I": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_I": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_I": {
+      "status": "missing",
+      "expected": 9,
+      "extracted": null
+    },
+    "Driver_Surname_I": {
+      "status": "matched",
+      "expected": "Watkins",
+      "extracted": "Watkins"
+    },
+    "Driver_TaxIdentifier_I": {
+      "status": "wrong",
+      "expected": "12-7114208",
+      "extracted": "TX-75277"
+    },
+    "Driver_Vehicle_ProducerIdentifier_I": {
+      "status": "missing",
+      "expected": "SCOTTG",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_I": {
+      "status": "wrong",
+      "expected": "60",
+      "extracted": "0.5"
+    },
+    "Driver_BirthDate_J": {
+      "status": "matched",
+      "expected": "08/15/1994",
+      "extracted": "08/15/1994"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_J": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_J": {
+      "status": "matched",
+      "expected": "11",
+      "extracted": "11"
+    },
+    "Driver_GenderCode_J": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_J": {
+      "status": "matched",
+      "expected": "Kenneth",
+      "extracted": "Kenneth"
+    },
+    "Driver_LicenseNumberIdentifier_J": {
+      "status": "matched",
+      "expected": "E934681272725",
+      "extracted": "E934681272725"
+    },
+    "Driver_LicensedStateOrProvinceCode_J": {
+      "status": "matched",
+      "expected": "MD",
+      "extracted": "MD"
+    },
+    "Driver_LicensedYear_J": {
+      "status": "matched",
+      "expected": "2013",
+      "extracted": "2013"
+    },
+    "Driver_MailingAddress_CityName_J": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_J": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_J": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_J": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_J": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "Driver_Surname_J": {
+      "status": "matched",
+      "expected": "Norton",
+      "extracted": "Norton"
+    },
+    "Driver_TaxIdentifier_J": {
+      "status": "wrong",
+      "expected": "61-7175776",
+      "extracted": "TX-75277"
+    },
+    "Driver_Vehicle_ProducerIdentifier_J": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_J": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "Driver_BirthDate_K": {
+      "status": "matched",
+      "expected": "03/26/1980",
+      "extracted": "03/26/1980"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_K": {
+      "status": "matched",
+      "expected": "26",
+      "extracted": "26"
+    },
+    "Driver_GenderCode_K": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_K": {
+      "status": "matched",
+      "expected": "James",
+      "extracted": "James"
+    },
+    "Driver_LicenseNumberIdentifier_K": {
+      "status": "matched",
+      "expected": "TX-749023",
+      "extracted": "TX-749023"
+    },
+    "Driver_LicensedStateOrProvinceCode_K": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_K": {
+      "status": "matched",
+      "expected": "1998",
+      "extracted": "1998"
+    },
+    "chk_DriverEligibleForCreditRating_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_DriverHadMVRsBeforeHiring_J": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_DriverHasVehicleMaintenanceProgram_J": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "box_VehicleUseIndicator_J": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "box_GaragingLocationIndicator_K": {
+      "status": "missing",
+      "expected": "Dallas, Dallas County, TX",
+      "extracted": null
+    },
+    "Driver_MailingAddress_CityName_K": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_K": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_K": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_K": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_K": {
+      "status": "missing",
+      "expected": 11,
+      "extracted": null
+    },
+    "Driver_Surname_K": {
+      "status": "matched",
+      "expected": "Combs",
+      "extracted": "Combs"
+    },
+    "Driver_TaxIdentifier_K": {
+      "status": "wrong",
+      "expected": "73-2869354",
+      "extracted": "03/07/1972"
+    },
+    "Driver_Vehicle_ProducerIdentifier_K": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_K": {
+      "status": "missing",
+      "expected": "40",
+      "extracted": null
+    },
+    "Driver_BirthDate_L": {
+      "status": "matched",
+      "expected": "03/26/1980",
+      "extracted": "03/26/1980"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_L": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_L": {
+      "status": "matched",
+      "expected": "26",
+      "extracted": "26"
+    },
+    "Driver_GenderCode_L": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_L": {
+      "status": "matched",
+      "expected": "James",
+      "extracted": "James"
+    },
+    "Driver_HiredDate_L": {
+      "status": "missing",
+      "expected": "01/01/2020",
+      "extracted": null
+    },
+    "Driver_LicenseNumberIdentifier_L": {
+      "status": "matched",
+      "expected": "TX-749023",
+      "extracted": "TX-749023"
+    },
+    "Driver_LicensedStateOrProvinceCode_L": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_L": {
+      "status": "matched",
+      "expected": "1998",
+      "extracted": "1998"
+    },
+    "Driver_MailingAddress_CityName_L": {
+      "status": "matched",
+      "expected": "Dallas",
+      "extracted": "Dallas"
+    },
+    "Driver_MailingAddress_PostalCode_L": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_L": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_L": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_L": {
+      "status": "missing",
+      "expected": 12,
+      "extracted": null
+    },
+    "Driver_Surname_L": {
+      "status": "matched",
+      "expected": "Blevins",
+      "extracted": "Blevins"
+    },
+    "Driver_TaxIdentifier_L": {
+      "status": "missing",
+      "expected": "73-2869354",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_L": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_L": {
+      "status": "missing",
+      "expected": "40",
+      "extracted": null
+    },
+    "Driver_BirthDate_M": {
+      "status": "matched",
+      "expected": "03/22/1985",
+      "extracted": "03/22/1985"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_M": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_M": {
+      "status": "matched",
+      "expected": "21",
+      "extracted": "21"
+    },
+    "Driver_GenderCode_M": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_M": {
+      "status": "matched",
+      "expected": "Angela",
+      "extracted": "Angela"
+    },
+    "Driver_HiredDate_M": {
+      "status": "missing",
+      "expected": "01/01/2020",
+      "extracted": null
+    },
+    "Driver_LicenseNumberIdentifier_M": {
+      "status": "matched",
+      "expected": "TX-422700",
+      "extracted": "TX-422700"
+    },
+    "Driver_LicensedStateOrProvinceCode_M": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_LicensedYear_M": {
+      "status": "matched",
+      "expected": "2003",
+      "extracted": "2003"
+    },
+    "Driver_MailingAddress_CityName_M": {
+      "status": "missing",
+      "expected": "Plano",
+      "extracted": null
+    },
+    "Driver_MailingAddress_PostalCode_M": {
+      "status": "matched",
+      "expected": "75024",
+      "extracted": "75024"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_M": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Driver_MaritalStatusCode_M": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_M": {
+      "status": "missing",
+      "expected": 13,
+      "extracted": null
+    },
+    "Driver_Surname_M": {
+      "status": "matched",
+      "expected": "Scott",
+      "extracted": "Scott"
+    },
+    "Driver_TaxIdentifier_M": {
+      "status": "wrong",
+      "expected": "75-1586500",
+      "extracted": "07/17/1960"
+    },
+    "Driver_Vehicle_ProducerIdentifier_M": {
+      "status": "missing",
+      "expected": "TX-422700",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_M": {
+      "status": "missing",
+      "expected": "70",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_OperationInvolveTransportingHazardousMaterialsExplanation_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAGCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAJCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_ABACode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_ABCCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KADCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_VehicleMaintenanceProgramInOperationExplanation_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_VehiclesLeasedToOthersExplanation_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Question_ModifiedEquipmentCostAmount_A": {
+      "status": "missing",
+      "expected": 5000.0,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AA": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AB": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AC": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AD": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "AccidentConviction_DriverProducerIdentifier_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "AccidentConviction_TrafficViolationDate_A": {
+      "status": "missing",
+      "expected": "05/10/2022",
+      "extracted": null
+    },
+    "AccidentConviction_TrafficViolationDescription_A": {
+      "status": "partial",
+      "expected": "Speeding",
+      "extracted": "A speeding violation of up to six (6) miles per hour (mph) that occurs in an area with a maximum posted speed limit from 30 mph through 54 mph; or"
+    },
+    "AccidentConviction_ViolationYearCount_A": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_AnyDriversNotCoveredWorkersCompensationExplanation": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_AnyVehiclesOwnedNotScheduledExplanation": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ApplicantObtainMVRVerificationsExplanation": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator": {
+      "status": "missing",
+      "expected": "",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_FleetMonitoredPercent_A": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MileageTrackingDeviceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorDriverSafetyIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorVehicleMaintenanceIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_NavigationIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_TrackFuelConsumptionIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_GarageStorageDescription_A": {
+      "status": "missing",
+      "expected": "Garage in Dallas",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_KAHCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_LocationTrackingDeviceIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_MaximumExposureAllVehiclesAmount_A": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AABCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AACCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AADCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAHCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAICode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_ABBCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Surname_A": {
+      "status": "matched",
+      "expected": "Smith",
+      "extracted": "Smith"
+    },
+    "NamedInsured_MaritalStatus_A": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "VehicleNumber_1": {
+      "status": "missing",
+      "expected": "TX-123456",
+      "extracted": null
+    },
+    "VehicleYear_1": {
+      "status": "missing",
+      "expected": "2018",
+      "extracted": null
+    },
+    "VehicleMake_1": {
+      "status": "missing",
+      "expected": "Toyota",
+      "extracted": null
+    },
+    "VehicleModel_1": {
+      "status": "missing",
+      "expected": "Camry",
+      "extracted": null
+    },
+    "VehicleBodyType_1": {
+      "status": "missing",
+      "expected": "Sedan",
+      "extracted": null
+    },
+    "VehicleVIN_1": {
+      "status": "missing",
+      "expected": "JTSRJ6F62X030012",
+      "extracted": null
+    },
+    "VehicleClassification_1": {
+      "status": "missing",
+      "expected": "Private Passenger",
+      "extracted": null
+    },
+    "VehicleGCVW_1": {
+      "status": "missing",
+      "expected": "2500",
+      "extracted": null
+    },
+    "VehicleGCW_1": {
+      "status": "missing",
+      "expected": "28000",
+      "extracted": null
+    },
+    "VehicleRadiusValue_1": {
+      "status": "missing",
+      "expected": "10",
+      "extracted": null
+    },
+    "VehicleCostNew_1": {
+      "status": "missing",
+      "expected": "$20,000",
+      "extracted": null
+    },
+    "LiabilityLimit_A": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "CompensationLimit_A": {
+      "status": "missing",
+      "expected": "$150,000",
+      "extracted": null
+    },
+    "CollisionLimit_A": {
+      "status": "missing",
+      "expected": "$80,000",
+      "extracted": null
+    },
+    "UM_UIMLimit_A": {
+      "status": "missing",
+      "expected": "$50,000",
+      "extracted": null
+    },
+    "TowingLimit_A": {
+      "status": "missing",
+      "expected": "$500",
+      "extracted": null
+    },
+    "RentalDeductible_A": {
+      "status": "missing",
+      "expected": "$1,000",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAECode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAFCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAGCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_AccountNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "61-6407419",
+      "extracted": "61-6407419"
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_InterestRank_A": {
+      "status": "partial",
+      "expected": "5",
+      "extracted": "50%"
+    },
+    "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LienholderIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_LossPayeeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_OwnerIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_RegistrantIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Item_LocationProducerIdentifier_A": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "AdditionalInterest_Item_VehicleProducerIdentifier_A": {
+      "status": "wrong",
+      "expected": "TX-717559",
+      "extracted": "Vehicle Schedule"
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_VehicleScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialVehicleLineOfBusiness_RemarkText_A": {
+      "status": "missing",
+      "expected": "See attached MVRs",
+      "extracted": null
+    },
+    "Vehicle_BodyCode_A": {
+      "status": "missing",
+      "expected": "C",
+      "extracted": null
+    },
+    "Vehicle_CollisionSymbolCode_A": {
+      "status": "missing",
+      "expected": "B",
+      "extracted": null
+    },
+    "Vehicle_Collision_DeductibleAmount_A": {
+      "status": "matched",
+      "expected": "500",
+      "extracted": "500"
+    },
+    "Vehicle_ComprehensiveSymbolCode_A": {
+      "status": "missing",
+      "expected": "B",
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_A": {
+      "status": "missing",
+      "expected": "20000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AgreedOrStatedAmount_A": {
+      "status": "missing",
+      "expected": "75000",
+      "extracted": null
+    },
+    "Broadened No-Fault": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "DOC": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "Use Veh #": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "State": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Marital Status": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Effective Date": {
+      "status": "missing",
+      "expected": "05/23/2023",
+      "extracted": null
+    },
+    "Expiration Date": {
+      "status": "missing",
+      "expected": "06/22/2024",
+      "extracted": null
+    },
+    "Vehicle Maintenance Program": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Pull MVRs Before Hiring": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver Violations": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Lease Vehicles to Others": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Interstate Commerce": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Transport Hazardous Materials": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Garaging Location": {
+      "status": "missing",
+      "expected": "Dallas, TX 75277",
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_A": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_Coverage_FullGlassIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_LiabilityIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_Coverage_NoFaultIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_A": {
+      "status": "missing",
+      "expected": 5000,
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_A": {
+      "status": "matched",
+      "expected": "Ford",
+      "extracted": "Ford"
+    },
+    "Vehicle_ModelName_A": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_A": {
+      "status": "missing",
+      "expected": 2022,
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_A": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_A": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateName_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_ZipCode_A": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_A": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_A": {
+      "status": "matched",
+      "expected": "123 Main St",
+      "extracted": "123 Main St"
+    },
+    "Vehicle_PhysicalAddress_PostalCode_A": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_A": {
+      "status": "missing",
+      "expected": 0.5,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_A": {
+      "status": "missing",
+      "expected": 25,
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_A": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Vehicle_SeatingCapacityCount_A": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_A": {
+      "status": "missing",
+      "expected": "2",
+      "extracted": null
+    },
+    "Vehicle_SymbolCode_A": {
+      "status": "missing",
+      "expected": "SCG",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": 15000.0,
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FarmIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ForHireIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_ServiceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_VINIdentifier_A": {
+      "status": "missing",
+      "expected": "1SCG1234567890",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_VehicleType_SpecialIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_FullName_B": {
+      "status": "missing",
+      "expected": "Amanda Smith",
+      "extracted": null
+    },
+    "AdditionalInterest_InterestRank_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_AdditionalInsuredIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_LendersLossPayableIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LienholderIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LossPayeeIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OtherIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_OwnerIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_RegistrantIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Item_LocationProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Scott Group Corporation",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_LineOne_B": {
+      "status": "missing",
+      "expected": "123 Main St",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "75277",
+      "extracted": "75277"
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "BroadenedNoFault_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "DOC_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "UseVehNum_B": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "% Use_B": {
+      "status": "missing",
+      "expected": "80",
+      "extracted": null
+    },
+    "MaritalStatus_B": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "PolicyEffectiveDate_B": {
+      "status": "missing",
+      "expected": "02/28/2023",
+      "extracted": null
+    },
+    "PolicyExpirationDate_B": {
+      "status": "missing",
+      "expected": "02/27/2024",
+      "extracted": null
+    },
+    "VehicleSeqNumber_B": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "DriverSeqNumber_B": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_Make_B": {
+      "status": "missing",
+      "expected": "Toyota",
+      "extracted": null
+    },
+    "Vehicle_Model_B": {
+      "status": "missing",
+      "expected": "Corolla",
+      "extracted": null
+    },
+    "Vehicle_Type_B": {
+      "status": "missing",
+      "expected": "Private Passenger",
+      "extracted": null
+    },
+    "GaragingLocationCityName_B": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "GaragingLocationCountyName_B": {
+      "status": "missing",
+      "expected": "Dallas County",
+      "extracted": null
+    },
+    "GaragingLocationStateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "GaragingLocationZip_B": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "Vehicle_BodyCode_B": {
+      "status": "missing",
+      "expected": "Sedan",
+      "extracted": null
+    },
+    "Vehicle_CollisionSymbolCode_B": {
+      "status": "missing",
+      "expected": "B",
+      "extracted": null
+    },
+    "Vehicle_Collision_DeductibleAmount_B": {
+      "status": "missing",
+      "expected": "2500",
+      "extracted": null
+    },
+    "Vehicle_ComprehensiveSymbolCode_B": {
+      "status": "missing",
+      "expected": "C",
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_B": {
+      "status": "missing",
+      "expected": "32000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AgreedOrStatedAmount_B": {
+      "status": "missing",
+      "expected": "50000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_B": {
+      "status": "missing",
+      "expected": "1000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_B": {
+      "status": "missing",
+      "expected": "50000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_B": {
+      "status": "missing",
+      "expected": "75000",
+      "extracted": null
+    },
+    "Vehicle_FarthestZoneCode_B": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_B": {
+      "status": "missing",
+      "expected": "12000",
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_B": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_ModelName_B": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_B": {
+      "status": "missing",
+      "expected": "2018",
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_B": {
+      "status": "missing",
+      "expected": "0.9",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_B": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_B": {
+      "status": "missing",
+      "expected": "123 Main St",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_B": {
+      "status": "missing",
+      "expected": "75201",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "TX",
+      "extracted": "TX"
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_B": {
+      "status": "missing",
+      "expected": "10",
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_B": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_B": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_SeatingCapacityCount_B": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_B": {
+      "status": "missing",
+      "expected": "3",
+      "extracted": null
+    },
+    "Vehicle_SymbolCode_B": {
+      "status": "missing",
+      "expected": "F150",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": "3000",
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_FarmIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_ForHireIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_ServiceIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Broadened No-Fault_B": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "DOC_Available_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Use Veh #_B": {
+      "status": "missing",
+      "expected": "2",
+      "extracted": null
+    },
+    "Policy_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "02/15/2023",
+      "extracted": null
+    },
+    "Policy_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "06/15/2024",
+      "extracted": null
+    },
+    "Vehicle_MaintenanceProgram_Has_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Pull_MVRs_BeforeHiring_Has_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Violations_Has_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LeaseVehiclesToOthers_Has_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "InterstateCommerce_Has_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "TransportHazMat_WithTrucking_Risk_Has_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VINIdentifier_B": {
+      "status": "missing",
+      "expected": "1G6UA8R74K120001",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_BodyCode_C": {
+      "status": "missing",
+      "expected": "2T4W9S19RTU120010",
+      "extracted": null
+    },
+    "Vehicle_CollisionSymbolCode_C": {
+      "status": "missing",
+      "expected": "A1H2E",
+      "extracted": null
+    },
+    "Vehicle_Collision_DeductibleAmount_C": {
+      "status": "missing",
+      "expected": "$500.00",
+      "extracted": null
+    },
+    "Vehicle_ComprehensiveSymbolCode_C": {
+      "status": "missing",
+      "expected": "G3R6K5",
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_C": {
+      "status": "missing",
+      "expected": "$30,000.00",
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AgreedOrStatedAmount_C": {
+      "status": "missing",
+      "expected": "$100,000.00",
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_C": {
+      "status": "missing",
+      "expected": "$1,000.00",
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_Percent_B": {
+      "status": "missing",
+      "expected": 75,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_C": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_C": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_ModelName_C": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_C": {
+      "status": "missing",
+      "expected": 2018,
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_C": {
+      "status": "missing",
+      "expected": 0.7,
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_C": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_C": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_C": {
+      "status": "missing",
+      "expected": "123 Main St",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_C": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_C": {
+      "status": "missing",
+      "expected": 0.9,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_C": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_C": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_SeatingCapacityCount_C": {
+      "status": "missing",
+      "expected": 6,
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": 10000,
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_FarmIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_ForHireIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_ServiceIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_BodyCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Collision_DeductibleAmount_D": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_D": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AgreedOrStatedAmount_D": {
+      "status": "missing",
+      "expected": 25000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_D": {
+      "status": "missing",
+      "expected": 1000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_FarthestZoneCode_D": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_D": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_D": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_ModelName_D": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_D": {
+      "status": "missing",
+      "expected": 2022,
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_D": {
+      "status": "missing",
+      "expected": 80,
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_D": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_D": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_D": {
+      "status": "missing",
+      "expected": "141 Sabrina Throughway",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_D": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_D": {
+      "status": "missing",
+      "expected": 85,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_D": {
+      "status": "missing",
+      "expected": 3,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_D": {
+      "status": "missing",
+      "expected": 25,
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_D": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_D": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_SeatingCapacityCount_D": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_D": {
+      "status": "missing",
+      "expected": "$2,450",
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_FarmIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_ForHireIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_ServiceIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VINIdentifier_D": {
+      "status": "missing",
+      "expected": "1G6UA8R74K120001",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_City": {
+      "status": "missing",
+      "expected": "Dallas",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_State": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_Zip": {
+      "status": "missing",
+      "expected": "75277",
+      "extracted": null
+    },
+    "Vehicle_LicensesState": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Vehicle_GVWR_GCW_Weight": {
+      "status": "missing",
+      "expected": "15000lb 16000lb",
+      "extracted": null
+    },
+    "Vehicle_Radius_Miles": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "Vehicle_CostNew_Dollars": {
+      "status": "missing",
+      "expected": "$15,000",
+      "extracted": null
+    },
+    "Vehicle_Use_AmountPercent_D": {
+      "status": "missing",
+      "expected": "70",
+      "extracted": null
+    },
+    "Vehicle_Coverage_Liability_DollarLimit_D": {
+      "status": "missing",
+      "expected": "$500,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_Comp_DollarLimit_D": {
+      "status": "missing",
+      "expected": "$200,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage Collision_DollarLimit_D": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_UMUIM_DollarLimit_D": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_Towing_Amount_Dollars": {
+      "status": "missing",
+      "expected": "$500",
+      "extracted": null
+    },
+    "Vehicle_Coverage_Rental_Deductible_Dollars": {
+      "status": "missing",
+      "expected": "$1,200",
+      "extracted": null
+    },
+    "Vehicle_EstimatedAnnualPremium_Dollars": {
+      "status": "missing",
+      "expected": "$3,600",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_RemarkText_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "City/states/zip for garaging": {
+      "status": "missing",
+      "expected": "Dallas, TX 75277",
+      "extracted": null
+    },
+    "Producer_AuthorizedRepresentative_FullName_A": {
+      "status": "missing",
+      "expected": "Shelly Combs",
+      "extracted": null
+    },
+    "Producer_NationalIdentifier_A": {
+      "status": "missing",
+      "expected": "29-5154368",
+      "extracted": null
+    },
+    "Producer_StateLicenseIdentifier_A": {
+      "status": "missing",
+      "expected": "TX",
+      "extracted": null
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    }
+  },
+  "accuracy": 24.24,
+  "exact_match_rate": 24.04,
+  "coverage": 29.4
+}

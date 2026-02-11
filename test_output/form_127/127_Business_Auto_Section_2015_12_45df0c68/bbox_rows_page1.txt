@@ -1,0 +1,39 @@
+y≈128: [x=1513]AGENCY CUSTOMER ID: | [x=1909]Martin-Simmons LLC
+y≈211: [x=227]ACORD | [x=1246]BUSINESS AUTO SECTION | [x=2292]02/28/2024 | [x=2295]DATE (MMIDDIYYYY)
+y≈299: [x=142]AGENCY | [x=1366]CARRIER | [x=2347]NAIC CODE
+y≈351: [x=225]Sean Compton | [x=1507]Travelers Property Casualty | [x=2367]25674
+y≈398: [x=193]POLICY NUMBER | [x=1155]EFFECTIVE DATE | [x=1410]NAMED INSURED(S)
+y≈448: [x=216]BA-95495815 | [x=1153]03/01/2023 | [x=1477]Martin-Simmons LLC
+y≈503: [x=203]COVERAGES | [x=401]LIMITS
+y≈549: [x=1062]USE ACORD 137 FOR YOUR STATE TO PROVIDE COVERAGES | [x=1856]LIMITS INFORMATION
+y≈603: [x=286]DRIVER INFORMATION | [x=1028]ACORD 163 attached for additional drivers
+y≈688: [x=127]DRIVER | [x=517]CITY , STATE AND ZIP CODE | [x=518]NAME | [x=920]SEX STAT | [x=957]MAR | [x=1039]LIST ALL DRIVERS, INCLUDING FAMIL Y MEMBERS THAT DRIVE COMPANY VEHICLES, AND EMPLOYEES WHO DRIVE OWN VEHICLES ON COMPANY BUSINESS_ | [x=1116]DATE OF BIRTH | [x=1289]YRS | [x=1289]EXP | [x=1379]YEAR | [x=1379]LIC | [x=1619]drIVERS LICENSE NUMBERI
+y≈747: [x=256]Carrie | [x=307]Los Angeles | [x=608]CA | [x=634]Ramirez | [x=703]90001 | [x=884]F | [x=953]S | [x=1115]01/19/1988 | [x=1291]17 | [x=1377]2007 | [x=1536]CA-448248 | [x=1541]41-8102249
+y≈873: [x=127]2 | [x=265]Joshua | [x=289]Pasadena | [x=618]Turner | [x=671]CA 91109 | [x=893]M | [x=954]M | [x=1115]01/01/1980 | [x=1290]9 | [x=1379]2015 | [x=1540]38-2249813 | [x=1580]R779843772740
+y≈950: [x=269]Brittany | [x=289]Pasadena | [x=633]Williams | [x=671]CA 91109 | [x=889]M | [x=952]S | [x=1121]03/28/1996 | [x=1293]13 | [x=1376]2011 | [x=1534]CA-865051 | [x=1859]CA | [x=2143]N
+y≈1049: [x=302]Christopher | [x=308]Los Angeles | [x=608]CA | [x=618]Garcia | [x=703]90001 | [x=888]M | [x=952]S | [x=1119]03/23/1971 | [x=1291]34 | [x=1380]1990 | [x=1536]CA-663533 | [x=1540]34-8854789
+y≈1172: [x=127]5 | [x=265]Angela | [x=307]Los Angeles | [x=598]Holt | [x=608]CA | [x=703]90001 | [x=921]F M | [x=1121]04/04/2002 | [x=1290]3 | [x=1376]2021 | [x=1536]CA-208307 | [x=1540]38-5454164
+y≈1251: [x=265]Joseph | [x=629]Roberts | [x=921]F S | [x=1120]04/04/2002 | [x=1290]3 | [x=1376]2021 | [x=1540]65-5174528 | [x=1577]V935790765661 | [x=1960]CA )1/01/2019 | [x=2131]N | [x=2211]N
+y≈1348: [x=269]Charles | [x=324]San Francisco | [x=640]Espinoza | [x=671]CA 94105 | [x=921]M M | [x=1120]12/17/1997 | [x=1289]7 | [x=1379]2017 | [x=1538]CA-506828 | [x=1540]73-2287369 | [x=1859]CA | [x=1994]J6/01/2018
+y≈1449: [x=277]Brandon | [x=287]Lancaster | [x=524]B | [x=608]CA | [x=616]Brown | [x=740]CA-95355 | [x=889]M | [x=954]M | [x=1120]12/17/1997 | [x=1293]13 | [x=1376]2011 | [x=1536]CA-408514
+y≈1549: [x=258]Daniel | [x=287]Lancaster | [x=608]CA | [x=633]Williams | [x=740]CA-95355 | [x=888]M | [x=954]M | [x=1121]10/11/1995 | [x=1293]19 | [x=1379]2005 | [x=1536]T85175638 | [x=1540]67-6263466
+y≈1673: [x=130]10 | [x=248]Anita | [x=307]Los Angeles | [x=608]CA | [x=617]Brown | [x=703]90001 | [x=890]F | [x=952]S | [x=1121]09/20/2002 | [x=1290]2 | [x=1379]2022 | [x=1536]CA-205403
+y≈1772: [x=126]11 | [x=261]Donna | [x=296]Westerville | [x=611]Smith | [x=670]OH 43082 | [x=889]M | [x=952]S | [x=1120]01/01/1980 | [x=1293]14 | [x=1379]2010 | [x=1536]CA-135545 | [x=1541]45-2587687
+y≈1849: [x=272]Jennifer | [x=297]Westerville | [x=670]OH 43082 | [x=885]M | [x=1121]02/22/1990 | [x=1291]19 | [x=1379]2005 | [x=1538]CA-123456 | [x=1960]CA )1/01/2018 | [x=2129]N | [x=2212]N
+y≈1973: [x=128]12 | [x=245]John | [x=289]Pasadena | [x=608]CA | [x=627]Carlson | [x=705]91107 | [x=888]M | [x=955]M | [x=1117]06/07/1971 | [x=1291]34 | [x=1380]1990 | [x=1534]J61630133
+y≈2048: [x=1049]MARITAL STATUS | [x=1332]CIVIL UNION (if applicable)
+y≈2104: [x=304]GENERAL INFORMATION
+y≈2158: [x=171]EXPLAIN ALL | [x=378]'YES" RESPONSES | [x=2428]YIN
+y≈2194: [x=98]1 | [x=395]REGISTERED TO THE APPLICANT? | [x=1143]WITH THE EXCEPTION OF ANY ENCUMBRANCES, ARE ANY VEHICLES FOR WHICH INSURANCE IS REQUESTED NOT SOLELY OWNED BY AND
+y≈2272: [x=193]VEH # | [x=411]NAME OF OTHER OWNER | [x=1289]VEH # | [x=1505]NAME OF OTHER OWNER
+y≈2386: [x=98]2 | [x=836]DO OVER 50% OF THE EMPLOYEES USE THEIR AUTOS IN THE BUSINESS? (no explanation needed)
+y≈2448: [x=97]3 | [x=599]IS THERE A VEHICLE MAINTENANCE PROGRAM IN OPERATION? | [x=2427]n
+y≈2599: [x=449]ARE ANY VEHICLES LEASED TO OTHERS?
+y≈2659: [x=113]N
+y≈2749: [x=101]5. | [x=291]ANY CAR MODIFIED | [x=777]SPECIAL EQUIPMENT? (Include customized vans | [x=1180]pickups)
+y≈2798: [x=194]VEH # | [x=341]DESCRIPTION | [x=1084]COST | [x=1290]VEH # | [x=1434]DESCRIPTION | [x=2179]COST
+y≈2852: [x=434]Standard Equipment | [x=1129]2000 | [x=1538]Upgraded Equipment | [x=2225]3000
+y≈2911: [x=98]6_ | [x=1249]ARE ICC (Interstate Commerce Commission) , PUC (Public Utility Commission) OR OTHER FILINGS REQUIRED? (If "YES" , attach ACORD 194) (no explanation needed)
+y≈2974: [x=101]7_ | [x=636]DO OPERATIONS INVOLVE TRANSPORTING HAZARDOUS MATERIAL?
+y≈3125: [x=270]ACORD 127 (2015/12) | [x=1277]Attach to ACORD 125 | [x=1833]1993-2015 ACORD CORPORATION: | [x=2304]AIl rights reserved:
+y≈3178: [x=1274]The ACORD name and logo are registered marks of ACORD

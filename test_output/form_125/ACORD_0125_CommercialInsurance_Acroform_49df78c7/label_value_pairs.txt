@@ -1,0 +1,119 @@
+--- Page 1 ---
+GANEACT -> Anthony Ortiz
+CANCEL -> 03/18/2024
+CYBER AND PRIVACY -> $
+FIDUCIARY LIABILITY -> $2,000.00
+BUSINESS OWNERS -> $
+GARAGE AND DEALERS -> $
+COMMERCIAL GENERAL LIABILITY -> S
+LIQUOR LIABILITY -> $
+COMMERCIAL INLAND MARINE -> $2,500.00
+MOTOR CARRIER -> $6,000.00
+COMMERCIAL PROPERTY -> $8,000.00
+DIRECT -> Monthly
+NAICS -> FEIN OR SOC SEC #
+BUSINESS PHONE #: -> 602-123-4567
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> Applic
+NAICS -> FEIN OR SOC SEC #
+BUSINESS PHONE # -> 925.459.7830
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> paar
+NAICS -> FEIN OR SOC SEC #
+BUSINESS PHONE #: -> 602-123-4567
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> Ft GT=
+
+--- Page 2 ---
+CONTACT NAME: -> Charles Robinson
+CONTACT NAME: -> Susan Mcdowell
+PRIMARY E-MAIL ADDRESS: -> charles robinson@carterllc com
+PRIMARY E-MAIL ADDRESS: -> susan mcdowell@carterllccom
+STREET -> 123 Main St
+INTEREST -> #FULL TIME EMPL
+OWNER -> 50.30
+OCCUPIED AREA: -> 100000
+CITY: -> Phoenix
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 50000
+COUNTY: -> Maricopa
+TOTAL BUILDING AREA: -> 200000
+DESCRIPTION OF OPERATIONS: -> Restaurants
+STREET -> 123 Main St
+FULL TIME EMPL -> ANNUAL REVENUES: $
+OWNER -> 40.20
+OCCUPIED AREA: -> 150000
+CITY: -> Phoenix
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 25000
+COUNTY: -> Maricopa
+TOTAL BUILDING AREA: -> 50000
+DESCRIPTION OF OPERATIONS: -> Bar
+STREET -> 500 E Broadway
+INTEREST -> #FULL TIME EMPL
+ANNUAL REVENUES: -> S
+OWNER -> 40
+OCCUPIED AREA: -> 30000
+CITY: -> Tucson
+OPEN TO PUBLIC AREA: -> 20000
+COUNTY: -> Pima
+TOTAL BUILDING AREA: -> 250000
+DESCRIPTION OF OPERATIONS: -> General Construction
+STREET -> 500 E Broadway
+INTEREST -> #FULL TIME EMPL
+OWNER -> 50
+OCCUPIED AREA: -> 50000
+CITY: -> Tucson
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 20000
+COUNTY: -> Pima
+TOTAL BUILDING AREA: -> 80000
+ZIP:85701 -> Phoel
+SERVICE -> Construction and Contracting
+LIENHOLDER -> Charles Robinson
+LOCATION: -> Ad10u
+BUILDING: -> 789
+LOSS PAYEE -> W. Camelback Rd.
+VEHICLE: -> 567
+BOAT: -> 456
+KJFK -> 123
+OWNER -> Phoenix
+ITEM: -> 234
+REFERENCE -> 123456789
+INTEREST END DATE: -> 03/20/2023
+LIEN AMOUNT: -> S100,000.00
+E-MAIL ADDRESS: -> charles robinson@carterllc_com
+
+--- Page 3 ---
+RELATIONSHIP DESCRIPTION -> % OWNED
+RELATIONSHIP DESCRIPTION -> % OWNED
+REMARKS -> PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule, may be attached if more space is required)
+CARRIER -> The Hartford
+POLICY NUMBER -> BA-87245377
+PREMIUM -> S400,000.00
+EFFECTIVE DATE -> 03/15/2022
+EXPIRATION DATE -> 06/15/2023
+
+--- Page 4 ---
+PREMIUM -> S
+EFFECTIVE DATE -> 05/13/2022
+EXPIRATION DATE -> 06/14/2023
+CARRIER -> The Hartford
+POLICY NUMBER -> BA-87245377
+PREMIUM -> S
+EFFECTIVE DATE -> 05/13/2022
+EXPIRATION DATE -> 06/14/2023
+ENTER ALL CLAIMS OR LOSSES (REGARDLESS OF FAULT AND WHETHER OR NOT INSURED) OR OCCURRENCES THAT MAY GIVE RISE TO CLAIMS -> TOTAL LOSSES: $
+GATION -> Y
+AMOUNT RESERVED -> N
+Applicable in AL, AR; DC, LA, MD; NM; RI and WV: -> Any _
+benefit or knowingly (or willfully) -> presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in
+Applicable in FL and OK: -> Any
+Applicable in KS: -> Any
+presented to or by an insurer, purported insurer, broker or any agent thereof, any written statement as part of, -> or in support of, an application for the issuance
+of defrauding the company. -> Penalties (may) * include imprisonment; fines and denial of insurance benefits _
+Applicable in NJ: -> Any
+Applicable in OR: -> Any
+Applicable in PR: -> Any
+ANSWERS TO QUESTIONS ON THIS APPLICATION: -> HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+

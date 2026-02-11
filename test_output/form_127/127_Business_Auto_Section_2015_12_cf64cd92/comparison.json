@@ -1,0 +1,3142 @@
+{
+  "total_gt_fields": 626,
+  "matched": 180,
+  "partial_match": 5,
+  "missing": 379,
+  "wrong": 62,
+  "field_results": {
+    "Form_CompletionDate_A": {
+      "status": "matched",
+      "expected": "02/14/2024",
+      "extracted": "02/14/2024"
+    },
+    "Insurer_FullName_A": {
+      "status": "matched",
+      "expected": "Chubb Ltd.",
+      "extracted": "Chubb Ltd."
+    },
+    "Insurer_NAICCode_A": {
+      "status": "matched",
+      "expected": "20303",
+      "extracted": "20303"
+    },
+    "NamedInsured_FullName_A": {
+      "status": "wrong",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": "Anderson; Lynch and Doyle"
+    },
+    "Policy_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "01/15/2024",
+      "extracted": "01/15/2024"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "BA-28694898",
+      "extracted": "BA-28694898"
+    },
+    "Producer_FullName_A": {
+      "status": "matched",
+      "expected": "Tom Hebert",
+      "extracted": "Tom Hebert"
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_GivenName_A": {
+      "status": "wrong",
+      "expected": "Lawrence",
+      "extracted": "F S"
+    },
+    "Driver_Surname_A": {
+      "status": "matched",
+      "expected": "Scott",
+      "extracted": "Scott"
+    },
+    "Driver_GenderCode_A": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_BirthDate_A": {
+      "status": "matched",
+      "expected": "01/25/1975",
+      "extracted": "01/25/1975"
+    },
+    "Driver_LicenseNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "FL-802787",
+      "extracted": "FL-802787"
+    },
+    "Driver_LicensedStateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_A": {
+      "status": "matched",
+      "expected": 1995,
+      "extracted": "1995"
+    },
+    "Driver_ExperienceYearCount_A": {
+      "status": "matched",
+      "expected": "29",
+      "extracted": "29"
+    },
+    "Driver_TaxIdentifier_A": {
+      "status": "wrong",
+      "expected": "74-6455784",
+      "extracted": "TErR"
+    },
+    "Driver_Vehicle_UsePercent_A": {
+      "status": "missing",
+      "expected": 30,
+      "extracted": null
+    },
+    "Driver_GivenName_B": {
+      "status": "matched",
+      "expected": "Scott",
+      "extracted": "Scott"
+    },
+    "Driver_Surname_B": {
+      "status": "matched",
+      "expected": "Scott",
+      "extracted": "Scott"
+    },
+    "Driver_GenderCode_B": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_BirthDate_B": {
+      "status": "matched",
+      "expected": "01/25/1975",
+      "extracted": "01/25/1975"
+    },
+    "Driver_LicenseNumberIdentifier_B": {
+      "status": "matched",
+      "expected": "FL-802787",
+      "extracted": "FL-802787"
+    },
+    "Driver_LicensedStateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_B": {
+      "status": "matched",
+      "expected": "1995",
+      "extracted": "1995"
+    },
+    "Driver_ExperienceYearCount_B": {
+      "status": "matched",
+      "expected": "29",
+      "extracted": "29"
+    },
+    "Driver_TaxIdentifier_B": {
+      "status": "wrong",
+      "expected": "74-6455784",
+      "extracted": "TErR"
+    },
+    "Driver_Vehicle_UsePercent_B": {
+      "status": "wrong",
+      "expected": "30",
+      "extracted": "60"
+    },
+    "Coverages_LiabilityLimit_A": {
+      "status": "missing",
+      "expected": "1,000,000",
+      "extracted": null
+    },
+    "Coverages_CompensationLimit_A": {
+      "status": "missing",
+      "expected": "300,000",
+      "extracted": null
+    },
+    "Coverages_CollisionLimit_A": {
+      "status": "missing",
+      "expected": "100,000",
+      "extracted": null
+    },
+    "Coverages_UMUIMPolicyLimit_A": {
+      "status": "missing",
+      "expected": "50,000",
+      "extracted": null
+    },
+    "Coverages_TowingLimit_A": {
+      "status": "missing",
+      "expected": "500",
+      "extracted": null
+    },
+    "Coverages_RentalCoverage_A": {
+      "status": "missing",
+      "expected": "1,200",
+      "extracted": null
+    },
+    "Vehicle_Year_A": {
+      "status": "missing",
+      "expected": "2020",
+      "extracted": null
+    },
+    "Vehicle_Make_A": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_Model_A": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_BodyType_A": {
+      "status": "missing",
+      "expected": "Regular Cab",
+      "extracted": null
+    },
+    "Vehicle_VIN_A": {
+      "status": "missing",
+      "expected": "1FTNWZCTX1EB14481",
+      "extracted": null
+    },
+    "Vehicle_GVW_A": {
+      "status": "missing",
+      "expected": "6,000",
+      "extracted": null
+    },
+    "Vehicle_GCWC_A": {
+      "status": "missing",
+      "expected": "4,000",
+      "extracted": null
+    },
+    "Vehicle_LicensingState_A": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_LicensingCounty_A": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_CityName_A": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_Zip_A": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Vehicle_Radius_A": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_NewCost_A": {
+      "status": "missing",
+      "expected": "25,000",
+      "extracted": null
+    },
+    "Coverages_LiabilityLimit_B": {
+      "status": "missing",
+      "expected": "1,500,000",
+      "extracted": null
+    },
+    "Coverages_CompensationLimit_B": {
+      "status": "missing",
+      "expected": "350,000",
+      "extracted": null
+    },
+    "Coverages_CollisionLimit_B": {
+      "status": "missing",
+      "expected": "110,000",
+      "extracted": null
+    },
+    "Coverages_UMUIMPolicyLimit_B": {
+      "status": "missing",
+      "expected": "60,000",
+      "extracted": null
+    },
+    "Coverages_TowingLimit_B": {
+      "status": "missing",
+      "expected": "700",
+      "extracted": null
+    },
+    "Coverages_RentalCoverage_B": {
+      "status": "missing",
+      "expected": "1,500",
+      "extracted": null
+    },
+    "Vehicle_YearsOld_A": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_Make_B": {
+      "status": "missing",
+      "expected": "Chevrolet",
+      "extracted": null
+    },
+    "Vehicle_Model_B": {
+      "status": "missing",
+      "expected": "Silverado",
+      "extracted": null
+    },
+    "Vehicle_BodyType_B": {
+      "status": "missing",
+      "expected": "Double Cab",
+      "extracted": null
+    },
+    "Vehicle_VIN_B": {
+      "status": "missing",
+      "expected": "3HKBFEDX7RZ342115",
+      "extracted": null
+    },
+    "Vehicle_GVW_B": {
+      "status": "missing",
+      "expected": "8,000",
+      "extracted": null
+    },
+    "Vehicle_GCWC_B": {
+      "status": "missing",
+      "expected": "5,000",
+      "extracted": null
+    },
+    "Vehicle_LicensingState_B": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_LicensingCounty_B": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_CityName_B": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_Zip_B": {
+      "status": "missing",
+      "expected": "32235",
+      "extracted": null
+    },
+    "Vehicle_Radius_B": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_NewCost_B": {
+      "status": "missing",
+      "expected": "30,000",
+      "extracted": null
+    },
+    "Coverages_LiabilityLimit_C": {
+      "status": "missing",
+      "expected": "Y",
+      "extracted": null
+    },
+    "Coverages_CompensationLimit_C": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "Coverages_CollisionLimit_C": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "Coverages_UMUIMPolicyLimit_C": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "Coverages_TowingLimit_C": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "Coverages_RentalCoverage_C": {
+      "status": "missing",
+      "expected": "Y",
+      "extracted": null
+    },
+    "Vehicle_YearsOld_B": {
+      "status": "missing",
+      "expected": "3",
+      "extracted": null
+    },
+    "Vehicle_Make_C": {
+      "status": "missing",
+      "expected": "Ram",
+      "extracted": null
+    },
+    "Vehicle_Model_C": {
+      "status": "missing",
+      "expected": "1500",
+      "extracted": null
+    },
+    "Vehicle_BodyType_C": {
+      "status": "missing",
+      "expected": "Regular Cab",
+      "extracted": null
+    },
+    "Vehicle_VIN_C": {
+      "status": "missing",
+      "expected": "1F7RJXCTX9N144816",
+      "extracted": null
+    },
+    "Vehicle_GVW_C": {
+      "status": "missing",
+      "expected": "6,500",
+      "extracted": null
+    },
+    "Vehicle_GCWC_C": {
+      "status": "missing",
+      "expected": "4,000",
+      "extracted": null
+    },
+    "Vehicle_LicensingState_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_LicensingCounty_C": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_CityName_C": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_GaragingLocation_Zip_C": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Vehicle_Radius_C": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_NewCost_C": {
+      "status": "missing",
+      "expected": "25,000",
+      "extracted": null
+    },
+    "Driver_MailingAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "32235",
+      "extracted": "32235"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_B": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_B": {
+      "status": "partial",
+      "expected": 2,
+      "extracted": "8391112141510131617"
+    },
+    "Driver_BirthDate_C": {
+      "status": "matched",
+      "expected": "01/10/1987",
+      "extracted": "01/10/1987"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_C": {
+      "status": "matched",
+      "expected": "14",
+      "extracted": "14"
+    },
+    "Driver_GenderCode_C": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_C": {
+      "status": "matched",
+      "expected": "David",
+      "extracted": "David"
+    },
+    "Driver_LicenseNumberIdentifier_C": {
+      "status": "missing",
+      "expected": "FL-567890",
+      "extracted": null
+    },
+    "Driver_LicensedStateOrProvinceCode_C": {
+      "status": "partial",
+      "expected": "FL",
+      "extracted": "US-FL"
+    },
+    "Driver_LicensedYear_C": {
+      "status": "missing",
+      "expected": 2010,
+      "extracted": null
+    },
+    "Driver_MailingAddress_CityName_C": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_C": {
+      "status": "matched",
+      "expected": "32234",
+      "extracted": "32234"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_C": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_C": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_C": {
+      "status": "wrong",
+      "expected": 3,
+      "extracted": "8500"
+    },
+    "Driver_Surname_C": {
+      "status": "matched",
+      "expected": "Beard",
+      "extracted": "Beard"
+    },
+    "Driver_TaxIdentifier_C": {
+      "status": "missing",
+      "expected": "80-1234567",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_C": {
+      "status": "missing",
+      "expected": 20,
+      "extracted": null
+    },
+    "Driver_BirthDate_D": {
+      "status": "matched",
+      "expected": "06/12/2002",
+      "extracted": "06/12/2002"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_D": {
+      "status": "matched",
+      "expected": "2",
+      "extracted": "2"
+    },
+    "Driver_GenderCode_D": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_D": {
+      "status": "matched",
+      "expected": "Natalie",
+      "extracted": "Natalie"
+    },
+    "Driver_LicenseNumberIdentifier_D": {
+      "status": "matched",
+      "expected": "FL-375420",
+      "extracted": "FL-375420"
+    },
+    "Driver_LicensedStateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_D": {
+      "status": "matched",
+      "expected": "2022",
+      "extracted": "2022"
+    },
+    "Driver_MailingAddress_CityName_D": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_D": {
+      "status": "matched",
+      "expected": "32234",
+      "extracted": "32234"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_D": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_D": {
+      "status": "missing",
+      "expected": 4,
+      "extracted": null
+    },
+    "Driver_Surname_D": {
+      "status": "matched",
+      "expected": "Williams",
+      "extracted": "Williams"
+    },
+    "Driver_TaxIdentifier_D": {
+      "status": "missing",
+      "expected": "40-7268277",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_D": {
+      "status": "missing",
+      "expected": "100",
+      "extracted": null
+    },
+    "Driver_BirthDate_E": {
+      "status": "matched",
+      "expected": "06/26/1959",
+      "extracted": "06/26/1959"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_E": {
+      "status": "matched",
+      "expected": "45",
+      "extracted": "45"
+    },
+    "Driver_GenderCode_E": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_E": {
+      "status": "matched",
+      "expected": "Sandra",
+      "extracted": "Sandra"
+    },
+    "Driver_LicenseNumberIdentifier_E": {
+      "status": "matched",
+      "expected": "FL-943024",
+      "extracted": "FL-943024"
+    },
+    "Driver_LicensedStateOrProvinceCode_E": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_E": {
+      "status": "wrong",
+      "expected": "1979",
+      "extracted": "1974"
+    },
+    "Driver_MailingAddress_CityName_E": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_E": {
+      "status": "matched",
+      "expected": "32235",
+      "extracted": "32235"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_E": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_E": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_E": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Driver_Surname_E": {
+      "status": "matched",
+      "expected": "Reyes",
+      "extracted": "Reyes"
+    },
+    "Driver_TaxIdentifier_E": {
+      "status": "missing",
+      "expected": "63-6383003",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_E": {
+      "status": "missing",
+      "expected": "ALD-002",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_E": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "Driver_BirthDate_F": {
+      "status": "matched",
+      "expected": "06/26/1959",
+      "extracted": "06/26/1959"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_F": {
+      "status": "matched",
+      "expected": "45",
+      "extracted": "45"
+    },
+    "Driver_GenderCode_F": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_F": {
+      "status": "matched",
+      "expected": "Sandra",
+      "extracted": "Sandra"
+    },
+    "Driver_LicenseNumberIdentifier_F": {
+      "status": "matched",
+      "expected": "FL-943024",
+      "extracted": "FL-943024"
+    },
+    "Driver_LicensedStateOrProvinceCode_F": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_F": {
+      "status": "matched",
+      "expected": "1979",
+      "extracted": "1979"
+    },
+    "Driver_MailingAddress_CityName_F": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_F": {
+      "status": "wrong",
+      "expected": "32234",
+      "extracted": "32235"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_F": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_F": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_F": {
+      "status": "partial",
+      "expected": 6,
+      "extracted": "8391112141510131617"
+    },
+    "Driver_Surname_F": {
+      "status": "matched",
+      "expected": "Reyes",
+      "extracted": "Reyes"
+    },
+    "Driver_TaxIdentifier_F": {
+      "status": "wrong",
+      "expected": "63-6383003",
+      "extracted": "01/10/1974"
+    },
+    "Driver_Vehicle_ProducerIdentifier_F": {
+      "status": "wrong",
+      "expected": "ALD-002",
+      "extracted": "8500"
+    },
+    "Driver_Vehicle_UsePercent_F": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "Driver_BirthDate_G": {
+      "status": "matched",
+      "expected": "04/22/1979",
+      "extracted": "04/22/1979"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_G": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "N"
+    },
+    "Driver_Coverage_DriverOtherCarCode_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_G": {
+      "status": "matched",
+      "expected": "27",
+      "extracted": "27"
+    },
+    "Driver_GenderCode_G": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_G": {
+      "status": "matched",
+      "expected": "James",
+      "extracted": "James"
+    },
+    "Driver_LicenseNumberIdentifier_G": {
+      "status": "matched",
+      "expected": "FL-466712",
+      "extracted": "FL-466712"
+    },
+    "Driver_LicensedStateOrProvinceCode_G": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_G": {
+      "status": "matched",
+      "expected": "1997",
+      "extracted": "1997"
+    },
+    "Driver_MailingAddress_CityName_G": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_G": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_G": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_G": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_G": {
+      "status": "missing",
+      "expected": 7,
+      "extracted": null
+    },
+    "Driver_Surname_G": {
+      "status": "matched",
+      "expected": "Campbell",
+      "extracted": "Campbell"
+    },
+    "Driver_TaxIdentifier_G": {
+      "status": "missing",
+      "expected": "11-5683574",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_G": {
+      "status": "missing",
+      "expected": "80",
+      "extracted": null
+    },
+    "Driver_BirthDate_H": {
+      "status": "matched",
+      "expected": "04/21/2001",
+      "extracted": "04/21/2001"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_H": {
+      "status": "matched",
+      "expected": "3",
+      "extracted": "3"
+    },
+    "Driver_GenderCode_H": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_H": {
+      "status": "matched",
+      "expected": "Brian",
+      "extracted": "Brian"
+    },
+    "Driver_LicenseNumberIdentifier_H": {
+      "status": "matched",
+      "expected": "FL-143687",
+      "extracted": "FL-143687"
+    },
+    "Driver_LicensedStateOrProvinceCode_H": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_H": {
+      "status": "matched",
+      "expected": "2021",
+      "extracted": "2021"
+    },
+    "Driver_MailingAddress_CityName_H": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_H": {
+      "status": "matched",
+      "expected": "32235",
+      "extracted": "32235"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_H": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_H": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_H": {
+      "status": "missing",
+      "expected": 8,
+      "extracted": null
+    },
+    "Driver_Surname_H": {
+      "status": "matched",
+      "expected": "Bridges",
+      "extracted": "Bridges"
+    },
+    "Driver_TaxIdentifier_H": {
+      "status": "wrong",
+      "expected": "86-2131598",
+      "extracted": "01/10/1974"
+    },
+    "Driver_Vehicle_ProducerIdentifier_H": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_H": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "Driver_BirthDate_I": {
+      "status": "matched",
+      "expected": "04/21/2001",
+      "extracted": "04/21/2001"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_I": {
+      "status": "matched",
+      "expected": "3",
+      "extracted": "3"
+    },
+    "Driver_GenderCode_I": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "Driver_GivenName_I": {
+      "status": "matched",
+      "expected": "Brian",
+      "extracted": "Brian"
+    },
+    "Driver_HiredDate_I": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "Driver_LicenseNumberIdentifier_I": {
+      "status": "matched",
+      "expected": "FL-143687",
+      "extracted": "FL-143687"
+    },
+    "Driver_LicensedStateOrProvinceCode_I": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_I": {
+      "status": "matched",
+      "expected": "2021",
+      "extracted": "2021"
+    },
+    "Driver_MailingAddress_CityName_I": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_I": {
+      "status": "matched",
+      "expected": "32234",
+      "extracted": "32234"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_I": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_I": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_I": {
+      "status": "missing",
+      "expected": 9,
+      "extracted": null
+    },
+    "Driver_Surname_I": {
+      "status": "matched",
+      "expected": "Bridges",
+      "extracted": "Bridges"
+    },
+    "Driver_TaxIdentifier_I": {
+      "status": "missing",
+      "expected": "86-2131598",
+      "extracted": null
+    },
+    "Driver_Vehicle_ProducerIdentifier_I": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_I": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "Driver_BirthDate_J": {
+      "status": "matched",
+      "expected": "07/02/1985",
+      "extracted": "07/02/1985"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_J": {
+      "status": "matched",
+      "expected": "20",
+      "extracted": "20"
+    },
+    "Driver_GenderCode_J": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_J": {
+      "status": "matched",
+      "expected": "Christine",
+      "extracted": "Christine"
+    },
+    "Driver_LicenseNumberIdentifier_J": {
+      "status": "matched",
+      "expected": "FL-674109",
+      "extracted": "FL-674109"
+    },
+    "Driver_LicensedStateOrProvinceCode_J": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_J": {
+      "status": "matched",
+      "expected": "2004",
+      "extracted": "2004"
+    },
+    "Driver_MailingAddress_CityName_J": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MaritalStatusCode_J": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_J": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "Driver_Surname_J": {
+      "status": "matched",
+      "expected": "Hale",
+      "extracted": "Hale"
+    },
+    "Driver_TaxIdentifier_J": {
+      "status": "missing",
+      "expected": "47-5754322",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_J": {
+      "status": "wrong",
+      "expected": "80",
+      "extracted": "60"
+    },
+    "Driver_BirthDate_K": {
+      "status": "matched",
+      "expected": "01/10/1974",
+      "extracted": "01/10/1974"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_K": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "N"
+    },
+    "Driver_Coverage_DriverOtherCarCode_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_K": {
+      "status": "matched",
+      "expected": "32",
+      "extracted": "32"
+    },
+    "Driver_GenderCode_K": {
+      "status": "wrong",
+      "expected": "F",
+      "extracted": "M"
+    },
+    "Driver_GivenName_K": {
+      "status": "matched",
+      "expected": "Jessica",
+      "extracted": "Jessica"
+    },
+    "Driver_LicenseNumberIdentifier_K": {
+      "status": "matched",
+      "expected": "9727338",
+      "extracted": "9727338"
+    },
+    "Driver_LicensedStateOrProvinceCode_K": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "Driver_LicensedYear_K": {
+      "status": "matched",
+      "expected": "1992",
+      "extracted": "1992"
+    },
+    "Driver_MailingAddress_CityName_K": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_K": {
+      "status": "missing",
+      "expected": "32235",
+      "extracted": null
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_K": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_K": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Driver_ProducerIdentifier_K": {
+      "status": "wrong",
+      "expected": 11,
+      "extracted": "8500"
+    },
+    "Driver_Surname_K": {
+      "status": "matched",
+      "expected": "Lee",
+      "extracted": "Lee"
+    },
+    "Driver_TaxIdentifier_K": {
+      "status": "missing",
+      "expected": "50-8873178",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_K": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "Driver_BirthDate_L": {
+      "status": "matched",
+      "expected": "01/10/1974",
+      "extracted": "01/10/1974"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_L": {
+      "status": "matched",
+      "expected": "32",
+      "extracted": "32"
+    },
+    "Driver_GenderCode_L": {
+      "status": "matched",
+      "expected": "F",
+      "extracted": "F"
+    },
+    "Driver_GivenName_L": {
+      "status": "matched",
+      "expected": "Jessica",
+      "extracted": "Jessica"
+    },
+    "Driver_LicenseNumberIdentifier_L": {
+      "status": "matched",
+      "expected": "9727338",
+      "extracted": "9727338"
+    },
+    "Driver_LicensedStateOrProvinceCode_L": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "Driver_LicensedYear_L": {
+      "status": "matched",
+      "expected": "1992",
+      "extracted": "1992"
+    },
+    "Driver_MaritalStatusCode_L": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Driver_ProducerIdentifier_L": {
+      "status": "missing",
+      "expected": 12,
+      "extracted": null
+    },
+    "Driver_Surname_L": {
+      "status": "matched",
+      "expected": "Lee",
+      "extracted": "Lee"
+    },
+    "Driver_TaxIdentifier_L": {
+      "status": "missing",
+      "expected": "50-8873178",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_L": {
+      "status": "matched",
+      "expected": "60",
+      "extracted": "60"
+    },
+    "Driver_BirthDate_M": {
+      "status": "matched",
+      "expected": "06/09/1973",
+      "extracted": "06/09/1973"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_M": {
+      "status": "matched",
+      "expected": "35",
+      "extracted": "35"
+    },
+    "Driver_GenderCode_M": {
+      "status": "matched",
+      "expected": "M",
+      "extracted": "M"
+    },
+    "Driver_GivenName_M": {
+      "status": "matched",
+      "expected": "David",
+      "extracted": "David"
+    },
+    "Driver_LicenseNumberIdentifier_M": {
+      "status": "matched",
+      "expected": "FL-736307",
+      "extracted": "FL-736307"
+    },
+    "Driver_LicensedStateOrProvinceCode_M": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_LicensedYear_M": {
+      "status": "matched",
+      "expected": "1989",
+      "extracted": "1989"
+    },
+    "Driver_MailingAddress_CityName_M": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "Driver_MailingAddress_PostalCode_M": {
+      "status": "matched",
+      "expected": "32234",
+      "extracted": "32234"
+    },
+    "Driver_MailingAddress_StateOrProvinceCode_M": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Driver_MaritalStatusCode_M": {
+      "status": "matched",
+      "expected": "S",
+      "extracted": "S"
+    },
+    "Driver_ProducerIdentifier_M": {
+      "status": "missing",
+      "expected": 13,
+      "extracted": null
+    },
+    "Driver_Surname_M": {
+      "status": "matched",
+      "expected": "Beard",
+      "extracted": "Beard"
+    },
+    "Driver_TaxIdentifier_M": {
+      "status": "wrong",
+      "expected": "24-3180974",
+      "extracted": "TErR"
+    },
+    "Driver_Vehicle_ProducerIdentifier_M": {
+      "status": "wrong",
+      "expected": "Any",
+      "extracted": "81,000"
+    },
+    "Driver_Vehicle_UsePercent_M": {
+      "status": "wrong",
+      "expected": "70",
+      "extracted": "80"
+    },
+    "CommercialVehicleLineOfBusiness_OperationInvolveTransportingHazardousMaterialsExplanation_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAJCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KADCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_VehicleMaintenanceProgramInOperationExplanation_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_VehiclesLeasedToOthersExplanation_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AA": {
+      "status": "missing",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AB": {
+      "status": "missing",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AC": {
+      "status": "missing",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_AD": {
+      "status": "missing",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": null
+    },
+    "AccidentConviction_DriverProducerIdentifier_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "AccidentConviction_TrafficViolationDate_A": {
+      "status": "wrong",
+      "expected": "01/15/2019",
+      "extracted": "04/21/2001"
+    },
+    "AccidentConviction_ViolationYearCount_A": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_AgentInspectedVehiclesExplanation_A": {
+      "status": "missing",
+      "expected": "Annual inspection performed by certified mechanic",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_AnyVehiclesOwnedNotScheduledExplanation_A": {
+      "status": "missing",
+      "expected": "Two vehicles not scheduled for workers' comp coverage",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ApplicantObtainMVRVerificationsExplanation_A": {
+      "status": "missing",
+      "expected": "MVRs obtained within the last 30 days",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_FleetMonitoredPercent_A": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MileageTrackingDeviceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorDriverSafetyIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_MonitorVehicleMaintenanceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_NavigationIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_ElectronicDataMonitoringDevice_TrackFuelConsumptionIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_GarageStorageDescription_A": {
+      "status": "wrong",
+      "expected": "Two-bay garage with secure door",
+      "extracted": "STREET (Required in Florida)"
+    },
+    "CommercialVehicleLineOfBusiness_KAHCode_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "N"
+    },
+    "CommercialVehicleLineOfBusiness_LocationTrackingDeviceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_MaximumExposureAllVehiclesAmount_A": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AADCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_AAICode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAECode_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "N"
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAFCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Question_KAGCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_MailingAddress_CityName_A": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_VehicleScheduleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_A": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_FireTheftIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_FullGlassIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_OtherIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_FarthestZoneCode_A": {
+      "status": "missing",
+      "expected": "N/A",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_A": {
+      "status": "missing",
+      "expected": 5000,
+      "extracted": null
+    },
+    "Vehicle_ModelYear_A": {
+      "status": "missing",
+      "expected": 2022,
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_A": {
+      "status": "missing",
+      "expected": 1.0,
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_A": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StreetAddress_A": {
+      "status": "missing",
+      "expected": "1234 Riverside Dr.",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateName_A": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_ZipCode_A": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_A": {
+      "status": "wrong",
+      "expected": "Jacksonville",
+      "extracted": "Duval"
+    },
+    "Vehicle_PhysicalAddress_LineOne_A": {
+      "status": "missing",
+      "expected": "1234 Riverside Dr",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_A": {
+      "status": "missing",
+      "expected": 100000,
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_A": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_A": {
+      "status": "partial",
+      "expected": "US-FL",
+      "extracted": "FL"
+    },
+    "Vehicle_Registration_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Vehicle_SeatingCapacityCount_A": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_A": {
+      "status": "missing",
+      "expected": "4",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": 10000.0,
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FarmIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_ForHireIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_Use_PleasureIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_ServiceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_VINIdentifier_A": {
+      "status": "missing",
+      "expected": "1234567890",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_FullName_B": {
+      "status": "missing",
+      "expected": "Lawrence Scott",
+      "extracted": null
+    },
+    "AdditionalInterest_InterestRank_B": {
+      "status": "missing",
+      "expected": "None",
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_AdditionalInsuredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LendersLossPayableIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LienholderIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LossPayeeIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_RegistrantIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Item_LocationProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "AdditionalInterest_Item_VehicleProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Any",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Jacksonville",
+      "extracted": "Jacksonville"
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "32235",
+      "extracted": "32235"
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_BodyCode_B": {
+      "status": "missing",
+      "expected": "Midsize",
+      "extracted": null
+    },
+    "Vehicle_CollisionSymbolCode_B": {
+      "status": "wrong",
+      "expected": "X",
+      "extracted": "lOGONFM"
+    },
+    "Vehicle_Collision_DeductibleAmount_B": {
+      "status": "missing",
+      "expected": 1000,
+      "extracted": null
+    },
+    "Vehicle_ComprehensiveSymbolCode_B": {
+      "status": "missing",
+      "expected": "O",
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_B": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_CollisionIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_B": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_FarthestZoneCode_B": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_B": {
+      "status": "missing",
+      "expected": "8500",
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_B": {
+      "status": "matched",
+      "expected": "Ford",
+      "extracted": "Ford"
+    },
+    "Vehicle_ModelName_B": {
+      "status": "wrong",
+      "expected": "F-150",
+      "extracted": "Ford"
+    },
+    "Vehicle_ModelYear_B": {
+      "status": "wrong",
+      "expected": "2022",
+      "extracted": "2015"
+    },
+    "Vehicle_NetRatingFactor_B": {
+      "status": "missing",
+      "expected": "8",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_B": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_B": {
+      "status": "missing",
+      "expected": "256 Perry Isle",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_B": {
+      "status": "missing",
+      "expected": "32235",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_B": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_B": {
+      "status": "wrong",
+      "expected": "50",
+      "extracted": "15"
+    },
+    "Vehicle_RateClassCode_B": {
+      "status": "missing",
+      "expected": "7",
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_B": {
+      "status": "missing",
+      "expected": "NA",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Vehicle_SeatingCapacityCount_B": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_B": {
+      "status": "missing",
+      "expected": "8",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_B": {
+      "status": "wrong",
+      "expected": "$6000",
+      "extracted": "$500"
+    },
+    "Vehicle_Use_CommercialIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FarmIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ForHireIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_RetailIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ServiceIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VINIdentifier_B": {
+      "status": "missing",
+      "expected": "FL-802787",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_BodyCode_C": {
+      "status": "missing",
+      "expected": "SUV",
+      "extracted": null
+    },
+    "Vehicle_CollisionSymbolCode_C": {
+      "status": "wrong",
+      "expected": "X",
+      "extracted": "LOGONFM"
+    },
+    "Vehicle_Collision_DeductibleAmount_C": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "Vehicle_ComprehensiveSymbolCode_C": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_C": {
+      "status": "missing",
+      "expected": 25000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_AgreedOrStatedAmount_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "6000"
+    },
+    "Vehicle_Coverage_CollisionIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_C": {
+      "status": "missing",
+      "expected": 1000,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Named_Insured": {
+      "status": "missing",
+      "expected": "Anderson, Lynch and Doyle",
+      "extracted": null
+    },
+    "Driver SeqNum_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Driver_MaritalStatus_A": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Policy_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "05/01/2022",
+      "extracted": null
+    },
+    "Policy_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "05/01/2024",
+      "extracted": null
+    },
+    "Vehicle SeqNum_C": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Vehicle_GivenName_C": {
+      "status": "missing",
+      "expected": "Matthew",
+      "extracted": null
+    },
+    "Vehicle_Surname_C": {
+      "status": "missing",
+      "expected": "Lyons",
+      "extracted": null
+    },
+    "Vehicle_GenderCode_C": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "Vehicle_BirthDate_C": {
+      "status": "missing",
+      "expected": "07/17/1984",
+      "extracted": null
+    },
+    "Vehicle_LicenseNumberIdentifier_C": {
+      "status": "missing",
+      "expected": "FL-611994",
+      "extracted": null
+    },
+    "Vehicle_LicensedStateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_LicensedYear_C": {
+      "status": "missing",
+      "expected": 2003,
+      "extracted": null
+    },
+    "Driver SeqNum_C": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_FarthestZoneCode_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_C": {
+      "status": "missing",
+      "expected": "7500",
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_C": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_ModelName_C": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_C": {
+      "status": "missing",
+      "expected": "2018",
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_C": {
+      "status": "missing",
+      "expected": "5.0",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_C": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_C": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_C": {
+      "status": "missing",
+      "expected": "123 Main St",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_C": {
+      "status": "missing",
+      "expected": "32202",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_C": {
+      "status": "matched",
+      "expected": "FL",
+      "extracted": "FL"
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_C": {
+      "status": "wrong",
+      "expected": "6.0",
+      "extracted": "$500"
+    },
+    "Vehicle_ProducerIdentifier_C": {
+      "status": "missing",
+      "expected": 3,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_C": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "Vehicle_RateClassCode_C": {
+      "status": "missing",
+      "expected": "12",
+      "extracted": null
+    },
+    "Vehicle_RatingTerritoryCode_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_SeatingCapacityCount_C": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_C": {
+      "status": "missing",
+      "expected": "2",
+      "extracted": null
+    },
+    "Vehicle_SymbolCode_C": {
+      "status": "missing",
+      "expected": "F150",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": "$100,000",
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_FarmIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ForHireIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_Use_PleasureIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ServiceIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VINIdentifier_C": {
+      "status": "wrong",
+      "expected": "1FTNWZCTX1EB14481",
+      "extracted": "1FTNWZCTXIEB14481"
+    },
+    "Vehicle_VehicleType_CommercialIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Vehicle_VehicleType_SpecialIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_BodyCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_CostNewAmount_D": {
+      "status": "missing",
+      "expected": "$25,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_AdditionalNoFaultIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_CollisionIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_D": {
+      "status": "missing",
+      "expected": "$1,000",
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_FullGlassIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LiabilityIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_MedicalPaymentsIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_NoFaultIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "BroadenedNoFault": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "DOC": {
+      "status": "missing",
+      "expected": "FL-802787",
+      "extracted": null
+    },
+    "Use Veh #": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "% Use": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "City": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "State": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Marital Status": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Effective": {
+      "status": "missing",
+      "expected": "02/01/2024",
+      "extracted": null
+    },
+    "Expiration": {
+      "status": "missing",
+      "expected": "08/31/2025",
+      "extracted": null
+    },
+    "Vehicle_Coverage_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Coverage_RentalReimbursementIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_TowingAndLabourIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_UnderinsuredMotoristsIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_UninsuredMotoristsIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationActualCashValueIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Coverage_ValuationAgreedAmountIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Coverage_ValuationStatedAmountIndicator_D": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Vehicle_FarthestZoneCode_D": {
+      "status": "missing",
+      "expected": "JAX",
+      "extracted": null
+    },
+    "Vehicle_GrossVehicleWeight_D": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "Vehicle_ManufacturersName_D": {
+      "status": "missing",
+      "expected": "Ford",
+      "extracted": null
+    },
+    "Vehicle_ModelName_D": {
+      "status": "missing",
+      "expected": "F-150",
+      "extracted": null
+    },
+    "Vehicle_ModelYear_D": {
+      "status": "missing",
+      "expected": 2022,
+      "extracted": null
+    },
+    "Vehicle_NetRatingFactor_D": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CityName_D": {
+      "status": "missing",
+      "expected": "Jacksonville",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_CountyName_D": {
+      "status": "missing",
+      "expected": "Duval",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_LineOne_D": {
+      "status": "missing",
+      "expected": "931 Laura Gateway",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_PostalCode_D": {
+      "status": "missing",
+      "expected": "32234",
+      "extracted": null
+    },
+    "Vehicle_PhysicalAddress_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_PrimaryLiabilityRatingFactor_D": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "Vehicle_ProducerIdentifier_D": {
+      "status": "missing",
+      "expected": 4,
+      "extracted": null
+    },
+    "Vehicle_RadiusOfUse_D": {
+      "status": "wrong",
+      "expected": 50,
+      "extracted": "100"
+    },
+    "Vehicle_RateClassCode_D": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Vehicle_Registration_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "FL",
+      "extracted": null
+    },
+    "Vehicle_SeatingCapacityCount_D": {
+      "status": "missing",
+      "expected": 5,
+      "extracted": null
+    },
+    "Vehicle_SpecialIndustryClassCode_D": {
+      "status": "missing",
+      "expected": "B",
+      "extracted": null
+    },
+    "Vehicle_SymbolCode_D": {
+      "status": "missing",
+      "expected": "F",
+      "extracted": null
+    },
+    "Vehicle_TotalPremiumAmount_D": {
+      "status": "missing",
+      "expected": "12000",
+      "extracted": null
+    },
+    "Vehicle_Use_CommercialIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FarmIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_FifteenMilesOrOverIndicator_D": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Vehicle_Use_ForHireIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_PleasureIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_Use_RetailIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_Use_ServiceIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Vehicle_Use_UnderFifteenMilesIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Vehicle_VINIdentifier_D": {
+      "status": "missing",
+      "expected": "1FTNWZCTX1EB14481",
+      "extracted": null
+    },
+    "Vehicle_VehicleType_CommercialIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Vehicle_VehicleType_PrivatePassengerIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Vehicle_VehicleType_SpecialIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialVehicleLineOfBusiness_RemarkText_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_AuthorizedRepresentative_FullName_A": {
+      "status": "wrong",
+      "expected": "Tom Hebert",
+      "extracted": "Lawrence Scott"
+    },
+    "Producer_NationalIdentifier_A": {
+      "status": "matched",
+      "expected": "11-9528047",
+      "extracted": "11-9528047"
+    },
+    "Producer_StateLicenseIdentifier_A": {
+      "status": "partial",
+      "expected": "FL",
+      "extracted": "FL-802787"
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_BroadenedNoFaultCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_DriverOtherCarCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_I": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_J": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_Coverage_NonOwnedCode_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialVehicleLineOfBusiness_Attachment_CommercialAutoDriverInformationScheduleIndicator_M": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    }
+  },
+  "accuracy": 29.15,
+  "exact_match_rate": 28.75,
+  "coverage": 39.46
+}

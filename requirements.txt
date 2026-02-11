@@ -1,0 +1,26 @@
+# Best Project: OCR Fusion + Text LLM Pipeline
+# ==============================================
+
+# PDF processing
+docling
+pdf2image
+pymupdf
+
+# OCR
+easyocr
+opencv-python
+
+# Image processing
+Pillow
+
+# LLM client
+requests
+
+# JSON repair for malformed LLM output
+json_repair
+
+# Logging
+rich
+
+# Deep learning (needed by docling/easyocr)
+torch

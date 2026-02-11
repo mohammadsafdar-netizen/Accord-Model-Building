@@ -1,0 +1,211 @@
+Skipping import of cpp extensions due to incompatible torch version 2.10.0+cu128 for torchao version 0.15.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+======================================================================
+  BEST PROJECT - END-TO-END PIPELINE TEST
+  Model: qwen2.5:7b
+  Mode:  GPU (sequential: Docling→EasyOCR→LLM)
+  Forms: 125, 127, 137
+  Total PDFs discovered: 11
+    Form 125: 5 PDFs
+      - ACORD_0125_CommercialInsurance_Acroform_169592d5 [✓ GT]
+      - ACORD_0125_CommercialInsurance_Acroform_49df78c7 [✓ GT]
+      - ACORD_0125_CommercialInsurance_Acroform_4b87c3fc [✓ GT]
+      - ACORD_0125_CommercialInsurance_Acroform_c89234e1 [✓ GT]
+      - ACORD_0125_CommercialInsurance_Acroform_db5f86d9 [✓ GT]
+    Form 127: 5 PDFs
+      - 127_Business_Auto_Section_2015_12_45df0c68 [✓ GT]
+      - 127_Business_Auto_Section_2015_12_b07a4a25 [✓ GT]
+      - 127_Business_Auto_Section_2015_12_bec8f27a [✓ GT]
+      - 127_Business_Auto_Section_2015_12_cf64cd92 [✓ GT]
+      - 127_Business_Auto_Section_2015_12_d5a3f1f4 [✓ GT]
+    Form 137: 1 PDFs
+      - ACORD_137_d9acd0fb [✓ GT]
+======================================================================
+  [Schema] ACORD 137: 102 fields
+  [Schema] ACORD 125: 548 fields
+  [Schema] ACORD 127: 634 fields
+
+======================================================================
+  TESTING FORM 125 (5 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [1/11] Form 125 - PDF 1/5
+  File: ACORD_0125_CommercialInsurance_Acroform_169592d5
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_0125_CommercialInsurance_Acroform_169592d5.pdf
+============================================================
+  [LLM] Model qwen2.5:7b unloaded from GPU
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [OCR] Removing table lines ...
+  [OCR] Running Docling OCR (CPU (offload)) ...
+  [OCR] Docling produced 34872 chars across 4 pages
+  [OCR] Docling unloaded from GPU
+  [OCR] Running EasyOCR with bounding boxes (GPU) ...
+  [OCR] EasyOCR found 862 text blocks
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] Building spatial indices ...
+    Page 1: 236 blocks, 61 rows, 38 cols, 1 tables, 26 pairs
+    Page 2: 263 blocks, 47 rows, 41 cols, 1 tables, 49 pairs
+    Page 3: 146 blocks, 54 rows, 29 cols, 1 tables, 11 pairs
+    Page 4: 217 blocks, 72 rows, 41 cols, 1 tables, 26 pairs
+
+  Form type: ACORD 125
+  [SAVE] All intermediate outputs saved to /home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_output/form_125/ACORD_0125_CommercialInsurance_Acroform_169592d5
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 36 fields pre-extracted spatially
+    Insurer_FullName_A: Nationwide Insurance Corporation
+    Insurer_NAICCode_A: 23787
+    Producer_FullName_A: Downs, Bruce and Torres
+    NamedInsured_FullName_A: Adam Aguilar Downs Bruce and Torres
+    Policy_PolicyNumberIdentifier_A: BA-44346598
+    Form_CompletionDate_A: 03/15/2024
+
+  [1/11] Extracting header (8/9 fields) ...
+    -> 0 fields extracted
+
+  [2/11] Extracting insurer (10/13 fields) ...
+    -> 6 fields extracted
+
+  [3/11] Extracting producer (10/15 fields) ...
+    -> 0 fields extracted
+
+  [4/11] Extracting named_insured (89/94 fields) ...
+    -> 62 fields extracted
+
+  [5/11] Extracting policy (161/168 fields) ...
+    -> 78 fields extracted
+
+  [6/11] Extracting coverage (40/52 fields) ...
+    -> 19 fields extracted
+
+  [7/11] Extracting location (44/44 fields) ...
+    -> 27 fields extracted
+
+  [8/11] Extracting loss_history (6/6 fields) ...
+    -> 0 fields extracted
+
+  [9/11] Extracting checkbox (46/46 fields) ...
+    -> 23 fields extracted
+
+  [10/11] Extracting general (81/81 fields) ...
+    -> 55 fields extracted
+
+  [11/11] Gap-fill pass (244 missing fields) ...
+    -> 84 additional fields recovered
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    372/390 values found in OCR text
+  [LLM] Model qwen2.5:7b unloaded from GPU
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 390
+  Time: 619.0s
+============================================================
+
+
+============================================================
+  ACORD 125 - ACORD_0125_CommercialInsurance_Acroform_169592d5
+============================================================
+  Total GT fields:   742
+  Exact matches:     177
+  Partial matches:   24
+  Wrong:             142
+  Missing:           399
+  ---
+  Accuracy:          25.47%
+  Exact match rate:  23.85%
+  Coverage:          46.23%
+
+  Top mismatches (wrong):
+    Insurer_ProductCode_A
+      expected:  CGL-12345
+      got:       NATIONWIDE-001
+    Insurer_Underwriter_FullName_A
+      expected:  John Doe
+      got:       Adam Aguilar
+    Insurer_Underwriter_OfficeIdentifier_A
+      expected:  NWD-1234
+      got:       AGENCY
+    Policy_Status_BoundIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_CancelIndicator_A
+      expected:  False
+      got:       1
+    Policy_Status_EffectiveTime_A
+      expected:  1000
+      got:       01/02/2024
+    Policy_Status_QuoteIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_RenewIndicator_A
+      expected:  True
+      got:       Off
+    Producer_MailingAddress_LineOne_A
+      expected:  123 Main St
+      got:       1234 16th St NW, Washington D.C. 20016
+    Policy_LineOfBusiness_BoilerAndMachineryIndicator_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_CommercialProperty_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_CrimeIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_CyberAndPrivacy_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_GarageAndDealersIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_LiquorLiabilityIndicator_A
+      expected:  False
+      got:       1
+
+  Missing fields (399):
+    Insurer_ProductDescription_A
+    Producer_MailingAddress_InsideCityLimits_A
+    Producer_MailingAddress_Occupancy_A
+    Producer_MailingAddress_DescriptionOfOccupancy_A
+    Producer_MailingAddress_Employees_A
+    Producer_MailingAddress_AnualRevenue_A
+    Producer_MailingAddress_OccupiedArea_A
+    Producer_MailingAddress_AreaOpenToPublic_A
+    Producer_MailingAddress_TotalBuildingArea_A
+    Producer_MailingAddress_LeasedToOthers_A
+    Nature_of_Business_TypeOfBusiness_A
+    Nature_of_Business_DateBusinessStarted_A
+    Nature_of_Business_DescriptionOfPrimaryOperations_A
+    Current_Insurance_CurrentCarrier_A
+    Current_Insurance_NoPriorInsurance_A
+    ... and 384 more
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> ACORD_0125_CommercialInsurance_Acroform_169592d5: Accuracy=25.47%, Coverage=46.23%, Time=618.97s
+
+──────────────────────────────────────────────────────────────────────
+  [2/11] Form 125 - PDF 2/5
+  File: ACORD_0125_CommercialInsurance_Acroform_49df78c7
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_0125_CommercialInsurance_Acroform_49df78c7.pdf
+============================================================
+  [LLM] Model qwen2.5:7b unloaded from GPU
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [OCR] Removing table lines ...
+  [OCR] Running Docling OCR (CPU (offload)) ...
+  [OCR] Docling produced 38580 chars across 4 pages
+  [OCR] Docling unloaded from GPU

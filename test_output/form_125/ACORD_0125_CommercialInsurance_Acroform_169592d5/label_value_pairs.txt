@@ -1,0 +1,120 @@
+--- Page 1 ---
+GANEACT -> Adam Aguilar
+PHONFo. Extl: -> 202-123-4567
+FAX -> 202-901-2345
+CODE: -> NATIONWIDE-001
+CANCEL -> 02/15/2024
+AGENCY CUSTOMER ID: -> Adam Aguilar
+CYBER AND PRIVACY -> 500.00
+FIDUCIARY LIABILITY -> 200.00
+BUSINESS OWNERS -> 5000.00
+GARAGE AND DEALERS -> 1500.00
+COMMERCIAL GENERAL LIABILITY -> S
+LIQUOR LIABILITY -> S
+500.00 -> Other Line of Business C
+COMMERCIAL INLAND MARINE -> 2000.00
+MOTOR CARRIER -> 3000.00
+COMMERCIAL PROPERTY -> 3000.00
+250.0 -> 500.0
+DIRECT -> Monthly
+NAICS -> FEIN OR SOC SEC #
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NAICS -> FEIN OR SOC SEC #
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> 2
+NAICS -> FEIN OR SOC SEC #
+NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
+NO. OF MEMBERS -> 2
+
+--- Page 2 ---
+AGENCY CUSTOMER ID: -> Adam Aguilar
+CONTACT NAME: -> Crystal Mcdaniel
+CONTACT NAME: -> Valerie Matthews
+STREET -> 1234 16th St NW
+INTEREST -> #FULL TIME EMPL
+OWNER -> 30
+OCCUPIED AREA: -> 1000
+CITY: -> Washington D.C.
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 500
+COUNTY: -> Washington D.C.
+TOTAL BUILDING AREA: -> 200000
+DESCRIPTION OF OPERATIONS: -> Commercial Machine Shop Operations
+STREET -> 1234 16th St NW
+FULL TIME EMPL -> ANNUAL REVENUES: $
+OWNER -> 25
+OCCUPIED AREA: -> 800
+CITY: -> Washington
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 400
+TOTAL BUILDING AREA: -> 100,000
+DESCRIPTION OF OPERATIONS: -> Machine Shop Operations
+STREET -> 1234 16th St NW
+ANNUAL REVENUES: -> S
+OWNER -> 30
+OCCUPIED AREA: -> 50,000
+CITY: -> Arlington
+OPEN TO PUBLIC AREA: -> 20,000
+COUNTY: -> Fairfax
+TOTAL BUILDING AREA: -> 100000
+DESCRIPTION OF OPERATIONS: -> Machine Shops
+STREET -> 1234
+INTEREST -> #FULL TIME EMPL
+OWNER -> 30
+OCCUPIED AREA: -> 50000
+CITY: -> Arlington
+TENANT -> #PART TIME EMPL
+OPEN TO PUBLIC AREA: -> 20000
+COUNTY: -> Fairfax
+ZIP:20016 -> Indus
+DESCRIPTION OF OPERATIONS: -> Manufacturing and fabrication
+SERVICE -> Machine Shops
+0.5 -> %
+LOSS PAYEE -> 1234 16th St NW
+OWNER -> Washington
+DC -> 20016
+REFERENCE -> LOAN #
+INTEREST END DATE: -> 12/31/2025
+E-MAIL ADDRESS: -> adam aguilar@downsbruceandtorrescom
+
+--- Page 3 ---
+AGENCY CUSTOMER ID: -> Adam Aguilar
+RELATIONSHIP DESCRIPTION -> % OWNED
+RELATIONSHIP DESCRIPTION -> % OWNED
+DISTRIBUTED IN FOREIGN COUNTRIES? -> "
+REMARKS -> PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule, may be attached if more space is required)
+PROPERTY -> 3599
+CARRIER -> Nationwide Insurance Corporation
+POLICY NUMBER -> BA-44346598
+PREMIUM -> S150,000.00
+EFFECTIVE DATE -> 01/02/2024
+EXPIRATION DATE -> 03/02/2024
+
+--- Page 4 ---
+AGENCY CUSTOMER ID: -> Adam Aguilar
+PROPERTY -> OTHER: 3599
+CARRIER -> Nationwide Insurance Corporation
+POLICY NUMBER -> BA-44346598
+PREMIUM -> 20000
+EFFECTIVE DATE -> 03/01/2019
+EXPIRATION DATE -> 04/30/2021
+CARRIER -> Nationwide Insurance Corporation
+POLICY NUMBER -> BA-44346598
+PREMIUM -> S
+EFFECTIVE DATE -> 03/01/2019
+EXPIRATION DATE -> 04/30/2021
+ENTER ALL CLAIMS OR LOSSES (REGARDLESS OF FAULT AND WHETHER OR NOT INSURED) OR OCCURRENCES THAT MAY GIVE RISE TO CLAIMS -> TOTAL LOSSES: $ 35000.0
+GATION -> Y
+AMOUNT RESERVED -> N
+15000.0 -> 20000.0
+Applicable in AL, AR; DC, LA, MD; NM; RI and WV: -> Any _
+benefit or knowingly (or willfully) -> presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in
+Applicable in FL and OK: -> Any
+Applicable in KS: -> Any
+presented to or by an insurer, purported insurer, broker or any agent thereof, any written statement as part of, -> or in support of, an application for the issuance
+of defrauding the company. -> Penalties (may) * include imprisonment; fines and denial of insurance benefits _
+Applicable in NJ: -> Any
+Applicable in OR: -> Any
+Applicable in PR: -> Any
+ANSWERS TO QUESTIONS ON THIS APPLICATION: -> HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+

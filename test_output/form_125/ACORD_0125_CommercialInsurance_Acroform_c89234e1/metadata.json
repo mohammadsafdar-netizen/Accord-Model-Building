@@ -1,0 +1,10 @@
+{
+  "form_type": "125",
+  "source_pdf": "/home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_data/ACORD_0125_CommercialInsurance_Acroform/ACORD_0125_CommercialInsurance_Acroform_c89234e1.pdf",
+  "fields_extracted": 341,
+  "fields_verified": 319,
+  "total_schema_fields": 548,
+  "pages": 4,
+  "extraction_time_seconds": 808.4,
+  "model": "qwen2.5:7b"
+}

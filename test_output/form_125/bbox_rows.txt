@@ -1,0 +1,221 @@
+
+=== PAGE 1 ===
+y≈162: [x=229]ACORD | [x=1245]COMMERCIAL INSURANCE APPLICATION | [x=2295]DATE (MMIDDIYYYY)
+y≈192: [x=1248]APPLICANT INFORMATION SECTION | [x=2293]03/16/2024
+y≈255: [x=142]AGENCY | [x=1366]CARRIER | [x=2347]NAIC CODE
+y≈300: [x=213]Mark Bradley | [x=1496]Swanson Ltd Insurance | [x=2338]20044
+y≈348: [x=109]1 | [x=231]Swanson St | [x=1530]COMPANY POLICY OR PROGRAM NAME | [x=2307]PROGRAM CODE
+y≈398: [x=1590]Commercial General Liability Insurance | [x=2251]CGL
+y≈448: [x=159]Boston | [x=1089]MA 02141 | [x=1392]POLICY NUMBER
+y≈497: [x=1416]BA-48804535
+y≈550: [x=149]GANEACT | [x=346]Mark Bradley | [x=1382]UNDERWRITER | [x=2030]UNDErWRITER OFFICE
+y≈600: [x=172]PHONFo. Extl: | [x=407]617-123-4567 | [x=1413]Mark Bradley | [x=2013]Boston Office
+y≈639: [x=115]FAX | [x=128]CODE: | [x=132]E-MAIL | [x=146](AIC. No}: | [x=155]ADDRESS: | [x=350]617-123-4568 | [x=359]SWANSON-12345 | [x=505]mark@swansoninsurance.com | [x=755]SUBCODE: | [x=1055]Berkshire Hathaway 456 | [x=1360]STATUS OF | [x=1379]TRANSACTION
+y≈809: [x=237]AGENCY CUSTOMER ID: | [x=1699]CANCEL | [x=1904]02/28/2024 | [x=2159]08.00 AM | [x=2368]PM
+y≈854: [x=259]LINES OF BUSINESS
+y≈898: [x=272]INDICATE LINES OF BUSINESS | [x=688]PREMIUM | [x=1498]PREMIUM | [x=2292]PREMIUM
+y≈948: [x=285]BOILER & MACHINERY | [x=636]$ | [x=760]S50,000.00 | [x=1090]CYBER AND PRIVACY | [x=1446]$ | [x=1572]S15,000.00 | [x=1795]YACHT
+y≈997: [x=251]BUSINESS AUTO | [x=760]$60,000.00 | [x=1086]FIDUCIARY LIABILITY | [x=1562]$5,000.00
+y≈1048: [x=273]BUSINESS OWNERS | [x=636]$ | [x=759]$75,000.00 | [x=1104]GARAGE AND DEALERS | [x=1446]$ | [x=1562]$8,000.00 | [x=2240]$
+y≈1098: [x=356]COMMERCIAL GENERAL LIABILITY | [x=637]S | [x=766]S250,000.0C | [x=1067]LIQUOR LIABILITY | [x=1446]$ | [x=1572]S12,000.00 | [x=2242]$
+y≈1147: [x=334]COMMERCIAL INLAND MARINE | [x=760]$30,000.00 | [x=1066]MOTOR CARRIER | [x=1572]$40,000.00 | [x=2240]$
+y≈1198: [x=305]COMMERCIAL PROPERTY | [x=760]$40,000.00 | [x=1028]TRUCKERS | [x=1446]$ | [x=2242]$
+y≈1248: [x=190]CRIME | [x=636]$ | [x=757]S10,000.00 | [x=1027]UMBRELLA | [x=1446]$ | [x=1572]S20,000.00 | [x=2240]$
+y≈1304: [x=219]ATTACHMENTS
+y≈1347: [x=301]ACCOUNTS RECEIVABLE | [x=591]VALUABLE PAPERS | [x=1124]GLASS AND SIGN SECTION | [x=1829]STATEMENT | [x=2066]SCHEDULE OF VALUES
+y≈1398: [x=360]ADDITIONAL INTEREST SCHEDULE | [x=1003]HOTEL | [x=1193]MOTEL SUPPLEMENT | [x=1962]STATE SUPPLEMENT (If applicable)
+y≈1449: [x=454]ADDITIONAL PREMISES INFORMATION SCHEDULE | [x=1047]INSTALLATION | [x=1312]BUILDERS RISK SECTION | [x=1954]VACANT BUILDING SUPPLEMENT
+y≈1498: [x=376]APARTMENT BUILDING SUPPLEMENT | [x=1278]INTERNATIONAL LIABILITY EXPOSURE SUPPLEMENT | [x=1878]VEHICLE SCHEDULE
+y≈1550: [x=430]CONDO ASSN BYLAWS (for D&O Coverage only) | [x=1290]INTERNATIONAL PROPERTY EXPOSURE SUPPLEMENT
+y≈1597: [x=333]CONTRACTORS SUPPLEMENT | [x=1059]LOSS SUMMARY
+y≈1649: [x=298]COVERAGES SCHEDULE | [x=1103]OPEN CARGO SECTION
+y≈1698: [x=266]DEALERS SECTION | [x=1169]PREMIUM PAYMENT SUPPLEMENT
+y≈1748: [x=359]DRIVER INFORMATION SCHEDULE | [x=1204]PROFESSIONAL LIABILITY SUPPLEMENT | [x=1795]Any
+y≈1798: [x=412]ELECTRONIC DATA PROCESSING SECTION | [x=1044]RESTAURANT | [x=1286]TAVERN SUPPLEMENT
+y≈1899: [x=217]PROPOSED EFF DATE | [x=284]POLICY INFORMATION | [x=508]PROPOSED EXP DATE | [x=846]BILLING PLAN | [x=1169]PAYMENT PLAN | [x=1461]METHOD OF PAYMENT | [x=1679]AUDIT | [x=1859]DEPOSIT | [x=2098]PREMIUM | [x=2100]MINIMUM | [x=2346]POLICY PREMIUM
+y≈1948: [x=218]02/23/2024 | [x=510]03/24/2025 | [x=780]DIRECT | [x=968]AGENCY | [x=1171]Monthly | [x=1464]Direct | [x=1675]A
+y≈2028: [x=320]APPLICANT INFORMATION
+y≈2075: [x=506]NAME (First Named Insured) AND MAILING ADDRESS (including ZIP+4) | [x=1345]GL CODE | [x=1610]SIC | [x=1927]NAICS | [x=2309]FEIN OR SOC SEC #
+y≈2127: [x=213]Mark Bradley | [x=1639]5651 | [x=1963]448140 | [x=2298]60-4414267
+y≈2173: [x=221]02141 Main St | [x=1414]BUSINESS PHONE #: | [x=1681]617-123-4567
+y≈2222: [x=1409]WEBSITE ADDRESS
+y≈2272: [x=159]Boston | [x=1088]MA 02141
+y≈2373: [x=218]INDIVIDUAL | [x=243]CORPORATION | [x=487]LLC | [x=564]JOINT VENTURE | [x=645]AND MANAGERS: | [x=649]NO. OF MEMBERS | [x=823]2 | [x=1093]PARTNERSHIP | [x=1143]NOT FOR PROFIT ORG | [x=1450]TRUST | [x=1611]SUBCHAPTER "S" CORPORATION | [x=2192]Family Clothing Stores
+y≈2425: [x=513]NAME (Other Named Insured) AND MAILING ADDRESS (including ZIP+4) | [x=1345]GL CODE | [x=1610]SIC | [x=1927]NAICS | [x=2309]FEIN OR SOC SEC #
+y≈2475: [x=207]Kevin Zhang | [x=1639]5651 | [x=1963]448140 | [x=2298]60-4414267
+y≈2524: [x=221]02141 Main St | [x=1414]BUSINESS PHONE # | [x=1682]617-123-4567
+y≈2573: [x=1409]WEBSITE ADDRESS
+y≈2622: [x=159]Boston | [x=1089]MA 02141
+y≈2723: [x=218]INDIVIDUAL | [x=243]CORPORATION | [x=487]LLC | [x=564]JOINT VENTURE | [x=644]AND MANAGERS: | [x=649]NO. OF MEMBERS | [x=1093]PARTNERSHIP | [x=1143]NOT FOR PROFIT ORG | [x=1450]TRUST | [x=1611]SUBCHAPTER "S" CORPORATION | [x=2192]Family Clothing Stores
+y≈2776: [x=513]NAME (Other Named Insured) AND MAILING ADDRESS (including ZIP+4) | [x=1345]GL CODE | [x=1610]SIC | [x=1928]NAICS | [x=2309]FEIN OR SOC SEC #
+y≈2825: [x=213]Mark Bradley | [x=1313]N | [x=1639]5651 | [x=1962]448140 | [x=2298]60-4414267
+y≈2872: [x=221]02141 Main St | [x=1414]BUSINESS PHONE #: | [x=1681]617-123-4567
+y≈2924: [x=1409]WEBSITE ADDRESS
+y≈2973: [x=159]Boston | [x=1089]MA 02141
+y≈3072: [x=218]INDIVIDUAL | [x=243]CORPORATION | [x=487]LLC | [x=564]JOINT VENTURE | [x=644]AND MANAGERS: | [x=649]NO. OF MEMBERS | [x=1093]PARTNERSHIP | [x=1143]NOT FOR PROFIT ORG | [x=1450]TRUST | [x=1611]SUBCHAPTER "S" CORPORATION
+y≈3125: [x=270]ACORD 125 (2016/03) | [x=1274]Page 1 of 4 | [x=1833]1993-2015 ACORD CORPORATION: | [x=2304]AIl rights reserved:
+y≈3178: [x=1274]The ACORD name and logo are registered marks of ACORD
+
+=== PAGE 2 ===
+y≈152: [x=305]CONTACT INFORMATION | [x=1513]AGENCY CUSTOMER ID:
+y≈208: [x=189]CONTACT TYPE: | [x=1389]CONTACT TYPE:
+y≈309: [x=144]PHONE # | [x=146]PRIMARY | [x=193]CONTACT NAME: | [x=352]HOME | [x=438]Mark Bradley | [x=475]BUS | [x=600]CELL | [x=743]PHONE # | [x=768]SECONDARY | [x=951]HOME | [x=1076]BUS | [x=1201]CELL
+y≈348: [x=216]617-123-4567 | [x=1416]617-123-4567
+y≈408: [x=260]PRIMARY E-MAIL ADDRESS: | [x=1459]PRIMARY E-MAIL ADDRESS:
+y≈458: [x=280]SECONDARY E-MAIL ADDRESS: | [x=1479]SECONDARY E-MAIL ADDRESS:
+y≈505: [x=688]PREMISES INFORMATION (Attach ACORD 823 for Additional Premises)
+y≈547: [x=134]LOC # | [x=258]STREET | [x=458]02141 Main St | [x=1181]CITY LIMITS | [x=1365]INTEREST | [x=1709]#FULL TIME EMPL | [x=2109]ANNUAL REVENUES: $ $1,500,000
+y≈598: [x=1210]INSIDE | [x=1413]OWNER | [x=1709]20 | [x=1967]OCCUPIED AREA: | [x=2146]75 | [x=2419]SQ FT
+y≈648: [x=134]BLD # | [x=243]CITY: | [x=368]Boston | [x=885]STATE: | [x=994]MA | [x=1224]OUTSIDE | [x=1414]TENANT | [x=1709]#PART TIME EMPL | [x=2008]OPEN TO PUBLIC AREA: | [x=2216]100 | [x=2419]SQ FT
+y≈697: [x=266]COUNTY: | [x=412]Suffolk | [x=916]ZIP: 02141 | [x=1711]10 | [x=2007]TOTAL BUILDING AREA: | [x=2240]25,000 | [x=2421]SQ FT
+y≈748: [x=286]DESCRIPTION OF OPERATIONS: | [x=712]Retail Store Operations | [x=2094]ANY AREA LEASED TO OTHERS? Y / N
+y≈797: [x=136]LOC # | [x=257]STREET | [x=439]123 Main St | [x=1181]CITY LIMITS | [x=1365]INTEREST | [x=1718]FULL TIME EMPL | [x=2003]ANNUAL REVENUES: $
+y≈848: [x=137]0214 | [x=1210]INSIDE | [x=1411]OWNER | [x=1968]OCCUPIED AREA: | [x=2419]SQ FT
+y≈897: [x=136]BLD # | [x=243]CITY: | [x=368]Boston | [x=884]STATE: | [x=994]MA | [x=1224]OUTSIDE | [x=1414]TENANT | [x=1709]#PART TIME EMPL | [x=2008]OPEN TO PUBLIC AREA: | [x=2419]SQ FT
+y≈948: [x=138]0214 | [x=266]COUNTY: | [x=412]Suffolk | [x=916]ZIP:02141 | [x=2007]TOTAL BUILDING AREA: | [x=2247]100000 | [x=2421]SQ FT
+y≈997: [x=286]DESCRIPTION OF OPERATIONS: | [x=2094]ANY AREA LEASED TO OTHERS? Y /N | [x=2371]N
+y≈1048: [x=136]LOC # | [x=258]STREET | [x=1181]CITY LIMITS | [x=1365]INTEREST | [x=1709]#FULL TIME EMPL | [x=1989]ANNUAL REVENUES: | [x=2137]S | [x=2238]2000000
+y≈1098: [x=1210]INSIDE | [x=1413]OWNER | [x=1709]50 | [x=1967]OCCUPIED AREA: | [x=2176]50000 | [x=2419]SQ FT
+y≈1147: [x=134]BLD # | [x=243]CITY: | [x=884]STATE: | [x=1224]OUTSIDE | [x=1414]TENANT | [x=1719]PART TIME EMPL | [x=2008]OPEN TO PUBLIC AREA: | [x=2421]SQ FT
+y≈1199: [x=138]0214 | [x=266]COUNTY: | [x=863]ZIP: | [x=1709]20 | [x=2007]TOTAL BUILDING AREA: | [x=2421]SQ FT
+y≈1248: [x=287]DESCRIPTION OF OPERATIONS: | [x=2094]ANY AREA LEASED TO OTHERS? Y / N
+y≈1298: [x=135]LOC # | [x=259]STREET | [x=1181]CITY LIMITS | [x=1365]INTEREST | [x=1709]#FULL TIME EMPL | [x=2003]ANNUAL REVENUES: $
+y≈1348: [x=1210]INSIDE | [x=1411]OWNER | [x=1966]OCCUPIED AREA: | [x=2419]SQ FT
+y≈1397: [x=134]BLD # | [x=243]CITY: | [x=884]STATE: | [x=1224]OUTSIDE | [x=1414]TENANT | [x=1709]#PART TIME EMPL | [x=2008]OPEN TO PUBLIC AREA: | [x=2421]SQ FT
+y≈1447: [x=266]COUNTY: | [x=863]ZIP: | [x=2007]TOTAL BUILDING AREA: | [x=2419]SQ FT
+y≈1498: [x=287]DESCRIPTION OF OPERATIONS: | [x=2094]ANY AREA LEASED TO OTHERS? Y / N | [x=2368]Y
+y≈1555: [x=289]NATURE OF BUSINESS
+y≈1607: [x=235]APARTMENTS | [x=567]CONTRACTOR | [x=906]MANUFACTURING | [x=1224]RESTAURANT | [x=1494]SERVICE | [x=1900]Family Clothing Store: | [x=2260]BTAEBUSINESBDIYYYY)
+y≈1658: [x=249]CONDOMINIUMS | [x=572]INSTITUTIONAL | [x=840]OFFICE | [x=1183]RETAIL | [x=1517]WHOLESALE | [x=2285]03/11/2017
+y≈1698: [x=338]DESCRIPTION OF PRIMARY OPERATIONS
+y≈1763: [x=149]Retail
+y≈2148: [x=1251]INSTALLATION, SERVICE OR REPAIR WORK | [x=2052]OFF PREMISES INSTALLATION; SERVICE OR REPAIR WORK
+y≈2197: [x=479]RETAIL STORES OR SERVICE OPERATIONS % OF TOTAL SALES: | [x=1271]0 | [x=1320]% | [x=2096]0 | [x=2142]%
+y≈2248: [x=460]DESCRIPTION OF OPERATIONS OF OTHER NAMED INSUREDS
+y≈2680: [x=587]ADDITIONAL INTEREST (Not all fields apply to all scenarios | [x=1781]provide only the necessary data) Attach ACORD 45 for more Additional Interests
+y≈2728: [x=149]INTEREST | [x=220]CO-OWNER | [x=221]WARRANTY | [x=222]BRURCoF | [x=226]ADDITIONAL | [x=483]LOSS PAYEE | [x=484]LIENHOLDER | [x=485]MORTGAGEE | [x=722]Mark Bradley | [x=728]NAME AND ADDRESS | [x=729]02141 Main St | [x=925]RANK:
+y≈2987: [x=196]OWNER | [x=220]EMPLOYEE | [x=221]AS LESSOR | [x=226]LEASEBACK | [x=452]OWNER | [x=484]REGISTRANT | [x=669]Boston | [x=1580]MA 02141 | [x=1918]ITEM | [x=1935]CLASS: | [x=2004]ITEM DESCRIPTION | [x=2222]ITEM:
+y≈3013: [x=202]LENDER'S | [x=230]LOSS PAYABLE | [x=462]TRUSTEE | [x=676]REFERENCE | [x=821]LOAN # | [x=1375]INTEREST END DATE:
+y≈3073: [x=688]LIEN AMOUNT: | [x=1374]PHONE (AC, No, Ext): | [x=1652]617-123-4567 | [x=1976]FAX (A/C, No):
+y≈3122: [x=240]REASON FOR INTEREST: | [x=1354]E-MAIL ADDRESS:
+y≈3175: [x=270]ACORD 125 (2016/03) | [x=1273]Page 2 of 4
+
+=== PAGE 3 ===
+y≈154: [x=304]GENERAL INFORMATION | [x=1513]AGENCY CUSTOMER ID:
+y≈198: [x=289]EXPLAIN ALL "YES" RESPONSES | [x=2428]YIN
+y≈247: [x=108]Ia_ | [x=551]IS THE APPLICANT A SUBSIDIARY OF ANOTHER ENTITY ?
+y≈299: [x=323]PARENT COMPANY NAME | [x=1695]RELATIONSHIP DESCRIPTION | [x=2234]% OWNED
+y≈350: [x=321]Swanson Ltd LLC | [x=1802]Parent company of Swanson Ltd LLC_ | [x=2233]100%
+y≈398: [x=108]Ib | [x=500]DOES THE APPLICANT HAVE ANY SUBSIDIARIES?
+y≈448: [x=346]SUBSIDIARY COMPANY NAME | [x=1695]RELATIONSHIP DESCRIPTION | [x=2234]% OWNED
+y≈498: [x=321]Swanson Ltd LLC | [x=1676]Parent-Subsidiary | [x=2204]75
+y≈547: [x=98]2 | [x=494]IS A FORMAL SAFETY PROGRAM IN OPERATION?
+y≈598: [x=331]SAFETY MANUAL | [x=680]SAFETY POSITION | [x=1059]MONTHLY MEETINGS | [x=1369]OSHA
+y≈648: [x=97]3 | [x=590]ANY EXPOSURE TO FLAMMABLES, EXPLOSIVES, CHEMICALS?
+y≈724: [x=858]We do not have any exposure to flammable or explosives chemicals
+y≈797: [x=101]4 | [x=647]ANY OTHER INSURANCE WITH THIS COMPANY? (List policy numbers) | [x=2427]N
+y≈858: [x=281]LINE OF BUSINESS | [x=703]POLICY NUMBER | [x=1375]LINE OF BUSINESS | [x=1843]POLICY NUMBER
+y≈898: [x=215]CGL | [x=1279]N
+y≈945: [x=188]N | [x=1279]N
+y≈992: [x=101]5. | [x=1108]ANY POLICY OR COVERAGE DECLINED, CANCELLED OR NON-RENEWED DURING THE PRIOR THREE (3) YEARS FOR ANY PREMISES OR
+y≈1029: [x=405]OPERATIONS? (Missouri Applicants - | [x=878]Do not answer this question)
+y≈1072: [x=318]NON-PAYMENT | [x=825]AGENT NO LONGER REPRESENTS CArRIER
+y≈1122: [x=319]NON-RENEWAL | [x=653]UNDERWRITING | [x=1136]CONDITION CORRECTED (Describe):
+y≈1174: [x=100]6_ | [x=1125]ANY PAST LOSSES OR CLAIMS RELATING TO SEXUAL ABUSE OR MOLESTATION ALLEGATIONS, DISCRIMINATION OR NEGLIGENT HIRING? | [x=2427]N
+y≈1237: [x=117]M
+y≈1355: [x=970]BRIBERY, ARSON OR ANY OTHER ARSON-RELATED CRIME IN CONNECTION WITH THIS OR ANY OTHER PROPERTY? | [x=1180]DURING THE LAST FIVE YEARS (TEN IN RI); HAS ANY APPLICANT BEEN INDICTED FOR OR CONVICTED OF ANY DEGREE OF THE CRIME OF FRAUD_ | [x=2426]lon
+y≈1427: [x=462]by a sentence of up to one year of imprisonment)- | [x=1198](In RI; this question must be answered by any applicant for property insurance. Failure to disclose the existence of an arson conviction is a misdemeanor punishable
+y≈1573: [x=99]83 | [x=602]ANY UNCORRECTED FIRE ANDIOR SAFETY CODE VIOLATIONS?
+y≈1623: [x=255]OCCUR DATE | [x=463]EXPLANATION | [x=1552]RESOLUTION | [x=2204]RESOLVE DATE
+y≈1673: [x=256]J8/15/2018 | [x=1614]Burnt down due to | [x=1796]faulty | [x=1895]wiring: | [x=2205]10/20/202C
+y≈1722: [x=256]J1/11/2022
+y≈1772: [x=97]9 | [x=1121]HAS APPLICANT HAD A FORECLOSURE, REPOSSESSION, BANKRUPTCY OR FILED FOR BANKRUPTCY DURING THE LAST FIVE (5) YEARS?
+y≈1823: [x=255]OCCur DATE | [x=465]EXPLANATION | [x=1552]RESOLUTION | [x=2204]RESOLVE DATE
+y≈1873: [x=257]12/01/202C | [x=805]We have experienced one foreclosure in the past 3 years_ | [x=1681]Paid off through settlement. | [x=2204]J5/01/2021
+y≈1923: [x=256]J1/02/2018 | [x=2205]J3/15/2019
+y≈1973: [x=108]10_ | [x=721]HAS APPLICANT HAD A JUDGEMENT OR LIEN DURING THE LAST FIVE (5) YEARS?
+y≈2022: [x=253]OCCur DATE | [x=463]EXPLANATION | [x=1552]RESOLUTION | [x=2204]RESOLVE DATE
+y≈2073: [x=257]J2/01/2022 | [x=818]We have had one judgement against us in the past 3 years | [x=1682]Paid off through settlement. | [x=2205]J8/01/2022
+y≈2122: [x=256]J1/11/2022
+y≈2173: [x=112]11. | [x=457]HAS BUSINESS BEEN PLACED IN A TRUST? | [x=886]NAME OF TrUST:
+y≈2218: [x=110]12 | [x=751](If "YES" , attach ACORD 815 for Liability Exposure andlor ACORD 816 for Property Exposure) | [x=845]ANY FOREIGN OPERATIONS, FOREIGN PRODUCTS DISTRIBUTED IN USA, OR US PRODUCTS SOLD | [x=1845]DISTRIBUTED IN FOREIGN COUNTRIES? | [x=2426]"
+y≈2298: [x=108]13 | [x=866]DOES APPLICANT HAVE OTHER BUSINESS VENTURES FOR WHICH COVERAGE IS NOT REQUESTED?
+y≈2447: [x=108]14_ | [x=315]DOES APPLICANT OWN | [x=552]LEASE | [x=959]OPERATE ANY DRONES? (If "YES" , describe use) | [x=2427]N
+y≈2494: [x=515]yes; we own ana operate our arones.
+y≈2547: [x=108]15_ | [x=710]DOES APPLICANT HIRE OTHERS TO OPERATE DRONES? (If "YES" , describe use) | [x=2426]N
+y≈2653: [x=176]REMARKS | [x=1226]PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)
+y≈2734: [x=1256]Quote submitted on behalf of Swanson Ltd, a family clothing store located at 02141 Main St; Boston, MA
+y≈2785: [x=177]Ploaco | [x=342]oncuro | [x=516]that tho | [x=632]QI | [x=696]Into | [x=995]accuiratol rafloctc tho | [x=1779]hucinocc'€ cnocific noadc and dnoc nnt accumo | [x=2362]ani
+y≈2829: [x=359]PRIOR CARRIER INFORMATION
+y≈2883: [x=127]YEAR | [x=264]CATEGORY | [x=725]GENERAL LIABILITY | [x=1221]AUTOMOBILE | [x=1715]PROPERTY | [x=2027]OTHER:
+y≈2924: [x=251]CARRIER | [x=670]Allstate Corporation | [x=1222]State Farm Mutual Automobile Insurance Company | [x=1717]Liberty Mutual Insurance Company
+y≈2973: [x=297]POLICY NUMBER | [x=619]BA-98765432 | [x=1116]BA-12345678 | [x=1607]BA-56789012
+y≈3023: [x=127]2022 | [x=253]PREMIUM | [x=574]8000 | [x=1081]12000 | [x=1566]6000
+y≈3072: [x=301]EFFECTIVE DATE | [x=725]09/01/2021 | [x=1221]06/14/2022 | [x=1717]12/01/2019
+y≈3122: [x=307]EXPIRATION DATE | [x=729]11/02/2022 | [x=1221]08/15/2023 | [x=1713]03/31/2021
+y≈3175: [x=270]ACORD 125 (2016/03) | [x=1274]Page 3 of 4
+
+=== PAGE 4 ===
+y≈154: [x=460]PRIOR CARRIER INFORMATION (continued) | [x=1513]AGENCY CUSTOMER ID:
+y≈206: [x=127]YEAR | [x=264]CATEGORY | [x=725]GENERAL LIABILITY | [x=1221]AUTOMOBILE | [x=1715]PROPERTY | [x=2027]OTHER:
+y≈248: [x=251]CARRIER | [x=727]State Farm Mutual Automobile Insurance Company | [x=1222]State Farm Mutual Automobile Insurance Company
+y≈297: [x=297]POLICY NUMBER
+y≈348: [x=254]PREMIUM | [x=589]2000.0 | [x=1085]1500.0 | [x=1491]S | [x=1549]0.0 | [x=1986]S | [x=2041]0.0
+y≈398: [x=301]EFFECTIVE DATE | [x=726]08/21/2022 | [x=1221]08/21/2022
+y≈448: [x=307]EXPIRATION DATE | [x=726]09/20/2023 | [x=1221]09/20/2023
+y≈497: [x=251]CARRIER | [x=728]State Farm Mutual Automobile Insurance Company | [x=1715]Liberty Mutual Insurance Company | [x=2153]Allstate Corporation
+y≈547: [x=297]POLICY NUMBER | [x=619]BA-48804535 | [x=1607]BA-48804530 | [x=2102]BA-48804532
+y≈598: [x=127]2020 | [x=254]PREMIUM | [x=636]S100,000.00 | [x=1053]0.0 | [x=1492]S | [x=1617]S75,000.00 | [x=1986]S | [x=2109]S50,000.00
+y≈647: [x=301]EFFECTIVE DATE | [x=1715]03/11/2018 | [x=2217]02/11/2020
+y≈698: [x=307]EXPIRATION DATE | [x=1713]02/11/2021 | [x=2217]01/11/2022
+y≈752: [x=221]LoSS HISTORY | [x=715]Check if none | [x=1329](Attach Loss Summary for Additional Loss Information)
+y≈825: [x=180]FOR THE LAST | [x=417]YEARS | [x=979]ENTER ALL CLAIMS OR LOSSES (REGARDLESS OF FAULT AND WHETHER OR NOT INSURED) OR OCCURRENCES THAT MAY GIVE RISE TO CLAIMS | [x=2033]TOTAL LOSSES: $ | [x=2244]150000.0
+y≈925: [x=194]OCCURRENCE | [x=195]DATE OF | [x=412]LINE | [x=645]TYPE | [x=956]DESCRIPTION OF OCCURRENCE OR CLAIM | [x=1440]DATE OF CLAIM | [x=1731]AMOUNT PAID | [x=2069]AMOUNT RESERVED | [x=2293]SUBRO- | [x=2293]GATION | [x=2293]YIN | [x=2412]YIN
+y≈973: [x=195]01/15/2020 | [x=692]Theft of equipment | [x=1438]03/22/2022 | [x=1651]50000.0 | [x=1998]10000.0
+y≈1022: [x=1607]0.0 | [x=1953]0.0 | [x=2294]n | [x=2414]n
+y≈1072: [x=1607]0.0 | [x=1953]0.0
+y≈1129: [x=193]SIGNATURE
+y≈1176: [x=484]Copy of the Notice of Information Practices (Privacy) | [x=849]has | [x=1603]been given to the applicant: (Not required in all states, contact your agent or broker for your state's requirements )
+y≈1234: [x=987]PERSONAL INFORMATION ABOUT YOU, INCLUDING INFORMATION FROM A CREDIT OR OTHER INVESTIGATIVE REPORT;, | [x=1026]OTHER THAN YOU IN CONNECTION WITH THIS APPLICATION FOR INSURANCE AND SUBSEQUENT AMENDMENTS AND RENEWALS | [x=2166]MAY BE COLLECTED FROM PERSONS | [x=2205]SUCH INFORMATION AS WELL AS
+y≈1335: [x=172]WITHOUT | [x=239]OTHER PERSONAL | [x=356]PREMIUM YOU WILL BE CHARGED. | [x=425]YOUR AUTHORIZATION: | [x=657]WE | [x=760]MAY USE | [x=864]CREDIT SCORING INFORMATION | [x=898]A THIRD | [x=1148]MAY | [x=1274]REVIEW YOUR PERSONAL INFORMATION IN OUR FILES AND REQUEST CORRECTION OF ANY INACCURACIES. YOU MAY ALSO HAVE THE RIGHT TO REQUEST IN | [x=1416]AND PRIVILEGED INFORMATION COLLECTED BY US OR OUR AGENTS MAY IN CERTAIN CIRCUMSTANCES BE DISCLOSED TO THIRD PARTIES | [x=1468]PARTY IN CONNECTION WITH THE DEVELOPMENT OF YOUR SCORE
+y≈1438: [x=1121]WRITING THAT WE CONSIDER EXTRAORDINARY LIFE CIRCUMSTANCES IN CONNECTION WITH THE DEVELOPMENT OF YOUR CREDIT SCORE | [x=2298]THESE RIGHTS MAY
+y≈1507: [x=1202]HOW TO SUBMIT A REQUEST TO US FOR A MORE DETAILED DESCRIPTION OF YOUR RIGHTS AND OUR PRACTICES REGARDING PERSONAL INFORMATION: | [x=1274]BE LIMITED IN SOME STATES. PLEASE CONTACT YOUR AGENT OR BROKER TO LEARN HOW THESE RIGHTS MAY APPLY IN YOUR STATE OR FOR INSTRUCTIONS ON
+y≈1544: [x=268](Not applicable in AZ, CA, | [x=1145]DE, KS, MA, MN, ND, NY, OR, VA; or WV. Specific ACORD 38s are available for applicants in these states ) | [x=2110](Applicant's Initials): | [x=2349]MS
+y≈1601: [x=512]Applicable in AL, AR; DC, LA, MD; NM; Rl and WV: | [x=970]Any _ | [x=1725]person who knowingly (or willfully) * presents a false or fraudulent claim for payment of a loss or
+y≈1641: [x=343]benefit or knowingly (or willfully) | [x=1522]presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in
+y≈1677: [x=155]prison: | [x=375]Applies in MD Only:
+y≈1722: [x=251]Applicable in CO: | [x=1433]It is unlawful to knowingly provide false, incomplete, or misleading facts or information to an insurance company for the purpose of
+y≈1762: [x=184]defrauding | [x=293]or | [x=599]attempting to defraud the company_ | [x=1551]Penalties may include imprisonment, fines , denial of insurance and civil damages | [x=2254]Any | [x=2370]insurance
+y≈1797: [x=1273]company or agent of an insurance company who knowingly provides false, incomplete, or misleading facts or information to a policyholder or claimant for the
+y≈1837: [x=1276]purpose of defrauding or attempting to defraud the policyholder or claimant with regard to a settlement or award payable from insurance proceeds shall be
+y≈1876: [x=796]reported to the Colorado Division of Insurance within the Department of Regulatory Agencies.
+y≈1919: [x=309]Applicable in FL and OK: | [x=565]Any | [x=1525]person who knowingly and with intent to injure , defraud, or deceive any insurer files a statement of claim or an application
+y≈1959: [x=836]containing any false, incomplete , or misleading information is guilty of a felony (of the third degree) | [x=1750]Applies in FL Only.
+y≈2003: [x=244]Applicable in KS: | [x=429]Any | [x=1455]person who, knowingly and with intent to defraud, presents, causes to be presented or prepares with knowledge or belief that it will be
+y≈2042: [x=916]presented to or by an insurer, purported insurer, broker or any agent thereof, any written statement as part of, | [x=2093]or in support of, an application for the issuance
+y≈2079: [x=122]of, | [x=742]or the rating of an insurance policy for personal or commercial insurance, or | [x=1895]a claim for payment or other benefit pursuant to an insurance policy for
+y≈2119: [x=1275]commercial or personal insurance which such person knows to contain materially false information concerning any fact material thereto; or conceals, for the
+y≈2158: [x=184]purpose of | [x=782]misleading, information concerning any fact material thereto commits | [x=1314]a | [x=1513]fraudulent insurance act_
+y≈2200: [x=381]Applicable in KY, NY, OH and PA: | [x=1563]Any person who knowingly and with intent to defraud any insurance company or other person files an application for
+y≈2237: [x=1275]insurance or statement of claim containing any materially false information or conceals for the purpose of misleading, information concerning any fact material
+y≈2277: [x=1273]thereto commits a fraudulent insurance act, which is a crime and subjects such person to criminal and civil penalties (not to exceed five thousand dollars and
+y≈2315: [x=492]the stated value of the claim for each such violation) | [x=1069]Applies in NY Only.
+y≈2364: [x=245]Applicable in ME; | [x=422]TN, | [x=559]VA and WA: | [x=1561]It is a crime to knowingly provide false , incomplete or misleading information to an insurance company for the purpose
+y≈2405: [x=305]of defrauding the company. | [x=1104]Penalties (may) * include imprisonment; fines and denial of insurance benefits _ | [x=1852]Applies in ME Only.
+y≈2450: [x=245]Applicable in NJ: | [x=441]Any | [x=737]person who includes any false or | [x=1197]misleading information on | [x=1424]an | [x=1951]application for an insurance policy is subject to criminal and civil
+y≈2489: [x=172]penalties.
+y≈2532: [x=248]Applicable in OR: | [x=443]Any | [x=1462]person who knowingly and with intent to defraud or solicit another to defraud the insurer by submitting an application containing a
+y≈2572: [x=583]false statement as to any material fact may be violating state law_
+y≈2614: [x=245]Applicable in PR: | [x=433]Any | [x=1459]person who knowingly and with the intention of defrauding presents false information in an insurance application; or presents, helps,
+y≈2654: [x=1274]or causes the presentation of a fraudulent claim for the payment of a loss or any other benefit, or presents more than one claim for the same damage or loss;
+y≈2692: [x=1273]shall incur a felony and, upon conviction, shall be sanctioned for each violation by a fine of not less than five thousand dollars (85,000) and not more than ten
+y≈2728: [x=820]thousand dollars (S10,000) , or a fixed term of imprisonment for three (3) years, or both penalties. | [x=2004]Should aggravating circumstances [be] present, the penalty
+y≈2767: [x=389]thus established may be increased to | [x=928]a maximum f five (5) years, if | [x=1809]extenuating circumstances are present; it may be reduced to a minimum of two (2)
+y≈2807: [x=149]years:
+y≈2886: [x=466]ANSWERS TO QUESTIONS ON THIS APPLICATION: | [x=1274]THE UNDERSIGNED IS AN AUTHORIZED REPRESENTATIVE OF THE APPLICANT AND REPRESENTS THAT REASONABLE INQUIRY HAS BEEN MADE TO OBTAIN THE | [x=1647]HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+y≈2920: [x=200]KNOWLEDGE
+y≈2973: [x=247]PRODUCER'S SIGNATURE | [x=1282]PRODUCER'S NAME (Please Print) | [x=2188](Required in Florida) | [x=2260]STATE PRODUCER LICENSE NO
+y≈3027: [x=1199]Mark Bradley | [x=2106]MA
+y≈3073: [x=247]APPLICANT'S SIGNATURE | [x=1803]DATE | [x=2263]NATIONAL PRODUCER NUMBER
+y≈3123: [x=2178]60-4414267
+y≈3175: [x=270]ACORD 125 (2016/03) | [x=1274]Page 4 of 4

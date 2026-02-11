@@ -1,0 +1,40 @@
+y≈128: [x=1513]AGENCY CUSTOMER ID:
+y≈211: [x=226]ACORD | [x=1245]BUSINESS AUTO SECTION | [x=2292]02/14/2024 | [x=2295]DATE (MMIDDIYYYY)
+y≈299: [x=142]AGENCY | [x=1366]CARRIER | [x=2347]NAIC CODE
+y≈348: [x=200]Tom Hebert | [x=1389]Chubb Ltd. | [x=2368]20303
+y≈398: [x=193]POLICY NUMBER | [x=1155]EFFECTIVE DATE | [x=1410]NAMED INSURED(S)
+y≈448: [x=216]BA-28694898 | [x=1153]01/15/2024 | [x=1531]Anderson; Lynch and Doyle
+y≈503: [x=203]COVERAGES | [x=401]LIMITS
+y≈549: [x=1062]USE ACORD 137 FOR YOUR STATE TO PROVIDE COVERAGES | [x=1856]LIMITS INFORMATION
+y≈604: [x=286]DRIVER INFORMATION | [x=1028]ACORD 163 attached for additional drivers
+y≈688: [x=127]DRIVER | [x=517]CITY , STATE AND ZIP CODE | [x=518]NAME | [x=920]SEX STAT | [x=957]MAR | [x=1039]LIST ALL DRIVERS, INCLUDING FAMIL Y MEMBERS THAT DRIVE COMPANY VEHICLES, AND EMPLOYEES WHO DRIVE OWN VEHICLES ON COMPANY BUSINESS_ | [x=1116]DATE OF BIRTH | [x=1289]YRS | [x=1289]EXP | [x=1379]YEAR | [x=1379]LIC | [x=1619]drIVERS LICENSE NUMBERI
+y≈750: [x=286]Lawrence | [x=607]Scott | [x=885]M | [x=1115]01/25/1975 | [x=1291]29 | [x=1379]1995 | [x=1532]FL-802787 | [x=1541]74-6455784 | [x=1860]FL | [x=2138]N | [x=2209]N | [x=2422]30
+y≈871: [x=126]2 | [x=248]Scott | [x=305]Jacksonville | [x=607]Scott | [x=609]FL | [x=706]32235 | [x=889]M | [x=951]S | [x=1115]01/25/1975 | [x=1291]29 | [x=1380]1995 | [x=1532]FL-802787
+y≈948: [x=253]David | [x=305]Jacksonville | [x=613]Beard | [x=673]FL 32234 | [x=890]M | [x=951]S | [x=1120]01/10/1987 | [x=1293]14 | [x=1479]2010 FL-567890 | [x=1540]80-1234567 | [x=2140]N | [x=2210]N
+y≈1049: [x=265]Natalie | [x=304]Jacksonville | [x=609]FL | [x=633]Williams | [x=706]32234 | [x=885]F | [x=952]S | [x=1121]06/12/2002 | [x=1290]2 | [x=1379]2022 | [x=1532]FL-375420 | [x=1540]40-7268277
+y≈1171: [x=126]5 | [x=265]Sandra | [x=305]Jacksonville | [x=610]FL | [x=617]Reyes | [x=706]32235 | [x=889]F | [x=952]S | [x=1121]06/26/1959 | [x=1291]45 | [x=1490]1979 63-6383003 | [x=1532]FL-943024
+y≈1249: [x=265]Sandra | [x=305]Jacksonville | [x=617]Reyes | [x=673]FL 32234 | [x=886]F | [x=952]S | [x=1118]06/26/1959 | [x=1291]45 | [x=1380]1979 | [x=1532]FL-943024 | [x=1540]63-6383003 | [x=2131]N
+y≈1348: [x=260]James | [x=305]Jacksonville | [x=643]Campbell | [x=673]FL 32234 | [x=889]M | [x=952]S | [x=1120]04/22/1979 | [x=1290]27 | [x=1380]1997 | [x=1532]FL-466712 | [x=1541]11-5683574 | [x=2171]N N
+y≈1449: [x=248]Brian | [x=305]Jacksonville | [x=609]FL | [x=626]Bridges | [x=706]32235 | [x=890]M | [x=952]S | [x=1119]04/21/2001 | [x=1290]3 | [x=1376]2021 | [x=1532]FL-143687 | [x=1540]86-2131598
+y≈1549: [x=248]Brian | [x=305]Jacksonville | [x=610]FL | [x=626]Bridges | [x=706]32234 | [x=919]M S | [x=1117]04/21/2001 | [x=1290]3 | [x=1376]2021 | [x=1532]FL-143687 | [x=1540]86-2131598 | [x=1962]FL )1/01/201€
+y≈1673: [x=128]10 | [x=279]Christine | [x=305]Jacksonville | [x=602]Hale | [x=894]F | [x=952]S | [x=1121]07/02/1985 | [x=1291]20 | [x=1379]2004 | [x=1532]FL-674109 | [x=1541]47-5754322 | [x=1860]FL
+y≈1772: [x=126]11 | [x=267]Jessica | [x=305]Jacksonville | [x=594]Lee | [x=673]FL 32235 | [x=920]F S | [x=1120]01/10/1974 | [x=1291]32 | [x=1380]1992 | [x=1513]9727338 | [x=1540]50-8873178 | [x=1860]DC
+y≈1874: [x=128]12 | [x=267]Jessica | [x=594]Lee | [x=920]F S | [x=1120]01/10/1974 | [x=1291]32 | [x=1380]1992 | [x=1515]9727338 | [x=1541]50-8873178 | [x=1860]DC | [x=2171]N N | [x=2422]60
+y≈1972: [x=127]13 | [x=252]David | [x=305]Jacksonville | [x=610]FL | [x=614]Beard | [x=706]32234 | [x=887]M | [x=951]S | [x=1120]06/09/1973 | [x=1291]35 | [x=1380]1989 | [x=1532]FL-736307
+y≈2048: [x=1049]MARITAL STATUS | [x=1332]CIVIL UNION (if applicable)
+y≈2104: [x=304]GENERAL INFORMATION
+y≈2158: [x=171]EXPLAIN ALL | [x=378]'YES" RESPONSES | [x=2428]YIN
+y≈2194: [x=98]1 | [x=395]REGISTERED TO THE APPLICANT? | [x=1143]WITH THE EXCEPTION OF ANY ENCUMBRANCES, ARE ANY VEHICLES FOR WHICH INSURANCE IS REQUESTED NOT SOLELY OWNED BY AND
+y≈2271: [x=194]VEH # | [x=411]NAME OF OTHER OWNER | [x=1290]VEH # | [x=1505]NAME OF OTHER OWNER
+y≈2327: [x=200]yncll | [x=1295]yncl)
+y≈2386: [x=97]2 | [x=836]DO OVER 50% OF THE EMPLOYEES USE THEIR AUTOS IN THE BUSINESS? (no explanation needed)
+y≈2448: [x=97]3 | [x=599]IS THERE A VEHICLE MAINTENANCE PROGRAM IN OPERATION?
+y≈2599: [x=449]ARE ANY VEHICLES LEASED TO OTHERS?
+y≈2659: [x=113]N
+y≈2749: [x=101]5. | [x=290]ANY CAR MODIFIED | [x=777]SPECIAL EQUIPMENT? (Include customized vans | [x=1180]pickups)
+y≈2798: [x=194]VEH # | [x=341]DESCRIPTION | [x=1084]COST | [x=1290]VEH # | [x=1434]DESCRIPTION | [x=2177]COST
+y≈2853: [x=201]syncll | [x=1295]yncl
+y≈2911: [x=98]6_ | [x=1249]ARE ICC (Interstate Commerce Commission) , PUC (Public Utility Commission) OR OTHER FILINGS REQUIRED? (lf "YES" , attach ACORD 194) (no explanation needed)
+y≈2974: [x=101]7_ | [x=636]DO OPERATIONS INVOLVE TRANSPORTING HAZARDOUS MATERIAL?
+y≈3125: [x=270]ACORD 127 (2015/12) | [x=1277]Attach to ACORD 125 | [x=1833]1993-2015 ACORD CORPORATION: | [x=2304]AIl rights reserved:
+y≈3178: [x=1274]The ACORD name and logo are registered marks of ACORD

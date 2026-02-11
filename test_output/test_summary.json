@@ -1,0 +1,41 @@
+{
+  "form_125": {
+    "form_type": "125",
+    "fields_extracted": 357,
+    "extraction_time_seconds": 679.53,
+    "accuracy": 90.0,
+    "exact_match_rate": 90.0,
+    "coverage": 100.0,
+    "matched": 27,
+    "partial_match": 0,
+    "wrong": 3,
+    "missing": 0,
+    "total_gt_fields": 30
+  },
+  "form_127": {
+    "form_type": "127",
+    "fields_extracted": 271,
+    "extraction_time_seconds": 646.82,
+    "accuracy": 98.81,
+    "exact_match_rate": 97.62,
+    "coverage": 100.0,
+    "matched": 41,
+    "partial_match": 1,
+    "wrong": 0,
+    "missing": 0,
+    "total_gt_fields": 42
+  },
+  "form_137": {
+    "form_type": "137",
+    "fields_extracted": 62,
+    "extraction_time_seconds": 194.26,
+    "accuracy": 100.0,
+    "exact_match_rate": 100.0,
+    "coverage": 100.0,
+    "matched": 36,
+    "partial_match": 0,
+    "wrong": 0,
+    "missing": 0,
+    "total_gt_fields": 36
+  }
+}

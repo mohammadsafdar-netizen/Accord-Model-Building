@@ -1,0 +1,157 @@
+
+=== PAGE 1 ===
+y≈128: [x=1513]AGENCY CUSTOMER ID:
+y≈211: [x=227]ACORD | [x=1246]BUSINESS AUTO SECTION | [x=2292]01/23/2024 | [x=2295]DATE (MMIDDIYYYY)
+y≈299: [x=142]AGENCY | [x=1366]CARRIER | [x=2347]NAIC CODE
+y≈350: [x=240]Thomas Mooney | [x=1527]Cincinnati Insurance Group Inc_ | [x=2368]23043
+y≈398: [x=193]POLICY NUMBER | [x=1155]EFFECTIVE DATE | [x=1410]NAMED INSURED(S)
+y≈448: [x=215]BA-83970644 | [x=1151]01/15/2021 | [x=1393]Castillo Ltd
+y≈503: [x=203]COVERAGES | [x=401]LIMITS
+y≈549: [x=1062]USE ACORD 137 FOR YOUR STATE TO PROVIDE COVERAGES | [x=1856]LIMITS INFORMATION
+y≈604: [x=286]DRIVER INFORMATION | [x=1028]ACORD 163 attached for additional drivers
+y≈688: [x=127]DRIVER | [x=517]CITY , STATE AND ZIP CODE | [x=518]NAME | [x=920]SEX STAT | [x=957]MAR | [x=1039]LIST ALL DRIVERS, INCLUDING FAMIL Y MEMBERS THAT DRIVE COMPANY VEHICLES, AND EMPLOYEES WHO DRIVE OWN VEHICLES ON COMPANY BUSINESS_ | [x=1116]DATE OF BIRTH | [x=1289]YRS | [x=1289]EXP | [x=1379]YEAR | [x=1379]LIC | [x=1619]drIVERS LICENSE NUMBERI
+y≈750: [x=274]Thomas | [x=305]Indianapolis | [x=608]IN | [x=630]Mooney | [x=707]46258 | [x=886]M | [x=952]S | [x=1113]07/26/1971 | [x=1291]35 | [x=1379]1989 | [x=1528]IN-279562 | [x=1541]59-5043713
+y≈873: [x=127]2 | [x=239]Lisa | [x=305]Indianapolis | [x=608]IN | [x=614]Green | [x=707]46258 | [x=885]F | [x=951]S | [x=1112]07/26/1971 | [x=1291]35 | [x=1380]1989 | [x=1528]IN-279562
+y≈948: [x=239]Lisa | [x=614]Green | [x=1119]07/26/1971 | [x=1291]35 | [x=1380]1989 | [x=1530]IN-279562 | [x=1540]59-5043713 | [x=1860]IN | [x=1994]J1/01/1995 | [x=2129]N | [x=2212]N | [x=2311]Any
+y≈1049: [x=253]Bruce | [x=305]Indianapolis | [x=608]IN | [x=626]Spence | [x=706]46258 | [x=886]M | [x=1120]04/01/1987 | [x=1293]18 | [x=1379]2006 | [x=1541]75-1139290 | [x=1585]W454578226404 | [x=1861]MD
+y≈1172: [x=127]5 | [x=262]Patrick | [x=305]Indianapolis | [x=608]IN | [x=614]Welch | [x=707]46258 | [x=888]M | [x=951]S | [x=1121]04/21/1983 | [x=1291]23 | [x=1376]2001 | [x=1528]IN-259859
+y≈1249: [x=258]Daniel | [x=305]Indianapolis | [x=608]IN | [x=658]Richardson | [x=706]46258 | [x=888]M | [x=953]S | [x=1120]04/21/1983 | [x=1291]23 | [x=1376]2001 | [x=1528]IN-259859 | [x=1540]22-9784448
+y≈1349: [x=239]Lisa | [x=305]Indianapolis | [x=596]Hall | [x=608]IN | [x=707]46258 | [x=885]F | [x=952]S | [x=1120]05/09/1997 | [x=1290]9 | [x=1379]2015 | [x=1528]IN-982534 | [x=1540]32-7661469
+y≈1449: [x=253]Jacob | [x=305]Indianapolis | [x=608]IN | [x=631]Mooney | [x=707]46258 | [x=889]M | [x=952]S | [x=1121]02/21/1990 | [x=1291]17 | [x=1377]2007 | [x=1527]IN-356731 | [x=1540]69-2107972
+y≈1549: [x=254]Jacob | [x=305]Indianapolis | [x=608]IN | [x=631]Mooney | [x=706]46258 | [x=889]M | [x=952]S | [x=1121]02/21/1990 | [x=1291]17 | [x=1377]2007 | [x=1527]IN-356731 | [x=1540]69-2107972
+y≈1673: [x=130]10 | [x=251]Alicia | [x=291]Greenfield | [x=608]IN | [x=650]Thompson | [x=706]46256 | [x=887]F | [x=953]S | [x=1120]08/27/1972 | [x=1291]33 | [x=1376]1991 | [x=1528]IN-309547
+y≈1772: [x=126]11 | [x=265]Kristen | [x=305]Indianapolis | [x=608]IN | [x=618]Ochoa | [x=707]46258 | [x=893]F | [x=952]S | [x=1290]47 | [x=1379]1977 | [x=1541]45-8075670 | [x=1580]N133513231784
+y≈1873: [x=128]12 | [x=305]Indianapolis | [x=318]David French | [x=608]IN | [x=621]French | [x=707]46258 | [x=890]M | [x=950]S | [x=1120]02/06/1959 | [x=1290]49 | [x=1380]1975 | [x=1536]231886448
+y≈1972: [x=127]13 | [x=267]Kristina | [x=305]Indianapolis | [x=608]IN | [x=615]Bauer | [x=706]46258 | [x=889]F | [x=952]S | [x=1121]10/06/1972 | [x=1291]35 | [x=1380]1989 | [x=1528]IN-382952
+y≈2048: [x=1049]MARITAL STATUS | [x=1332]CIVIL UNION (if applicable)
+y≈2104: [x=304]GENERAL INFORMATION
+y≈2158: [x=171]EXPLAIN ALL | [x=378]'YES" RESPONSES | [x=2428]YIN
+y≈2194: [x=98]1 | [x=394]REGISTERED TO THE APPLICANT? | [x=1143]WITH THE EXCEPTION OF ANY ENCUMBRANCES, ARE ANY VEHICLES FOR WHICH INSURANCE IS REQUESTED NOT SOLELY OWNED BY AND
+y≈2271: [x=194]VEH # | [x=411]NAME OF OTHER OWNER | [x=1290]VEH # | [x=1505]NAME OF OTHER OWNER
+y≈2325: [x=197]Any | [x=1292]Any
+y≈2386: [x=97]2 | [x=836]DO OVER 50% OF THE EMPLOYEES USE THEIR AUTOS IN THE BUSINESS? (no explanation needed) | [x=2426]P
+y≈2448: [x=97]3 | [x=599]IS THERE A VEHICLE MAINTENANCE PROGRAM IN OPERATION?
+y≈2599: [x=449]ARE ANY VEHICLES LEASED TO OTHERS? | [x=2427]N
+y≈2659: [x=113]N
+y≈2749: [x=103]5. | [x=290]ANY CAR MODIFIED | [x=777]SPECIAL EQUIPMENT? (Include customized vans | [x=1180]pickups)
+y≈2798: [x=194]VEH # | [x=341]DESCRIPTION | [x=1084]COST | [x=1290]VEH # | [x=1434]DESCRIPTION | [x=2179]COST
+y≈2850: [x=197]Any | [x=412]Toolbox and tools | [x=1145]S10,00 | [x=1292]Any | [x=1462]GPS system | [x=2239]$5,000
+y≈2911: [x=98]6_ | [x=1249]ARE ICC (Interstate Commerce Commission) , PUC (Public Utility Commission) OR OTHER FILINGS REQUIRED? (If "YES" , attach ACORD 194) (no explanation needed) | [x=2428]M
+y≈2974: [x=101]7_ | [x=636]DO OPERATIONS INVOLVE TRANSPORTING HAZARDOUS MATERIAL?
+y≈3035: [x=113]N
+y≈3125: [x=270]ACORD 127 (2015/12) | [x=1277]Attach to ACORD 125 | [x=1833]1993-2015 ACORD CORPORATION: | [x=2304]AIl rights reserved:
+y≈3178: [x=1274]The ACORD name and logo are registered marks of ACORD
+
+=== PAGE 2 ===
+y≈155: [x=406]GENERAL INFORMATION (continued) | [x=1513]AGENCY CUSTOMER ID:
+y≈206: [x=171]EXPLAIN ALL | [x=378]'YES" RESPONSES | [x=2428]YIN
+y≈248: [x=97]83 | [x=422]ANY HOLD HARMLESS AGREEMENTS? | [x=2428]N
+y≈398: [x=98]9 | [x=586]ANY VEHICLES USED BY FAMILY MEMBERS? IF SO, IDENTIFY. | [x=2428]N
+y≈547: [x=109]10. | [x=679]DOES THE APPLICANT OBTAIN MVR (Motor Vehicle Record) VERIFICATIONS?
+y≈612: [x=266]See attached MVRs
+y≈698: [x=108]11_ | [x=665]DOES THE APPLICANT HAVE A SPECIFIC DRIVER RECRUITING METHOD? | [x=2428]N
+y≈848: [x=108]12_ | [x=626]ARE ANY DRIVERS NOT COVERED BY WORKERS COMPENSATION? | [x=2427]N
+y≈997: [x=109]13. | [x=649]ANY VEHICLES OWNED BUT NOT SCHEDULED ON THIS APPLICATION?
+y≈1062: [x=133]Yes
+y≈1147: [x=108]14_ | [x=656]ANY DRIVERS WITH CONVICTIONS FOR MOVING TRAFFIC VIOLATIONS?
+y≈1222: [x=176]1. | [x=343]APPLICABLE ONLY IN KANSAS: | [x=1084]A speeding violation of up to six (6) miles per hour (mph) that occurs in an area with a maximum posted speed Iimit trom 30 mph through 54 mph; or | [x=1268]UNDER KANSAS LAW, THE FOLLOWING TRAFFIC VIOLATIONS ARE NOT REQUIRED TO BE REPORTED TO INSURERS:
+y≈1253: [x=174]2 | [x=1075]A speeding violation of Up to ten (10) miles per hour (mph) that occurs in an area with a maximum posted speed limit from 55 mph through 75 mph:
+y≈1297: [x=203]DRV # | [x=390]DATE (MMIDDIYYYY) | [x=572]TYPE | [x=1570]PLACE (CITY, STATE) | [x=2226]#YRS REV
+y≈1348: [x=388]01/15/2020 | [x=628]Speeding | [x=2225]2
+y≈1398: [x=108]15_ | [x=405]HAS AGENT INSPECTED VEHICLES? | [x=2426]N
+y≈1561: [x=109]16. | [x=661]ARE ALL VEHICLES TO BE INCLUDED IN THIS POLICY PART OF A FLEET? | [x=2427]N
+y≈1623: [x=109]17. | [x=983]DO YOU HAVE ELECTRONIC MONITORING DEVICES THAT RECORD AND TRANSMIT DATA IN ANY OF YOUR VEHICLES? | [x=2427]N
+y≈1675: [x=563]If "YES" , what percentage of vehicles in your overall tleet are monitored (1 | [x=1035]100%) | [x=1178]80 | [x=1240]% | [x=1652]Please indicate how you utilize the devices (check all that apply):
+y≈1723: [x=387]MONITOR DRIVER SAFETY | [x=819]TRACK FUEL CONSUMPTION | [x=1334]MONITOR VEHICLE MAINTENANCE | [x=1787]MILEAGE TRACKING | [x=2155]LOCATION TRACKING
+y≈1774: [x=302]NAVIGATION | [x=1103]Describe:
+y≈1819: [x=251]DESCRIPTION OF GARAGE | [x=567]STORAGE LOCATIONS | [x=2167]MAXIMUM DOLLAR VALUE SUBJECT TO LOSS
+y≈1877: [x=245]Attached Garage | [x=1897]$ | [x=1992]100000
+y≈1928: [x=292]ADDITIONAL INTEREST | [x=734]CERTIFICATE RECIPIENT | [x=1437]ACORD 45 attached tor additional names
+y≈1972: [x=149]INTEREST | [x=199]PAYABLE | [x=206]INSURED | [x=218]EMPLOYEE | [x=221]AS LESSOR | [x=226]ADDITIONAL | [x=234]LENDER'S LOSS | [x=452]OWNER | [x=484]LOSS PAYEE | [x=484]REGISTRANT | [x=710]123 Main St | [x=728]NAME AND ADDRESS
+y≈2173: [x=230]LIENHOLDER | [x=707]Indianapolis | [x=1508]IN | [x=1606]46258
+y≈2284: [x=676]REFERENCE | [x=821]LOAN #:
+y≈2323: [x=149]INTEREST | [x=199]PAYABLE | [x=206]INSURED | [x=218]EMPLOYEE | [x=221]AS LESSOR | [x=225]ADDITIONAL | [x=234]LENDER'S LOSS | [x=452]OWNER | [x=484]LOSS PAYEE | [x=484]REGISTRANT | [x=710]123 Main St | [x=728]NAME AND ADDRESS
+y≈2524: [x=230]LIENHOLDER | [x=695]Greenfield | [x=1508]IN | [x=1606]46258
+y≈2632: [x=676]REFERENCE | [x=819]LOAN #:
+y≈2679: [x=909]REMARKS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)
+y≈3175: [x=270]ACORD 127 (2015/12) | [x=1272]Page 2 of 4
+
+=== PAGE 3 ===
+y≈128: [x=1513]AGENCY CUSTOMER ID:
+y≈219: [x=142]VEH # | [x=269]YEAR | [x=292]VEHICLE DESCRIPTION | [x=386]MAKE: | [x=540]Chevrolet | [x=964]ACORD 129 attached for additional vehicles | [x=1040]BODY | [x=1040]TYPE: | [x=1843]VEHICLE TYPE | [x=2122]SYM | [x=2196]AGE | [x=2287]COMP
+y≈273: [x=269]2022 | [x=526]MODEL: Silverado 1500 | [x=1035]VJN | [x=1695]PP | [x=1847]SPEC | [x=2014]COML | [x=2292]3
+y≈363: [x=150]ADDRESS | [x=158]GARAGING | [x=400]1235 W. IOth St; | [x=401]STREET (Required in KY) | [x=911]CITY | [x=952]Carmel | [x=1566]COUNTY | [x=1583]Marion | [x=2184]STATE | [x=2281]ZIP | [x=2327]46259
+y≈436: [x=126]STATE | [x=127]LIC | [x=300]TErR | [x=536]GVW | [x=616]GCW | [x=854]CLASS | [x=1063]SIC | [x=1259]FACTOR | [x=1408]SEAT CP | [x=1544]RADIUS | [x=1874]FARTHEST TERMINAL | [x=2301]COST NEW
+y≈472: [x=127]IN | [x=582]15000.0 | [x=1407]5 | [x=1543]50 | [x=2167]S | [x=2251]25000
+y≈523: [x=115]USE | [x=216]PLEASURE | [x=417]RETAIL | [x=422]COMML | [x=629]FOR HIRE | [x=763]CHECK | [x=797]COVERAGES | [x=806]LIAB | [x=999]FAULT | [x=1015]MED PAY | [x=1022]ADDL NO- | [x=1216]MOTOR
+y≈623: [x=185]FARM | [x=428]SERVICE | [x=819]NRuLt | [x=1006]HNNSR | [x=1204]8P8F, | [x=1406]FTW | [x=1561]COLL | [x=1851]$ | [x=1946]100000 | [x=2194]$ | [x=2260]500 | [x=2434]COLL
+y≈719: [x=142]VEH # | [x=191]BEKR FGCHOOL | [x=270]YEAR | [x=386]MAKE: | [x=400]< | [x=465]15 MILES | [x=541]Chevrolet | [x=679]15 MILES + | [x=848]BRFCKEH | [x=974]10.0 | [x=1040]BODY | [x=1040]TYPE:
+y≈773: [x=269]2022 | [x=526]MODEL: Silverado 1500 | [x=1035]VJN | [x=1268]BZGJXUST3N4R23 | [x=1695]PP | [x=1847]SPEC | [x=2014]COML | [x=2159]HD | [x=2293]Jull Glas]
+y≈832: [x=158]GARAGING | [x=401]STREET (Required in KY) | [x=912]CITY | [x=1565]COUNTY | [x=2184]STATE | [x=2281]ZIP
+y≈863: [x=150]ADDRESS | [x=364]123 Main St | [x=991]Indianapolis | [x=1583]Marion | [x=2189]IN | [x=2327]46258
+y≈936: [x=126]STATE | [x=127]LIC | [x=300]TErR | [x=536]GVW | [x=616]GCW | [x=854]CLASS | [x=1063]SIC | [x=1259]FACTOR | [x=1408]SEAT CP | [x=1544]RADIUS | [x=1874]FARTHEST TERMINAL | [x=2300]COST NEW
+y≈973: [x=129]IN | [x=299]R | [x=583]10000 | [x=854]5 | [x=1543]25 | [x=1660]IN | [x=2167]S | [x=2251]30000
+y≈1023: [x=115]USE | [x=130]WORK | [x=142]VEH # | [x=148]DRIVE TO | [x=185]FARM | [x=216]PLEASURE | [x=239]SCHOOL | [x=269]YEAR | [x=386]MAKE: | [x=418]RETAIL | [x=422]COMML | [x=428]SERVICE
+y≈1270: [x=142]2 | [x=269]2022 | [x=528]MODEL: Silverado 1500 | [x=1035]VN: | [x=1310]2NIBCUAPTXJG154151 | [x=1695]PP | [x=1847]SPEC | [x=2014]COML | [x=2413]D
+y≈1333: [x=158]GARAGING | [x=377]STREET (Required in | [x=529]KY) | [x=912]CITY | [x=1566]COUNTY | [x=2184]STATE | [x=2281]ZIP
+y≈1364: [x=150]ADDRESS | [x=364]123 Main St | [x=978]Greenfield | [x=1601]Hamilton | [x=2189]IN | [x=2327]46258
+y≈1436: [x=126]STATE | [x=127]LIC | [x=300]TErR | [x=536]GVW | [x=616]GCW | [x=854]CLASS | [x=1063]SIC | [x=1259]FACTOR | [x=1408]SEAT CP | [x=1544]RADIUS | [x=1874]FARTHEST TERMINAL | [x=2300]COST NEW
+y≈1473: [x=127]IN | [x=302]10 | [x=583]15000 | [x=854]3 | [x=1063]2 | [x=1258]60 | [x=1407]5 | [x=1543]25 | [x=1650]5 | [x=2166]$ | [x=2265]20000.0
+y≈1524: [x=115]USE | [x=422]COMML | [x=630]FOR HIRE | [x=762]CHECK | [x=799]COVERAGES | [x=999]FAULT | [x=1022]ADDL NO- | [x=1216]MOTOR | [x=1227]UNDRINS | [x=1553]LSP | [x=1728]RENT | [x=1734]REIMB
+y≈1573: [x=216]PLEASURE | [x=418]RETAIL | [x=806]LIAB | [x=1016]MED PAY | [x=1223]{QwBO | [x=1393]FT | [x=1571]8P8P/ | [x=1712]FG | [x=1920]AA | [x=2098]ST AMT | [x=2194]$ | [x=2284]1000.0
+y≈1686: [x=127]WORK | [x=142]VEH # | [x=148]DRIVE TO | [x=185]FARM | [x=239]SCHOOL | [x=269]YEAR | [x=385]MAKE: | [x=428]SERVICE | [x=455]< 15 MILES | [x=498]Ford | [x=679]15 MILES + | [x=819]NRuLt
+y≈1771: [x=142]3 | [x=269]2022 | [x=394]MODEL: | [x=509]F-150 | [x=1035]VN: | [x=1210]1234567890 | [x=1695]PP | [x=1847]SPEC | [x=2014]COML | [x=2156]F | [x=2292]C | [x=2412]A
+y≈1861: [x=150]ADDRESS | [x=157]GARAGING | [x=366]123 Main St; | [x=377]STREET (Required in | [x=529]KY) | [x=912]CITY | [x=991]Indianapolis | [x=1565]COUNTY | [x=1583]Marion | [x=2184]STATE | [x=2189]IN | [x=2281]ZIP
+y≈1936: [x=126]STATE | [x=127]LIC | [x=300]TErR | [x=536]GVW | [x=616]GCW | [x=854]CLASS | [x=1063]SIC | [x=1259]FACTOR | [x=1408]SEAT CP | [x=1544]RADIUS | [x=1874]FARTHEST TERMINAL | [x=2300]COST NEW
+y≈1972: [x=127]IN | [x=583]7500 | [x=1258]80 | [x=1407]5 | [x=1543]10 | [x=2166]$ | [x=2251]25000
+y≈2024: [x=115]USE | [x=423]COMML | [x=629]FOR HIRE | [x=764]CHECK | [x=797]COVERAGES | [x=999]FAULT | [x=1022]ADDL NO- | [x=1216]MOTOR | [x=1227]UNDRINS | [x=1553]LSP | [x=1728]RENT | [x=1734]REIMB
+y≈2185: [x=130]WORK | [x=148]DRIVE TO | [x=185]FARM | [x=216]PLEASURE | [x=239]SCHOOL | [x=418]RETAIL | [x=428]SERVICE | [x=454]<15 MILES | [x=636]Persor | [x=679]15 MILES + | [x=800]NO | [x=806]LIAB
+y≈2228: [x=909]REMARKS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)
+y≈2286: [x=114]N
+y≈3175: [x=270]ACORD 127 (2015/12) | [x=1272]Page 3 of 4
+
+=== PAGE 4 ===
+y≈153: [x=193]SIGNATURE | [x=1368]AGENCY CUSTOMER ID:
+y≈252: [x=497]Applicable in AL, AR, DC, LA, MD; NM; RI and WV
+y≈294: [x=133]Any | [x=229]person | [x=505]who knowingly (or willfully) + | [x=800]presents | [x=1207]a false or fraudulent claim for payment of | [x=1699]a loss or benefit or | [x=2035]knowingly (or willfully)* | [x=2337]presents false
+y≈331: [x=228]information in an | [x=1094]application for insurance is guilty of a crime and may be subject to fines and confinement in prison. | [x=2004]Applies in MD Only:
+y≈427: [x=240]Applicable in CO
+y≈474: [x=1275]It is unlawful to knowingly provide false, incomplete, or misleading facts or information to an insurance company for the purpose of defrauding or attempting to
+y≈513: [x=268]defraud the company: | [x=1068]Penalties may include imprisonment; fines, denial of insurance and civil damages: | [x=1734]Any | [x=2107]insurance company or agent of an insurance
+y≈551: [x=665]company who knowingly provides false, incomplete, or misleading facts | [x=1369]or information to | [x=1957]a policyholder or claimant for the purpose of defrauding | [x=2428]Or
+y≈627: [x=607]Division of Insurance within the Department of Regulatory Agencies. | [x=1275]attempting to defraud the policyholder or claimant with regard to a settlement or award payable from insurance proceeds shall be reported to the Colorado
+y≈726: [x=300]Applicable in FL and OK
+y≈768: [x=133]Any | [x=229]person | [x=898]who knowingly and with intent to injure, defraud, or deceive any insurer files | [x=1725]a statement of claim or an | [x=2198]application containing any false;
+y≈807: [x=684]incomplete, or misleading information is guilty of a felony (of the third degree)*. | [x=1444]Applies in FL Only:
+y≈902: [x=238]Applicable in KS
+y≈962: [x=134]Any | [x=1308]person who, knowingly and with intent to defraud, presents, causes to be presented or prepares with knowledge or belief that it will be presented to or by
+y≈999: [x=180]an insurer | [x=1359]purported insurer; broker or any agent thereof, any written statement as part of, or in support of,an application for the issuance Of, or the rating of
+y≈1040: [x=1274]an insurance policy for personal or commercial insurance, or a claim for payment or other benefit pursuant to an insurance policy for commercial or personal
+y≈1077: [x=1275]insurance which such person knows to contain materially false information concerning any fact material thereto; or conceals, for the purpose of misleading,
+y≈1116: [x=725]information concerning any fact material thereto commits a fraudulent insurance act:
+y≈1202: [x=365]Applicable in KY, NY, OH and PA
+y≈1256: [x=134]Any | [x=1138]person who knowingly and with intent to defraud any insurance company or other person files an application for insurance | [x=2279]or statement of claim
+y≈1293: [x=1275]containing any materially false information or conceals for the purpose of misleading, information concerning any fact material thereto commits a fraudulent
+y≈1333: [x=1274]insurance act, which is a crime and subjects such person to criminal and civil penalties* (not to exceed five thousand dollars and the stated value of the claim
+y≈1369: [x=122]for | [x=309]each such violation) *_ | [x=641]Applies in NY Only:
+y≈1452: [x=369]Applicable in ME; TN; VA and WA
+y≈1506: [x=1196]It is a crime to knowingly provide false, incomplete or misleading information to an insurance company for the purpose of defrauding the company: | [x=2377]Penalties
+y≈1545: [x=604](may)* include imprisonment; fines and denial of insurance benefits | [x=1290]Applies in ME Only:
+y≈1628: [x=235]Applicable in NJ
+y≈1676: [x=134]Any | [x=1189]person who includes any false or misleading information on an application for an insurance policy is subject to criminal and civil penalties.
+y≈1764: [x=239]Applicable in OR
+y≈1821: [x=134]Any | [x=1309]person who knowingly and with intent to defraud or solicit another to defraud the insurer by submitting an application containing a false statement as to
+y≈1856: [x=425]any material fact may be violating state law_
+y≈1938: [x=238]Applicable in PR
+y≈1986: [x=1275]Any person who knowingly and with the intention of defrauding presents false information in an insurance application, or presents, helps, or causes the
+y≈2025: [x=1274]presentation of a fraudulent claim for the payment of a loss or any other benefit; or presents more than one claim for the same damage or loss, shall incur a
+y≈2062: [x=1274]felony and, upon conviction, shall be sanctioned for each violation by a fine of not less than five thousand dollars ($5,000) and not more than ten thousand
+y≈2101: [x=772]dollars (810,000), or a fixed term of imprisonment for three (3) years, or both penalties. | [x=1957]Should aggravating circumstances [be] present, the penalty thus
+y≈2139: [x=1240]established may be increased to a maximum of five (5) years, if extenuating circumstances are present, it may be reduced to a minimum of two (2) years.
+y≈2886: [x=466]ANSWERS TO QUESTIONS ON THIS APPLICATION: | [x=1274]THE UNDERSIGNED IS AN AUTHORIZED REPRESENTATIVE OF THE APPLICANT AND REPRESENTS THAT REASONABLE INQUIRY HAS BEEN MADE TO OBTAIN THE | [x=1648]HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+y≈2920: [x=200]KNOWLEDGE
+y≈2973: [x=247]PRODUCER'S SIGNATURE | [x=1282]PRODUCER'S NAME (Please Print) | [x=2188](Required in Florida) | [x=2260]STATE PRODUCER LICENSE NO
+y≈3026: [x=1229]Thomas Mooney | [x=2098]IN
+y≈3073: [x=247]APPLICANT'S SIGNATURE | [x=1803]DATE | [x=2263]NATIONAL PRODUCER NUMBER
+y≈3123: [x=2180]45-6442828
+y≈3175: [x=270]ACORD 127 (2015/12) | [x=1273]Page 4 of 4

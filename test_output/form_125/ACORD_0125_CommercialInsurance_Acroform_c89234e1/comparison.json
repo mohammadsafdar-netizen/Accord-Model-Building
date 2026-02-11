@@ -1,0 +1,4222 @@
+{
+  "total_gt_fields": 842,
+  "matched": 137,
+  "partial_match": 24,
+  "missing": 565,
+  "wrong": 116,
+  "field_results": {
+    "Form_CompletionDate_A": {
+      "status": "matched",
+      "expected": "02/14/2024",
+      "extracted": "02/14/2024"
+    },
+    "Insurer_FullName_A": {
+      "status": "matched",
+      "expected": "Mitchell LLC",
+      "extracted": "Mitchell LLC"
+    },
+    "Insurer_NAICCode_A": {
+      "status": "matched",
+      "expected": "25674",
+      "extracted": "25674"
+    },
+    "Insurer_ProducerIdentifier_A": {
+      "status": "wrong",
+      "expected": "1234567890",
+      "extracted": "202-456-1234"
+    },
+    "Insurer_ProductCode_A": {
+      "status": "wrong",
+      "expected": "BA-14154793",
+      "extracted": "$"
+    },
+    "Insurer_ProductDescription_A": {
+      "status": "wrong",
+      "expected": "Commercial Insurance Application",
+      "extracted": "Commercial General Liability, Commercial Property, Cyber and Privacy, Garage and Dealers, Liquor Liability, Commercial Inland Marine"
+    },
+    "Insurer_SubProducerIdentifier_A": {
+      "status": "missing",
+      "expected": "9876543210",
+      "extracted": null
+    },
+    "Insurer_Underwriter_FullName_A": {
+      "status": "matched",
+      "expected": "Melissa Deleon",
+      "extracted": "Melissa Deleon"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "BA-14154793",
+      "extracted": "BA-14154793"
+    },
+    "Policy_Status_BoundIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Status_CancelIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_Status_ChangeIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_Status_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "03/07/2024",
+      "extracted": "07/01/2017"
+    },
+    "Policy_Status_EffectiveTimeAMIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_Status_EffectiveTimePMIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Status_IssueIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_Status_QuoteIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Status_RenewIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Producer_ContactPerson_FullName_A": {
+      "status": "matched",
+      "expected": "Melissa Deleon",
+      "extracted": "Melissa Deleon"
+    },
+    "Producer_ContactPerson_PhoneNumber_A": {
+      "status": "wrong",
+      "expected": "202-1234567",
+      "extracted": "202-456-1234"
+    },
+    "Producer_CustomerIdentifier_A": {
+      "status": "matched",
+      "expected": "1234567890",
+      "extracted": "1234567890"
+    },
+    "Producer_FullName_A": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "1234 Main St."
+    },
+    "Producer_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Washington",
+      "extracted": "Washington"
+    },
+    "Producer_MailingAddress_LineOne_A": {
+      "status": "wrong",
+      "expected": "1234 Main St.",
+      "extracted": "15th St NW"
+    },
+    "Producer_MailingAddress_PostalCode_A": {
+      "status": "matched",
+      "expected": "20020",
+      "extracted": "20020"
+    },
+    "chk_BusinessAutoIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_CGLIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_PropertyIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    " chk_RentersCoverageIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    " chk_LiabilityIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_FloodIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_WindstormIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_EarthquakeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_HailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    " chk_NaturalDisasterCoverageIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_DamageExclusionIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_SmogIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_ElectricalFireIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_RoadsideFireIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_MotorfireIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_FloodInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "Producer_MailingAddress_City_A": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AddressNumber_A": {
+      "status": "missing",
+      "expected": "1001",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StreetName_A": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "Producer_MailingAddress_ZipCode_A": {
+      "status": "missing",
+      "expected": "20005",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "Producer_MailingAddress_City_B": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AddressNumber_B": {
+      "status": "missing",
+      "expected": "1001",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StreetName_B": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "Producer_MailingAddress_ZipCode_B": {
+      "status": "missing",
+      "expected": "20005",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "Producer_MailingAddress_City_C": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AddressNumber_C": {
+      "status": "missing",
+      "expected": "1001",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StreetName_C": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "Producer_MailingAddress_ZipCode_C": {
+      "status": "missing",
+      "expected": "20005",
+      "extracted": null
+    },
+    "Producer_MailingAddress_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Producer_MailingAddress_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "office",
+      "extracted": null
+    },
+    "Producer_MailingAddress_Employees_A": {
+      "status": "missing",
+      "expected": "30-40",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AnnualRevenue_A": {
+      "status": "missing",
+      "expected": "$5M",
+      "extracted": null
+    },
+    "Producer_MailingAddress_OccupiedArea_A": {
+      "status": "missing",
+      "expected": "5000 sq ft",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": "yes",
+      "extracted": null
+    },
+    "Producer_MailingAddress_TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": "20000 sq ft",
+      "extracted": null
+    },
+    "Producer_MailingAddress_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_MailingAddress_NatureOfBusiness_A": {
+      "status": "missing",
+      "expected": "Wholesale",
+      "extracted": null
+    },
+    "Producer_MailingAddress_TypeOfBusiness_A": {
+      "status": "missing",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "02/10/2017",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "Producer_MailingAddress_SafetyManualIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_MailingAddress_NoPriorInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_MailingAddress_CurrentPremium_A": {
+      "status": "missing",
+      "expected": "$1M",
+      "extracted": null
+    },
+    "BoilerAndMachineryLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "200000",
+      "extracted": "$200000"
+    },
+    "BusinessOwnersLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "150000",
+      "extracted": "$150000"
+    },
+    "CommercialInlandMarineLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "10000",
+      "extracted": "$10000"
+    },
+    "CommercialPropertyLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "50000",
+      "extracted": "$50000"
+    },
+    "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "2000",
+      "extracted": "$2000"
+    },
+    "CommercialVehicleLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "15000",
+      "extracted": "$15000"
+    },
+    "CrimeLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "1000",
+      "extracted": "$1000"
+    },
+    "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "500",
+      "extracted": "$500"
+    },
+    "FiduciaryLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "0",
+      "extracted": "$100000"
+    },
+    "GarageAndDealersLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "0",
+      "extracted": "$80000"
+    },
+    "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A": {
+      "status": "partial",
+      "expected": "750000",
+      "extracted": "$750000"
+    },
+    "LiquorLiabilityLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "5000",
+      "extracted": "$5000"
+    },
+    "MotorCarrierLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "10000",
+      "extracted": "$10000"
+    },
+    "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_BusinessAutoIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_BusinessOwnersIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CommercialGeneralLiability_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CommercialProperty_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CrimeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_CyberAndPrivacy_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_GarageAndDealersIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_MotorCarrierIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_TruckersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_UmbrellaIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_YachtIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "EffectiveDate_A": {
+      "status": "missing",
+      "expected": "06/15/2024",
+      "extracted": null
+    },
+    "BillingPlan_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "NamedInsured_A": {
+      "status": "missing",
+      "expected": "Mitchell LLC",
+      "extracted": null
+    },
+    "FederalIDNumber_A": {
+      "status": "missing",
+      "expected": "93-1349471",
+      "extracted": null
+    },
+    "BusinessPhone_A": {
+      "status": "missing",
+      "expected": "202-456-7890",
+      "extracted": null
+    },
+    "ContactInformation_ContactType_A": {
+      "status": "missing",
+      "expected": "owner",
+      "extracted": null
+    },
+    "ContactInformation_ContactName_A": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "ContactInformation_PhoneNumber_A": {
+      "status": "missing",
+      "expected": "1234567890",
+      "extracted": null
+    },
+    "LocationBuilding_Address_A": {
+      "status": "missing",
+      "expected": "1234 15th St NW, Washington, DC 20020",
+      "extracted": null
+    },
+    "LocationBuilding_City_A": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "LocationBuilding_State_A": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "LocationBuilding_Zip_A": {
+      "status": "missing",
+      "expected": "20020",
+      "extracted": null
+    },
+    "LocationBuilding_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LocationBuilding_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "LocationBuilding_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "office space",
+      "extracted": null
+    },
+    "LocationBuilding_Employees_A": {
+      "status": "missing",
+      "expected": "10-20",
+      "extracted": null
+    },
+    "LocationBuilding_AnnualRevenue_A": {
+      "status": "missing",
+      "expected": "$1,000,000",
+      "extracted": null
+    },
+    "LocationBuilding_OccupiedArea_A": {
+      "status": "missing",
+      "expected": "5,000 sq ft",
+      "extracted": null
+    },
+    "LocationBuilding_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": "0 sq ft",
+      "extracted": null
+    },
+    "LocationBuilding_TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": "10,000 sq ft",
+      "extracted": null
+    },
+    "LocationBuilding_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_TypeOfBusiness_A": {
+      "status": "missing",
+      "expected": "Construction",
+      "extracted": null
+    },
+    "NatureOfBusiness_DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "10/26/2016",
+      "extracted": null
+    },
+    "NatureOfBusiness_DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Selling computer hardware, software, and peripherals to businesses and organizations.",
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "100000",
+      "extracted": "$150,000"
+    },
+    "TruckersLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "50000",
+      "extracted": "$50000"
+    },
+    "YachtLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "20000",
+      "extracted": "$20000"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_B": {
+      "status": "missing",
+      "expected": "Miscellaneous Lines",
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_B": {
+      "status": "wrong",
+      "expected": "80000",
+      "extracted": "$100,000.00"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_C": {
+      "status": "wrong",
+      "expected": "Cyber Liability",
+      "extracted": "Office Space"
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_C": {
+      "status": "missing",
+      "expected": "150000",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_D": {
+      "status": "missing",
+      "expected": "25000",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_E": {
+      "status": "missing",
+      "expected": "Professional Liability",
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_E": {
+      "status": "wrong",
+      "expected": "120000",
+      "extracted": "50000"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_F": {
+      "status": "wrong",
+      "expected": "18000",
+      "extracted": "750000"
+    },
+    "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_AppartmentBuildingSupplementIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy.Attachment_HotelMotelSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_LossSummaryIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_DealerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_DriverInformationScheduleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_SectionAttached_ElectronicDataProcessingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_GlassAndSignIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_InstallationBuildersRiskIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OpenCargoIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_VehicleScheduleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherDescription_D": {
+      "status": "missing",
+      "expected": "Additional information regarding driver's safety record.",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_OtherDescription_E": {
+      "status": "missing",
+      "expected": "Details about the insured's business operations.",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherDescription_F": {
+      "status": "wrong",
+      "expected": "Explain how the business operates and generates revenue.",
+      "extracted": "Office Space, Warehouse Space, Commercial Building Construction"
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_F": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_Audit_FrequencyCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "07/10/2024",
+      "extracted": "07/10/2024"
+    },
+    "Policy_ExpirationDate_A": {
+      "status": "matched",
+      "expected": "11/05/2025",
+      "extracted": "11/05/2025"
+    },
+    "Policy_PaymentMethod_MethodDescription_A": {
+      "status": "missing",
+      "expected": "Direct Bill",
+      "extracted": null
+    },
+    "Policy_Payment_DirectBillIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_Payment_MinimumPremiumAmount_A": {
+      "status": "missing",
+      "expected": 500.0,
+      "extracted": null
+    },
+    "Policy_Payment_PaymentScheduleCode_A": {
+      "status": "matched",
+      "expected": "Monthly",
+      "extracted": "Monthly"
+    },
+    "Policy_Payment_ProducerBillIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Production_TaxIdentificationNumber_A": {
+      "status": "missing",
+      "expected": "93-1349471",
+      "extracted": null
+    },
+    "Policy_Production_BusinessPhone_A": {
+      "status": "missing",
+      "expected": "202-456-7890",
+      "extracted": null
+    },
+    "Contact_Type_A": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "Contact_Name_A": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "Contact_PhoneNumber_A": {
+      "status": "missing",
+      "expected": "202-456-7890",
+      "extracted": null
+    },
+    "Location_No_A": {
+      "status": "missing",
+      "expected": "123 Main St NW",
+      "extracted": null
+    },
+    "Building_No_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Location_City_A": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "Location_StateCode_A": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "office building",
+      "extracted": null
+    },
+    "Employees_A": {
+      "status": "missing",
+      "expected": "full-time 30+ hrs/week",
+      "extracted": null
+    },
+    "AnnualRevenue_A": {
+      "status": "missing",
+      "expected": 10000000,
+      "extracted": null
+    },
+    "OccupiedArea_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": 100000,
+      "extracted": null
+    },
+    "LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusinessType_A": {
+      "status": "missing",
+      "expected": "Office Building",
+      "extracted": null
+    },
+    "DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Design, build, and manage commercial office buildings.",
+      "extracted": null
+    },
+    "Form_EditionIdentifier_A": {
+      "status": "wrong",
+      "expected": "ACORD 125 v1",
+      "extracted": "ACORD 125 (2016/03)"
+    },
+    "NamedInsured_FullName_A": {
+      "status": "matched",
+      "expected": "Melissa Deleon Mitchell LLC",
+      "extracted": "Melissa Deleon Mitchell LLC"
+    },
+    "NamedInsured_GeneralLiabilityCode_A": {
+      "status": "matched",
+      "expected": "All Risks",
+      "extracted": "All Risks"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_A": {
+      "status": "matched",
+      "expected": 10,
+      "extracted": "10"
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Washington",
+      "extracted": "Washington"
+    },
+    "NamedInsured_MailingAddress_LineOne_A": {
+      "status": "wrong",
+      "expected": "15th St NW",
+      "extracted": "I5th St NW"
+    },
+    "NamedInsured_MailingAddress_PostalCode_A": {
+      "status": "matched",
+      "expected": "20020",
+      "extracted": "20020"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "NamedInsured_NAICSCode_A": {
+      "status": "matched",
+      "expected": "423430",
+      "extracted": "423430"
+    },
+    "NamedInsured_Primary_PhoneNumber_A": {
+      "status": "matched",
+      "expected": "202-456-1234",
+      "extracted": "202-456-1234"
+    },
+    "NamedInsured_SICCode_A": {
+      "status": "matched",
+      "expected": "5045",
+      "extracted": "5045"
+    },
+    "NamedInsured_TaxIdentifier_A": {
+      "status": "matched",
+      "expected": "93-1349471",
+      "extracted": "93-1349471"
+    },
+    "NamedInsured_FullName_B": {
+      "status": "partial",
+      "expected": "Kellie Green",
+      "extracted": "Kellie Green Mitchell LLC"
+    },
+    "NamedInsured_GeneralLiabilityCode_B": {
+      "status": "matched",
+      "expected": "All Risks",
+      "extracted": "All Risks"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_B": {
+      "status": "matched",
+      "expected": 10,
+      "extracted": "10"
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Washington",
+      "extracted": "Washington"
+    },
+    "NamedInsured_MailingAddress_LineOne_B": {
+      "status": "wrong",
+      "expected": "15th St NW",
+      "extracted": "I5th St NW"
+    },
+    "NamedInsured_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "20020",
+      "extracted": "20020"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "NamedInsured_NAICSCode_B": {
+      "status": "missing",
+      "expected": "423430",
+      "extracted": null
+    },
+    "NamedInsured_Primary_PhoneNumber_B": {
+      "status": "matched",
+      "expected": "202-456-1234",
+      "extracted": "202-456-1234"
+    },
+    "NamedInsured_SICCode_B": {
+      "status": "matched",
+      "expected": "5045",
+      "extracted": "5045"
+    },
+    "NamedInsured_TaxIdentifier_B": {
+      "status": "matched",
+      "expected": "93-1349471",
+      "extracted": "93-1349471"
+    },
+    "Producer_CustomerIdentifier_B": {
+      "status": "missing",
+      "expected": "Mitchell LLC",
+      "extracted": null
+    },
+    "CurrentCarrier_A": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty",
+      "extracted": null
+    },
+    "NoPriorInsurance_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium_A": {
+      "status": "missing",
+      "expected": "$10,000.00",
+      "extracted": null
+    },
+    "LocationNumber_A": {
+      "status": "missing",
+      "expected": 12345,
+      "extracted": null
+    },
+    "BuildingNumber_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Address_A": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "City_A": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "State_A": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "Zip_A": {
+      "status": "missing",
+      "expected": "20020",
+      "extracted": null
+    },
+    "NatureOfBusiness_A": {
+      "status": "missing",
+      "expected": "Commercial Building Construction",
+      "extracted": null
+    },
+    "EffectiveDate_B": {
+      "status": "missing",
+      "expected": "06/15/2024",
+      "extracted": null
+    },
+    "BillingPlan_B": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan_B": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit_B": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "CurrentCarrier_B": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty",
+      "extracted": null
+    },
+    "NoPriorInsurance_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium_B": {
+      "status": "missing",
+      "expected": "$10,000.00",
+      "extracted": null
+    },
+    "BusinessAutoIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CGLIndicator": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPropertyIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CondominiumIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "DirectIndicator": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "EffectiveDate": {
+      "status": "missing",
+      "expected": "02/14/2024",
+      "extracted": null
+    },
+    "EmployerLiabilityIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "EquipmentBreakdownIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "FloodIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "GeneralLiabilityCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "HomeownersIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "InsuranceAgentBrokerIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "MonthlyPaymentIndicator": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_FullName_C": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "NamedInsured_GeneralLiabilityCode_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1234567890"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "OccupiedArea_SquareFootage_B": {
+      "status": "missing",
+      "expected": 40000,
+      "extracted": null
+    },
+    "Occupancy_Owned_Tenant_CondoUnitOwner_B": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "ProductionDate": {
+      "status": "missing",
+      "expected": "01/04/2024",
+      "extracted": null
+    },
+    "QuoteRequest": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "TaxIdentifier_B": {
+      "status": "missing",
+      "expected": "51-9613116",
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_C": {
+      "status": "partial",
+      "expected": "Washington",
+      "extracted": "Washington, DC"
+    },
+    "NamedInsured_MailingAddress_LineOne_C": {
+      "status": "partial",
+      "expected": "1234 16th St NW",
+      "extracted": "1234 16th St NW, Washington"
+    },
+    "NamedInsured_MailingAddress_PostalCode_C": {
+      "status": "wrong",
+      "expected": "20010",
+      "extracted": "20020"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "NamedInsured_NAICSCode_C": {
+      "status": "wrong",
+      "expected": "423430",
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "NamedInsured_Primary_PhoneNumber_C": {
+      "status": "matched",
+      "expected": "202-456-1234",
+      "extracted": "202-456-1234"
+    },
+    "NamedInsured_SICCode_C": {
+      "status": "matched",
+      "expected": "5045",
+      "extracted": "5045"
+    },
+    "NamedInsured_TaxIdentifier_C": {
+      "status": "matched",
+      "expected": "93-1349471",
+      "extracted": "93-1349471"
+    },
+    "NamedInsured_Contact_ContactDescription_A": {
+      "status": "wrong",
+      "expected": "General Info",
+      "extracted": "GANEACT"
+    },
+    "NamedInsured_Contact_FullName_A": {
+      "status": "matched",
+      "expected": "Melissa Deleon",
+      "extracted": "Melissa Deleon"
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_ContactDescription_B": {
+      "status": "missing",
+      "expected": "Owner",
+      "extracted": null
+    },
+    "NamedInsured_Contact_FullName_B": {
+      "status": "matched",
+      "expected": "Melissa Deleon",
+      "extracted": "Melissa Deleon"
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Quote": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "BillingPlan": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "NamedInsured": {
+      "status": "missing",
+      "expected": "Melissa Deleon Mitchell LLC",
+      "extracted": null
+    },
+    "FederalIDNumber": {
+      "status": "missing",
+      "expected": "93-1349471",
+      "extracted": null
+    },
+    "BusinessPhoneNumber": {
+      "status": "missing",
+      "expected": "202-456-1234",
+      "extracted": null
+    },
+    "ContactType": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactName": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "ContactPhone": {
+      "status": "missing",
+      "expected": "202-456-1234",
+      "extracted": null
+    },
+    "LocationNumber": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "BuildingNumber": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Address": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "City": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "State": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "Zip": {
+      "status": "missing",
+      "expected": "20020",
+      "extracted": null
+    },
+    "InsideCityLimits": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancy": {
+      "status": "missing",
+      "expected": "office building",
+      "extracted": null
+    },
+    "Employees": {
+      "status": "missing",
+      "expected": "30+ hrs/week",
+      "extracted": null
+    },
+    "AnnualRevenue": {
+      "status": "missing",
+      "expected": "$5M",
+      "extracted": null
+    },
+    "OccupiedArea": {
+      "status": "missing",
+      "expected": "10,000 sq ft",
+      "extracted": null
+    },
+    "AreaOpenToPublic": {
+      "status": "missing",
+      "expected": "2,500 sq ft",
+      "extracted": null
+    },
+    "TotalBuildingArea": {
+      "status": "missing",
+      "expected": "50,000 sq ft",
+      "extracted": null
+    },
+    "LeasedToOthers": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "TypeOfBusiness": {
+      "status": "missing",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": null
+    },
+    "DateBusinessStarted": {
+      "status": "missing",
+      "expected": "10/26/2016",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations": {
+      "status": "missing",
+      "expected": "Wholesale of computer hardware and software",
+      "extracted": null
+    },
+    "YesNoQuestion1": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "YesNoQuestion2": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "YesNoQuestion3": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "YesNoQuestion4": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "YesNoQuestion5": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium": {
+      "status": "missing",
+      "expected": "$100,000/year",
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_A": {
+      "status": "matched",
+      "expected": "100",
+      "extracted": "100"
+    },
+    "BuildingOccupancy_OpenToPublicArea_A": {
+      "status": "matched",
+      "expected": "50",
+      "extracted": "50"
+    },
+    "BuildingOccupancy_OperationsDescription_A": {
+      "status": "matched",
+      "expected": "Office Space",
+      "extracted": "Office Space"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_A": {
+      "status": "matched",
+      "expected": "20",
+      "extracted": "20"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_A": {
+      "status": "wrong",
+      "expected": "10",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_A": {
+      "status": "wrong",
+      "expected": "$1,000,000",
+      "extracted": "S"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_A": {
+      "status": "matched",
+      "expected": "1234567890",
+      "extracted": "1234567890"
+    },
+    "CommercialStructure_InsuredInterest_OtherDescription_A": {
+      "status": "wrong",
+      "expected": "Equipment Financing",
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_A": {
+      "status": "wrong",
+      "expected": "9876543210",
+      "extracted": "1234567890"
+    },
+    "CommercialStructure_PhysicalAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Washington",
+      "extracted": "Washington"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_A": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_A": {
+      "status": "matched",
+      "expected": "1234 16th St NW",
+      "extracted": "1234 16th St NW"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_A": {
+      "status": "wrong",
+      "expected": "20010",
+      "extracted": "20020"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "CommercialStructure_Question_ABBCode_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_A": {
+      "status": "matched",
+      "expected": "5000",
+      "extracted": "5000"
+    },
+    "BuildingOccupancy_OccupiedArea_B": {
+      "status": "matched",
+      "expected": "75",
+      "extracted": "75"
+    },
+    "BuildingOccupancy_OpenToPublicArea_B": {
+      "status": "matched",
+      "expected": "25",
+      "extracted": "25"
+    },
+    "BuildingOccupancy_OperationsDescription_B": {
+      "status": "matched",
+      "expected": "Warehouse Space",
+      "extracted": "Warehouse Space"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_B": {
+      "status": "matched",
+      "expected": "15",
+      "extracted": "15"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_B": {
+      "status": "wrong",
+      "expected": "5",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_B": {
+      "status": "wrong",
+      "expected": "$750,000",
+      "extracted": "S"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_B": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "1234567890"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_B": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "1234567890"
+    },
+    "CommercialStructure_PhysicalAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Washington",
+      "extracted": "Washington"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_B": {
+      "status": "wrong",
+      "expected": "DC",
+      "extracted": "Washington"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_B": {
+      "status": "matched",
+      "expected": "15th St NW",
+      "extracted": "15th St NW"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "20020",
+      "extracted": "20020"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "CommercialStructure_Question_ABBCode_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_B": {
+      "status": "matched",
+      "expected": "0",
+      "extracted": "0"
+    },
+    "BuildingOccupancy_OccupiedArea_C": {
+      "status": "partial",
+      "expected": "0",
+      "extracted": "4000 sq ft"
+    },
+    "BuildingOccupancy_OpenToPublicArea_C": {
+      "status": "partial",
+      "expected": "0",
+      "extracted": "1000 sq ft"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_C": {
+      "status": "wrong",
+      "expected": "10",
+      "extracted": "30"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_C": {
+      "status": "wrong",
+      "expected": "5",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_C": {
+      "status": "wrong",
+      "expected": "10000000",
+      "extracted": "S"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_C": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "1234567890"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_C": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_C": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "1234567890"
+    },
+    "Sex/Gender_B": {
+      "status": "missing",
+      "expected": "F",
+      "extracted": null
+    },
+    "MaritalStatus_B": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "State_B": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    },
+    "City_B": {
+      "status": "missing",
+      "expected": "Washington",
+      "extracted": null
+    },
+    "Zip_B": {
+      "status": "missing",
+      "expected": "20020",
+      "extracted": null
+    },
+    "Occupancy_Area_C": {
+      "status": "missing",
+      "expected": "30000",
+      "extracted": null
+    },
+    "Area_OpenToPublic_C": {
+      "status": "missing",
+      "expected": "1000",
+      "extracted": null
+    },
+    "Total_BuildingArea_C": {
+      "status": "missing",
+      "expected": "500000",
+      "extracted": null
+    },
+    "Leased_to_Others_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Type_of_Business_C": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "Date_Business_Start_C": {
+      "status": "missing",
+      "expected": "10/26/2016",
+      "extracted": null
+    },
+    "Description_of_Primary_Operations_C": {
+      "status": "missing",
+      "expected": "Commercial Building Construction and Full Service Restaurant Operations",
+      "extracted": null
+    },
+    "Have_Safety_Manuals_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CurrentCarrier_C": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty",
+      "extracted": null
+    },
+    "Annual_Audit_C": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "NamedInsured_C": {
+      "status": "missing",
+      "expected": "Mitchell LLC",
+      "extracted": null
+    },
+    "Federal_ID_Number_C": {
+      "status": "missing",
+      "expected": "93-1349471",
+      "extracted": null
+    },
+    "Business_Phone_Number_C": {
+      "status": "missing",
+      "expected": "202-456-1234",
+      "extracted": null
+    },
+    "Contact_Type_C": {
+      "status": "missing",
+      "expected": "Owner",
+      "extracted": null
+    },
+    "Contact_Name_C": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "Location.Number_C": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "Building.Number_C": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Inside_City_Limits_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy_C": {
+      "status": "missing",
+      "expected": "Owned",
+      "extracted": null
+    },
+    "Description_of_Occupancy_C": {
+      "status": "missing",
+      "expected": "Commercial Building Construction and Full Service Restaurant Operations",
+      "extracted": null
+    },
+    "Employees_C": {
+      "status": "missing",
+      "expected": "Full-time 30+ hrs/week: 10; Part-time: 5",
+      "extracted": null
+    },
+    "Annual_Revenue_C": {
+      "status": "missing",
+      "expected": "10000000",
+      "extracted": null
+    },
+    "Yes_No_Question_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Yes_No_Question_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Yes_No_Question_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Yes_No_Question_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_C": {
+      "status": "matched",
+      "expected": "Arlington",
+      "extracted": "Arlington"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_C": {
+      "status": "wrong",
+      "expected": "VA",
+      "extracted": "Arlington"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_C": {
+      "status": "matched",
+      "expected": "1500 15th St NW",
+      "extracted": "1500 15th St NW"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_C": {
+      "status": "wrong",
+      "expected": "20020",
+      "extracted": "22203"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_C": {
+      "status": "wrong",
+      "expected": "DC",
+      "extracted": "VA"
+    },
+    "CommercialStructure_Question_ABBCode_C": {
+      "status": "partial",
+      "expected": "S",
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_C": {
+      "status": "wrong",
+      "expected": "5000 sq ft",
+      "extracted": "1000"
+    },
+    "BuildingOccupancy_OccupiedArea_D": {
+      "status": "wrong",
+      "expected": "4000 sq ft",
+      "extracted": "100"
+    },
+    "BuildingOccupancy_OpenToPublicArea_D": {
+      "status": "wrong",
+      "expected": "1000 sq ft",
+      "extracted": "50"
+    },
+    "BuildingOccupancy_OperationsDescription_D": {
+      "status": "wrong",
+      "expected": "Commercial Building Construction",
+      "extracted": "Office Space"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "30",
+      "extracted": "20"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "10",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_D": {
+      "status": "partial",
+      "expected": "$5,000,000",
+      "extracted": "$"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_D": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_D": {
+      "status": "wrong",
+      "expected": "Arlington",
+      "extracted": "Washington"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_D": {
+      "status": "missing",
+      "expected": "VA",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_D": {
+      "status": "wrong",
+      "expected": "1500 15th St NW",
+      "extracted": "1234 16th St NW, Washington"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_D": {
+      "status": "matched",
+      "expected": "20020",
+      "extracted": "20020"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "DC",
+      "extracted": "DC"
+    },
+    "chk_CommercialStructure_RiskLocation_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_Construction_BuildingArea_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_BusinessInformation_FullTimeEmployeeCount_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    " chk_BusinessInformation_PartTimeEmployeeCount_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_CommercialStructure_AnnualRevenueAmount_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_Question_ABBCode_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OtherDescription_D": {
+      "status": "wrong",
+      "expected": "Arlington",
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_D": {
+      "status": "wrong",
+      "expected": "1000",
+      "extracted": "5000"
+    },
+    "BusinessInformation_BusinessType_ApartmentsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_OtherDescription_A": {
+      "status": "wrong",
+      "expected": "Retail",
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_OperationsDescription_A": {
+      "status": "wrong",
+      "expected": "Retail Wholesaler",
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_A": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "NamedInsured_BusinessStartDate_A": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_B": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_C": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_C": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_C": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_E": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_E": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_F": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_F": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_F": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_H": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_H": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_H": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_I": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_I": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_I": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_K": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_K": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_K": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_L": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_L": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_L": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_N": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_N": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_N": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_N": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_N": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_N": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_N": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_N": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_N": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_N": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_N": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_N": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_N": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_N": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_P": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_P": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_P": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_P": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_P": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_P": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_Q": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_Q": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_Q": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_S": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_S": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_S": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_S": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_S": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_S": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_S": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_S": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_S": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_S": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_S": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_T": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_T": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_T": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_V": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_V": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_V": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_V": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_V": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_V": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_V": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_V": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_V": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_V": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_V": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_W": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_W": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_W": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_Y": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_Y": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_Y": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_Y": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_Y": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_Y": {
+      "status": "missing",
+      "expected": "Office",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_Y": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_Y": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_Y": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_Y": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_Y": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_Z": {
+      "status": "missing",
+      "expected": "Office Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_Z": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_Z": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "BusinessPhone": {
+      "status": "missing",
+      "expected": "202-456-1234",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Arlington",
+      "extracted": "Arlington"
+    },
+    "AdditionalInterest_MailingAddress_CountryCode_A": {
+      "status": "matched",
+      "expected": "US",
+      "extracted": "US"
+    },
+    "AdditionalInterest_MailingAddress_LineOne_A": {
+      "status": "missing",
+      "expected": "4201 Wilson Blvd Ste 400",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_A": {
+      "status": "wrong",
+      "expected": "22203",
+      "extracted": "20020"
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "VA",
+      "extracted": "VA"
+    },
+    "AdditionalInterest_PolicyRequiredIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Primary_EmailAddress_A": {
+      "status": "matched",
+      "expected": "melissa@MitchellLLC.com",
+      "extracted": "melissa@MitchellLLC.com"
+    },
+    "AdditionalInterest_Primary_PhoneNumber_A": {
+      "status": "matched",
+      "expected": "202-456-1234",
+      "extracted": "202-456-1234"
+    },
+    "AdditionalInterest_SendBillIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_ParentOrganizationName_A": {
+      "status": "wrong",
+      "expected": "Mitchell LLC",
+      "extracted": "MitchellLLC"
+    },
+    "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_NonPaymentIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_NonRenewalIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_UnderwritingIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_AnyExposureToFlammableExplosivesChemicalsExplanation": {
+      "status": "missing",
+      "expected": "Any exposure to flammable or explosives chemicals",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcyExplanation": {
+      "status": "missing",
+      "expected": "Foreclosure and repossession due to bankruptcy",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate": {
+      "status": "missing",
+      "expected": "07/01/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "12/31/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLienExplanation": {
+      "status": "missing",
+      "expected": "Judgement or lien due to unpaid taxes",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_OccurrenceDate": {
+      "status": "missing",
+      "expected": "03/01/2019",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "06/30/2021",
+      "extracted": null
+    },
+    "CommercialPolicy_PastFiveYearsAnyApplicantIndictedOrConvictedFraudBriberyArsonExplanation": {
+      "status": "missing",
+      "expected": "None",
+      "extracted": null
+    },
+    "CommercialPolicy_PastLossesClaimsRelatingSexualAbuseDiscriminationNegligentHiringExplanation": {
+      "status": "missing",
+      "expected": "No claims related to sexual abuse, discrimination or negligent hiring",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABBCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABCCode_A": {
+      "status": "missing",
+      "expected": "All Risks",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAACode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KABCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KACCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAKCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KALCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAMCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KANCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAOCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "08/15/2017",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_A": {
+      "status": "wrong",
+      "expected": "Property",
+      "extracted": "$"
+    },
+    "OtherPolicy_PolicyNumberIdentifier_A": {
+      "status": "wrong",
+      "expected": "BA-14154793",
+      "extracted": "1234567890"
+    },
+    "Subsidiary_OrganizationName_A": {
+      "status": "missing",
+      "expected": "Mitchell LLC",
+      "extracted": null
+    },
+    "Subsidiary_ParentOwnershipPercent_A": {
+      "status": "partial",
+      "expected": "100",
+      "extracted": "10"
+    },
+    "AdditionalInterest_FullName_B": {
+      "status": "wrong",
+      "expected": "Sara Andrews",
+      "extracted": "Melissa Deleon"
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "09/01/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B": {
+      "status": "missing",
+      "expected": "10/15/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OtherDescription_B": {
+      "status": "matched",
+      "expected": "Regular Training Sessions",
+      "extracted": "Regular Training Sessions"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_ProducerNote_A": {
+      "status": "missing",
+      "expected": "Producers Note: Additional Information Needed for Quote",
+      "extracted": null
+    },
+    "CommercialPolicy_NamedInsured_A": {
+      "status": "missing",
+      "expected": "Mitchell LLC",
+      "extracted": null
+    },
+    "CommercialPolicy_NatureOfBusinessCode_A": {
+      "status": "missing",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": null
+    },
+    "CommercialPolicy_NatureOfBusinessDescription_A": {
+      "status": "missing",
+      "expected": "Commercial Building Construction",
+      "extracted": null
+    },
+    "CommercialPolicy_PaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "CommercialPolicy_PolicyType_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "CommercialPolicy_SubscriptionAudits_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "CommercialPolicy_TaxpayerIdentificationNumber_A": {
+      "status": "missing",
+      "expected": "30-1920809",
+      "extracted": null
+    },
+    "CommercialPolicy_VehicleUsePercent_A": {
+      "status": "missing",
+      "expected": "100",
+      "extracted": null
+    },
+    "CommercialPolicy_YearsOfBusiness_A": {
+      "status": "missing",
+      "expected": "10",
+      "extracted": null
+    },
+    "CommercialPolicy_YearsOfExperience_A": {
+      "status": "missing",
+      "expected": "34",
+      "extracted": null
+    },
+    "CommercialPolicy_ZipCode_A": {
+      "status": "missing",
+      "expected": "20020",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "03/15/2022",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "$"
+    },
+    "Subsidiary_ParentOwnershipPercent_B": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "$"
+    },
+    "OtherPolicy_LineOfBusinessCode_D": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "$"
+    },
+    "Producer's_Note_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_IndividualOrCorporation": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "CommercialPolicy_RemarkText_A": {
+      "status": "wrong",
+      "expected": "Please attach supporting documentation for the business's operating history.",
+      "extracted": "PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule, may be attached if more space is required)"
+    },
+    "LinesOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessAutoIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CGLIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "PropertyIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "DirectInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "QuoteRequestIndicator_A": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "AuditTypeIndicator_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "BillingPlanIndicator_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlanIndicator_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "ProducerNoteIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsuredIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "FederalIDNumberIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessPhoneNumberIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "WebsiteIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalNamedInsuredsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "ContactTypeIndicator_A": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactNameIndicator_A": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "ContactPhoneNumberIndicator_A": {
+      "status": "missing",
+      "expected": "202-456-1234",
+      "extracted": null
+    },
+    "ContactEmailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LocationNumberIndicator_A": {
+      "status": "missing",
+      "expected": "15th St NW",
+      "extracted": null
+    },
+    "BuildingNumberIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "OccupancyIndicator_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancyIndicator_A": {
+      "status": "missing",
+      "expected": "Office Space",
+      "extracted": null
+    },
+    "EmployeesIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AnnualRevenueIndicator_A": {
+      "status": "missing",
+      "expected": "1000000",
+      "extracted": null
+    },
+    "OccupiedAreaIndicator_A": {
+      "status": "missing",
+      "expected": "50000",
+      "extracted": null
+    },
+    "AreaOpenToPublicIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "TotalBuildingAreaIndicator_A": {
+      "status": "missing",
+      "expected": "200000",
+      "extracted": null
+    },
+    "LeasedToOthersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "TypeOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": null
+    },
+    "DateBusinessStartedIndicator_A": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperationsIndicator_A": {
+      "status": "missing",
+      "expected": "Wholesale of computer equipment and software",
+      "extracted": null
+    },
+    "SafetyManualIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CurrentInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty",
+      "extracted": null
+    },
+    "NoPriorInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremiumIndicator_A": {
+      "status": "missing",
+      "expected": "50000",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "06/01/2020",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "12/31/2021",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-13665491",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$120,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "01/01/2019",
+      "extracted": "07/01/2017"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "12/31/2020",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_A": {
+      "status": "matched",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": "Travelers Property Casualty Co. of North America"
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-13665492",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$100,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "01/01/2018",
+      "extracted": "07/01/2017"
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "12/31/2019",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_LineOfBusinessCode_A": {
+      "status": "missing",
+      "expected": "423430",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-13665493",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$80,000.00",
+      "extracted": "$50,000.00"
+    },
+    "PriorCoverage_PolicyYear_A": {
+      "status": "wrong",
+      "expected": "2021",
+      "extracted": "2017"
+    },
+    "PriorCoverage_Property_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "01/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_Property_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "12/31/2018",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_Property_InsurerFullName_A": {
+      "status": "matched",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": "Travelers Property Casualty Co. of North America"
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-13665494",
+      "extracted": null
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$90,000.00",
+      "extracted": "$50000"
+    },
+    "LossHistory_NoPriorLossesIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "PriorCoverage_Automobile_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_B": {
+      "status": "matched",
+      "expected": "11/30/2020",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_Automobile_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-14154793",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_B": {
+      "status": "matched",
+      "expected": "11/30/2020",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_B": {
+      "status": "matched",
+      "expected": "BA-14154793",
+      "extracted": "BA-14154793"
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 30000,
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "11/30/2020",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_B": {
+      "status": "matched",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": "Travelers Property Casualty Co. of North America"
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
+      "status": "wrong",
+      "expected": "BA-14154793",
+      "extracted": "BA-13665492"
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_B": {
+      "status": "wrong",
+      "expected": 10000,
+      "extracted": "S100,000.00"
+    },
+    "PriorCoverage_PolicyYear_B": {
+      "status": "missing",
+      "expected": "2017",
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_B": {
+      "status": "matched",
+      "expected": "07/01/2017",
+      "extracted": "07/01/2017"
+    },
+    "PriorCoverage_Property_ExpirationDate_B": {
+      "status": "wrong",
+      "expected": "11/30/2020",
+      "extracted": "12/31/2021"
+    },
+    "PriorCoverage_Property_InsurerFullName_B": {
+      "status": "matched",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": "Travelers Property Casualty Co. of North America"
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-14154793",
+      "extracted": null
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_B": {
+      "status": "wrong",
+      "expected": 40000,
+      "extracted": "$100,000.00"
+    },
+    "PriorCoverage_Automobile_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "07/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "11/30/2020",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_C": {
+      "status": "missing",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_C": {
+      "status": "missing",
+      "expected": "BA-14154793",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_C": {
+      "status": "matched",
+      "expected": "07/01/2017",
+      "extracted": "07/01/2017"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_C": {
+      "status": "matched",
+      "expected": "11/30/2020",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_C": {
+      "status": "matched",
+      "expected": "Travelers Property Casualty Co. of North America",
+      "extracted": "Travelers Property Casualty Co. of North America"
+    },
+    "CurrentCarrier_OtherLine_LineOfBusinessCode_B": {
+      "status": "missing",
+      "expected": "423430",
+      "extracted": null
+    },
+    "CurrentCoverage_Automobile_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "07/01/2020",
+      "extracted": null
+    },
+    "CurrentCoverage_Automobile_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "11/30/2022",
+      "extracted": null
+    },
+    "CurrentCoverage_GeneralLiability_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "07/01/2020",
+      "extracted": null
+    },
+    "CurrentCoverage_GeneralLiability_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "11/30/2022",
+      "extracted": null
+    },
+    "BusinessAuto_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "BusinessAuto_Employees_A": {
+      "status": "missing",
+      "expected": "full-time 30+ hrs/week",
+      "extracted": null
+    },
+    "BusinessAuto_AnualRevenue_A": {
+      "status": "missing",
+      "expected": 10000000,
+      "extracted": null
+    },
+    "BusinessAuto_OccupiedArea_SqFt_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "BusinessAuto_AreaOpenToPublic_SqFt_A": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "BusinessAuto_TotalBuildingArea_SqFt_A": {
+      "status": "missing",
+      "expected": 70000,
+      "extracted": null
+    },
+    "BusinessAuto_LeasedToOthers_B": {
+      "status": "missing",
+      "expected": "no",
+      "extracted": null
+    },
+    "Property_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "Property_Employees_A": {
+      "status": "missing",
+      "expected": "part-time",
+      "extracted": null
+    },
+    "Property_AnualRevenue_A": {
+      "status": "missing",
+      "expected": 5000000,
+      "extracted": null
+    },
+    "Property_OccupiedArea_SqFt_A": {
+      "status": "missing",
+      "expected": 30000,
+      "extracted": null
+    },
+    "Property_AreaOpenToPublic_SqFt_A": {
+      "status": "missing",
+      "expected": 10000,
+      "extracted": null
+    },
+    "Property_TotalBuildingArea_SqFt_A": {
+      "status": "missing",
+      "expected": 40000,
+      "extracted": null
+    },
+    "BusinessAuto_TypeOfBusiness_A": {
+      "status": "missing",
+      "expected": "Construction",
+      "extracted": null
+    },
+    "BusinessAuto_DateStarted_B": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "BusinessAuto_DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Commercial Building Construction",
+      "extracted": null
+    },
+    "LossHistory_NoPriorLossesIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessAuto_Insured_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessAuto_SafetyManuals_A": {
+      "status": "missing",
+      "expected": "yes",
+      "extracted": null
+    },
+    "CurrentCarrier_OtherLine_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 10000,
+      "extracted": null
+    },
+    "BusinessAuto_Premium_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "BusinessAuto_CurrentPremium_A": {
+      "status": "missing",
+      "expected": 25000,
+      "extracted": null
+    },
+    "LossHistory_Date_B": {
+      "status": "missing",
+      "expected": "01/01/2020",
+      "extracted": null
+    },
+    "LossHistory_Date_C": {
+      "status": "missing",
+      "expected": "06/30/2021",
+      "extracted": null
+    },
+    "LossHistory_Date_D": {
+      "status": "missing",
+      "expected": "09/01/2022",
+      "extracted": null
+    },
+    "LossHistory_TotalAmount_B": {
+      "status": "missing",
+      "expected": 200000,
+      "extracted": null
+    },
+    "BusinessAuto_TotalLossAmount_B": {
+      "status": "missing",
+      "expected": 150000,
+      "extracted": null
+    },
+    "LossHistory_Type_A": {
+      "status": "missing",
+      "expected": "Accident",
+      "extracted": null
+    },
+    "LossHistory_Type_B": {
+      "status": "missing",
+      "expected": "Fire",
+      "extracted": null
+    },
+    "LossHistory_Type_C": {
+      "status": "missing",
+      "expected": "Theft",
+      "extracted": null
+    },
+    "BusinessAuto_NameOfInsured_A": {
+      "status": "missing",
+      "expected": "Joe's Bar Inc.",
+      "extracted": null
+    },
+    "Location_BuildingNumber_A": {
+      "status": "missing",
+      "expected": 1,
+      "extracted": null
+    },
+    "Location_BuildingDescription_A": {
+      "status": "missing",
+      "expected": "Office Building",
+      "extracted": null
+    },
+    "Location_CityStateZip_A": {
+      "status": "missing",
+      "expected": "WashingtonDC, DC, 20001",
+      "extracted": null
+    },
+    "OccupiedArea_SqFt_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "AreaOpenToPublic_SqFt_A": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "TotalBuildingArea_SqFt_A": {
+      "status": "missing",
+      "expected": 70000,
+      "extracted": null
+    },
+    "LeasedToOthers_B": {
+      "status": "missing",
+      "expected": "no",
+      "extracted": null
+    },
+    "NatureOfBusiness_DateStarted_B": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "NatureOfBusiness_DescriptionOfPrimaryOperations_B": {
+      "status": "missing",
+      "expected": "Commercial Building Construction",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_C": {
+      "status": "wrong",
+      "expected": "07/01/2018",
+      "extracted": "07/01/2017"
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_C": {
+      "status": "wrong",
+      "expected": "08/01/2020",
+      "extracted": "11/30/2020"
+    },
+    "PriorCoverage_PolicyYear_C": {
+      "status": "matched",
+      "expected": 2017,
+      "extracted": "2017"
+    },
+    "LossHistory_ClaimDate_A": {
+      "status": "missing",
+      "expected": "03/17/2022",
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "$"
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_InformationYearCount_A": {
+      "status": "missing",
+      "expected": 4,
+      "extracted": null
+    },
+    "LossHistory_LineOfBusiness_A": {
+      "status": "wrong",
+      "expected": "Property",
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
+    },
+    "LossHistory_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "10/20/2020",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDescription_A": {
+      "status": "wrong",
+      "expected": "Water Damage",
+      "extracted": "$"
+    },
+    "LossHistory_PaidAmount_A": {
+      "status": "missing",
+      "expected": "$100,000.00",
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_A": {
+      "status": "missing",
+      "expected": "$50,000.00",
+      "extracted": null
+    },
+    "LossHistory_TotalAmount_A": {
+      "status": "partial",
+      "expected": "$150,000.00",
+      "extracted": "$"
+    },
+    "LossHistory_ClaimStatus_OpenCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "$"
+    },
+    "LossHistory_LineOfBusiness_B": {
+      "status": "missing",
+      "expected": "Liability",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "01/15/2021",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDescription_B": {
+      "status": "missing",
+      "expected": "Slip and Fall",
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_B": {
+      "status": "missing",
+      "expected": "$200,000.00",
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_B": {
+      "status": "missing",
+      "expected": "$50,000.00",
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LossHistory_LineOfBusiness_C": {
+      "status": "missing",
+      "expected": "Workers' Compensation",
+      "extracted": null
+    },
+    "NamedInsured_Initials_A": {
+      "status": "missing",
+      "expected": "MD",
+      "extracted": null
+    },
+    "NamedInsured_SignatureDate_A": {
+      "status": "missing",
+      "expected": "05/10/2022",
+      "extracted": null
+    },
+    "Policy_InformationPracticesNoticeIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Producer_AuthorizedRepresentative_FullName_A": {
+      "status": "missing",
+      "expected": "Melissa Deleon",
+      "extracted": null
+    },
+    "Producer_NationalIdentifier_A": {
+      "status": "missing",
+      "expected": "93-1349471",
+      "extracted": null
+    },
+    "Producer_StateLicenseIdentifier_A": {
+      "status": "missing",
+      "expected": "DC",
+      "extracted": null
+    }
+  },
+  "accuracy": 17.7,
+  "exact_match_rate": 16.27,
+  "coverage": 32.9
+}

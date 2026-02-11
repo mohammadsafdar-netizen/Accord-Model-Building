@@ -1,0 +1,2442 @@
+{
+  "total_gt_fields": 486,
+  "matched": 122,
+  "partial_match": 14,
+  "missing": 207,
+  "wrong": 143,
+  "field_results": {
+    "Form_CompletionDate_A": {
+      "status": "matched",
+      "expected": "03/18/2022",
+      "extracted": "03/18/2022"
+    },
+    "Insurer_FullName_A": {
+      "status": "matched",
+      "expected": "CNA Financial Corporation",
+      "extracted": "CNA Financial Corporation"
+    },
+    "Insurer_NAICCode_A": {
+      "status": "matched",
+      "expected": "20443",
+      "extracted": "20443"
+    },
+    "Insurer_ProductCode_A": {
+      "status": "wrong",
+      "expected": "CA",
+      "extracted": "BA-96568699"
+    },
+    "Insurer_ProductDescription_A": {
+      "status": "wrong",
+      "expected": "Commercial Auto Insurance",
+      "extracted": "CNA Financial Corporation"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "BA-96568699",
+      "extracted": "BA-96568699"
+    },
+    "Policy_Status_BoundIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_Status_CancelIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_Status_ChangeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Status_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "04/03/2022",
+      "extracted": "08/21/2022"
+    },
+    "Policy_Status_EffectiveTime_A": {
+      "status": "wrong",
+      "expected": "08:00 AM",
+      "extracted": "08/21/2022"
+    },
+    "Policy_Status_EffectiveTimeAMIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Status_EffectiveTimePMIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Status_IssueIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Status_QuoteIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_Status_RenewIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Producer_ContactPerson_FullName_A": {
+      "status": "matched",
+      "expected": "Stephanie Mclean",
+      "extracted": "Stephanie Mclean"
+    },
+    "Producer_ContactPerson_PhoneNumber_A": {
+      "status": "matched",
+      "expected": "312-123-4567",
+      "extracted": "312-123-4567"
+    },
+    "Producer_FaxNumber_A": {
+      "status": "matched",
+      "expected": "312-123-4568",
+      "extracted": "312-123-4568"
+    },
+    "Producer_FullName_A": {
+      "status": "wrong",
+      "expected": "Stuart PLC",
+      "extracted": "1111 West Loop"
+    },
+    "Producer_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "Producer_MailingAddress_LineOne_A": {
+      "status": "missing",
+      "expected": "1111 West Loop",
+      "extracted": null
+    },
+    "Producer_MailingAddress_LineTwo_A": {
+      "status": "missing",
+      "expected": "Apt 101",
+      "extracted": null
+    },
+    "Producer_MailingAddress_PostalCode_A": {
+      "status": "partial",
+      "expected": "60677-1000",
+      "extracted": "60677"
+    },
+    "Producer_MailingAddress_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Producer_MailingAddress_Occupancy_A": {
+      "status": "missing",
+      "expected": "Owned",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "Office Building",
+      "extracted": null
+    },
+    "Producer_MailingAddress_Employees_A": {
+      "status": "missing",
+      "expected": "30+",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AnualRevenue_A": {
+      "status": "missing",
+      "expected": "$5,000,000",
+      "extracted": null
+    },
+    "Producer_MailingAddress_OccUPIEDArea_A": {
+      "status": "missing",
+      "expected": "10,000 sq ft",
+      "extracted": null
+    },
+    "Producer_MailingAddress_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": "8,000 sq ft",
+      "extracted": null
+    },
+    "Producer_MailingAddress_TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": "20,000 sq ft",
+      "extracted": null
+    },
+    "Producer_MailingAddress_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer_MailingAddress_NatureOfBusiness_A": {
+      "status": "missing",
+      "expected": "Wholesale",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "07/20/2009",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "Producer_MailingAddress_HavingSafetyManuals_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Producer_MailingAddress_CurrentPremium_A": {
+      "status": "missing",
+      "expected": "$10,000/year",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "Quote_BindRequest_A": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "LinesOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "EffectiveDate_A": {
+      "status": "missing",
+      "expected": "03/16/2024",
+      "extracted": null
+    },
+    "BillingPlan_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "AuditIndicator_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "NamedInsured_A": {
+      "status": "missing",
+      "expected": "Moore, Mcguire and Hughes",
+      "extracted": null
+    },
+    "FederalIDNumber_A": {
+      "status": "missing",
+      "expected": "28-6209854",
+      "extracted": null
+    },
+    "BusinessPhoneNumber_A": {
+      "status": "missing",
+      "expected": "312-555-1234",
+      "extracted": null
+    },
+    "Website_A": {
+      "status": "missing",
+      "expected": "None",
+      "extracted": null
+    },
+    "AdditionalNamedInsureds_A": {
+      "status": "missing",
+      "expected": "None",
+      "extracted": null
+    },
+    "NatureOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "TypeOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": null
+    },
+    "DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "07/20/2009",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "BusinessOwnersLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "$100,000.00",
+      "extracted": "$"
+    },
+    "CommercialInlandMarineLineOfBusiness_PremiumAmount_A": {
+      "status": "wrong",
+      "expected": "null",
+      "extracted": "$250,000.0"
+    },
+    "CommercialPropertyLineOfBusiness_PremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$200,000.00",
+      "extracted": "$1500.00"
+    },
+    "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": {
+      "status": "wrong",
+      "expected": "null",
+      "extracted": "$30,000.00"
+    },
+    "CommercialVehicleLineOfBusiness_PremiumAmount_A": {
+      "status": "missing",
+      "expected": "$150,000.00",
+      "extracted": null
+    },
+    "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "$50,000.00",
+      "extracted": "$50,000.00"
+    },
+    "FiduciaryLineOfBusiness_PremiumAmount_A": {
+      "status": "wrong",
+      "expected": "null",
+      "extracted": "$50.00"
+    },
+    "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A": {
+      "status": "matched",
+      "expected": "$400,000.00",
+      "extracted": "$400,000.00"
+    },
+    "LiquorLiabilityLineOfBusiness_PremiumAmount_A": {
+      "status": "wrong",
+      "expected": "null",
+      "extracted": "S"
+    },
+    "MotorCarrierLineOfBusiness_PremiumAmount_A": {
+      "status": "partial",
+      "expected": "$250,000.00",
+      "extracted": "$250,000.0"
+    },
+    "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_BusinessAutoIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_BusinessOwnersIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_CommercialGeneralLiability_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_CommercialProperty_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CrimeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_CyberAndPrivacy_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_FiduciaryLiarityIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_GarageAndDealersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_MotorCarrierIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_A": {
+      "status": "wrong",
+      "expected": "Other",
+      "extracted": "Retail Store, Office Space"
+    },
+    "Policy_LineOfBusiness_TruckersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_UmbrellaIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_YachtIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$50.00",
+      "extracted": "S100,000.00"
+    },
+    "TruckersLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "$1500.00",
+      "extracted": "$1500.00"
+    },
+    "YachtLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "$250.00",
+      "extracted": "$250.00"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_B": {
+      "status": "missing",
+      "expected": "$25.00",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_C": {
+      "status": "missing",
+      "expected": "$10.00",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_D": {
+      "status": "missing",
+      "expected": "$5.00",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_E": {
+      "status": "wrong",
+      "expected": "$1.00",
+      "extracted": "S50,000.00"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_F": {
+      "status": "wrong",
+      "expected": "$0.50",
+      "extracted": "$30,000.00"
+    },
+    "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_ApartmentBuildingSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_HotelMotelSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_LossSummaryIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_DealerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_DriverInformationScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_ElectronicDataProcessingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_GlassAndSignIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_InstallationBuildersRiskIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OpenCargoIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_VehicleScheduleIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_F": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Audit_FrequencyCode_A": {
+      "status": "wrong",
+      "expected": "A",
+      "extracted": "Monthly"
+    },
+    "Policy_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "06/15/2024",
+      "extracted": "06/15/2024"
+    },
+    "Policy_ExpirationDate_A": {
+      "status": "matched",
+      "expected": "09/14/2025",
+      "extracted": "09/14/2025"
+    },
+    "Policy_PaymentMethod_MethodDescription_A": {
+      "status": "wrong",
+      "expected": "Direct",
+      "extracted": "Monthly"
+    },
+    "Policy_Payment_DepositAmount_A": {
+      "status": "missing",
+      "expected": "$1,000.00",
+      "extracted": null
+    },
+    "Policy_Payment_DirectBillIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "Policy_Payment_EstimatedTotalAmount_A": {
+      "status": "missing",
+      "expected": "$2,500.00",
+      "extracted": null
+    },
+    "Policy_Payment_MinimumPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$1,250.00",
+      "extracted": null
+    },
+    "Policy_Payment_PaymentScheduleCode_A": {
+      "status": "matched",
+      "expected": "Monthly",
+      "extracted": "Monthly"
+    },
+    "Policy_Payment_ProducerBillIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Form_EditionIdentifier_A": {
+      "status": "wrong",
+      "expected": "ACORD 125 General Information",
+      "extracted": "ACORD 125 (2016/03)"
+    },
+    "NamedInsured_FullName_A": {
+      "status": "matched",
+      "expected": "Kristin Miller",
+      "extracted": "Kristin Miller"
+    },
+    "NamedInsured_GeneralLiabilityCode_A": {
+      "status": "wrong",
+      "expected": "General Liability Code",
+      "extracted": "General Liabilit'"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_A": {
+      "status": "wrong",
+      "expected": "1",
+      "extracted": "5"
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_OtherDescription_A": {
+      "status": "matched",
+      "expected": "LLC",
+      "extracted": "LLC"
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "NamedInsured_MailingAddress_LineOne_A": {
+      "status": "matched",
+      "expected": "1111 East Grand Avenue",
+      "extracted": "1111 East Grand Avenue"
+    },
+    "NamedInsured_MailingAddress_PostalCode_A": {
+      "status": "matched",
+      "expected": "60677",
+      "extracted": "60677"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "NamedInsured_NAICSCode_A": {
+      "status": "wrong",
+      "expected": "541410",
+      "extracted": "445110"
+    },
+    "NamedInsured_Primary_PhoneNumber_A": {
+      "status": "matched",
+      "expected": "(312) 555-1234",
+      "extracted": "(312) 555-1234"
+    },
+    "NamedInsured_SICCode_A": {
+      "status": "matched",
+      "expected": "445110",
+      "extracted": "445110"
+    },
+    "NamedInsured_TaxIdentifier_A": {
+      "status": "matched",
+      "expected": "33-5665819",
+      "extracted": "33-5665819"
+    },
+    "NamedInsured_FullName_B": {
+      "status": "matched",
+      "expected": "Kristin Miller",
+      "extracted": "Kristin Miller"
+    },
+    "NamedInsured_GeneralLiabilityCode_B": {
+      "status": "wrong",
+      "expected": "General Liability Code",
+      "extracted": "General Liabilit'"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_B": {
+      "status": "missing",
+      "expected": "5",
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "NamedInsured_MailingAddress_LineOne_B": {
+      "status": "matched",
+      "expected": "1000 East Grand Avenue",
+      "extracted": "1000 East Grand Avenue"
+    },
+    "NamedInsured_MailingAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "60677",
+      "extracted": "60677"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "NamedInsured_NAICSCode_B": {
+      "status": "partial",
+      "expected": "445211",
+      "extracted": "4452"
+    },
+    "NamedInsured_Primary_PhoneNumber_B": {
+      "status": "matched",
+      "expected": "312-123-4567",
+      "extracted": "312-123-4567"
+    },
+    "NamedInsured_SICCode_B": {
+      "status": "matched",
+      "expected": "4452",
+      "extracted": "4452"
+    },
+    "NamedInsured_TaxIdentifier_B": {
+      "status": "matched",
+      "expected": "33-5665819",
+      "extracted": "33-5665819"
+    },
+    "NamedInsured_FullName_C": {
+      "status": "wrong",
+      "expected": "Jennifer Gomez",
+      "extracted": "Kristin Miller"
+    },
+    "NamedInsured_GeneralLiabilityCode_C": {
+      "status": "wrong",
+      "expected": "NA",
+      "extracted": "General Liabilit'"
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_C": {
+      "status": "missing",
+      "expected": "3",
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_MailingAddress_CityName_C": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "NamedInsured_MailingAddress_LineOne_C": {
+      "status": "wrong",
+      "expected": "1000 East Grand Avenue",
+      "extracted": "1111 East Grand Avenue"
+    },
+    "NamedInsured_MailingAddress_PostalCode_C": {
+      "status": "partial",
+      "expected": "60677",
+      "extracted": "60677-100"
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_C": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "NamedInsured_NAICSCode_C": {
+      "status": "wrong",
+      "expected": "5045",
+      "extracted": "445211"
+    },
+    "NamedInsured_Primary_PhoneNumber_C": {
+      "status": "wrong",
+      "expected": "(312) 123-4567",
+      "extracted": "(312) 555-1234"
+    },
+    "NamedInsured_SICCode_C": {
+      "status": "wrong",
+      "expected": "5045",
+      "extracted": "445110"
+    },
+    "NamedInsured_TaxIdentifier_C": {
+      "status": "wrong",
+      "expected": "58-8382525",
+      "extracted": "33-5665819"
+    },
+    "NamedInsured_Contact_ContactDescription_A": {
+      "status": "missing",
+      "expected": "Primary Business Contact",
+      "extracted": null
+    },
+    "NamedInsured_Contact_FullName_A": {
+      "status": "wrong",
+      "expected": "Kristin Miller",
+      "extracted": "Stephanie Mclean"
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryEmailAddress_A": {
+      "status": "matched",
+      "expected": "kmiller@mmh.com",
+      "extracted": "kmiller@mmh.com"
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_PrimaryPhoneNumber_A": {
+      "status": "wrong",
+      "expected": "(312) 555-1234",
+      "extracted": "312-123-4567"
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryEmailAddress_A": {
+      "status": "partial",
+      "expected": "kmiller2@mmh.com",
+      "extracted": "kmiller2@mmh.com, jgomez2@mmh.com"
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_ContactDescription_B": {
+      "status": "partial",
+      "expected": "Secondary Business Contact",
+      "extracted": "Primary Business Contact, Secondary Business Contact"
+    },
+    "NamedInsured_Contact_FullName_B": {
+      "status": "partial",
+      "expected": "Jennifer Gomez",
+      "extracted": "Kristin Miller, Jennifer Gomez"
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryEmailAddress_B": {
+      "status": "wrong",
+      "expected": "jgomez@mmh.com",
+      "extracted": "kmiller@mmh.com"
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryEmailAddress_B": {
+      "status": "missing",
+      "expected": "jgomez2@mmh.com",
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Driver_GivenName_A": {
+      "status": "missing",
+      "expected": "Kevin",
+      "extracted": null
+    },
+    "Driver_Surname_A": {
+      "status": "missing",
+      "expected": "Knapp",
+      "extracted": null
+    },
+    "Driver_GenderCode_A": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "Driver_BirthDate_A": {
+      "status": "missing",
+      "expected": "03/18/1996",
+      "extracted": null
+    },
+    "Driver_LicenseNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "IL-877957",
+      "extracted": null
+    },
+    "Driver_LicensedStateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "IL",
+      "extracted": null
+    },
+    "Driver_LicensedYear_A": {
+      "status": "missing",
+      "expected": "2015",
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_A": {
+      "status": "missing",
+      "expected": "9",
+      "extracted": null
+    },
+    "Driver_TaxIdentifier_A": {
+      "status": "missing",
+      "expected": "28-6209854",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_A": {
+      "status": "missing",
+      "expected": "50",
+      "extracted": null
+    },
+    "Driver_GivenName_B": {
+      "status": "missing",
+      "expected": "Kristin",
+      "extracted": null
+    },
+    "Driver_Surname_B": {
+      "status": "missing",
+      "expected": "Miller",
+      "extracted": null
+    },
+    "Driver_GenderCode_B": {
+      "status": "missing",
+      "expected": "F",
+      "extracted": null
+    },
+    "Driver_BirthDate_B": {
+      "status": "missing",
+      "expected": "04/27/1969",
+      "extracted": null
+    },
+    "Driver_LicenseNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "IL-322036",
+      "extracted": null
+    },
+    "Driver_LicensedStateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "IL",
+      "extracted": null
+    },
+    "Driver_LicensedYear_B": {
+      "status": "missing",
+      "expected": "1989",
+      "extracted": null
+    },
+    "Driver_ExperienceYearCount_B": {
+      "status": "missing",
+      "expected": "35",
+      "extracted": null
+    },
+    "Driver_TaxIdentifier_B": {
+      "status": "missing",
+      "expected": "33-5665819",
+      "extracted": null
+    },
+    "Driver_Vehicle_UsePercent_B": {
+      "status": "missing",
+      "expected": "70",
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_A": {
+      "status": "matched",
+      "expected": "250000",
+      "extracted": "250000"
+    },
+    "BuildingOccupancy_OperationsDescription_A": {
+      "status": "matched",
+      "expected": "Retail Store",
+      "extracted": "Retail Store"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_A": {
+      "status": "wrong",
+      "expected": "20:00",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_A": {
+      "status": "partial",
+      "expected": "$5,000,000.00",
+      "extracted": "$"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_PhysicalAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_A": {
+      "status": "matched",
+      "expected": "Cook",
+      "extracted": "Cook"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_A": {
+      "status": "matched",
+      "expected": "120 Decker Ford",
+      "extracted": "120 Decker Ford"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_A": {
+      "status": "wrong",
+      "expected": "60601",
+      "extracted": "60677"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "CommercialStructure_Question_ABBCode_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_A": {
+      "status": "matched",
+      "expected": "150000",
+      "extracted": "150000"
+    },
+    "BuildingOccupancy_OccupiedArea_B": {
+      "status": "matched",
+      "expected": "100000",
+      "extracted": "100000"
+    },
+    "BuildingOccupancy_OperationsDescription_B": {
+      "status": "matched",
+      "expected": "Office Space",
+      "extracted": "Office Space"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_B": {
+      "status": "wrong",
+      "expected": "16:00",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_B": {
+      "status": "wrong",
+      "expected": "$2,500,000.00",
+      "extracted": "S"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_B": {
+      "status": "wrong",
+      "expected": "MMH",
+      "extracted": "2221 Central St"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_B": {
+      "status": "wrong",
+      "expected": "MMH",
+      "extracted": "312-123-4568"
+    },
+    "CommercialStructure_PhysicalAddress_CityName_B": {
+      "status": "matched",
+      "expected": "Evanston",
+      "extracted": "Evanston"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_B": {
+      "status": "matched",
+      "expected": "Cook",
+      "extracted": "Cook"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_B": {
+      "status": "matched",
+      "expected": "2221 Central St",
+      "extracted": "2221 Central St"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_B": {
+      "status": "matched",
+      "expected": "60201",
+      "extracted": "60201"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_B": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "CommercialStructure_Question_ABBCode_B": {
+      "status": "wrong",
+      "expected": "Q001",
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Construction_BuildingArea_B": {
+      "status": "matched",
+      "expected": "200000",
+      "extracted": "200000"
+    },
+    "BuildingOccupancy_OccupiedArea_C": {
+      "status": "matched",
+      "expected": "80000",
+      "extracted": "80000"
+    },
+    "BuildingOccupancy_OpenToPublicArea_C": {
+      "status": "matched",
+      "expected": "40000",
+      "extracted": "40000"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_C": {
+      "status": "wrong",
+      "expected": "20",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_C": {
+      "status": "wrong",
+      "expected": "5",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_C": {
+      "status": "partial",
+      "expected": "$2,000,000",
+      "extracted": "$"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_C": {
+      "status": "wrong",
+      "expected": "MMH",
+      "extracted": "123 Main St"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_C": {
+      "status": "missing",
+      "expected": "MMH",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_C": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_C": {
+      "status": "matched",
+      "expected": "Cook",
+      "extracted": "Cook"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_C": {
+      "status": "matched",
+      "expected": "123 Main St",
+      "extracted": "123 Main St"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_C": {
+      "status": "matched",
+      "expected": "60611",
+      "extracted": "60611"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_C": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "CommercialStructure_Question_ABBCode_C": {
+      "status": "wrong",
+      "expected": "Q125",
+      "extracted": "Office Space"
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_C": {
+      "status": "wrong",
+      "expected": "25000",
+      "extracted": "150000"
+    },
+    "BuildingOccupancy_OccupiedArea_D": {
+      "status": "wrong",
+      "expected": "12000",
+      "extracted": "250000"
+    },
+    "BuildingOccupancy_OpenToPublicArea_D": {
+      "status": "wrong",
+      "expected": "6000",
+      "extracted": "40000"
+    },
+    "BuildingOccupancy_OperationsDescription_D": {
+      "status": "wrong",
+      "expected": "Office Space",
+      "extracted": "Retail Store"
+    },
+    "BusinessInformation_FullTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "15",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "10",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_D": {
+      "status": "partial",
+      "expected": "$500000",
+      "extracted": "$"
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_D": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialStructure_PhysicalAddress_CityName_D": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_D": {
+      "status": "matched",
+      "expected": "Cook",
+      "extracted": "Cook"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_D": {
+      "status": "matched",
+      "expected": "123 Main St",
+      "extracted": "123 Main St"
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_D": {
+      "status": "wrong",
+      "expected": "60611",
+      "extracted": "60677-100"
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_D": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "CommercialStructure_Question_ABBCode_D": {
+      "status": "missing",
+      "expected": "Chicago IL 60677",
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherDescription_D": {
+      "status": "missing",
+      "expected": "Inner North Side",
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_D": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Construction_BuildingArea_D": {
+      "status": "matched",
+      "expected": "150000",
+      "extracted": "150000"
+    },
+    "BusinessInformation_BusinessType_ApartmentsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_OtherDescription_A": {
+      "status": "wrong",
+      "expected": "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers",
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_A": {
+      "status": "wrong",
+      "expected": "Design, manufacture, and distribution of computer-related components",
+      "extracted": "Retail Store, Office Space"
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_A": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "NamedInsured_BusinessStartDate_A": {
+      "status": "missing",
+      "expected": "07/20/2009",
+      "extracted": null
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_InterestRank_A": {
+      "status": "partial",
+      "expected": 0,
+      "extracted": "20.00"
+    },
+    "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_CoOwnerIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LienholderIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LossPayeeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "AdditionalInterest_Interest_MortgageeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OwnerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_RegistrantIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "AdditionalInterest_Interest_TrusteeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Item_ScheduledItemClassCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Chicago",
+      "extracted": "Chicago"
+    },
+    "AdditionalInterest_MailingAddress_CountryCode_A": {
+      "status": "missing",
+      "expected": "US",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_LineOne_A": {
+      "status": "wrong",
+      "expected": "1000 East Grand Avenue",
+      "extracted": "120 Decker Ford"
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "60677",
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "IL",
+      "extracted": "IL"
+    },
+    "AdditionalInterest_PolicyRequiredIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Primary_PhoneNumber_A": {
+      "status": "wrong",
+      "expected": "(312) 123-4567",
+      "extracted": "312-123-4567"
+    },
+    "AdditionalInterest_SendBillIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "BusinessInformation_ParentOrganizationName_A": {
+      "status": "missing",
+      "expected": "Joe's Bar Inc.",
+      "extracted": null
+    },
+    "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_NonPaymentIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_NonRenewalIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_UnderwritingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "01/18/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A": {
+      "status": "wrong",
+      "expected": "04/15/2022",
+      "extracted": "08/21/2022"
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_JudgementOrLien_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "06/21/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "09/12/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AACCode_A": {
+      "status": "wrong",
+      "expected": "US",
+      "extracted": "$"
+    },
+    "CommercialPolicy_Question_AADCode_A": {
+      "status": "wrong",
+      "expected": "US",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "CommercialPolicy_Question_AAFCode_A": {
+      "status": "missing",
+      "expected": "US",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAHCode_A": {
+      "status": "missing",
+      "expected": "US",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAICode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAJCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABBCode_A": {
+      "status": "missing",
+      "expected": "X",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABCCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAACode_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "BA"
+    },
+    "CommercialPolicy_Question_KABCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KACCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAKCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KALCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAMCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KANCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAOCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "02/15/2010",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "03/10/2015",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_A": {
+      "status": "missing",
+      "expected": "X",
+      "extracted": null
+    },
+    "OtherPolicy_PolicyNumberIdentifier_A": {
+      "status": "wrong",
+      "expected": "IL-123456",
+      "extracted": "BA-96568699"
+    },
+    "Subsidiary_OrganizationName_A": {
+      "status": "wrong",
+      "expected": "Joe's Bar Inc.",
+      "extracted": "Stephanie Mclean"
+    },
+    "Subsidiary_ParentOwnershipPercent_A": {
+      "status": "wrong",
+      "expected": "100",
+      "extracted": "20.00"
+    },
+    "AdditionalInterest_FullName_B": {
+      "status": "wrong",
+      "expected": "Jane Doe DBA Jane's Bar",
+      "extracted": "Jennifer Gomez, Kristin Miller"
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "01/01/2012",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B": {
+      "status": "missing",
+      "expected": "02/28/2016",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OtherDescription_B": {
+      "status": "missing",
+      "expected": "Regular monthly meetings",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_JudgementOrLien_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "01/10/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "06/01/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_B": {
+      "status": "wrong",
+      "expected": "4444",
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
+    },
+    "OtherPolicy_PolicyNumberIdentifier_B": {
+      "status": "matched",
+      "expected": "BA-96568699",
+      "extracted": "BA-96568699"
+    },
+    "Subsidiary_ParentOwnershipPercent_B": {
+      "status": "wrong",
+      "expected": "100",
+      "extracted": "16.00"
+    },
+    "Subsidiary_ParentSubsidiaryRelationshipDescription_B": {
+      "status": "wrong",
+      "expected": "Parent Company",
+      "extracted": "% OWNED"
+    },
+    "OtherPolicy_LineOfBusinessCode_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "LIQUOR LIABILITY"
+    },
+    "OtherPolicy_LineOfBusinessCode_D": {
+      "status": "wrong",
+      "expected": "4444",
+      "extracted": "COMMERCIAL PROPERTY"
+    },
+    "CommercialPolicy_RemarkText_A": {
+      "status": "wrong",
+      "expected": "Moore, Mcguire and Hughes policyholder information is accurate to the best of our knowledge. Please review and verify all details for accuracy. Attached MVRs reflect Kristin Miller's driving history.",
+      "extracted": "PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)"
+    },
+    "PriorCoverage_Automobile_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "03/18/2022",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "06/18/2023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "CNA Financial Corporation",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-96568699",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$120,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "01/01/2020",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "12/31/2022",
+      "extracted": "11/20/2023"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_A": {
+      "status": "wrong",
+      "expected": "CNA Financial Corporation",
+      "extracted": "ACORD CORPORATION"
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A": {
+      "status": "wrong",
+      "expected": "BA-96568699",
+      "extracted": "1993-2015 ACORD CORPORATION"
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$100,000.00",
+      "extracted": "S"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "04/01/2021",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "03/31/2024",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "CNA Financial Corporation",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_LineOfBusinessCode_A": {
+      "status": "wrong",
+      "expected": "BA",
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_A": {
+      "status": "wrong",
+      "expected": "BA-96568699",
+      "extracted": "987654321"
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$80,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_PolicyYear_A": {
+      "status": "matched",
+      "expected": "2022",
+      "extracted": "2022"
+    },
+    "PriorCoverage_Property_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "07/01/2019",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_Property_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "06/30/2021",
+      "extracted": "11/20/2023"
+    },
+    "PriorCoverage_Property_InsurerFullName_A": {
+      "status": "wrong",
+      "expected": "CNA Financial Corporation",
+      "extracted": "ACORD CORPORATION"
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_A": {
+      "status": "wrong",
+      "expected": "BA-96568699",
+      "extracted": "1993-2015 ACORD CORPORATION"
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$150,000.00",
+      "extracted": "8,200,000.OC"
+    },
+    "LossHistory_NoPriorLossesIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/21/2022",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "11/20/2023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "State Farm",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "123456789",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": "$50,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/21/2022",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_B": {
+      "status": "wrong",
+      "expected": "11/20/2023",
+      "extracted": "12/31/2022"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_B": {
+      "status": "wrong",
+      "expected": "Allstate",
+      "extracted": "CNA Financial Corporation"
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_B": {
+      "status": "matched",
+      "expected": "987654321",
+      "extracted": "987654321"
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_B": {
+      "status": "matched",
+      "expected": "$30,000.00",
+      "extracted": "$30,000.00"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_B": {
+      "status": "matched",
+      "expected": "08/21/2022",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_B": {
+      "status": "matched",
+      "expected": "11/20/2023",
+      "extracted": "11/20/2023"
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_B": {
+      "status": "wrong",
+      "expected": "GEICO",
+      "extracted": "CNA Financial Corporation"
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "111111111",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_B": {
+      "status": "wrong",
+      "expected": "$20,000.00",
+      "extracted": "$30,000.00"
+    },
+    "PriorCoverage_PolicyYear_B": {
+      "status": "missing",
+      "expected": "2022",
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/21/2022",
+      "extracted": null
+    },
+    "PriorCoverage_Property_ExpirationDate_B": {
+      "status": "wrong",
+      "expected": "11/20/2023",
+      "extracted": "06/30/2021"
+    },
+    "PriorCoverage_Property_InsurerFullName_B": {
+      "status": "wrong",
+      "expected": "USAA",
+      "extracted": "CNA Financial Corporation"
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_B": {
+      "status": "wrong",
+      "expected": "444444444",
+      "extracted": "BA-96568699"
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_B": {
+      "status": "wrong",
+      "expected": "$40,000.00",
+      "extracted": "$100,000.00"
+    },
+    "PriorCoverage_Automobile_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "08/21/2022",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "11/20/2023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_C": {
+      "status": "missing",
+      "expected": "State Farm",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_C": {
+      "status": "missing",
+      "expected": "123456789",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_C": {
+      "status": "wrong",
+      "expected": "$50,000.00",
+      "extracted": "$30,000.00"
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_C": {
+      "status": "matched",
+      "expected": "08/21/2022",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_C": {
+      "status": "wrong",
+      "expected": "11/20/2023",
+      "extracted": "12/31/2022"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_C": {
+      "status": "wrong",
+      "expected": "CNA Financial Corporation",
+      "extracted": "ACORD"
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_C": {
+      "status": "partial",
+      "expected": "$123,456.00",
+      "extracted": "$"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_C": {
+      "status": "wrong",
+      "expected": "01/25/2022",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_C": {
+      "status": "wrong",
+      "expected": "03/15/2023",
+      "extracted": "11/20/2023"
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_C": {
+      "status": "wrong",
+      "expected": "$90,000.00",
+      "extracted": "S123,456.00"
+    },
+    "PriorCoverage_PolicyYear_C": {
+      "status": "missing",
+      "expected": "2022",
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_C": {
+      "status": "wrong",
+      "expected": "06/01/2021",
+      "extracted": "08/21/2022"
+    },
+    "PriorCoverage_Property_ExpirationDate_C": {
+      "status": "wrong",
+      "expected": "08/31/2022",
+      "extracted": "11/20/2023"
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_C": {
+      "status": "wrong",
+      "expected": "$75,000.00",
+      "extracted": "8200,000.OC"
+    },
+    "LossHistory_ClaimDate_A": {
+      "status": "missing",
+      "expected": "05/01/2018",
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_InformationYearCount_A": {
+      "status": "missing",
+      "expected": 9,
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "08/15/2018",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDescription_A": {
+      "status": "missing",
+      "expected": "water damage from burst pipe",
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_A": {
+      "status": "missing",
+      "expected": 10000,
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_A": {
+      "status": "missing",
+      "expected": 5000,
+      "extracted": null
+    },
+    "LossHistory_TotalAmount_A": {
+      "status": "wrong",
+      "expected": 15000,
+      "extracted": "$"
+    },
+    "LossHistory_ClaimStatus_OpenCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#FULL TIME EMPL"
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_C": {
+      "status": "partial",
+      "expected": 0,
+      "extracted": "$30,000.00"
+    },
+    "LossHistory_ReservedAmount_C": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "NamedInsured_SignatureDate_A": {
+      "status": "missing",
+      "expected": "03/18/1996",
+      "extracted": null
+    },
+    "Policy_InformationPracticesNoticeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Producer_AuthorizedRepresentative_FullName_A": {
+      "status": "wrong",
+      "expected": "Stephanie Mclean",
+      "extracted": "Jennifer Gomez, Kristin Miller"
+    },
+    "Producer_NationalIdentifier_A": {
+      "status": "missing",
+      "expected": "58-8382525",
+      "extracted": null
+    },
+    "Producer_StateLicenseIdentifier_A": {
+      "status": "missing",
+      "expected": "IL",
+      "extracted": null
+    }
+  },
+  "accuracy": 26.54,
+  "exact_match_rate": 25.1,
+  "coverage": 57.41
+}

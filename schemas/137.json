@@ -1,0 +1,937 @@
+{
+  "form_number": "137",
+  "form_name": "Commercial Auto Section",
+  "total_fields": 102,
+  "fields": {
+    "NamedInsured_FullName_A": {
+      "name": "NamedInsured_FullName_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": "Dayam Nadeem",
+      "category": "named_insured",
+      "suffix": "_A"
+    },
+    "Policy_EffectiveDate_A": {
+      "name": "Policy_EffectiveDate_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": "03/15/2024",
+      "category": "policy",
+      "suffix": "_A"
+    },
+    "Insurer_FullName_A": {
+      "name": "Insurer_FullName_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": "Sunrise Insurance Group",
+      "category": "insurer",
+      "suffix": "_A"
+    },
+    "Insurer_NAICCode_A": {
+      "name": "Insurer_NAICCode_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "insurer",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_OneIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_OneIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_C": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_D": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_D",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_E": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_E",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_E": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_E",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_E": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_E",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverageDescription_F": {
+      "name": "Vehicle_OtherCoverageDescription_F",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_F": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_F",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_F": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_F",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_HiredBorrowed_YesIndicator_A": {
+      "name": "Vehicle_HiredBorrowed_YesIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_HiredCostAmount_A": {
+      "name": "Vehicle_HiredBorrowed_HiredCostAmount_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A": {
+      "name": "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_VehicleCount_A": {
+      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A": {
+      "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Coverage_CollisionIndicator_A": {
+      "name": "Vehicle_Coverage_CollisionIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_F": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_G": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_G",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_H": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_H",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_I": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_I",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_NonOwnedGroup_PartnerIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Producer_AuthorizedRepresentative_Signature_B": {
+      "name": "Producer_AuthorizedRepresentative_Signature_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_B"
+    },
+    "Producer_NationalIdentifier_B": {
+      "name": "Producer_NationalIdentifier_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_B"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_D": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_D",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_A",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_E",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_E",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_Comprehensive_DeductibleAmount_B": {
+      "name": "Vehicle_Comprehensive_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_E",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_Coverage_FireIndicator_B": {
+      "name": "Vehicle_Coverage_FireIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_F",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_B": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_G",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_Collision_DeductibleAmount_B": {
+      "name": "Vehicle_Collision_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_C",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Collision_DeductibleWaiverIndicator_B": {
+      "name": "Vehicle_Collision_DeductibleWaiverIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_H": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_H",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_TruckersSymbol_FortyFiveIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortyFiveIndicator_C",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_H": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_H",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_I": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_I",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_A": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_DayCount_A": {
+      "name": "Vehicle_TrailerInterchange_DayCount_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_Radius_A": {
+      "name": "Vehicle_TrailerInterchange_Radius_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_YesIndicator_B": {
+      "name": "Vehicle_HiredBorrowed_YesIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_E": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_F": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_HiredBorrowed_HiredCostAmount_B": {
+      "name": "Vehicle_HiredBorrowed_HiredCostAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_J": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_J",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_B": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_DayCount_B": {
+      "name": "Vehicle_TrailerInterchange_DayCount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_Radius_B": {
+      "name": "Vehicle_TrailerInterchange_Radius_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_YesIndicator_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_YesIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_K": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_K",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_C": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_DayCount_C": {
+      "name": "Vehicle_TrailerInterchange_DayCount_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_Radius_C": {
+      "name": "Vehicle_TrailerInterchange_Radius_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B": {
+      "name": "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_YesIndicator_B": {
+      "name": "Vehicle_NonOwned_YesIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_L": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_L",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_L"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_M": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_M",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_M"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_TrailerValueAmount_A": {
+      "name": "Vehicle_TrailerInterchange_TrailerValueAmount_A",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_N": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_N",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_N"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_O": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_O",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_P": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_P",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_P"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_Q": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_Q",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_Q"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_R": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_R",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_R"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_S": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_S",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_S"
+    },
+    "Vehicle_NonOwnedGroup_PartnerIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_G": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_G",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_H": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_H",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_HiredPhysicalDamage_DayCount_B": {
+      "name": "Vehicle_HiredPhysicalDamage_DayCount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_VehicleCount_B": {
+      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_OtherCoverageDescription_I": {
+      "name": "Vehicle_OtherCoverageDescription_I",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_I": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_I",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_I": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_I",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_I": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_I",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_J": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_J",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_K": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_K",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_L": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_L",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_L"
+    },
+    "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B": {
+      "name": "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B",
+      "type": "checkbox",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_J": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_J",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_J": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_J",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_OtherCoverageDescription_K": {
+      "name": "Vehicle_OtherCoverageDescription_K",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_K": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_K",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_K": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_K",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "CommercialVehicleLineOfBusiness_RemarkText_B": {
+      "name": "CommercialVehicleLineOfBusiness_RemarkText_B",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "NamedInsured_Signature_C": {
+      "name": "NamedInsured_Signature_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_C"
+    },
+    "NamedInsured_SignatureDate_C": {
+      "name": "NamedInsured_SignatureDate_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_C"
+    },
+    "Producer_AuthorizedRepresentative_Signature_C": {
+      "name": "Producer_AuthorizedRepresentative_Signature_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_C"
+    },
+    "Producer_NationalIdentifier_C": {
+      "name": "Producer_NationalIdentifier_C",
+      "type": "text",
+      "tooltip": null,
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_C"
+    }
+  },
+  "categories": {
+    "named_insured": [
+      "NamedInsured_FullName_A",
+      "NamedInsured_Signature_C",
+      "NamedInsured_SignatureDate_C"
+    ],
+    "policy": [
+      "Policy_EffectiveDate_A"
+    ],
+    "insurer": [
+      "Insurer_FullName_A",
+      "Insurer_NAICCode_A"
+    ],
+    "vehicle": [
+      "Vehicle_BusinessAutoSymbol_OneIndicator_A",
+      "Vehicle_OtherCoverage_LimitAmount_C",
+      "Vehicle_BusinessAutoSymbol_TwoIndicator_A",
+      "Vehicle_OtherCoverage_LimitAmount_D",
+      "Vehicle_BusinessAutoSymbol_ThreeIndicator_E",
+      "Vehicle_OtherCoverage_SymbolDescription_E",
+      "Vehicle_OtherCoverage_LimitAmount_E",
+      "Vehicle_OtherCoverageDescription_F",
+      "Vehicle_OtherCoverage_SymbolDescription_F",
+      "Vehicle_OtherCoverage_LimitAmount_F",
+      "Vehicle_HiredBorrowed_YesIndicator_A",
+      "Vehicle_HiredBorrowed_HiredCostAmount_A",
+      "Vehicle_Coverage_ComprehensiveDeductibleIndicator_A",
+      "Vehicle_HiredPhysicalDamage_VehicleCount_A",
+      "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A",
+      "Vehicle_NonOwnedGroup_EmployeeIndicator_A",
+      "Vehicle_Coverage_CollisionIndicator_A",
+      "Vehicle_NonOwned_StateOrProvinceCode_F",
+      "Vehicle_NonOwnedGroup_VolunteerIndicator_A",
+      "Vehicle_NonOwned_StateOrProvinceCode_G",
+      "Vehicle_NonOwned_StateOrProvinceCode_H",
+      "Vehicle_NonOwned_StateOrProvinceCode_I",
+      "Vehicle_NonOwnedGroup_PartnerIndicator_A",
+      "Vehicle_CombinedSingleLimit_LimitIndicator_D",
+      "Vehicle_TruckersSymbol_FortyTwoIndicator_A",
+      "Vehicle_TruckersSymbol_FortyTwoIndicator_E",
+      "Vehicle_TruckersSymbol_FortyThreeIndicator_E",
+      "Vehicle_Comprehensive_DeductibleAmount_B",
+      "Vehicle_TruckersSymbol_FortySixIndicator_E",
+      "Vehicle_Coverage_FireIndicator_B",
+      "Vehicle_TruckersSymbol_FortySixIndicator_F",
+      "Vehicle_TruckersSymbol_FortyThreeIndicator_B",
+      "Vehicle_TruckersSymbol_FortyThreeIndicator_G",
+      "Vehicle_Collision_DeductibleAmount_B",
+      "Vehicle_TruckersSymbol_FortyTwoIndicator_C",
+      "Vehicle_Collision_DeductibleWaiverIndicator_B",
+      "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B",
+      "Vehicle_TruckersSymbol_FortySixIndicator_H",
+      "Vehicle_TruckersSymbol_FortyFiveIndicator_C",
+      "Vehicle_TruckersSymbol_OtherSymbolIndicator_H",
+      "Vehicle_TruckersSymbol_FortyEightIndicator_I",
+      "Vehicle_TrailerInterchange_StateOrProvinceCode_A",
+      "Vehicle_TrailerInterchange_DayCount_A",
+      "Vehicle_TrailerInterchange_Radius_A",
+      "Vehicle_HiredBorrowed_YesIndicator_B",
+      "Vehicle_HiredBorrowed_StateOrProvinceCode_E",
+      "Vehicle_HiredBorrowed_StateOrProvinceCode_F",
+      "Vehicle_HiredBorrowed_HiredCostAmount_B",
+      "Vehicle_TruckersSymbol_FortyEightIndicator_J",
+      "Vehicle_TrailerInterchange_StateOrProvinceCode_B",
+      "Vehicle_TrailerInterchange_DayCount_B",
+      "Vehicle_TrailerInterchange_Radius_B",
+      "Vehicle_TruckersHiredBorrowed_YesIndicator_B",
+      "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B",
+      "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C",
+      "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B",
+      "Vehicle_TruckersSymbol_FortyEightIndicator_K",
+      "Vehicle_TrailerInterchange_StateOrProvinceCode_C",
+      "Vehicle_TrailerInterchange_DayCount_C",
+      "Vehicle_TrailerInterchange_Radius_C",
+      "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B",
+      "Vehicle_NonOwned_YesIndicator_B",
+      "Vehicle_NonOwned_StateOrProvinceCode_L",
+      "Vehicle_NonOwned_StateOrProvinceCode_M",
+      "Vehicle_NonOwnedGroup_EmployeeIndicator_B",
+      "Vehicle_TrailerInterchange_TrailerValueAmount_A",
+      "Vehicle_NonOwned_StateOrProvinceCode_N",
+      "Vehicle_NonOwned_StateOrProvinceCode_O",
+      "Vehicle_NonOwned_StateOrProvinceCode_P",
+      "Vehicle_NonOwnedGroup_VolunteerIndicator_B",
+      "Vehicle_NonOwned_StateOrProvinceCode_Q",
+      "Vehicle_NonOwned_StateOrProvinceCode_R",
+      "Vehicle_NonOwned_StateOrProvinceCode_S",
+      "Vehicle_NonOwnedGroup_PartnerIndicator_B",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_G",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_H",
+      "Vehicle_HiredPhysicalDamage_DayCount_B",
+      "Vehicle_HiredPhysicalDamage_VehicleCount_B",
+      "Vehicle_OtherCoverageDescription_I",
+      "Vehicle_OtherCoverage_SymbolDescription_I",
+      "Vehicle_OtherCoverage_LimitAmount_I",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_I",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_J",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_K",
+      "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_L",
+      "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B",
+      "Vehicle_OtherCoverage_SymbolDescription_J",
+      "Vehicle_OtherCoverage_LimitAmount_J",
+      "Vehicle_OtherCoverageDescription_K",
+      "Vehicle_OtherCoverage_SymbolDescription_K",
+      "Vehicle_OtherCoverage_LimitAmount_K",
+      "CommercialVehicleLineOfBusiness_RemarkText_B"
+    ],
+    "producer": [
+      "Producer_AuthorizedRepresentative_Signature_B",
+      "Producer_NationalIdentifier_B",
+      "Producer_AuthorizedRepresentative_Signature_C",
+      "Producer_NationalIdentifier_C"
+    ]
+  }
+}

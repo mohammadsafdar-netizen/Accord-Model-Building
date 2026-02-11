@@ -1,0 +1,601 @@
+======================================================================
+  BEST PROJECT - END-TO-END PIPELINE TEST
+  Model: qwen2.5:7b
+  Mode:  GPU (sequential: Docling→EasyOCR→LLM)
+  Forms: 125, 127, 137 (one per form)
+  Vision: qwen3-vl:4b-instruct-q4_K_M
+  Total PDFs to run: 3
+    Form 125: 1 PDF(s)
+      - ACORD_0125_CommercialInsurance_Acroform_169592d5 [✓ GT]
+    Form 127: 1 PDF(s)
+      - 127_Business_Auto_Section_2015_12_45df0c68 [✓ GT]
+    Form 137: 1 PDF(s)
+      - ACORD_137_d9acd0fb [✓ GT]
+======================================================================
+  [Schema] ACORD 137: 102 fields
+  [Schema] ACORD 125: 548 fields
+  [Schema] ACORD 127: 634 fields
+
+======================================================================
+  TESTING FORM 125 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [1/3] Form 125 - PDF 1/1
+  File: ACORD_0125_CommercialInsurance_Acroform_169592d5
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_0125_CommercialInsurance_Acroform_169592d5.pdf
+============================================================
+  [LLM] Model qwen2.5:7b unloaded from GPU
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [OCR] Removing table lines ...
+  [OCR] Running Docling OCR (CPU (offload)) ...
+Skipping import of cpp extensions due to incompatible torch version 2.10.0+cu128 for torchao version 0.15.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+  [OCR] Docling produced 34872 chars across 4 pages
+  [OCR] Docling unloaded from GPU
+  [OCR] Running EasyOCR with bounding boxes (GPU) ...
+  [OCR] EasyOCR found 862 text blocks
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] Building spatial indices ...
+    Page 1: 236 blocks, 61 rows, 38 cols, 1 tables, 26 pairs
+    Page 2: 263 blocks, 47 rows, 41 cols, 1 tables, 49 pairs
+    Page 3: 146 blocks, 54 rows, 29 cols, 1 tables, 11 pairs
+    Page 4: 217 blocks, 72 rows, 41 cols, 1 tables, 26 pairs
+
+  Form type: ACORD 125
+  [SAVE] All intermediate outputs saved to /home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_output/form_125/ACORD_0125_CommercialInsurance_Acroform_169592d5
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 36 fields pre-extracted spatially
+    Insurer_FullName_A: Nationwide Insurance Corporation
+    Insurer_NAICCode_A: 23787
+    Producer_FullName_A: Downs, Bruce and Torres
+    NamedInsured_FullName_A: Adam Aguilar Downs Bruce and Torres
+    Policy_PolicyNumberIdentifier_A: BA-44346598
+    Form_CompletionDate_A: 03/15/2024
+
+  [1/12] Extracting header (8/9 fields) ...
+    -> 0 fields extracted
+
+  [2/12] Extracting insurer (10/13 fields) ...
+    -> 6 fields extracted
+
+  [3/12] Extracting producer (10/15 fields) ...
+    -> 0 fields extracted
+
+  [4/12] Extracting named_insured (89/94 fields) ...
+    -> 73 fields extracted
+
+  [5/12] Extracting policy (161/168 fields) ...
+    -> 75 fields extracted
+
+  [6/12] Extracting coverage (40/52 fields) ...
+    -> 29 fields extracted
+
+  [7/12] Extracting location (44/44 fields) ...
+    -> 29 fields extracted
+
+  [8/12] Extracting loss_history (6/6 fields) ...
+    -> 0 fields extracted
+
+  [9/12] Extracting checkbox (46/46 fields) ...
+    -> 23 fields extracted
+
+  [10/12] Extracting general (81/81 fields) ...
+    -> 53 fields extracted
+
+  [11/12] Gap-fill pass (226 missing fields) ...
+    -> 76 additional fields recovered
+
+  [12/12] Vision pass (VLM) (150 missing fields) ...
+    -> 0 additional fields from VLM
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    380/400 values found in OCR text
+  [LLM] Model qwen2.5:7b unload requested (may still be releasing)
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 398
+  Time: 715.2s
+============================================================
+
+
+============================================================
+  ACORD 125 - ACORD_0125_CommercialInsurance_Acroform_169592d5
+============================================================
+  Total GT fields:   742
+  Exact matches:     172
+  Partial matches:   27
+  Wrong:             152
+  Missing:           391
+  ---
+  Accuracy:          25.0%
+  Exact match rate:  23.18%
+  Coverage:          47.3%
+
+  Top mismatches (wrong):
+    Insurer_ProductCode_A
+      expected:  CGL-12345
+      got:       NATIONWIDE-001
+    Insurer_Underwriter_FullName_A
+      expected:  John Doe
+      got:       Adam Aguilar
+    Insurer_Underwriter_OfficeIdentifier_A
+      expected:  NWD-1234
+      got:       AGENCY
+    Policy_Status_BoundIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_CancelIndicator_A
+      expected:  False
+      got:       1
+    Policy_Status_EffectiveTime_A
+      expected:  1000
+      got:       01/02/2024
+    Policy_Status_QuoteIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_RenewIndicator_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_BoilerAndMachineryIndicator_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_CommercialProperty_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_CrimeIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_CyberAndPrivacy_A
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_GarageAndDealersIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_LiquorLiabilityIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_MotorCarrierIndicator_A
+      expected:  True
+      got:       Off
+
+  Missing fields (391):
+    Producer_MailingAddress_LineOne_A
+    Producer_MailingAddress_InsideCityLimits_A
+    Producer_MailingAddress_Occupancy_A
+    Producer_MailingAddress_DescriptionOfOccupancy_A
+    Producer_MailingAddress_Employees_A
+    Producer_MailingAddress_AnualRevenue_A
+    Producer_MailingAddress_OccupiedArea_A
+    Producer_MailingAddress_AreaOpenToPublic_A
+    Producer_MailingAddress_TotalBuildingArea_A
+    Producer_MailingAddress_LeasedToOthers_A
+    Nature_of_Business_TypeOfBusiness_A
+    Nature_of_Business_DateBusinessStarted_A
+    Nature_of_Business_DescriptionOfPrimaryOperations_A
+    Current_Insurance_CurrentCarrier_A
+    Current_Insurance_NoPriorInsurance_A
+    ... and 376 more
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> ACORD_0125_CommercialInsurance_Acroform_169592d5: Accuracy=25.0%, Coverage=47.3%, Time=715.25s
+
+============================================================
+  FORM 125 SUMMARY (1/1 successful)
+============================================================
+  Aggregate Accuracy:     25.0%
+  Aggregate Exact Match:  23.18%
+  Aggregate Coverage:     47.3%
+  Total GT Fields:        742
+  Matched/Partial/Wrong/Missing: 172/27/152/391
+  Total Time:             715.25s
+
+  Per-form accuracy:
+    ACORD_0125_CommercialInsurance_Acroform_169592d5: 25.0%
+============================================================
+
+======================================================================
+  TESTING FORM 127 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [2/3] Form 127 - PDF 1/1
+  File: 127_Business_Auto_Section_2015_12_45df0c68
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: 127_Business_Auto_Section_2015_12_45df0c68.pdf
+============================================================
+  [LLM] Model qwen2.5:7b unload requested (may still be releasing)
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [OCR] Removing table lines ...
+  [OCR] Running Docling OCR (CPU (offload)) ...
+Stage ocr failed for run 1: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 254.44 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 289, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/auto_ocr_model.py", line 128, in __call__
+    yield from self._engine(conv_res, page_batch)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/easyocr_model.py", line 160, in __call__
+    result = self.reader.readtext(im)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 456, in readtext
+    horizontal_list, free_list = self.detect(img,
+                                 ~~~~~~~~~~~^^^^^
+                                             min_size = min_size, text_threshold = text_threshold,\
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+                                             bbox_min_size = bbox_min_size, max_candidates = max_candidates
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                             )
+                                             ^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 321, in detect
+    text_box_list = self.get_textbox(self.detector,
+                                img,
+    ...<11 lines>...
+                                max_candidates = max_candidates,
+                                )
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 95, in get_textbox
+    bboxes_list, polys_list = test_net(canvas_size, mag_ratio, detector,
+                              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       image, text_threshold,
+                                       ^^^^^^^^^^^^^^^^^^^^^^
+                                       link_threshold, low_text, poly,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       device, estimate_num_chars)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 46, in test_net
+    y, feature = net(x)
+                 ~~~^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/parallel/data_parallel.py", line 195, in forward
+    return self.module(*inputs[0], **module_kwargs[0])
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/craft.py", line 60, in forward
+    sources = self.basenet(x)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/model/modules.py", line 68, in forward
+    h = self.slice1(X)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 548, in _conv_forward
+    return F.conv2d(
+           ~~~~~~~~^
+        input, weight, bias, self.stride, self.padding, self.dilation, self.groups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 254.44 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Stage ocr failed for run 2: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 259.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 289, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/auto_ocr_model.py", line 128, in __call__
+    yield from self._engine(conv_res, page_batch)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/easyocr_model.py", line 160, in __call__
+    result = self.reader.readtext(im)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 456, in readtext
+    horizontal_list, free_list = self.detect(img,
+                                 ~~~~~~~~~~~^^^^^
+                                             min_size = min_size, text_threshold = text_threshold,\
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+                                             bbox_min_size = bbox_min_size, max_candidates = max_candidates
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                             )
+                                             ^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 321, in detect
+    text_box_list = self.get_textbox(self.detector,
+                                img,
+    ...<11 lines>...
+                                max_candidates = max_candidates,
+                                )
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 95, in get_textbox
+    bboxes_list, polys_list = test_net(canvas_size, mag_ratio, detector,
+                              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       image, text_threshold,
+                                       ^^^^^^^^^^^^^^^^^^^^^^
+                                       link_threshold, low_text, poly,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       device, estimate_num_chars)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 46, in test_net
+    y, feature = net(x)
+                 ~~~^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/parallel/data_parallel.py", line 195, in forward
+    return self.module(*inputs[0], **module_kwargs[0])
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/craft.py", line 60, in forward
+    sources = self.basenet(x)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/model/modules.py", line 68, in forward
+    h = self.slice1(X)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 548, in _conv_forward
+    return F.conv2d(
+           ~~~~~~~~^
+        input, weight, bias, self.stride, self.padding, self.dilation, self.groups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 259.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Stage ocr failed for run 3: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 263.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 289, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/auto_ocr_model.py", line 128, in __call__
+    yield from self._engine(conv_res, page_batch)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/easyocr_model.py", line 160, in __call__
+    result = self.reader.readtext(im)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 456, in readtext
+    horizontal_list, free_list = self.detect(img,
+                                 ~~~~~~~~~~~^^^^^
+                                             min_size = min_size, text_threshold = text_threshold,\
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+                                             bbox_min_size = bbox_min_size, max_candidates = max_candidates
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                             )
+                                             ^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 321, in detect
+    text_box_list = self.get_textbox(self.detector,
+                                img,
+    ...<11 lines>...
+                                max_candidates = max_candidates,
+                                )
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 95, in get_textbox
+    bboxes_list, polys_list = test_net(canvas_size, mag_ratio, detector,
+                              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       image, text_threshold,
+                                       ^^^^^^^^^^^^^^^^^^^^^^
+                                       link_threshold, low_text, poly,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       device, estimate_num_chars)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 46, in test_net
+    y, feature = net(x)
+                 ~~~^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/parallel/data_parallel.py", line 195, in forward
+    return self.module(*inputs[0], **module_kwargs[0])
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/craft.py", line 60, in forward
+    sources = self.basenet(x)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/model/modules.py", line 68, in forward
+    h = self.slice1(X)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 548, in _conv_forward
+    return F.conv2d(
+           ~~~~~~~~^
+        input, weight, bias, self.stride, self.padding, self.dilation, self.groups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 263.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Stage ocr failed for run 4: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 254.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/pipeline/standard_pdf_pipeline.py", line 289, in _process_batch
+    processed_pages = list(self.model(good[0].conv_res, pages))  # type: ignore[arg-type]
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/auto_ocr_model.py", line 128, in __call__
+    yield from self._engine(conv_res, page_batch)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/docling/models/stages/ocr/easyocr_model.py", line 160, in __call__
+    result = self.reader.readtext(im)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 456, in readtext
+    horizontal_list, free_list = self.detect(img,
+                                 ~~~~~~~~~~~^^^^^
+                                             min_size = min_size, text_threshold = text_threshold,\
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+                                             bbox_min_size = bbox_min_size, max_candidates = max_candidates
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                             )
+                                             ^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/easyocr.py", line 321, in detect
+    text_box_list = self.get_textbox(self.detector,
+                                img,
+    ...<11 lines>...
+                                max_candidates = max_candidates,
+                                )
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 95, in get_textbox
+    bboxes_list, polys_list = test_net(canvas_size, mag_ratio, detector,
+                              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       image, text_threshold,
+                                       ^^^^^^^^^^^^^^^^^^^^^^
+                                       link_threshold, low_text, poly,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                       device, estimate_num_chars)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/detection.py", line 46, in test_net
+    y, feature = net(x)
+                 ~~~^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/parallel/data_parallel.py", line 195, in forward
+    return self.module(*inputs[0], **module_kwargs[0])
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/craft.py", line 60, in forward
+    sources = self.basenet(x)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/easyocr/model/modules.py", line 68, in forward
+    h = self.slice1(X)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/container.py", line 253, in forward
+    input = module(input)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 553, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/safdar/miniconda3/lib/python3.13/site-packages/torch/nn/modules/conv.py", line 548, in _conv_forward
+    return F.conv2d(
+           ~~~~~~~~^
+        input, weight, bias, self.stride, self.padding, self.dilation, self.groups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 254.25 MiB is free. Including non-PyTorch memory, this process has 822.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 691.55 MiB is allocated by PyTorch, and 20.45 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  [OCR] Docling produced 3480 chars across 4 pages
+  [OCR] Docling unloaded from GPU
+  [OCR] Running EasyOCR with bounding boxes (GPU) ...
+  EasyOCR error on 127_Business_Auto_Section_2015_12_45df0c68_page_1_clean.png: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 622.25 MiB is free. Including non-PyTorch memory, this process has 458.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 324.76 MiB is allocated by PyTorch, and 23.24 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  EasyOCR error on 127_Business_Auto_Section_2015_12_45df0c68_page_2_clean.png: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 622.25 MiB is free. Including non-PyTorch memory, this process has 458.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 324.76 MiB is allocated by PyTorch, and 23.24 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  EasyOCR error on 127_Business_Auto_Section_2015_12_45df0c68_page_3_clean.png: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 622.25 MiB is free. Including non-PyTorch memory, this process has 458.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 324.76 MiB is allocated by PyTorch, and 23.24 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  EasyOCR error on 127_Business_Auto_Section_2015_12_45df0c68_page_4_clean.png: CUDA out of memory. Tried to allocate 1.21 GiB. GPU 0 has a total capacity of 5.63 GiB of which 614.25 MiB is free. Including non-PyTorch memory, this process has 458.00 MiB memory in use. Process 841817 has 4.18 GiB memory in use. Of the allocated memory 324.76 MiB is allocated by PyTorch, and 23.24 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  [OCR] EasyOCR found 0 text blocks
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] Building spatial indices ...
+    Page 1: 0 blocks, 0 rows, 0 cols, 0 tables, 0 pairs
+    Page 2: 0 blocks, 0 rows, 0 cols, 0 tables, 0 pairs
+    Page 3: 0 blocks, 0 rows, 0 cols, 0 tables, 0 pairs
+    Page 4: 0 blocks, 0 rows, 0 cols, 0 tables, 0 pairs
+
+  Form type: ACORD 127
+  [SAVE] All intermediate outputs saved to /home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_output/form_127/127_Business_Auto_Section_2015_12_45df0c68
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 0 fields pre-extracted spatially
+
+  [1/13] Extracting header (3/3 fields) ...
+    -> 0 fields extracted
+
+  [2/13] Extracting insurer (2/2 fields) ...
+    -> 1 fields extracted
+
+  [3/13] Extracting producer (6/6 fields) ...
+    -> 0 fields extracted
+
+  [4/13] Extracting named_insured (3/3 fields) ...
+    -> 0 fields extracted
+
+  [5/13] Extracting policy (2/2 fields) ...
+    -> 0 fields extracted
+
+  [6/13] Extracting location (10/10 fields) ...
+    -> 0 fields extracted
+
+  [7/13] Extracting loss_history (3/3 fields) ...
+    -> 0 fields extracted
+
+  [8/13] Extracting checkbox (18/18 fields) ...
+    -> 18 fields extracted
+
+  [9/13] Extracting general (12/12 fields) ...
+    -> 0 fields extracted
+
+  [10/13] Extracting drivers ...
+    Driver A (#1) - 24 fields ...
+    Driver B (#2) - 20 fields ...
+    Driver C (#3) - 20 fields ...
+    Driver D (#4) - 20 fields ...
+    Driver E (#5) - 20 fields ...

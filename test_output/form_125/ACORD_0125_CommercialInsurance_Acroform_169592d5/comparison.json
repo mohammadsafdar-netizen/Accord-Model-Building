@@ -1,9 +1,9 @@
 {
   "total_gt_fields": 742,
-  "matched": 172,
-  "partial_match": 23,
-  "missing": 415,
-  "wrong": 132,
+  "matched": 173,
+  "partial_match": 25,
+  "missing": 395,
+  "wrong": 149,
   "field_results": {
     "Form_CompletionDate_A": {
       "status": "matched",
@@ -26,14 +26,14 @@
       "extracted": "NATIONWIDE-001"
     },
     "Insurer_ProductCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "CGL-12345",
-      "extracted": null
+      "extracted": "BA-44346598"
     },
     "Insurer_ProductDescription_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Commercial General Liability",
-      "extracted": null
+      "extracted": "Commercial General Liability, Fidelity Bond, Cyber and Privacy, Fiduciary Liability, Business Owners, Garage and Dealers, Commercial Inland Marine, Motor Carrier, Commercial Property"
     },
     "Insurer_Underwriter_FullName_A": {
       "status": "wrong",
@@ -111,9 +111,9 @@
       "extracted": "202-123-4567"
     },
     "Producer_CustomerIdentifier_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "Adam Aguilar",
-      "extracted": "Adam Aguilar"
+      "extracted": null
     },
     "Producer_FaxNumber_A": {
       "status": "matched",
@@ -131,9 +131,9 @@
       "extracted": "Washington"
     },
     "Producer_MailingAddress_LineOne_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "123 Main St",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "Producer_MailingAddress_PostalCode_A": {
       "status": "matched",
@@ -511,9 +511,9 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
       "status": "matched",
@@ -521,9 +521,9 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
       "status": "wrong",
@@ -566,19 +566,19 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_OtherIndicator_B": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_C": {
       "status": "missing",
       "expected": false,
       "extracted": null
     },
-    "CommercialPolicy_Attachment_OtherIndicator_C": {
-      "status": "wrong",
-      "expected": false,
-      "extracted": "1"
-    },
     "CommercialPolicy_Attachment_OtherIndicator_D": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "CommercialPolicy.Attachment_OtherDescription_E": {
       "status": "missing",
@@ -586,9 +586,9 @@
       "extracted": null
     },
     "CommercialPolicy_Attachment_OtherIndicator_E": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "CommercialPolicy_Attachment_OtherDescription_F": {
       "status": "missing",
@@ -631,9 +631,9 @@
       "extracted": "Off"
     },
     "Policy_Payment_EstimatedTotalAmount_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 500.0,
-      "extracted": "S150,000.00"
+      "extracted": null
     },
     "Policy_Payment_MinimumPremiumAmount_A": {
       "status": "missing",
@@ -681,9 +681,9 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_MemberManagerCount_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 0,
-      "extracted": null
+      "extracted": "2"
     },
     "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
       "status": "matched",
@@ -696,9 +696,9 @@
       "extracted": "SUBCHAPTER \"S\" CORPORATION"
     },
     "NamedInsured_LegalEntity_OtherIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_PartnershipIndicator_A": {
       "status": "matched",
@@ -736,9 +736,9 @@
       "extracted": "DC"
     },
     "NamedInsured_NAICSCode_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "332710",
-      "extracted": "FEIN OR SOC SEC #"
+      "extracted": null
     },
     "NamedInsured_Primary_PhoneNumber_A": {
       "status": "matched",
@@ -796,9 +796,9 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_OtherDescription_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Downs, Bruce and Torres LLC",
-      "extracted": "SUBCHAPTER 'S' CORPORATION"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_OtherIndicator_B": {
       "status": "matched",
@@ -1191,9 +1191,9 @@
       "extracted": null
     },
     "NamedInsured_Contact_FullName_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Crystal Mcdaniel",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
       "status": "matched",
@@ -1201,29 +1201,29 @@
       "extracted": "1"
     },
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
-      "status": "missing",
-      "expected": false,
-      "extracted": null
-    },
-    "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
-      "status": "missing",
-      "expected": false,
-      "extracted": null
-    },
-    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
-      "status": "missing",
-      "expected": true,
-      "extracted": null
-    },
-    "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
-      "status": "missing",
-      "expected": false,
-      "extracted": null
-    },
-    "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
       "status": "matched",
       "expected": false,
       "extracted": "Off"
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
     },
     "NamedInsured_Contact_FullName_B": {
       "status": "wrong",
@@ -1236,9 +1236,9 @@
       "extracted": "1"
     },
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_Contact_PrimaryHomePhoneIndicator_B": {
       "status": "matched",
@@ -1251,9 +1251,9 @@
       "extracted": "1"
     },
     "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
       "status": "matched",
@@ -1326,9 +1326,9 @@
       "extracted": "Washington"
     },
     "CommercialStructure_PhysicalAddress_CountyName_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Washington D.C.",
-      "extracted": null
+      "extracted": "Fairfax"
     },
     "CommercialStructure_PhysicalAddress_LineOne_A": {
       "status": "matched",
@@ -1561,9 +1561,9 @@
       "extracted": null
     },
     "CommercialStructure_Building_ProducerIdentifier_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_B": {
       "status": "matched",
@@ -1581,9 +1581,9 @@
       "extracted": "Off"
     },
     "CommercialStructure_Location_ProducerIdentifier_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "1234 16th St NW, Washington D.C. 20016"
+      "extracted": null
     },
     "CommercialStructure_PhysicalAddress_CityName_B": {
       "status": "matched",
@@ -1666,9 +1666,9 @@
       "extracted": "$ANNUAL REVENUES:"
     },
     "CommercialStructure_Building_ProducerIdentifier_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "BA-44346598"
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_C": {
       "status": "matched",
@@ -1686,9 +1686,9 @@
       "extracted": "Off"
     },
     "CommercialStructure_Location_ProducerIdentifier_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "1234 16th St NW, Washington D.C. 20016"
+      "extracted": null
     },
     "AgencyPart_AgencyTypeCode_B": {
       "status": "missing",
@@ -1891,9 +1891,9 @@
       "extracted": "Arlington"
     },
     "CommercialStructure_PhysicalAddress_CountyName_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Fairfax",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "CommercialStructure_PhysicalAddress_LineOne_C": {
       "status": "matched",
@@ -1981,9 +1981,9 @@
       "extracted": "Washington"
     },
     "CommercialStructure_PhysicalAddress_CountyName_D": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "Fairfax",
-      "extracted": "Fairfax"
+      "extracted": "Washington D.C."
     },
     "CommercialStructure_PhysicalAddress_LineOne_D": {
       "status": "matched",
@@ -2121,9 +2121,9 @@
       "extracted": "Off"
     },
     "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
       "status": "matched",
@@ -2131,9 +2131,9 @@
       "extracted": "1"
     },
     "BusinessInformation_BusinessType_OfficeIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "BusinessInformation_BusinessType_OtherDescription_A": {
       "status": "wrong",
@@ -2151,9 +2151,9 @@
       "extracted": "Off"
     },
     "BusinessInformation_BusinessType_RetailIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "BusinessInformation_BusinessType_ServiceIndicator_A": {
       "status": "wrong",
@@ -2161,14 +2161,14 @@
       "extracted": "1"
     },
     "BusinessInformation_BusinessType_WholesaleIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "CommercialPolicy_OperationsDescription_A": {
       "status": "wrong",
       "expected": "Manufacturing and fabrication of machinery and equipment",
-      "extracted": "Machine Shops, Commercial Machine Shop Operations, Manufacturing and fabrication"
+      "extracted": "Machine Shop Operations, Commercial Machine Shop Operations, Manufacturing and fabrication"
     },
     "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
       "status": "missing",
@@ -2366,14 +2366,14 @@
       "extracted": null
     },
     "AdditionalInterest_CertificateRequiredIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "1"
+      "extracted": null
     },
     "AdditionalInterest_InterestEndDate_A": {
       "status": "wrong",
       "expected": "12/31/2025",
-      "extracted": "02/15/2024"
+      "extracted": "03/02/2024"
     },
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
       "status": "matched",
@@ -2386,19 +2386,19 @@
       "extracted": null
     },
     "AdditionalInterest_Interest_CoOwnerIndicator_A": {
-      "status": "missing",
-      "expected": false,
-      "extracted": null
-    },
-    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
-      "status": "wrong",
-      "expected": false,
-      "extracted": "1"
-    },
-    "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
       "status": "matched",
       "expected": false,
       "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
     },
     "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
       "status": "missing",
@@ -2426,24 +2426,24 @@
       "extracted": "Off"
     },
     "AdditionalInterest_Interest_OwnerIndicator_A": {
-      "status": "wrong",
-      "expected": false,
-      "extracted": "1"
-    },
-    "AdditionalInterest_Interest_RegistrantIndicator_A": {
-      "status": "missing",
-      "expected": false,
-      "extracted": null
-    },
-    "AdditionalInterest_Interest_TrusteeIndicator_A": {
       "status": "matched",
       "expected": false,
       "extracted": "Off"
     },
-    "AdditionalInterest_MailingAddress_CityName_A": {
+    "AdditionalInterest_Interest_RegistrantIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_TrusteeIndicator_A": {
       "status": "missing",
-      "expected": "Washington",
+      "expected": false,
       "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_A": {
+      "status": "partial",
+      "expected": "Washington",
+      "extracted": "Washington D.C."
     },
     "AdditionalInterest_MailingAddress_CountryCode_A": {
       "status": "matched",
@@ -2451,9 +2451,9 @@
       "extracted": "US"
     },
     "AdditionalInterest_MailingAddress_LineOne_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": "1234 16th St NW, Washington D.C. 20016"
+      "extracted": "1234 16th St NW"
     },
     "AdditionalInterest_MailingAddress_PostalCode_A": {
       "status": "matched",
@@ -2461,9 +2461,9 @@
       "extracted": "20016"
     },
     "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "AdditionalInterest_PolicyRequiredIndicator_A": {
       "status": "matched",
@@ -2481,9 +2481,9 @@
       "extracted": "202-123-4567"
     },
     "AdditionalInterest_SendBillIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "BusinessInformation_ParentOrganizationName_A": {
       "status": "wrong",
@@ -2741,9 +2741,9 @@
       "extracted": null
     },
     "CommercialPolicy_Question_KACCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
     },
     "CommercialPolicy_Question_KAKCode_A": {
       "status": "missing",
@@ -2766,9 +2766,9 @@
       "extracted": null
     },
     "CommercialPolicy_Question_KAOCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "Property"
     },
     "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
       "status": "missing",
@@ -2776,9 +2776,9 @@
       "extracted": null
     },
     "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "03/17/2020",
-      "extracted": null
+      "extracted": "02/15/2024"
     },
     "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
       "status": "missing",
@@ -3146,9 +3146,9 @@
       "extracted": "Nationwide Insurance Corporation"
     },
     "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "BA-44346598",
-      "extracted": "BA-44346598"
+      "extracted": null
     },
     "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
       "status": "wrong",
@@ -3156,9 +3156,9 @@
       "extracted": "500.00"
     },
     "PriorCoverage_OtherLine_EffectiveDate_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "01/02/2024",
-      "extracted": "01/02/2024"
+      "extracted": "03/01/2019"
     },
     "PriorCoverage_OtherLine_ExpirationDate_A": {
       "status": "missing",
@@ -3166,9 +3166,9 @@
       "extracted": null
     },
     "PriorCoverage_OtherLine_InsurerFullName_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": null
+      "extracted": "NATIONWIDE-001"
     },
     "PriorCoverage_OtherLine_LineOfBusinessCode_A": {
       "status": "missing",
@@ -3176,9 +3176,9 @@
       "extracted": null
     },
     "PriorCoverage_OtherLine_PolicyNumberIdentifier_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "BA-44346598",
-      "extracted": null
+      "extracted": "BA-44346598"
     },
     "PriorCoverage_OtherLine_TotalPremiumAmount_A": {
       "status": "wrong",
@@ -3191,14 +3191,14 @@
       "extracted": "2023"
     },
     "PriorCoverage_Property_EffectiveDate_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "01/02/2024",
-      "extracted": null
+      "extracted": "01/02/2024"
     },
     "PriorCoverage_Property_ExpirationDate_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "03/02/2024",
-      "extracted": "04/30/2021"
+      "extracted": null
     },
     "PriorCoverage_Property_InsurerFullName_A": {
       "status": "matched",
@@ -3206,9 +3206,9 @@
       "extracted": "Nationwide Insurance Corporation"
     },
     "PriorCoverage_Property_PolicyNumberIdentifier_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "BA-44346598",
-      "extracted": null
+      "extracted": "BA-44346598"
     },
     "PriorCoverage_Property_TotalPremiumAmount_A": {
       "status": "wrong",
@@ -3246,14 +3246,14 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_EffectiveDate_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "03/01/2019",
-      "extracted": "03/01/2019"
+      "extracted": "01/02/2024"
     },
     "PriorCoverage_GeneralLiability_ExpirationDate_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "04/30/2021",
-      "extracted": null
+      "extracted": "03/02/2024"
     },
     "PriorCoverage_GeneralLiability_InsurerFullName_B": {
       "status": "matched",
@@ -3271,24 +3271,24 @@
       "extracted": "1000.00"
     },
     "PriorCoverage_OtherLine_EffectiveDate_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "05/01/2017",
-      "extracted": null
+      "extracted": "03/01/2019"
     },
     "PriorCoverage_OtherLine_ExpirationDate_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "06/30/2018",
-      "extracted": null
+      "extracted": "04/30/2021"
     },
     "PriorCoverage_OtherLine_InsurerFullName_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": "Nationwide Insurance Corporation"
+      "extracted": null
     },
     "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "BA-44346598",
-      "extracted": "BA-44346598"
+      "extracted": "C"
     },
     "PriorCoverage_OtherLine_TotalPremiumAmount_B": {
       "status": "wrong",
@@ -3301,19 +3301,19 @@
       "extracted": "2024"
     },
     "PriorCoverage_Property_EffectiveDate_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "07/01/2016",
-      "extracted": "01/02/2024"
+      "extracted": null
     },
     "PriorCoverage_Property_ExpirationDate_B": {
       "status": "wrong",
       "expected": "08/31/2017",
-      "extracted": "03/02/2024"
+      "extracted": "04/30/2021"
     },
     "PriorCoverage_Property_InsurerFullName_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": "Nationwide Insurance Corporation"
+      "extracted": null
     },
     "PriorCoverage_Property_PolicyNumberIdentifier_B": {
       "status": "matched",
@@ -3326,9 +3326,9 @@
       "extracted": "3000.00"
     },
     "PriorCoverage_Automobile_EffectiveDate_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "01/03/2018",
-      "extracted": null
+      "extracted": "03/01/2019"
     },
     "PriorCoverage_Automobile_ExpirationDate_C": {
       "status": "missing",
@@ -3376,9 +3376,9 @@
       "extracted": "500.00"
     },
     "PriorCoverage_OtherLine_EffectiveDate_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "01/09/2022",
-      "extracted": "03/02/2024"
+      "extracted": null
     },
     "PriorCoverage_OtherLine_ExpirationDate_C": {
       "status": "missing",
@@ -3388,7 +3388,7 @@
     "PriorCoverage_OtherLine_TotalPremiumAmount_C": {
       "status": "wrong",
       "expected": "$0.00",
-      "extracted": "150,000.00"
+      "extracted": "S150,000.00"
     },
     "PriorCoverage_PolicyYear_C": {
       "status": "missing",
@@ -3626,9 +3626,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Property",
-      "extracted": null
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
     },
     "LossHistory_OccurrenceDate_A": {
       "status": "missing",
@@ -3636,9 +3636,9 @@
       "extracted": null
     },
     "LossHistory_OccurrenceDescription_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Water Damage from Sewer Backup",
-      "extracted": null
+      "extracted": "Machine Shop Operations"
     },
     "LossHistory_PaidAmount_A": {
       "status": "missing",
@@ -3651,9 +3651,9 @@
       "extracted": null
     },
     "LossHistory_TotalAmount_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 35000.0,
-      "extracted": null
+      "extracted": "3599"
     },
     "LossHistory_ClaimStatus_OpenCode_B": {
       "status": "missing",
@@ -3666,9 +3666,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Commercial Auto",
-      "extracted": null
+      "extracted": "S"
     },
     "LossHistory_ClaimStatus_OpenCode_C": {
       "status": "missing",
@@ -3681,9 +3681,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_C": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Workers Compensation",
-      "extracted": null
+      "extracted": "S"
     },
     "NamedInsured_Initials_A": {
       "status": "missing",
@@ -3701,14 +3701,14 @@
       "extracted": "1"
     },
     "Producer_AuthorizedRepresentative_FullName_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Adam Aguilar",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "Producer_NationalIdentifier_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "59-1793294",
-      "extracted": null
+      "extracted": "NATIONWIDE-001"
     },
     "Producer_StateLicenseIdentifier_A": {
       "status": "missing",
@@ -3716,7 +3716,7 @@
       "extracted": null
     }
   },
-  "accuracy": 24.73,
-  "exact_match_rate": 23.18,
-  "coverage": 44.07
+  "accuracy": 25.0,
+  "exact_match_rate": 23.32,
+  "coverage": 46.77
 }

@@ -73,9 +73,23 @@ Schemas define field names, types (text/checkbox/radio), tooltips (shown to the 
 
 This project is **portable**: it uses no hardcoded absolute paths and works from any directory on any system.
 
-**To move to another machine:**
+**Clone or pull from GitHub (other machine):**
 
-1. Copy the entire `best_project` folder (e.g. zip, USB, or clone from git).
+```bash
+# First time: clone the repo
+git clone https://github.com/mohammadsafdar-netizen/Accord-Model-Building.git best_project
+cd best_project
+
+# If you already have the repo: pull latest
+cd best_project   # or wherever you cloned it
+git pull origin main
+```
+
+Then install deps and run (see **Quick Start** and **Basic Usage** below).
+
+**To move without git (e.g. zip / USB):**
+
+1. Copy the entire `best_project` folder.
 2. On the new system, from inside `best_project`:
    ```bash
    pip install -r requirements.txt

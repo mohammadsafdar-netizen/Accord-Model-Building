@@ -109,6 +109,14 @@ class LLMEngine:
                     json=payload,
                     timeout=self.timeout,
                 )
+                if resp.status_code == 404:
+                    # Ollama 0.15+ or some setups: try /api/chat, then /v1/chat/completions
+                    try:
+                        return self._generate_via_chat(full_prompt, temp, tokens)
+                    except requests.HTTPError as e:
+                        if e.response is not None and e.response.status_code == 404:
+                            return self._generate_via_openai_compat(full_prompt, temp, tokens)
+                        raise
                 resp.raise_for_status()
                 return resp.json().get("response", "")
             except (requests.RequestException, KeyError) as exc:
@@ -121,6 +129,55 @@ class LLMEngine:
         raise RuntimeError(
             f"LLM generation failed after {self.max_retries} attempts: {last_error}"
         )
+
+    def _generate_via_chat(
+        self, prompt: str, temperature: float, max_tokens: int
+    ) -> str:
+        """Fallback: Ollama /api/chat when /api/generate returns 404."""
+        payload = {
+            "model": self.model,
+            "messages": [{"role": "user", "content": prompt}],
+            "stream": False,
+            "options": {"temperature": temperature, "num_predict": max_tokens},
+        }
+        resp = requests.post(
+            f"{self.base_url}/api/chat",
+            json=payload,
+            timeout=self.timeout,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        msg = data.get("message") or {}
+        content = msg.get("content")
+        if isinstance(content, list):
+            return " ".join(
+                p.get("text", "") for p in content if isinstance(p, dict)
+            ).strip()
+        return (content or "").strip()
+
+    def _generate_via_openai_compat(
+        self, prompt: str, temperature: float, max_tokens: int
+    ) -> str:
+        """Fallback: OpenAI-compatible /v1/chat/completions (Ollama 0.15.x)."""
+        payload = {
+            "model": self.model,
+            "messages": [{"role": "user", "content": prompt}],
+            "stream": False,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        resp = requests.post(
+            f"{self.base_url}/v1/chat/completions",
+            json=payload,
+            timeout=self.timeout,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        choices = data.get("choices") or []
+        if not choices:
+            return ""
+        msg = choices[0].get("message") or {}
+        return (msg.get("content") or "").strip()
 
     # ------------------------------------------------------------------
     # GPU memory management (intelligent load/unload with wait time)

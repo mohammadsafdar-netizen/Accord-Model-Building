@@ -213,8 +213,18 @@ python test_pipeline.py --forms 125 127 137 --gpu --one-per-form --vision --mode
 python test_pipeline.py ... --model qwen2.5:7b --vision --vision-model "qwen3-vl:30b"
 ```
 
+## Improving accuracy
+
+- **Checkbox/indicator fields:** Comparison normalises values (1/On/True/Yes/Y → true, 0/Off/False/No/N → false). If your ground truth uses different conventions, ensure schemas and prompts ask for a format that normalises correctly (e.g. "Return 1 if checked, Off if not").
+- **Schema vs ground truth:** Accuracy is computed only over fields that exist in both the schema and the ground truth JSON. If GT has many more keys (e.g. flattened or different naming), align schema field names with GT or normalise GT keys before comparison.
+- **Vision (VLM) batches:** If the VLM often returns empty content (e.g. with qwen3-vl:30b on large batches), the pipeline falls back to streaming. You can reduce the vision batch size in `extractor.py` (`VISION_BATCH`) to ease load on the VLM and improve reliability.
+- **Larger models:** Using a larger text model (e.g. `qwen2.5:14b`) and/or vision model (e.g. `qwen3-vl:30b`) usually improves extraction quality at the cost of speed and VRAM.
+- **Schema enrichment:** Run `python scripts/enrich_schemas.py` so tooltips and format hints (dates, checkboxes, amounts) are present; the LLM uses these for extraction.
+- **Describe-then-extract:** Using `--vision-descriptions` with Docling + EasyOCR regions often improves vision coverage; ensure Docling and EasyOCR complete successfully so region crops are meaningful.
+
 ## Troubleshooting
 
 | Error | Fix |
 |-------|-----|
 | `PDFInfoNotInstalledError` or `No such file or directory: 'pdfinfo'` | Install poppler: `sudo apt install poppler-utils` (Linux) or `brew install poppler` (macOS). Restart the terminal if needed so `pdfinfo` is in PATH. |
+| `404` for `localhost:11434/api/generate` (or `/api/chat`, `/v1/chat/completions`) | The process on port 11434 is not exposing Ollama’s API. **Fix on that machine:** (1) Stop any service using 11434. (2) Start Ollama’s server: `ollama serve` (leave it running in a terminal, or use the official systemd service). (3) Check: `curl -s http://localhost:11434/api/tags` should return JSON with a `models` list. (4) If using Snap or a custom install, reinstall from [ollama.com](https://ollama.com/download/linux) so the HTTP API is available. |

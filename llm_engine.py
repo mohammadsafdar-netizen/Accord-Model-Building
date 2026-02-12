@@ -126,8 +126,15 @@ class LLMEngine:
                     print(f"  [LLM] Attempt {attempt} failed ({exc}), retrying in {wait}s ...")
                     time.sleep(wait)
 
+        hint = ""
+        if last_error and "404" in str(last_error):
+            hint = (
+                " All Ollama endpoints returned 404. On this machine, ensure the Ollama "
+                "server is running (ollama serve) and is what is listening on port 11434. "
+                "Check: curl -s http://localhost:11434/api/tags"
+            )
         raise RuntimeError(
-            f"LLM generation failed after {self.max_retries} attempts: {last_error}"
+            f"LLM generation failed after {self.max_retries} attempts: {last_error}{hint}"
         )
 
     def _generate_via_chat(

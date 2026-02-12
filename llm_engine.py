@@ -60,6 +60,7 @@ class LLMEngine:
         max_tokens: int = 4096,
         vision_model: Optional[str] = None,
         vision_describer_model: Optional[str] = None,
+        unload_wait_seconds: Optional[int] = None,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -70,6 +71,8 @@ class LLMEngine:
         self.vision_model = vision_model  # e.g. "llava:7b" for Ollama VLM
         # Small VLM for describing image regions (crops); if None, use vision_model
         self.vision_describer_model = vision_describer_model
+        # Wait after stopping Ollama model so GPU releases VRAM (default 8s; use 5 on 24GB+)
+        self._unload_wait_seconds = unload_wait_seconds if unload_wait_seconds is not None else 8
 
     # ------------------------------------------------------------------
     # Text generation
@@ -199,7 +202,6 @@ class LLMEngine:
     # GPU memory management (intelligent load/unload with wait time)
     # ------------------------------------------------------------------
 
-    UNLOAD_WAIT_SECONDS = 8  # Time to wait after stop so GPU can release VRAM
     UNLOAD_POLL_INTERVAL = 4  # Seconds between nvidia-smi checks
     UNLOAD_MAX_POLLS = 10    # Max ~40s waiting for GPU to free
 
@@ -235,11 +237,11 @@ class LLMEngine:
         self._stop_ollama_model(self.model)
         if self.vision_model:
             self._stop_ollama_model(self.vision_model)
-            print(f"  [LLM] Stopped {self.model} and {self.vision_model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
+            print(f"  [LLM] Stopped {self.model} and {self.vision_model}, waiting {self._unload_wait_seconds}s for GPU...")
         else:
-            print(f"  [LLM] Stopped {self.model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
+            print(f"  [LLM] Stopped {self.model}, waiting {self._unload_wait_seconds}s for GPU...")
 
-        time.sleep(self.UNLOAD_WAIT_SECONDS)
+        time.sleep(self._unload_wait_seconds)
 
         for attempt in range(self.UNLOAD_MAX_POLLS):
             try:
@@ -276,15 +278,16 @@ class LLMEngine:
     def unload_text_model(self) -> None:
         """Unload only the text model (e.g. before loading VLM for vision pass)."""
         self._stop_ollama_model(self.model)
-        print(f"  [LLM] Stopped {self.model}, waiting {self.UNLOAD_WAIT_SECONDS}s for GPU...")
-        time.sleep(self.UNLOAD_WAIT_SECONDS)
+        print(f"  [LLM] Stopped {self.model}, waiting {self._unload_wait_seconds}s for GPU...")
+        time.sleep(self._unload_wait_seconds)
 
     def unload_vision_model(self) -> None:
         """Unload only the vision model (e.g. after vision pass so text LLM can load again)."""
         if not self.vision_model:
             return
         self._stop_ollama_model(self.vision_model)
-        print(f"  [VLM] Stopped {self.vision_model}, waiting {self.UNLOAD_WAIT_SECONDS}s...")
+        print(f"  [VLM] Stopped {self.vision_model}, waiting {self._unload_wait_seconds}s...")
+        time.sleep(self._unload_wait_seconds)
 
     def unload_describer_model(self) -> None:
         """Unload the describer VLM after describe step so main VLM can use GPU."""
@@ -292,8 +295,8 @@ class LLMEngine:
         if not describer:
             return
         self._stop_ollama_model(describer)
-        print(f"  [VLM] Stopped describer {describer}, waiting {self.UNLOAD_WAIT_SECONDS}s...")
-        time.sleep(self.UNLOAD_WAIT_SECONDS)
+        print(f"  [VLM] Stopped describer {describer}, waiting {self._unload_wait_seconds}s...")
+        time.sleep(self._unload_wait_seconds)
 
     # ------------------------------------------------------------------
     # Vision (Ollama VLM: llava, llama3.2-vision, etc.)

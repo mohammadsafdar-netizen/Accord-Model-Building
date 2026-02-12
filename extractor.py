@@ -274,7 +274,7 @@ class ACORDExtractor:
 
             if missing_checkboxes:
                 step += 1
-                cb_batch = 20 if self.vision_fast else 10
+                cb_batch = 20 if self.vision_fast else 18  # 18 = fewer round-trips, still safe (small payload)
                 n_batches = (len(missing_checkboxes) + cb_batch - 1) // cb_batch
                 print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields, {n_batches} batches of {cb_batch}) ...")
                 try:

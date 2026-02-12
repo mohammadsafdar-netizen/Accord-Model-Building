@@ -393,6 +393,14 @@ def main():
         "--vision-fast", action="store_true",
         help="Use larger vision batches (20) and 1 page; skip section crops. Faster but more risk of truncated VLM output.",
     )
+    parser.add_argument(
+        "--docling-gpu", action="store_true",
+        help="Run Docling on GPU (faster OCR). Use with 24GB+ VRAM; leaves less headroom during OCR.",
+    )
+    parser.add_argument(
+        "--unload-wait", type=int, default=8, metavar="SEC",
+        help="Seconds to wait after unloading a model before loading the next (default: 8). Use 5 on 24GB+ VRAM for faster runs.",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -449,6 +457,13 @@ def main():
             vision_note += " [fast]"
         vision_note += (" + descriptions (crop→describe→extract)" if args.vision_descriptions else "")
         print(f"  Vision: {vision_note}")
+    if args.docling_gpu or args.unload_wait != 8:
+        speed_parts = []
+        if args.docling_gpu:
+            speed_parts.append("Docling=GPU")
+        if args.unload_wait != 8:
+            speed_parts.append(f"unload_wait={args.unload_wait}s")
+        print(f"  Speed: {', '.join(speed_parts)}")
     print(f"  Total PDFs to run: {total_pdfs}")
     for ft in args.forms:
         forms = all_test_forms.get(ft, [])
@@ -463,13 +478,15 @@ def main():
         dpi=300,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
-        docling_cpu_when_gpu=True,  # Intelligent: Docling on CPU, EasyOCR on GPU
+        docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (faster, needs 24GB+)
+        ocr_unload_wait_seconds=args.unload_wait,
     )
     llm = LLMEngine(
         model=args.model,
         base_url=args.ollama_url,
         vision_model=args.vision_model if args.vision else None,
         vision_describer_model=args.vision_describer_model if args.vision else None,
+        unload_wait_seconds=args.unload_wait,
     )
     schemas_dir = Path(__file__).parent / "schemas"
     registry = SchemaRegistry(schemas_dir=schemas_dir)

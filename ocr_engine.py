@@ -348,6 +348,7 @@ class OCREngine:
         docling_cpu_when_gpu: bool = True,
         row_tolerance: int = 25,
         column_tolerance: int = 40,
+        ocr_unload_wait_seconds: Optional[int] = None,
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -356,6 +357,8 @@ class OCREngine:
         self.docling_cpu_when_gpu = docling_cpu_when_gpu
         self.row_tolerance = row_tolerance
         self.column_tolerance = column_tolerance
+        # Wait after unloading OCR from GPU before next model (default 5s; use 4 on 24GB+)
+        self.OCR_UNLOAD_WAIT_SECONDS = ocr_unload_wait_seconds if ocr_unload_wait_seconds is not None else 5
 
         self._docling_converter = None
         self._easyocr_reader = None
@@ -363,9 +366,6 @@ class OCREngine:
     # ------------------------------------------------------------------
     # GPU memory cleanup
     # ------------------------------------------------------------------
-
-    # Wait time after unloading so GPU can release VRAM before next model loads
-    OCR_UNLOAD_WAIT_SECONDS = 5
 
     def cleanup_docling(self):
         """Free Docling from GPU memory. Must be called before EasyOCR on GPU."""

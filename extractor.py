@@ -226,7 +226,7 @@ class ACORDExtractor:
                 if key in spatial_fields:
                     print(f"    {key}: {spatial_fields[key]}")
 
-        # ---- Step 4: Category-by-category extraction ---------------------
+        # ---- Step 4: Extracted dict and step count ------------------------
         extracted: Dict[str, Any] = {}
         # Start with spatially pre-extracted fields (highest confidence)
         extracted.update(spatial_fields)
@@ -238,17 +238,85 @@ class ACORDExtractor:
         # Special handling categories (extracted separately)
         special = {"driver", "vehicle"}
 
-        step = 0
-        total_steps = len([c for c in categories if c not in special])
-        # Add special steps
+        category_steps = len([c for c in categories if c not in special])
+        total_steps = 0
+        if self.use_vision and ocr_result.clean_image_paths:
+            total_steps += 2  # vision: checkbox pass + general pass (or 1 if skip)
+        total_steps += category_steps
         if "driver" in schema.categories and form_type == "127":
             total_steps += 1
         if "vehicle" in schema.categories and form_type in ("127", "137"):
             total_steps += 1
         total_steps += 1  # gap-fill pass
-        if self.use_vision:
-            total_steps += 1  # vision pass
 
+        step = 0
+
+        # ---- Step 4a: Vision pass FIRST (VLM on form images) --------------
+        missing_after_spatial = [n for n in all_field_names if n not in extracted]
+        if self.use_vision and missing_after_spatial and ocr_result.clean_image_paths:
+            self.llm.unload_text_model()
+            checkbox_field_set: Set[str] = set()
+            if schema:
+                for fname, finfo in schema.fields.items():
+                    if finfo.field_type in ("checkbox", "radio"):
+                        checkbox_field_set.add(fname)
+            missing_checkboxes = [f for f in missing_after_spatial if f in checkbox_field_set]
+            vision_skipped_404 = False
+
+            if missing_checkboxes:
+                step += 1
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields) ...")
+                try:
+                    checkbox_result = self._vision_pass_checkboxes(
+                        form_type=form_type,
+                        missing_fields=missing_checkboxes,
+                        image_paths=ocr_result.clean_image_paths,
+                        schema=schema,
+                    )
+                except VisionModelNotFoundError as e:
+                    print(f"    [VLM] Skipping vision pass: {e}")
+                    vision_skipped_404 = True
+                    checkbox_result = {}
+                else:
+                    new_cb = 0
+                    for k, v in checkbox_result.items():
+                        if k not in extracted and v is not None:
+                            extracted[k] = self._normalise_checkbox_value(v)
+                            new_cb += 1
+                    print(f"    -> {new_cb} checkbox fields from VLM")
+
+            missing_after_vision_cb = [n for n in all_field_names if n not in extracted]
+            if missing_after_vision_cb and not vision_skipped_404:
+                step += 1
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - remaining ({len(missing_after_vision_cb)} fields) ...")
+                try:
+                    vision_result = self._vision_pass(
+                        form_type=form_type,
+                        missing_fields=missing_after_vision_cb,
+                        image_paths=ocr_result.clean_image_paths,
+                        schema=schema,
+                        ocr_result=ocr_result,
+                        output_dir=output_dir,
+                        sections=sections,
+                    )
+                except VisionModelNotFoundError as e:
+                    print(f"    [VLM] Skipping vision pass: {e}")
+                    vision_skipped_404 = True
+                    vision_result = {}
+                else:
+                    new_count = 0
+                    for k, v in vision_result.items():
+                        if k not in extracted and v is not None:
+                            extracted[k] = v
+                            new_count += 1
+                    print(f"    -> {new_count} additional fields from VLM")
+            elif missing_after_vision_cb and vision_skipped_404:
+                step += 1
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) skipped (model not found)")
+
+            self.llm.unload_vision_model()
+
+        # ---- Step 4b: Category-by-category TEXT LLM extraction ------------
         for category in categories:
             if category in special:
                 continue  # handled separately below
@@ -347,78 +415,6 @@ class ACORDExtractor:
                     extracted[k] = v
                     new_count += 1
             print(f"    -> {new_count} additional fields recovered")
-
-        # ---- Vision pass (VLM on form images) ------------------------------
-        missing_after_gap = [n for n in all_field_names if n not in extracted]
-        if self.use_vision and missing_after_gap and ocr_result.clean_image_paths:
-            self.llm.unload_text_model()
-            # Build set of checkbox field names from schema for checkbox-specific pass
-            checkbox_field_set: Set[str] = set()
-            if schema:
-                for fname, finfo in schema.fields.items():
-                    if finfo.field_type in ("checkbox", "radio"):
-                        checkbox_field_set.add(fname)
-            missing_checkboxes = [f for f in missing_after_gap if f in checkbox_field_set]
-            missing_other = [f for f in missing_after_gap if f not in checkbox_field_set]
-            if missing_checkboxes:
-                total_steps += 1  # extra step for checkbox-only vision pass
-            step += 1
-
-            # 1) Checkbox-only vision pass: VLM looks at image and returns 1/Off for each
-            vision_skipped_404 = False
-            if missing_checkboxes:
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes only ({len(missing_checkboxes)} missing) ...")
-                try:
-                    checkbox_result = self._vision_pass_checkboxes(
-                        form_type=form_type,
-                        missing_fields=missing_checkboxes,
-                        image_paths=ocr_result.clean_image_paths,
-                        schema=schema,
-                    )
-                except VisionModelNotFoundError as e:
-                    print(f"    [VLM] Skipping vision pass: {e}")
-                    vision_skipped_404 = True
-                    checkbox_result = {}
-                else:
-                    new_cb = 0
-                    for k, v in checkbox_result.items():
-                        if k not in extracted and v is not None:
-                            extracted[k] = self._normalise_checkbox_value(v)
-                            new_cb += 1
-                    print(f"    -> {new_cb} checkbox fields from VLM")
-
-            # 2) General vision pass for remaining non-checkbox missing fields
-            missing_remaining = [n for n in all_field_names if n not in extracted]
-            if missing_remaining and not vision_skipped_404:
-                step += 1
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) ({len(missing_remaining)} remaining fields) ...")
-                try:
-                    vision_result = self._vision_pass(
-                        form_type=form_type,
-                        missing_fields=missing_remaining,
-                        image_paths=ocr_result.clean_image_paths,
-                        schema=schema,
-                        ocr_result=ocr_result,
-                        output_dir=output_dir,
-                        sections=sections,
-                    )
-                except VisionModelNotFoundError as e:
-                    print(f"    [VLM] Skipping vision pass: {e}")
-                    vision_skipped_404 = True
-                    vision_result = {}
-                else:
-                    new_count = 0
-                    for k, v in vision_result.items():
-                        if k not in extracted and v is not None:
-                            extracted[k] = v
-                            new_count += 1
-                    print(f"    -> {new_count} additional fields from VLM")
-            elif missing_remaining and vision_skipped_404:
-                step += 1
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) skipped (model not found)")
-            else:
-                step += 1
-            self.llm.unload_vision_model()
 
         # ---- Verification ------------------------------------------------
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")

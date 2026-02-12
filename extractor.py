@@ -226,10 +226,13 @@ class ACORDExtractor:
                 if key in spatial_fields:
                     print(f"    {key}: {spatial_fields[key]}")
 
-        # ---- Step 4: Extracted dict and step count ------------------------
+        # ---- Step 4: Extracted dict, source tracking, and step count ------
         extracted: Dict[str, Any] = {}
+        field_sources: Dict[str, str] = {}  # "spatial" | "vision" | "text_llm" | "gap_fill"
         # Start with spatially pre-extracted fields (highest confidence)
         extracted.update(spatial_fields)
+        for k in spatial_fields:
+            field_sources[k] = "spatial"
         all_field_names = set(schema.fields.keys())
 
         # Determine which categories to extract
@@ -265,7 +268,8 @@ class ACORDExtractor:
 
             if missing_checkboxes:
                 step += 1
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields) ...")
+                n_batches = (len(missing_checkboxes) + VISION_BATCH - 1) // VISION_BATCH
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields, {n_batches} batches of {VISION_BATCH}) ...")
                 try:
                     checkbox_result = self._vision_pass_checkboxes(
                         form_type=form_type,
@@ -282,6 +286,7 @@ class ACORDExtractor:
                     for k, v in checkbox_result.items():
                         if k not in extracted and v is not None:
                             extracted[k] = self._normalise_checkbox_value(v)
+                            field_sources[k] = "vision"
                             new_cb += 1
                     print(f"    -> {new_cb} checkbox fields from VLM")
 
@@ -308,6 +313,7 @@ class ACORDExtractor:
                     for k, v in vision_result.items():
                         if k not in extracted and v is not None:
                             extracted[k] = v
+                            field_sources[k] = "vision"
                             new_count += 1
                     print(f"    -> {new_count} additional fields from VLM")
             elif missing_after_vision_cb and vision_skipped_404:
@@ -352,6 +358,7 @@ class ACORDExtractor:
             for k, v in cat_result.items():
                 if k not in extracted:
                     extracted[k] = v
+                    field_sources[k] = "text_llm"
             print(f"    -> {len(cat_result)} fields extracted")
 
         # ---- Driver extraction (127 only) --------------------------------
@@ -375,6 +382,7 @@ class ACORDExtractor:
             for k, v in driver_result.items():
                 if k not in extracted:
                     extracted[k] = v
+                    field_sources[k] = "text_llm"
                     new_count += 1
             print(f"    -> {new_count} additional driver fields from LLM")
 
@@ -390,6 +398,7 @@ class ACORDExtractor:
             for k, v in vehicle_result.items():
                 if k not in extracted:
                     extracted[k] = v
+                    field_sources[k] = "text_llm"
                     new_vehicle += 1
             print(f"    -> {new_vehicle} vehicle fields extracted")
 
@@ -413,12 +422,14 @@ class ACORDExtractor:
             for k, v in gap_result.items():
                 if k not in extracted and v:
                     extracted[k] = v
+                    field_sources[k] = "gap_fill"
                     new_count += 1
             print(f"    -> {new_count} additional fields recovered")
 
         # ---- Verification ------------------------------------------------
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
         verified = self._verify_with_bbox(extracted, bbox_plain)
+        field_verified = {k: (k in verified) for k in extracted}
         print(f"    {len(verified)}/{len(extracted)} values found in OCR text")
 
         # ---- Normalise ---------------------------------------------------
@@ -458,6 +469,8 @@ class ACORDExtractor:
                 "source_pdf": str(pdf_path),
                 "fields_extracted": len(extracted),
                 "fields_verified": len(verified),
+                "field_sources": field_sources,
+                "field_verified": field_verified,
                 "total_schema_fields": schema.total_fields,
                 "pages": ocr_result.num_pages,
                 "extraction_time_seconds": round(elapsed, 2),
@@ -643,14 +656,19 @@ class ACORDExtractor:
         def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
             if vlm_key in batch_keys:
                 return vlm_key
-            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
+            # Normalise: spaces, dashes, slashes -> underscores (VLM may return "Location/Building_Occupancy_A")
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            # Collapse multiple underscores for comparison
+            vlm_norm = re.sub(r"_+", "_", vlm_norm).strip("_")
             for b in batch_keys:
-                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
                 if b_norm == vlm_norm:
                     return b
             # Fuzzy: one key contains the other (handles AuthorizedRep vs AuthorizedRepresentative)
             for b in batch_keys:
-                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
                 if len(b_norm) < 5:
                     continue
                 if vlm_norm in b_norm or b_norm in vlm_norm:
@@ -734,9 +752,9 @@ class ACORDExtractor:
                 )
             try:
                 if len(image_paths_to_use) == 1:
-                    response = self.llm.generate_with_image(prompt, image_paths_to_use[0])
+                    response = self.llm.generate_with_image(prompt, image_paths_to_use[0], max_tokens=8192)
                 else:
-                    response = self.llm.generate_with_images(prompt, image_paths_to_use)
+                    response = self.llm.generate_with_images(prompt, image_paths_to_use, max_tokens=8192)
                 batch_result = self.llm.parse_json(response)
                 # Debug: log raw VLM response for first batch; log when parse returns 0 keys
                 batch_num = i // VISION_BATCH + 1
@@ -772,7 +790,7 @@ class ACORDExtractor:
         1 (checked) or Off (not checked) for each. Uses a focused checkbox-only prompt.
         Smaller batches reduce empty content / truncation with large VLMs.
         """
-        VISION_BATCH = 15  # Smaller batches to avoid eval_count=4096 empty response
+        VISION_BATCH = 10  # Small batches to avoid truncation / empty response (eval_count=4096)
         MAX_PAGES = 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
@@ -783,13 +801,16 @@ class ACORDExtractor:
         def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
             if vlm_key in batch_keys:
                 return vlm_key
-            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            vlm_norm = re.sub(r"_+", "_", vlm_norm).strip("_")
             for b in batch_keys:
-                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
                 if b_norm == vlm_norm:
                     return b
             for b in batch_keys:
-                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
                 if len(b_norm) < 5:
                     continue
                 if vlm_norm in b_norm or b_norm in vlm_norm:
@@ -806,10 +827,11 @@ class ACORDExtractor:
                 tooltips=batch_tooltips,
             )
             try:
+                # Higher max_tokens reduces chance of truncation/empty (eval_count=4096)
                 if len(paths) == 1:
-                    response = self.llm.generate_with_image(prompt, paths[0])
+                    response = self.llm.generate_with_image(prompt, paths[0], max_tokens=8192)
                 else:
-                    response = self.llm.generate_with_images(prompt, paths)
+                    response = self.llm.generate_with_images(prompt, paths, max_tokens=8192)
                 batch_result = self.llm.parse_json(response)
                 for k, v in batch_result.items():
                     if v is None or (isinstance(v, str) and not v.strip()):

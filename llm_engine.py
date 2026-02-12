@@ -403,9 +403,17 @@ class LLMEngine:
         tokens = max_tokens if max_tokens is not None else self.max_tokens
         content = f"{system}\n\n{prompt}" if system else prompt
         message = {"role": "user", "content": content, "images": images}
-        vision_timeout = max(self.timeout, 240)
+        vision_timeout = max(self.timeout, 360)  # 30B VLMs can be slow; allow 6 min
 
         # Try streaming first so we don't get eval_count=4096 with empty content
+        stream_text = self._chat_with_images_streaming(
+            prompt=prompt, images=images, system=system,
+            temperature=temp, max_tokens=tokens, model=model,
+            content=content, message=message, vision_timeout=vision_timeout,
+        )
+        if (stream_text or "").strip():
+            return stream_text
+        # Retry streaming once (flake/timeout); then fall back to non-streaming
         stream_text = self._chat_with_images_streaming(
             prompt=prompt, images=images, system=system,
             temperature=temp, max_tokens=tokens, model=model,
@@ -442,7 +450,7 @@ class LLMEngine:
                 if not (text or "").strip():
                     eval_count = out.get("eval_count") if isinstance(out.get("eval_count"), int) else 0
                     if eval_count > 0:
-                        print(f"  [VLM] Non-streaming returned empty (eval_count={eval_count}); streaming already tried.")
+                        print(f"  [VLM] Batch response empty (eval_count={eval_count}); this batch will be skipped. Use smaller batches or higher max_tokens if frequent.")
                     err = out.get("error")
                     if err:
                         print(f"  [VLM] Ollama error: {err}")

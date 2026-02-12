@@ -472,7 +472,7 @@ def build_vision_extraction_prompt(
 {field_block}
 
 RULES:
-- Use ONLY the exact field names above (e.g. {keys_list}).
+- Use ONLY the exact field names above (e.g. {keys_list}). Copy them character-for-character; do NOT use slashes (use underscores) or rename.
 - Dates: MM/DD/YYYY. Checkboxes: "1" or "Off".
 - Output ONLY valid JSON. No markdown, no ```, no explanation before or after.
 - Include only keys you can read clearly from the image.

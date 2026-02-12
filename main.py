@@ -78,8 +78,12 @@ Examples:
         help="Use GPU for OCR (default: CPU-only)",
     )
     parser.add_argument(
-        "--ocr-backend", choices=("easyocr", "surya"), default="easyocr",
-        help="Bbox OCR backend: easyocr or surya (default: easyocr)",
+        "--docling", action="store_true",
+        help="Run Docling OCR (structure/markdown). Off by default.",
+    )
+    parser.add_argument(
+        "--ocr-backend", choices=("none", "easyocr", "surya"), default="none",
+        help="Bbox OCR: none (default), easyocr, or surya.",
     )
     parser.add_argument(
         "--timeout", type=int, default=300,
@@ -87,7 +91,11 @@ Examples:
     )
     parser.add_argument(
         "--vision", action="store_true",
-        help="Run a vision pass with a VLM (Ollama) on form images for missing fields",
+        help="Run VLM on form images for extraction. Off by default.",
+    )
+    parser.add_argument(
+        "--text-llm", action="store_true",
+        help="Run text LLM for category/driver/vehicle/gap-fill. Off by default.",
     )
     parser.add_argument(
         "--vision-model", type=str, default="llava:7b",
@@ -108,15 +116,21 @@ Examples:
         print(f"Error: PDF not found: {args.pdf_path}")
         sys.exit(1)
 
+    if not args.docling and not args.form_type:
+        print("Without --docling, form type cannot be auto-detected. Pass --form-type 125|127|137.")
+        sys.exit(1)
+
     # --- Initialise components ---
     print("\nInitialising pipeline components ...")
 
+    bbox_backend = None if args.ocr_backend == "none" else args.ocr_backend
     ocr = OCREngine(
         dpi=args.dpi,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for bbox OCR + LLM
-        bbox_backend=args.ocr_backend,
+        bbox_backend=bbox_backend,
+        use_docling=args.docling,
     )
 
     llm = LLMEngine(
@@ -133,6 +147,7 @@ Examples:
     extractor = ACORDExtractor(
         ocr, llm, registry,
         use_vision=args.vision,
+        use_text_llm=args.text_llm,
         use_vision_descriptions=args.vision_descriptions,
     )
 

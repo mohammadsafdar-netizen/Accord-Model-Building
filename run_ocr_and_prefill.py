@@ -63,15 +63,17 @@ def main():
     print(f"Output: {output_dir}")
 
     # OCR
+    bbox_backend = None if getattr(args, "ocr_backend", "easyocr") == "none" else args.ocr_backend
     ocr = OCREngine(
         dpi=300,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=True,
         parallel_ocr=True,
-        bbox_backend=args.ocr_backend,
+        bbox_backend=bbox_backend,
+        use_docling=True,
     )
-    print(f"Running OCR (Docling + {ocr.bbox_backend} + spatial index) ...")
+    print(f"Running OCR (Docling + {ocr.bbox_backend or 'none'} + spatial index) ...")
     ocr_result = ocr.process(args.pdf, output_dir)
 
     # Form type from doc if not forced

@@ -12,8 +12,11 @@ Pipeline:
   3. Text LLM: category-by-category + gap-fill to fill remaining nulls → extracted.json
 
 Usage:
-  python run_phase1_extraction.py --pdf path/to/form.pdf [--form 125]
-  python run_phase1_extraction.py --pdf form.pdf --form 125 --model qwen2.5:7b --ocr-backend surya --out phase1_out
+  # All features off by default; enable with flags to experiment with combinations:
+  python run_phase1_extraction.py --pdf form.pdf --form 125 --docling --ocr-backend surya --text-llm   # Docling + Surya + text LLM
+  python run_phase1_extraction.py --pdf form.pdf --form 125 --docling --vision   # Docling + VLM only
+  python run_phase1_extraction.py --pdf form.pdf --form 125 --docling --ocr-backend easyocr --text-llm --vision   # full pipeline
+  # Without --docling you must pass --form (form type cannot be auto-detected).
 """
 
 from __future__ import annotations
@@ -44,13 +47,15 @@ def main():
     p.add_argument("--model", type=str, default="qwen2.5:7b", help="Ollama text model for extraction")
     p.add_argument("--ollama-url", type=str, default="http://localhost:11434", help="Ollama API URL")
     p.add_argument("--gpu", action="store_true", help="Use GPU for OCR")
-    p.add_argument("--ocr-backend", choices=("easyocr", "surya"), default="easyocr", help="Bbox OCR backend")
+    p.add_argument("--docling", action="store_true", help="Run Docling OCR (structure/markdown). Off by default.")
+    p.add_argument("--ocr-backend", choices=("none", "easyocr", "surya"), default="none", help="Bbox OCR: none (default), easyocr, or surya. Use --ocr-backend easyocr/surya to enable.")
     p.add_argument("--docling-gpu", action="store_true", help="Run Docling on GPU (faster on 24GB VRAM)")
     p.add_argument("--out", type=Path, default=None, help="Output directory (default: phase1_output/<pdf_stem>)")
     p.add_argument("--ground-truth", type=Path, default=None, help="Ground truth JSON (default: <pdf>.json beside PDF)")
     p.add_argument("--fast", action="store_true", help="Use fast path: 2–8 fill-nulls LLM calls instead of full category extraction (faster, lower accuracy)")
     p.add_argument("--max-llm-chunks", type=int, default=0, help="With --fast: max chunks (0=all). Use 4–6 for quick run.")
-    p.add_argument("--vision", action="store_true", help="Use VLM for all extraction (vision model sees form images; no text-only LLM for categories/driver/vehicle)")
+    p.add_argument("--vision", action="store_true", help="Use VLM for extraction (vision model sees form images). Off by default.")
+    p.add_argument("--text-llm", action="store_true", help="Use text LLM for category/driver/vehicle/gap-fill extraction. Off by default.")
     p.add_argument("--vision-model", type=str, default="llava:7b", help="Ollama vision model when --vision (e.g. llava:7b, qwen2-vl:7b)")
     p.add_argument("--vision-batch-size", type=int, default=16, help="VLM: fields per batch when --vision (default 16 for 30B; use 12 for smaller context)")
     p.add_argument("--dpi", type=int, default=300, help="PDF to image DPI (default 300; use 200 for faster OCR on typed forms)")
@@ -68,6 +73,11 @@ def main():
         if args.pdf is None:
             print("No PDF found. Use --pdf path/to/form.pdf")
             return 1
+
+    # Without Docling we cannot auto-detect form type; require --form
+    if not getattr(args, "docling", False) and not args.form:
+        print("Without --docling, form type cannot be auto-detected. Pass --form 125|127|137.")
+        return 1
 
     args.pdf = Path(args.pdf)
     if not args.pdf.exists():
@@ -91,6 +101,8 @@ def main():
             "--out", str(args.out),
             "--ocr-backend", args.ocr_backend,
         ]
+        if getattr(args, "docling", False):
+            cmd += ["--docling"]
         if args.form:
             cmd += ["--form", args.form]
         if args.gpu:
@@ -104,24 +116,30 @@ def main():
         return subprocess.run(cmd).returncode
 
     use_vision = getattr(args, "vision", False)
+    use_docling = getattr(args, "docling", False)
+    use_text_llm = getattr(args, "text_llm", False)
+    bbox_backend = None if args.ocr_backend == "none" else args.ocr_backend
+
     print("\n" + "=" * 60)
-    print("  PHASE 1 EXTRACTION (" + ("VLM for all extraction" if use_vision else "text-only LLM") + ")")
+    print("  PHASE 1 EXTRACTION")
     print("  PDF:", args.pdf.name)
+    print("  Docling:", "ON" if use_docling else "OFF")
+    print("  Bbox OCR:", args.ocr_backend if bbox_backend else "none")
+    print("  Vision (VLM):", "ON" if use_vision else "OFF")
+    print("  Text LLM:", "ON" if use_text_llm else "OFF")
     print("  Model:", args.vision_model if use_vision else args.model)
-    if use_vision:
-        print("  Vision: ON (VLM gets all data; text LLM only for gap-fill)")
-    print("  OCR bbox backend:", args.ocr_backend)
     print("  Output:", args.out)
     print("=" * 60 + "\n")
 
-    # OCR
+    # OCR (Docling and bbox only when enabled by flags)
     ocr = OCREngine(
         dpi=args.dpi,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (24GB)
         parallel_ocr=True,
-        bbox_backend=args.ocr_backend,
+        bbox_backend=bbox_backend,
+        use_docling=use_docling,
     )
 
     # LLM: with --vision use VLM for extraction; text model still used for gap-fill
@@ -136,6 +154,7 @@ def main():
     extractor = ACORDExtractor(
         ocr, llm, registry,
         use_vision=use_vision,
+        use_text_llm=use_text_llm,
         vision_batch_size=args.vision_batch_size if use_vision else None,
         strict_verify=getattr(args, "strict_verify", False),
     )

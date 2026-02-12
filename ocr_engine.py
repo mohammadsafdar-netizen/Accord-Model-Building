@@ -444,7 +444,8 @@ class OCREngine:
         column_tolerance: int = 40,
         ocr_unload_wait_seconds: Optional[int] = None,
         parallel_ocr: bool = True,
-        bbox_backend: str = "easyocr",
+        bbox_backend: Optional[str] = None,
+        use_docling: bool = False,
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -457,10 +458,10 @@ class OCREngine:
         self.OCR_UNLOAD_WAIT_SECONDS = ocr_unload_wait_seconds if ocr_unload_wait_seconds is not None else 5
         # When True and Docling=CPU + EasyOCR=GPU, run both in parallel to cut OCR wall time
         self.parallel_ocr = parallel_ocr
-        # "easyocr" (default) or "surya" (Marker's OCR engine; often better accuracy/speed)
-        self.bbox_backend = bbox_backend.lower() if bbox_backend else "easyocr"
-        if self.bbox_backend not in ("easyocr", "surya"):
-            self.bbox_backend = "easyocr"
+        # None = no bbox OCR; "easyocr" or "surya" to enable (all off by default when called with flags)
+        self.use_docling = use_docling
+        raw = (bbox_backend or "").lower().strip()
+        self.bbox_backend = raw if raw in ("easyocr", "surya") else None
 
         self._docling_converter = None
         self._easyocr_reader = None
@@ -1142,64 +1143,91 @@ class OCREngine:
         print("  [OCR] Removing table lines ...")
         clean_paths = self.create_clean_images(image_paths)
 
-        # ---- Phase 1 & 2: Docling + bbox OCR (EasyOCR or Surya; parallel when Docling=CPU, bbox=GPU) ----
-        bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
-        run_parallel = (
-            self.parallel_ocr
-            and use_gpu
-            and self.docling_cpu_when_gpu
-        )
-        if run_parallel:
-            docling_mode = "CPU (offload)"
-            bbox_mode = "GPU"
-            print(f"  [OCR] Running Docling ({docling_mode}) + {bbox_backend_name} ({bbox_mode}) in parallel ...")
-            docling_pages = []
-            docling_regions_per_page = []
-            native_pairs_per_page: List[List[Tuple[str, str]]] = []
-            bbox_pages = []
-
-            def _run_docling() -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
-                return self.run_docling(image_paths, use_gpu=False)
-
-            def _run_bbox() -> List[List[Dict]]:
-                if self.bbox_backend == "surya":
-                    return self.run_surya(clean_paths)
-                return self.run_easyocr(clean_paths)
-
-            with ThreadPoolExecutor(max_workers=2) as executor:
-                fut_d = executor.submit(_run_docling)
-                fut_b = executor.submit(_run_bbox)
-                docling_pages, docling_regions_per_page, native_pairs_per_page = fut_d.result()
-                bbox_pages = fut_b.result()
-
-            total_chars = sum(len(p) for p in docling_pages)
-            total_blocks = sum(len(p) for p in bbox_pages)
-            print(f"  [OCR] Docling produced {total_chars} chars; {bbox_backend_name} found {total_blocks} blocks")
-            self.cleanup_docling()
-            if self.bbox_backend == "surya":
-                self.cleanup_surya()
-            else:
-                self.cleanup_easyocr()
-        else:
-            docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
-            print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
-            docling_pages, docling_regions_per_page, native_pairs_per_page = self.run_docling(
-                image_paths, use_gpu=docling_use_gpu
+        n_pages = len(image_paths)
+        # Docling: run only when enabled (use_docling=True)
+        if self.use_docling:
+            bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+            run_parallel = (
+                self.bbox_backend is not None
+                and self.parallel_ocr
+                and use_gpu
+                and self.docling_cpu_when_gpu
             )
-            total_chars = sum(len(p) for p in docling_pages)
-            print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
-            self.cleanup_docling()
+            if run_parallel:
+                docling_mode = "CPU (offload)"
+                bbox_mode = "GPU"
+                print(f"  [OCR] Running Docling ({docling_mode}) + {bbox_backend_name} ({bbox_mode}) in parallel ...")
+                docling_pages = []
+                docling_regions_per_page = []
+                native_pairs_per_page: List[List[Tuple[str, str]]] = []
+                bbox_pages = []
 
-            bbox_mode = "GPU" if use_gpu else "CPU"
-            print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
-            if self.bbox_backend == "surya":
-                bbox_pages = self.run_surya(clean_paths)
-                self.cleanup_surya()
+                def _run_docling() -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
+                    return self.run_docling(image_paths, use_gpu=False)
+
+                def _run_bbox() -> List[List[Dict]]:
+                    if self.bbox_backend == "surya":
+                        return self.run_surya(clean_paths)
+                    return self.run_easyocr(clean_paths)
+
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    fut_d = executor.submit(_run_docling)
+                    fut_b = executor.submit(_run_bbox)
+                    docling_pages, docling_regions_per_page, native_pairs_per_page = fut_d.result()
+                    bbox_pages = fut_b.result()
+
+                total_chars = sum(len(p) for p in docling_pages)
+                total_blocks = sum(len(p) for p in bbox_pages)
+                print(f"  [OCR] Docling produced {total_chars} chars; {bbox_backend_name} found {total_blocks} blocks")
+                self.cleanup_docling()
+                if self.bbox_backend == "surya":
+                    self.cleanup_surya()
+                else:
+                    self.cleanup_easyocr()
             else:
-                bbox_pages = self.run_easyocr(clean_paths)
-                self.cleanup_easyocr()
-            total_blocks = sum(len(p) for p in bbox_pages)
-            print(f"  [OCR] {bbox_backend_name} found {total_blocks} text blocks")
+                docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
+                print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
+                docling_pages, docling_regions_per_page, native_pairs_per_page = self.run_docling(
+                    image_paths, use_gpu=docling_use_gpu
+                )
+                total_chars = sum(len(p) for p in docling_pages)
+                print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
+                self.cleanup_docling()
+
+                if self.bbox_backend is not None:
+                    bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+                    bbox_mode = "GPU" if use_gpu else "CPU"
+                    print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
+                    if self.bbox_backend == "surya":
+                        bbox_pages = self.run_surya(clean_paths)
+                        self.cleanup_surya()
+                    else:
+                        bbox_pages = self.run_easyocr(clean_paths)
+                        self.cleanup_easyocr()
+                    total_blocks = sum(len(p) for p in bbox_pages)
+                    print(f"  [OCR] {bbox_backend_name} found {total_blocks} text blocks")
+                else:
+                    bbox_pages = [[] for _ in range(n_pages)]
+                    print("  [OCR] Bbox OCR disabled (no easyocr/surya)")
+        else:
+            # Docling disabled: empty per-page text; bbox only if enabled
+            docling_pages = ["" for _ in range(n_pages)]
+            docling_regions_per_page = [[] for _ in range(n_pages)]
+            native_pairs_per_page = [[] for _ in range(n_pages)]
+            if self.bbox_backend is not None:
+                bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+                bbox_mode = "GPU" if use_gpu else "CPU"
+                print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
+                if self.bbox_backend == "surya":
+                    bbox_pages = self.run_surya(clean_paths)
+                    self.cleanup_surya()
+                else:
+                    bbox_pages = self.run_easyocr(clean_paths)
+                    self.cleanup_easyocr()
+                print(f"  [OCR] {bbox_backend_name} found {sum(len(p) for p in bbox_pages)} text blocks")
+            else:
+                bbox_pages = [[] for _ in range(n_pages)]
+                print("  [OCR] Bbox OCR disabled (no easyocr/surya)")
 
         # Extra wait so LLM has a clear GPU when it loads
         time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)

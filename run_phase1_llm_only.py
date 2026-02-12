@@ -89,7 +89,7 @@ def main():
 
     llm = LLMEngine(model=args.model, base_url=args.ollama_url, vision_model=None)
     registry = SchemaRegistry(schemas_dir=Path(__file__).parent / "schemas")
-    extractor = ACORDExtractor(ocr, llm, registry, use_vision=False)
+    extractor = ACORDExtractor(ocr, llm, registry, use_vision=False, use_text_llm=True)
 
     print("  [LLM-only] Running text-LLM extraction (7B model)...")
     result = extractor.extract(

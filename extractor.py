@@ -84,6 +84,7 @@ class ACORDExtractor:
         llm_engine: LLMEngine,
         schema_registry: SchemaRegistry,
         use_vision: bool = False,
+        use_text_llm: bool = False,
         use_vision_descriptions: bool = False,
         vision_checkboxes_only: bool = False,
         vision_fast: bool = False,
@@ -95,6 +96,7 @@ class ACORDExtractor:
         self.llm = llm_engine
         self.registry = schema_registry
         self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
+        self.use_text_llm = use_text_llm
         self.use_vision_descriptions = use_vision_descriptions and self.use_vision
         self.vision_checkboxes_only = vision_checkboxes_only
         self.vision_fast = vision_fast
@@ -285,12 +287,13 @@ class ACORDExtractor:
         total_steps = 0
         if self.use_vision and ocr_result.clean_image_paths:
             total_steps += 1  # vision: single unified pass (image + docling + spatial)
-        total_steps += category_steps
-        if "driver" in schema.categories and form_type == "127":
-            total_steps += 1
-        if "vehicle" in schema.categories and form_type in ("127", "137"):
-            total_steps += 1
-        total_steps += 1  # gap-fill pass
+        if self.use_text_llm:
+            total_steps += category_steps
+            if "driver" in schema.categories and form_type == "127":
+                total_steps += 1
+            if "vehicle" in schema.categories and form_type in ("127", "137"):
+                total_steps += 1
+            total_steps += 1  # gap-fill pass
 
         step = 0
         vision_skipped_404 = False  # set True if VLM model not found
@@ -340,7 +343,7 @@ class ACORDExtractor:
                 total_steps -= 1
 
         # ---- Step 4b: Category-by-category TEXT LLM extraction ------------
-        if not vision_actually_ran:
+        if self.use_text_llm and not vision_actually_ran:
             for category in categories:
                 if category in special:
                     continue  # handled separately below
@@ -437,10 +440,11 @@ class ACORDExtractor:
                         new_vehicle += 1
                 print(f"    -> {new_vehicle} vehicle fields extracted")
 
-        # ---- Gap-fill pass -----------------------------------------------
-        step += 1
+        # ---- Gap-fill pass (only when text LLM is enabled) ---------------
+        if self.use_text_llm:
+            step += 1
         missing = [n for n in all_field_names if n not in extracted]
-        if missing:
+        if self.use_text_llm and missing:
             print(f"\n  [{step}/{total_steps}] Gap-fill pass ({len(missing)} missing fields) ...")
             gap_bbox_text = bbox_text
             if sections:

@@ -214,6 +214,7 @@ def run_single_form(
     extractor = ACORDExtractor(
         ocr, llm, registry,
         use_vision=use_vision,
+        use_text_llm=True,
         use_vision_descriptions=use_vision_descriptions,
         vision_checkboxes_only=vision_checkboxes_only,
         vision_fast=vision_fast,
@@ -516,6 +517,7 @@ def main():
     print("=" * 70)
 
     # ---- Initialise shared components ----
+    bbox_backend = None if getattr(args, "ocr_backend", "easyocr") == "none" else args.ocr_backend
     ocr = OCREngine(
         dpi=300,
         easyocr_gpu=args.gpu,
@@ -523,7 +525,8 @@ def main():
         docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (faster, needs 24GB+)
         ocr_unload_wait_seconds=args.unload_wait,
         parallel_ocr=not args.no_parallel_ocr,  # Parallel Docling+bbox OCR when Docling=CPU, bbox=GPU
-        bbox_backend=args.ocr_backend,
+        bbox_backend=bbox_backend,
+        use_docling=True,
     )
     llm = LLMEngine(
         model=args.model,

@@ -88,7 +88,8 @@ def main():
     p.add_argument("--model", type=str, default="qwen2.5:7b")
     p.add_argument("--ollama-url", type=str, default="http://localhost:11434")
     p.add_argument("--gpu", action="store_true")
-    p.add_argument("--ocr-backend", choices=("easyocr", "surya"), default="easyocr")
+    p.add_argument("--docling", action="store_true", help="Run Docling OCR (required for fill-nulls text; off by default)")
+    p.add_argument("--ocr-backend", choices=("none", "easyocr", "surya"), default="none", help="Bbox OCR: none (default), easyocr, or surya")
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--ground-truth", type=Path, default=None)
     p.add_argument("--max-llm-chunks", type=int, default=0, help="Max fill-nulls chunks (0=all). Use 3–4 for quick run.")
@@ -110,6 +111,9 @@ def main():
             return 1
 
     args.pdf = Path(args.pdf)
+    if not getattr(args, "docling", False) and not args.form:
+        print("Phase 1 fast needs either --docling (for form detection + text) or --form 125|127|137.")
+        return 1
     if args.out is None:
         args.out = Path(__file__).parent / "phase1_fast_output" / args.pdf.stem
     args.out = Path(args.out)
@@ -135,10 +139,12 @@ def main():
             prefilled = json.load(f)
     else:
         print("\n  [FAST] Running OCR + prefill ...")
+        bbox_backend = None if args.ocr_backend == "none" else args.ocr_backend
         ocr = OCREngine(
             dpi=300,
             easyocr_gpu=args.gpu,
-            bbox_backend=args.ocr_backend,
+            bbox_backend=bbox_backend,
+            use_docling=getattr(args, "docling", False),
             docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (24GB)
         )
         ocr_result = ocr.process(args.pdf, args.out)

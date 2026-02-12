@@ -386,19 +386,32 @@ class LLMEngine:
         max_tokens: Optional[int] = None,
         model: Optional[str] = None,
     ) -> str:
-        """Ollama /api/chat with optional images (base64)."""
+        """Ollama /api/chat with optional images (base64).
+        Uses streaming first to avoid empty content when response hits num_predict (Ollama quirk).
+        """
         model = model or self.vision_model
         temp = temperature if temperature is not None else self.temperature
         tokens = max_tokens if max_tokens is not None else self.max_tokens
         content = f"{system}\n\n{prompt}" if system else prompt
         message = {"role": "user", "content": content, "images": images}
+        vision_timeout = max(self.timeout, 240)
+
+        # Try streaming first so we don't get eval_count=4096 with empty content
+        stream_text = self._chat_with_images_streaming(
+            prompt=prompt, images=images, system=system,
+            temperature=temp, max_tokens=tokens, model=model,
+            content=content, message=message, vision_timeout=vision_timeout,
+        )
+        if (stream_text or "").strip():
+            return stream_text
+
+        # Fallback: non-streaming
         payload = {
             "model": model,
             "messages": [message],
             "stream": False,
             "options": {"temperature": temp, "num_predict": tokens},
         }
-        vision_timeout = max(self.timeout, 180)
         last_error: Optional[Exception] = None
         for attempt in range(1, self.max_retries + 1):
             try:
@@ -417,21 +430,11 @@ class LLMEngine:
                     )
                 else:
                     text = (raw or "") if isinstance(raw, str) else ""
-                # When we get eval_count but empty content, Ollama may have streamed internally;
-                # retry with stream=True and accumulate chunks to get the actual output.
-                eval_count = out.get("eval_count") if isinstance(out.get("eval_count"), int) else 0
-                if not (text or "").strip() and eval_count > 0:
-                    print(f"  [VLM] Empty content but eval_count={eval_count}; retrying with stream=True to collect output ...")
-                    stream_text = self._chat_with_images_streaming(
-                        prompt=prompt, images=images, system=system,
-                        temperature=temp, max_tokens=tokens, model=model,
-                        content=content, message=message, vision_timeout=vision_timeout,
-                    )
-                    if (stream_text or "").strip():
-                        return stream_text
                 if not (text or "").strip():
+                    eval_count = out.get("eval_count") if isinstance(out.get("eval_count"), int) else 0
+                    if eval_count > 0:
+                        print(f"  [VLM] Non-streaming returned empty (eval_count={eval_count}); streaming already tried.")
                     err = out.get("error")
-                    print(f"  [VLM] Empty content. message.content type={type(raw).__name__!r} repr={repr(raw)[:120]!r} eval_count={out.get('eval_count', '?')}")
                     if err:
                         print(f"  [VLM] Ollama error: {err}")
                 return text or ""
@@ -458,13 +461,14 @@ class LLMEngine:
         vision_timeout: int = 180,
     ) -> str:
         """Call Ollama /api/chat with stream=True and accumulate message.content from chunks."""
+        _tokens = max_tokens if max_tokens is not None else self.max_tokens
         payload = {
             "model": model or self.vision_model,
             "messages": [message],
             "stream": True,
             "options": {
-                "temperature": temperature or self.temperature,
-                "num_predict": max_tokens if max_tokens is not None else self.max_tokens,
+                "temperature": temperature if temperature is not None else self.temperature,
+                "num_predict": _tokens,
             },
         }
         parts: List[str] = []
@@ -566,5 +570,23 @@ class LLMEngine:
             except json.JSONDecodeError:
                 pass
 
-        # 6. Fallback
+        # 6. Truncated JSON: starts with { but no closing } (e.g. VLM hit token limit)
+        if cleaned.startswith("{"):
+            truncated = cleaned.rstrip()
+            if not truncated.endswith("}"):
+                if JSON_REPAIR_AVAILABLE:
+                    try:
+                        repaired = repair_json(truncated, return_objects=True)
+                        if isinstance(repaired, dict) and repaired:
+                            return repaired
+                    except Exception:
+                        pass
+                # Try closing with } and then }
+                for suffix in ("}", "\n}", "}\n}"):
+                    try:
+                        return json.loads(truncated + suffix)
+                    except json.JSONDecodeError:
+                        pass
+
+        # 7. Fallback
         return {}

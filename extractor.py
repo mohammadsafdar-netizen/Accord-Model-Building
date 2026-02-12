@@ -591,7 +591,7 @@ class ACORDExtractor:
         those section crops to the VLM (form-specific, section-scoped). Otherwise uses
         full pages or describe-then-extract regions.
         """
-        VISION_BATCH = 20
+        VISION_BATCH = 10  # Smaller batches to avoid 4096-token truncation (non-JSON)
         MAX_PAGES = 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
@@ -732,7 +732,8 @@ class ACORDExtractor:
                     preview = (response or "").strip()[:500] or "(empty)"
                     print(f"    [VLM] Batch 1 raw response preview ({len(response or '')} chars): {preview!r}")
                 if not batch_result and response and len(response.strip()) > 50:
-                    print(f"    [VLM] Batch {batch_num}: response {len(response)} chars but parse_json returned 0 keys (check if VLM returned non-JSON)")
+                    preview = (response or "").strip()[:400]
+                    print(f"    [VLM] Batch {batch_num}: response {len(response)} chars but parse_json returned 0 keys. Preview: {preview!r}")
                 matched_this_batch = 0
                 for k, v in batch_result.items():
                     if v is None or (isinstance(v, str) and not v.strip()):
@@ -757,8 +758,9 @@ class ACORDExtractor:
         """
         Vision pass for checkbox fields only: VLM looks at form image and returns
         1 (checked) or Off (not checked) for each. Uses a focused checkbox-only prompt.
+        Smaller batches reduce empty content / truncation with large VLMs.
         """
-        VISION_BATCH = 30  # Checkboxes are quick to output
+        VISION_BATCH = 15  # Smaller batches to avoid eval_count=4096 empty response
         MAX_PAGES = 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]

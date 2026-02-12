@@ -12,6 +12,7 @@ Usage:
     python test_pipeline.py --gpu --forms 125 127 137
     python test_pipeline.py --gpu --one-per-form   # 3 PDFs total: one 125, one 127, one 137
     python test_pipeline.py --gpu --model qwen2.5:7b
+    python test_pipeline.py --gpu --vision --vision-model qwen2-vl:30b --vram-reserve 2  # Keep 2GB for Ollama (big VLMs)
 """
 
 from __future__ import annotations
@@ -26,6 +27,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 # Reduce PyTorch CUDA memory fragmentation on limited GPUs
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
+# VRAM reserve (GB) for OCR process - leave this much for Ollama / other processes
+VRAM_RESERVE_GB_DEFAULT = 2
 
 from ocr_engine import OCREngine
 from llm_engine import LLMEngine
@@ -355,6 +359,13 @@ def main():
     )
     parser.add_argument("--gpu", action="store_true", help="Use GPU for OCR")
     parser.add_argument(
+        "--vram-reserve",
+        type=float,
+        default=VRAM_RESERVE_GB_DEFAULT,
+        metavar="GB",
+        help=f"Reserve this much GPU VRAM (GB) for Ollama / other processes; our OCR uses the rest (default: {VRAM_RESERVE_GB_DEFAULT}). Use with big VLMs (e.g. qwen2-vl:30b).",
+    )
+    parser.add_argument(
         "--vision", action="store_true",
         help="Run vision pass (VLM) on form images for missing fields",
     )
@@ -371,6 +382,29 @@ def main():
         help="Small VLM for describing image regions when --vision-descriptions (default: same as --vision-model)",
     )
     args = parser.parse_args()
+
+    # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
+    if args.gpu and args.vram_reserve > 0:
+        try:
+            import torch
+            if torch.cuda.is_available():
+                total_bytes = torch.cuda.get_device_properties(0).total_memory
+                reserve_bytes = int(args.vram_reserve * (1024 ** 3))
+                if total_bytes > reserve_bytes:
+                    fraction = (total_bytes - reserve_bytes) / total_bytes
+                    fraction = max(0.1, min(1.0, fraction))
+                    torch.cuda.set_per_process_memory_fraction(fraction)
+                    print(f"  [GPU] Reserved {args.vram_reserve:.1f} GB VRAM for Ollama (using {fraction*100:.0f}% for OCR)")
+                else:
+                    print(f"  [GPU] VRAM reserve {args.vram_reserve} GB >= total; not limiting OCR")
+        except Exception as e:
+            print(f"  [GPU] Could not set VRAM reserve: {e}")
+        # So that child processes (or restarted Ollama) use same reserve
+        os.environ.setdefault("OLLAMA_GPU_OVERHEAD", str(int(args.vram_reserve * (1024 ** 3))))
+        os.environ.setdefault("OLLAMA_NUM_PARALLEL", "1")
+        if args.vision or "30b" in (args.model or "") or "vl" in (args.vision_model or "").lower():
+            print("  [GPU] For big models: if Ollama runs in another process, start it with e.g.:")
+            print("        OLLAMA_GPU_OVERHEAD=2147483648 OLLAMA_NUM_PARALLEL=1 ollama serve")
 
     gpu_mode = (
         "GPU (sequential: Docling→EasyOCR→LLM)"

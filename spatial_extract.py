@@ -430,6 +430,22 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
             result["GeneralInformation_PaymentPlan_A"] = text
             break
 
+    # --- Method of Payment (below METHOD OF PAYMENT label) ---
+    method_x_left = (method_lbl["x"] - 100) if method_lbl else 1400
+    method_x_right = (method_lbl["x"] + 350) if method_lbl else 1800
+    method_region = _region_below_label(
+        page1_bbox, method_lbl, (1400, 1800, 1920, 1980),
+        y_offset=20, y_range=80,
+        x_left=method_x_left, x_right=method_x_right,
+    )
+    for b in method_region:
+        text = b["text"].strip()
+        if text and text not in ("$", "S") and len(text) > 1:
+            result["MethodOfPayment_A"] = text
+            result["CommercialPolicy_MethodOfPayment_A"] = text
+            result["GeneralInformation_MethodOfPayment_A"] = text
+            break
+
     # --- Named Insured (below NAME label) ---
     if ni_name_lbl:
         insured_region = _find_in_region(

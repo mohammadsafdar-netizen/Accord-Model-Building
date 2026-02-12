@@ -52,6 +52,9 @@ def main():
     p.add_argument("--max-llm-chunks", type=int, default=0, help="With --fast: max chunks (0=all). Use 4–6 for quick run.")
     p.add_argument("--vision", action="store_true", help="Use VLM for all extraction (vision model sees form images; no text-only LLM for categories/driver/vehicle)")
     p.add_argument("--vision-model", type=str, default="llava:7b", help="Ollama vision model when --vision (e.g. llava:7b, qwen2-vl:7b)")
+    p.add_argument("--vision-batch-size", type=int, default=16, help="VLM: fields per batch when --vision (default 16 for 30B; use 12 for smaller context)")
+    p.add_argument("--dpi", type=int, default=300, help="PDF to image DPI (default 300; use 200 for faster OCR on typed forms)")
+    p.add_argument("--strict-verify", action="store_true", help="Drop extracted values not found in BBox OCR text (reduces hallucinations)")
     args = p.parse_args()
 
     if args.pdf is None:
@@ -113,7 +116,7 @@ def main():
 
     # OCR
     ocr = OCREngine(
-        dpi=300,
+        dpi=args.dpi,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (24GB)
@@ -130,7 +133,12 @@ def main():
     )
 
     registry = SchemaRegistry(schemas_dir=Path(__file__).parent / "schemas")
-    extractor = ACORDExtractor(ocr, llm, registry, use_vision=use_vision)
+    extractor = ACORDExtractor(
+        ocr, llm, registry,
+        use_vision=use_vision,
+        vision_batch_size=args.vision_batch_size if use_vision else None,
+        strict_verify=getattr(args, "strict_verify", False),
+    )
 
     result = extractor.extract(
         pdf_path=args.pdf,

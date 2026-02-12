@@ -89,6 +89,7 @@ class ACORDExtractor:
         vision_fast: bool = False,
         vision_batch_size: Optional[int] = None,
         vision_max_tokens: int = 16384,
+        strict_verify: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -97,10 +98,12 @@ class ACORDExtractor:
         self.use_vision_descriptions = use_vision_descriptions and self.use_vision
         self.vision_checkboxes_only = vision_checkboxes_only
         self.vision_fast = vision_fast
-        # General vision pass: fields per VLM call. Higher = fewer calls, needs higher max_tokens. Default 12 (was 10).
+        # General vision pass: fields per VLM call. Higher = fewer calls, needs higher max_tokens. Default 16 for 30B.
         self.vision_batch_size = vision_batch_size
         # Max tokens per VLM response; 16384 reduces "Batch response empty" truncation and allows larger batches.
         self.vision_max_tokens = vision_max_tokens
+        # When True, drop extracted values that do not appear in BBox OCR text (reduces hallucinations, may drop some valid paraphrases).
+        self.strict_verify = strict_verify
 
     # ==================================================================
     # Main entry point
@@ -297,7 +300,7 @@ class ACORDExtractor:
         if self.use_vision and missing_after_spatial and ocr_result.clean_image_paths:
             self.llm.unload_text_model()
             step += 1
-            n_batches = (len(missing_after_spatial) + (self.vision_batch_size or (20 if self.vision_fast else 12)) - 1) // (self.vision_batch_size or (20 if self.vision_fast else 12))
+            n_batches = (len(missing_after_spatial) + (self.vision_batch_size or (20 if self.vision_fast else 16)) - 1) // (self.vision_batch_size or (20 if self.vision_fast else 16))
             print(f"\n  [{step}/{total_steps}] Vision pass (VLM) – image + Docling + spatial/OCR ({len(missing_after_spatial)} remaining fields, {n_batches} batch(es)) ...")
             try:
                 vision_result = self._vision_pass_unified(
@@ -316,6 +319,8 @@ class ACORDExtractor:
             else:
                 new_count = 0
                 for k, v in vision_result.items():
+                    if field_sources.get(k) == "spatial":
+                        continue  # never overwrite high-confidence spatial
                     if k not in extracted and v is not None:
                         extracted[k] = v
                         field_sources[k] = "vision"
@@ -367,8 +372,10 @@ class ACORDExtractor:
                 cat_result = self._extract_category(
                     form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped
                 )
-                # Only add LLM results for fields not already spatially extracted
+                # Only add LLM results; never overwrite spatial pre-extraction
                 for k, v in cat_result.items():
+                    if field_sources.get(k) == "spatial":
+                        continue
                     if k not in extracted:
                         extracted[k] = v
                         field_sources[k] = "text_llm"
@@ -395,9 +402,11 @@ class ACORDExtractor:
                 driver_result = self._extract_all_drivers(
                     form_type, schema, ocr_result, driver_docling, driver_bbox
                 )
-                # Only add LLM results for fields not already spatially extracted
+                # Only add LLM results; never overwrite spatial pre-extraction
                 new_count = 0
                 for k, v in driver_result.items():
+                    if field_sources.get(k) == "spatial":
+                        continue
                     if k not in extracted:
                         extracted[k] = v
                         field_sources[k] = "text_llm"
@@ -417,9 +426,11 @@ class ACORDExtractor:
                 vehicle_result = self._extract_all_vehicles(
                     form_type, schema, vehicle_docling, vehicle_bbox
                 )
-                # Only add LLM results for fields not already spatially extracted
+                # Only add LLM results; never overwrite spatial pre-extraction
                 new_vehicle = 0
                 for k, v in vehicle_result.items():
+                    if field_sources.get(k) == "spatial":
+                        continue
                     if k not in extracted:
                         extracted[k] = v
                         field_sources[k] = "text_llm"
@@ -441,9 +452,11 @@ class ACORDExtractor:
                 if gap_section_ids:
                     gap_bbox_text = get_section_scoped_bbox_text(page_bbox, sections, list(gap_section_ids))
             gap_result = self._gap_fill(form_type, missing, gap_bbox_text, lv_text)
-            # Only add fields that weren't already extracted
+            # Only add fields that weren't already extracted; never overwrite spatial
             new_count = 0
             for k, v in gap_result.items():
+                if field_sources.get(k) == "spatial":
+                    continue
                 if k not in extracted and v:
                     extracted[k] = v
                     field_sources[k] = "gap_fill"
@@ -455,6 +468,14 @@ class ACORDExtractor:
         verified = self._verify_with_bbox(extracted, bbox_plain)
         field_verified = {k: (k in verified) for k in extracted}
         print(f"    {len(verified)}/{len(extracted)} values found in OCR text")
+        if self.strict_verify:
+            # Drop values not found in BBox to reduce hallucinations (keep spatial pre-extraction)
+            spatial_key_set = set(spatial_fields.keys())
+            before = len(extracted)
+            extracted = {k: v for k, v in extracted.items() if k in spatial_key_set or k in verified}
+            dropped = before - len(extracted)
+            if dropped:
+                print(f"    [STRICT] Dropped {dropped} values not found in OCR text")
 
         # ---- Normalise ---------------------------------------------------
         extracted = self._normalise(extracted, form_type)
@@ -601,11 +622,12 @@ class ACORDExtractor:
                 if k in batch and v is not None:
                     result[k] = v
 
-        # --- Pass 2: Gap-fill for missing fields ---
+        # --- Pass 2: Gap-fill for missing fields (skip when Pass 1 got almost all) ---
         extracted_keys = set(result.keys())
         missing = [n for n in field_names if n not in extracted_keys]
+        GAP_FILL_THRESHOLD = 5  # skip gap-fill when only a few fields missed (saves one LLM call per category)
 
-        if missing and len(missing) < len(field_names):  # some but not all missed
+        if missing and len(missing) >= GAP_FILL_THRESHOLD and len(missing) < len(field_names):
             for i in range(0, len(missing), BATCH_SIZE):
                 gap_batch = missing[i:i + BATCH_SIZE]
                 gap_tooltips = {k: v for k, v in tooltips.items() if k in gap_batch}
@@ -638,7 +660,7 @@ class ACORDExtractor:
         Single VLM pass with full context: form image(s) + Docling doc + spatial/bbox OCR + label-value pairs.
         Fills remaining fields using schema-derived field list. Batches by VISION_BATCH to stay within context.
         """
-        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 12)
+        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 16)
         MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
@@ -722,7 +744,7 @@ class ACORDExtractor:
         those section crops to the VLM (form-specific, section-scoped). Otherwise uses
         full pages or describe-then-extract regions.
         """
-        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 12)
+        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 16)
         MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]

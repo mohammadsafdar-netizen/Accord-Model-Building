@@ -735,62 +735,106 @@ class OCREngine:
         self._surya_rec = RecognitionPredictor(self._surya_foundation)
         return self._surya_det, self._surya_rec
 
+    def _surya_predictions_to_page_data(self, predictions: List[Any]) -> List[List[Dict]]:
+        """Convert Surya recognition predictions (one per image) to list of bbox dicts per page."""
+        pages: List[List[Dict]] = []
+        for pred in predictions:
+            page_data: List[Dict] = []
+            text_lines = getattr(pred, "text_lines", None) if not isinstance(pred, dict) else pred.get("text_lines")
+            if not text_lines:
+                text_lines = []
+            for line in text_lines or []:
+                bbox = getattr(line, "bbox", None) or (line.get("bbox") if isinstance(line, dict) else None)
+                if not bbox or len(bbox) < 4:
+                    polygon = getattr(line, "polygon", None) or (line.get("polygon") if isinstance(line, dict) else None)
+                    if polygon and len(polygon) >= 4:
+                        xs = [p[0] for p in polygon]
+                        ys = [p[1] for p in polygon]
+                        bbox = [min(xs), min(ys), max(xs), max(ys)]
+                    else:
+                        continue
+                x_min, y_min = int(bbox[0]), int(bbox[1])
+                x_max, y_max = int(bbox[2]), int(bbox[3])
+                text = (getattr(line, "text", None) or (line.get("text") if isinstance(line, dict) else None)) or ""
+                conf = getattr(line, "confidence", None) or (line.get("confidence", 1.0) if isinstance(line, dict) else 1.0)
+                if conf is None:
+                    conf = 1.0
+                page_data.append({
+                    "text": re.sub(r"\s+", " ", str(text)).strip(),
+                    "x": (x_min + x_max) // 2,
+                    "y": (y_min + y_max) // 2,
+                    "x_min": x_min, "y_min": y_min,
+                    "x_max": x_max, "y_max": y_max,
+                    "width": x_max - x_min,
+                    "height": y_max - y_min,
+                    "confidence": round(float(conf), 2),
+                })
+            page_data.sort(key=lambda d: (d["y"], d["x"]))
+            pages.append(page_data)
+        return pages
+
     def run_surya(self, image_paths: List[Path]) -> List[List[Dict]]:
-        """Run Surya OCR (Marker's engine) on each image; returns list of bbox dicts per page.
+        """Run Surya OCR (Marker's engine) on images; returns list of bbox dicts per page.
+        Batches up to 4 pages per recognition call when API supports it (faster on multi-page forms).
         Same output shape as run_easyocr for drop-in use with build_spatial_index.
         """
         det, rec = self._get_surya_predictors(use_gpu=self.easyocr_gpu)
         all_pages: List[List[Dict]] = []
-        for img_path in image_paths:
-            cleanup_gpu_memory()
-            try:
-                img = Image.open(str(img_path)).convert("RGB")
-            except Exception as e:
-                print(f"  Surya error opening {img_path.name}: {e}")
-                all_pages.append([])
+        SURYA_BATCH = 4  # max images per rec() call; reduce if OOM
+        kwargs = {"det_predictor": det}
+        if SURYA_TASK_OCR_BOXES is not None:
+            kwargs["task_names"] = SURYA_TASK_OCR_BOXES
+        idx = 0
+        while idx < len(image_paths):
+            batch_paths = image_paths[idx : idx + SURYA_BATCH]
+            images: List[Any] = []
+            for img_path in batch_paths:
+                try:
+                    images.append(Image.open(str(img_path)).convert("RGB"))
+                except Exception as e:
+                    print(f"  Surya error opening {img_path.name}: {e}")
+                    images.append(None)
+            if not images or all(im is None for im in images):
+                all_pages.extend([[]] * len(batch_paths))
+                idx += len(batch_paths)
+                continue
+            # If any load failed, process this batch one image at a time to preserve order
+            if any(im is None for im in images):
+                for img_path, img in zip(batch_paths, images):
+                    if img is None:
+                        all_pages.append([])
+                        continue
+                    try:
+                        cleanup_gpu_memory()
+                        predictions = rec([img], **kwargs)
+                        pages = self._surya_predictions_to_page_data(predictions)
+                        all_pages.extend(pages if pages else [[]])
+                    except Exception as e2:
+                        print(f"  Surya error on {img_path.name}: {e2}")
+                        all_pages.append([])
+                idx += len(batch_paths)
                 continue
             try:
-                kwargs = {"det_predictor": det}
-                if SURYA_TASK_OCR_BOXES is not None:
-                    kwargs["task_names"] = SURYA_TASK_OCR_BOXES
-                predictions = rec([img], **kwargs)
+                cleanup_gpu_memory()
+                predictions = rec(images, **kwargs)
             except Exception as e:
-                print(f"  Surya error on {img_path.name}: {e}")
-                all_pages.append([])
+                # Batch API may not support multiple images; run one at a time
+                for img in images:
+                    try:
+                        predictions = rec([img], **kwargs)
+                        pages = self._surya_predictions_to_page_data(predictions)
+                        all_pages.extend(pages if pages else [[]])
+                    except Exception as e2:
+                        all_pages.append([])
+                idx += len(batch_paths)
                 continue
-            page_data: List[Dict] = []
-            for pred in predictions:
-                text_lines = getattr(pred, "text_lines", None) if not isinstance(pred, dict) else pred.get("text_lines")
-                if not text_lines:
-                    text_lines = []
-                for line in text_lines or []:
-                    bbox = getattr(line, "bbox", None) or (line.get("bbox") if isinstance(line, dict) else None)
-                    if not bbox or len(bbox) < 4:
-                        polygon = getattr(line, "polygon", None) or (line.get("polygon") if isinstance(line, dict) else None)
-                        if polygon and len(polygon) >= 4:
-                            xs = [p[0] for p in polygon]
-                            ys = [p[1] for p in polygon]
-                            bbox = [min(xs), min(ys), max(xs), max(ys)]
-                        else:
-                            continue
-                    x_min, y_min = int(bbox[0]), int(bbox[1])
-                    x_max, y_max = int(bbox[2]), int(bbox[3])
-                    text = (getattr(line, "text", None) or (line.get("text") if isinstance(line, dict) else None)) or ""
-                    conf = getattr(line, "confidence", None) or (line.get("confidence", 1.0) if isinstance(line, dict) else 1.0)
-                    if conf is None:
-                        conf = 1.0
-                    page_data.append({
-                        "text": re.sub(r"\s+", " ", str(text)).strip(),
-                        "x": (x_min + x_max) // 2,
-                        "y": (y_min + y_max) // 2,
-                        "x_min": x_min, "y_min": y_min,
-                        "x_max": x_max, "y_max": y_max,
-                        "width": x_max - x_min,
-                        "height": y_max - y_min,
-                        "confidence": round(float(conf), 2),
-                    })
-            page_data.sort(key=lambda d: (d["y"], d["x"]))
-            all_pages.append(page_data)
+            pages = self._surya_predictions_to_page_data(predictions)
+            if len(pages) != len(images):
+                for i in range(len(images)):
+                    all_pages.append(pages[i] if i < len(pages) else [])
+            else:
+                all_pages.extend(pages)
+            idx += len(batch_paths)
             cleanup_gpu_memory()
         return all_pages
 

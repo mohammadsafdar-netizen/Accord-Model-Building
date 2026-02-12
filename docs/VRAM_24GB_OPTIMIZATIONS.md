@@ -23,9 +23,12 @@ So: **OCR is faster** (Docling on GPU, optional larger Surya batches), **less wa
 **Phase 1 (text-only) – fastest:**
 
 ```bash
-# Docling on GPU, Surya for bbox, 7B text model
+# Docling on GPU, Surya for bbox, 7B text model (24GB: use --docling-gpu for faster OCR)
 python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --gpu \
-  --ocr-backend surya
+  --ocr-backend surya --docling-gpu
+
+# Without --docling-gpu (default): Docling runs on CPU so GPU is free for Surya + LLM
+python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --gpu --ocr-backend surya
 
 # With test_pipeline (batch): Docling on GPU
 python test_pipeline.py --gpu --docling-gpu --forms 125 --model qwen2.5:7b
@@ -58,7 +61,7 @@ python test_pipeline.py --gpu --docling-gpu --vision --vision-model llava:7b \
   - In code or via `--unload-wait 3` (test_pipeline) you can lower the wait after unloading OCR so the next model loads sooner (e.g. 3–4 s on 24GB).
 
 - **Docling on GPU:**  
-  - `--docling-gpu` in test_pipeline / main: Docling uses GPU instead of CPU → faster, uses more VRAM.
+  - `--docling-gpu` in **run_phase1_extraction.py**, test_pipeline, and main: Docling uses GPU instead of CPU → faster OCR, uses more VRAM. Recommended on 24GB when running Phase 1 or vision pipeline.
 
 ---
 

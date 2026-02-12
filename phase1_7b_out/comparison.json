@@ -1,0 +1,3897 @@
+{
+  "total_gt_fields": 777,
+  "matched": 47,
+  "partial_match": 8,
+  "missing": 646,
+  "wrong": 76,
+  "field_results": {
+    "Form_CompletionDate_A": {
+      "status": "matched",
+      "expected": "02/20/2024",
+      "extracted": "02/20/2024"
+    },
+    "Insurer_FullName_A": {
+      "status": "matched",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": "Zurich North America Insurance Company LLC"
+    },
+    "Insurer_NAICCode_A": {
+      "status": "matched",
+      "expected": "16535",
+      "extracted": "16535"
+    },
+    "Insurer_ProducerIdentifier_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "Insurer_ProductCode_A": {
+      "status": "missing",
+      "expected": "CGL",
+      "extracted": null
+    },
+    "Insurer_ProductDescription_A": {
+      "status": "missing",
+      "expected": "Commercial General Liability Insurance",
+      "extracted": null
+    },
+    "Insurer_Underwriter_FullName_A": {
+      "status": "matched",
+      "expected": "John Doe",
+      "extracted": "John Doe"
+    },
+    "Insurer_Underwriter_OfficeIdentifier_A": {
+      "status": "wrong",
+      "expected": "123 Main St, Indianapolis, IN 46225",
+      "extracted": "Monthly"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "status": "matched",
+      "expected": "BA-37810023",
+      "extracted": "BA-37810023"
+    },
+    "Policy_Status_BoundIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": false
+    },
+    "Policy_Status_CancelIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": false
+    },
+    "Policy_Status_ChangeIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": false
+    },
+    "Policy_Status_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "01/16/2024",
+      "extracted": "01/16/2024"
+    },
+    "Policy_Status_EffectiveTime_A": {
+      "status": "wrong",
+      "expected": 10,
+      "extracted": 2200
+    },
+    "Policy_Status_EffectiveTimeAMIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Status_EffectiveTimePMIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Status_IssueIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": false
+    },
+    "Policy_Status_QuoteIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": false
+    },
+    "Policy_Status_RenewIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": false
+    },
+    "Producer_ContactPerson_EmailAddress_A": {
+      "status": "missing",
+      "expected": "stephen.walker@hernandezcarter.com",
+      "extracted": null
+    },
+    "Producer_ContactPerson_FullName_A": {
+      "status": "matched",
+      "expected": "Stephen Walker",
+      "extracted": "Stephen Walker"
+    },
+    "Producer_ContactPerson_PhoneNumber_A": {
+      "status": "matched",
+      "expected": "317-123-4567",
+      "extracted": "317-123-4567"
+    },
+    "Producer_FaxNumber_A": {
+      "status": "matched",
+      "expected": "317-123-4568",
+      "extracted": "317-123-4568"
+    },
+    "Producer_FullName_A": {
+      "status": "matched",
+      "expected": "Stephen Walker",
+      "extracted": "Stephen Walker"
+    },
+    "Producer_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Indianapolis",
+      "extracted": "Indianapolis"
+    },
+    "Producer_MailingAddress_LineOne_A": {
+      "status": "missing",
+      "expected": "123 Main St",
+      "extracted": null
+    },
+    "Producer_MailingAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "Policy_Nature_of_Business_Type_A": {
+      "status": "missing",
+      "expected": "Restaurant",
+      "extracted": null
+    },
+    "Policy_Nature_of_Business_Date_Business_Started_A": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "Policy_Nature_of_Business_Description_Primary_Operations_A": {
+      "status": "wrong",
+      "expected": "Full-Service Restaurant",
+      "extracted": "50000"
+    },
+    "Box_GeneralInformation_Safety_Manuals_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_PriorInsurance_Current_Carrier_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_PriorInsurance_Current_Premium_A": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Producer_MailingAddress_City": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "Producer_MailingAddress_StateOrProvinceCode": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Producer_MailingAddress_Zip": {
+      "status": "missing",
+      "expected": "46224",
+      "extracted": null
+    },
+    "Producer_MailingAddress_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Producer_MailingAddress_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "Producer_MailingAddress_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "office",
+      "extracted": null
+    },
+    "Producer_MailingAddress_Employees_A": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "Producer_MailingAddress_AnualRevenue_A": {
+      "status": "missing",
+      "expected": 500000,
+      "extracted": null
+    },
+    "Producer_MailingAddress_OccupiedArea_A": {
+      "status": "wrong",
+      "expected": 10000,
+      "extracted": "500"
+    },
+    "Producer_MailingAddress_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": 8000,
+      "extracted": null
+    },
+    "Producer_MailingAddress_TotalBuildingArea_A": {
+      "status": "wrong",
+      "expected": 15000,
+      "extracted": "1000"
+    },
+    "Producer_MailingAddress_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessPhoneNumber_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "EffectiveDate_A": {
+      "status": "missing",
+      "expected": "01/27/2024",
+      "extracted": null
+    },
+    "BillingPlan_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "QuoteRequest_A": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "NamedInsured_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "FederalIDNumber_A": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "ContactInformation_ContactType_A": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactInformation_ContactName_A": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "ContactInformation_PhoneNumber_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "LocationBuilding_Address_A": {
+      "status": "missing",
+      "expected": "100 E 10th St",
+      "extracted": null
+    },
+    "LocationBuilding_City_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "LocationBuilding_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "LocationBuilding_Zip_A": {
+      "status": "missing",
+      "expected": "46204",
+      "extracted": null
+    },
+    "LocationBuilding_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LocationBuilding_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "LocationBuilding_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "office",
+      "extracted": null
+    },
+    "LocationBuilding_Employees_A": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "LocationBuilding_AnualRevenue_A": {
+      "status": "missing",
+      "expected": 500000,
+      "extracted": null
+    },
+    "LocationBuilding_OccupiedArea_A": {
+      "status": "missing",
+      "expected": 10000,
+      "extracted": null
+    },
+    "LocationBuilding_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": 8000,
+      "extracted": null
+    },
+    "LocationBuilding_TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "LocationBuilding_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_TypeOfBusiness_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Commercial full-service restaurant, including food service and retail operations.",
+      "extracted": null
+    },
+    "BoilerAndMachineryLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "100000",
+      "extracted": "$100000"
+    },
+    "BusinessOwnersLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "50000",
+      "extracted": "$50000"
+    },
+    "CommercialInlandMarineLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "75000",
+      "extracted": "$75000"
+    },
+    "CommercialPropertyLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "300000",
+      "extracted": "$300000"
+    },
+    "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "15000",
+      "extracted": "$15000"
+    },
+    "CommercialVehicleLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "80000",
+      "extracted": "$80000"
+    },
+    "CrimeLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "20000",
+      "extracted": "$20000"
+    },
+    "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "1000",
+      "extracted": "$1000"
+    },
+    "FiduciaryLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "5000",
+      "extracted": "$5000"
+    },
+    "GarageAndDealersLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "3000",
+      "extracted": "$3000"
+    },
+    "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A": {
+      "status": "matched",
+      "expected": "600000",
+      "extracted": "$600000"
+    },
+    "LiquorLiabilityLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "10000",
+      "extracted": "$10000"
+    },
+    "MotorCarrierLineOfBusiness_PremiumAmount_A": {
+      "status": "matched",
+      "expected": "50000",
+      "extracted": "$50000"
+    },
+    "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_BusinessAutoIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_BusinessOwnersIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_CommercialGeneralLiability_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_CommercialProperty_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_CrimeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_CyberAndPrivacy_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "1000"
+    },
+    "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "5000"
+    },
+    "Policy_LineOfBusiness_GarageAndDealersIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "3000"
+    },
+    "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_MotorCarrierIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_A": {
+      "status": "wrong",
+      "expected": "Commercial Property",
+      "extracted": "Food Service Establishment"
+    },
+    "Policy_LineOfBusiness_TruckersIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_UmbrellaIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "Policy_LineOfBusiness_YachtIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_B": {
+      "status": "wrong",
+      "expected": "Food Service Equipment",
+      "extracted": "Restaurants; Bars; Events"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_C": {
+      "status": "wrong",
+      "expected": "Property and Liability",
+      "extracted": "Commercial Building Construction and Full-Service Restaurant Operations"
+    },
+    "Policy_LineOfBusiness_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherLineOfBusinessDescription_E": {
+      "status": "missing",
+      "expected": "General Liability",
+      "extracted": null
+    },
+    "Policy_LineOfBusiness_OtherIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#FULL TIME EMPL"
+    },
+    "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+    },
+    "CommercialPolicy_Attachment_ApartmentBuildingSupplementIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_HotelMotelSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "BA-37810023"
+    },
+    "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "OTHER: 5812"
+    },
+    "CommercialPolicy_Attachment_LossSummaryIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "$80,000.00"
+    },
+    "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_SectionAttached_DealerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_DriverInformationScheduleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_SectionAttached_ElectronicDataProcessingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_GlassAndSignIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_SectionAttached_InstallationBuildersRiskIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_SectionAttached_OpenCargoIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1000"
+    },
+    "Policy_SectionAttached_VehicleScheduleIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "EffectiveDate": {
+      "status": "missing",
+      "expected": "02/13/2024",
+      "extracted": null
+    },
+    "BillingPlan": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "NamedInsured": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "FederalIDNumber": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "BusinessPhoneNumber": {
+      "status": "partial",
+      "expected": "(317) 123-4567",
+      "extracted": "123-4567"
+    },
+    "NatureofBusiness": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "DateOfBusinessStartup": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations": {
+      "status": "missing",
+      "expected": "Commercial full-service restaurant operations",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherDescription_D": {
+      "status": "missing",
+      "expected": "Please provide a detailed description of the business's safety manual policies.",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherDescription_E": {
+      "status": "missing",
+      "expected": "Our company has implemented various safety protocols to ensure a secure working environment for our employees.",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherDescription_F": {
+      "status": "missing",
+      "expected": "We have a comprehensive safety program in place, including regular training sessions and equipment inspections.",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_OtherIndicator_F": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Policy_Audit_FrequencyCode_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "Policy_EffectiveDate_A": {
+      "status": "matched",
+      "expected": "03/09/2024",
+      "extracted": "03/09/2024"
+    },
+    "Policy_ExpirationDate_A": {
+      "status": "matched",
+      "expected": "06/08/2024",
+      "extracted": "06/08/2024"
+    },
+    "Policy_PaymentMethod_MethodDescription_A": {
+      "status": "missing",
+      "expected": "Direct Bill",
+      "extracted": null
+    },
+    "Policy_Payment_DirectBillIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Policy_Payment_PaymentScheduleCode_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Policy_Payment_ProducerBillIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Form_EditionIdentifier_A": {
+      "status": "missing",
+      "expected": "ACORD 125",
+      "extracted": null
+    },
+    "NamedInsured_FullName_A": {
+      "status": "matched",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": "Hernandez-Carter Partnership"
+    },
+    "NamedInsured_GeneralLiabilityCode_A": {
+      "status": "missing",
+      "expected": "GL-BB",
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_A": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Indianapolis",
+      "extracted": "Indianapolis"
+    },
+    "NamedInsured_MailingAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "NamedInsured_NAICSCode_A": {
+      "status": "wrong",
+      "expected": "722511",
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "NamedInsured_Primary_PhoneNumber_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NamedInsured_SICCode_A": {
+      "status": "missing",
+      "expected": "5812",
+      "extracted": null
+    },
+    "NamedInsured_TaxIdentifier_A": {
+      "status": "matched",
+      "expected": "33-2575069",
+      "extracted": "33-2575069"
+    },
+    "NamedInsured_FullName_B": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "NamedInsured_GeneralLiabilityCode_B": {
+      "status": "missing",
+      "expected": "GL-BB",
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_B": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_PostalCode_B": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "NamedInsured_NAICSCode_B": {
+      "status": "wrong",
+      "expected": "722511",
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "NamedInsured_Primary_PhoneNumber_B": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NamedInsured_SICCode_B": {
+      "status": "missing",
+      "expected": "5812",
+      "extracted": null
+    },
+    "NamedInsured_TaxIdentifier_B": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "Producer_CustomerIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "NamedInsured_FullName_C": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "NamedInsured_GeneralLiabilityCode_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_CorporationIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_IndividualIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_JointVentureIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_MemberManagerCount_C": {
+      "status": "missing",
+      "expected": 2,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_NotForProfitIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_PartnershipIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_LegalEntity_TrustIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "EffectiveDate_B": {
+      "status": "missing",
+      "expected": "01/09/2024",
+      "extracted": null
+    },
+    "BillingPlan_B": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "PaymentPlan_B": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "Audit_B": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "FederalIDNumber_B": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "BusinessPhone_B": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NatureOfBusiness_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "DescriptionPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Commercial Building Construction and Full-Service Restaurant Operations",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_CityName_C": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_LineOne_C": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_PostalCode_C": {
+      "status": "missing",
+      "expected": "46204",
+      "extracted": null
+    },
+    "NamedInsured_MailingAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "NamedInsured_NAICSCode_C": {
+      "status": "wrong",
+      "expected": "722511",
+      "extracted": "FEIN OR SOC SEC #"
+    },
+    "NamedInsured_Primary_PhoneNumber_C": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NamedInsured_SICCode_C": {
+      "status": "missing",
+      "expected": "5812",
+      "extracted": null
+    },
+    "NamedInsured_TaxIdentifier_C": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "NamedInsured_Contact_ContactDescription_A": {
+      "status": "missing",
+      "expected": "General Information",
+      "extracted": null
+    },
+    "NamedInsured_Contact_FullName_A": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "317-123-4567"
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryPhoneNumber_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "General Information"
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryHomePhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_PrimaryPhoneNumber_B": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Stephen Walker"
+    },
+    "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessEntityType": {
+      "status": "wrong",
+      "expected": "Partnership",
+      "extracted": "Subchapter S Corporation"
+    },
+    "FoundedDate": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "CurrentCarrier": {
+      "status": "missing",
+      "expected": "Zurich North America",
+      "extracted": null
+    },
+    "CarrierNAIC": {
+      "status": "missing",
+      "expected": "16535",
+      "extracted": null
+    },
+    "PolicyNumber": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "AuditCycle": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "ContactType": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactName": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "ContactPhoneNumber": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "LocationNumber": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "BuildingNumber": {
+      "status": "partial",
+      "expected": "1",
+      "extracted": "101 W Washington St"
+    },
+    "Address": {
+      "status": "partial",
+      "expected": "101 W Washington St",
+      "extracted": "101 W Washington St, Indianapolis, IN 46225"
+    },
+    "City": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "State": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Zip": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "InsideCityLimits": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy": {
+      "status": "missing",
+      "expected": "Owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancy": {
+      "status": "missing",
+      "expected": "Restaurant",
+      "extracted": null
+    },
+    "Employees": {
+      "status": "missing",
+      "expected": 50.0,
+      "extracted": null
+    },
+    "AnnualRevenue": {
+      "status": "wrong",
+      "expected": 2000000.0,
+      "extracted": "$2500000"
+    },
+    "OccupiedArea": {
+      "status": "missing",
+      "expected": "5000 sq ft",
+      "extracted": null
+    },
+    "AreaOpenToPublic": {
+      "status": "wrong",
+      "expected": "2000 sq ft",
+      "extracted": "1000"
+    },
+    "TotalBuildingArea": {
+      "status": "missing",
+      "expected": 50000.0,
+      "extracted": null
+    },
+    "LeasedToOthers": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "DateBusinessStarted": {
+      "status": "missing",
+      "expected": "06/01/2016",
+      "extracted": null
+    },
+    "CurrentInsurance": {
+      "status": "missing",
+      "expected": "Zurich North America",
+      "extracted": null
+    },
+    "NoPriorInsurance": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium": {
+      "status": "missing",
+      "expected": 15000.0,
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_A": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "BuildingOccupancy_OpenToPublicArea_A": {
+      "status": "missing",
+      "expected": "40",
+      "extracted": null
+    },
+    "BuildingOccupancy_OperationsDescription_A": {
+      "status": "missing",
+      "expected": "Food Service Establishment",
+      "extracted": null
+    },
+    "BusinessInformation_FullTimeEmployeeCount_A": {
+      "status": "missing",
+      "expected": "20",
+      "extracted": null
+    },
+    "BusinessInformation_PartTimeEmployeeCount_A": {
+      "status": "missing",
+      "expected": "15",
+      "extracted": null
+    },
+    "CommercialStructure_AnnualRevenueAmount_A": {
+      "status": "matched",
+      "expected": "2500000",
+      "extracted": "2500000"
+    },
+    "CommercialStructure_InsuredInterest_OtherDescription_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_A": {
+      "status": "missing",
+      "expected": "1234567890",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_A": {
+      "status": "matched",
+      "expected": "Marion",
+      "extracted": "Marion"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_A": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_A": {
+      "status": "missing",
+      "expected": "46204",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "CommercialStructure_Question_ABBCode_A": {
+      "status": "missing",
+      "expected": "N/A",
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Indianapolis"
+    },
+    "Construction_BuildingArea_A": {
+      "status": "missing",
+      "expected": "15000",
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_B": {
+      "status": "missing",
+      "expected": "60",
+      "extracted": null
+    },
+    "BuildingOccupancy_OpenToPublicArea_B": {
+      "status": "missing",
+      "expected": "40",
+      "extracted": null
+    },
+    "BuildingOccupancy_OperationsDescription_B": {
+      "status": "missing",
+      "expected": "Food Service Establishment",
+      "extracted": null
+    },
+    "BusinessInformation_FullTimeEmployeeCount_B": {
+      "status": "missing",
+      "expected": "20",
+      "extracted": null
+    },
+    "BusinessInformation_PartTimeEmployeeCount_B": {
+      "status": "wrong",
+      "expected": "15",
+      "extracted": "#FULL TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_B": {
+      "status": "wrong",
+      "expected": "2500000",
+      "extracted": "S"
+    },
+    "CommercialStructure_Building_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_B": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_B": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_B": {
+      "status": "matched",
+      "expected": "Marion",
+      "extracted": "Marion"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_B": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_B": {
+      "status": "missing",
+      "expected": "46204",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_B": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "CommercialStructure_Question_ABBCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Indianapolis"
+    },
+    "Construction_BuildingArea_B": {
+      "status": "missing",
+      "expected": "9000",
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_C": {
+      "status": "missing",
+      "expected": "5000",
+      "extracted": null
+    },
+    "BuildingOccupancy_OpenToPublicArea_C": {
+      "status": "missing",
+      "expected": "1000",
+      "extracted": null
+    },
+    "BuildingOccupancy_OperationsDescription_C": {
+      "status": "missing",
+      "expected": "Restaurants, Bars, Events",
+      "extracted": null
+    },
+    "BusinessInformation_FullTimeEmployeeCount_C": {
+      "status": "missing",
+      "expected": "30",
+      "extracted": null
+    },
+    "BusinessInformation_PartTimeEmployeeCount_C": {
+      "status": "missing",
+      "expected": "20",
+      "extracted": null
+    },
+    "CommercialStructure_AnnualRevenueAmount_C": {
+      "status": "missing",
+      "expected": "$3.5M",
+      "extracted": null
+    },
+    "CommercialStructure_Building_ProducerIdentifier_C": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_Location_ProducerIdentifier_C": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "chk_AbbreviatedBuildingAddressIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_BusinessAutoInsuranceRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_CGLInsuranceRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_DirectBillingIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_EmployeesIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_FullTimeEmployeeCountIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_GeneralLiabilityInsuranceRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_HazardousMaterialsHandlingRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_IncidentReportingRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_LiabilityInsuranceRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_MonthlyBillingIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_OccupancyInspectionRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_PayrollTaxRequiredIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_PaymentPlanIndicator_B": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "chk_PriorLossesIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_WorkCompInsuranceRequiredIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_YearsInBusinessIndicator_B": {
+      "status": "missing",
+      "expected": "15",
+      "extracted": null
+    },
+    "chk_ZurichNorthAmericaCarrierIndicator_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_C": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_C": {
+      "status": "matched",
+      "expected": "Marion",
+      "extracted": "Marion"
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_C": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_C": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "CommercialStructure_Question_ABBCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherDescription_C": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Indianapolis"
+    },
+    "Construction_BuildingArea_C": {
+      "status": "missing",
+      "expected": "1500",
+      "extracted": null
+    },
+    "BuildingOccupancy_OccupiedArea_D": {
+      "status": "missing",
+      "expected": "500",
+      "extracted": null
+    },
+    "BuildingOccupancy_OpenToPublicArea_D": {
+      "status": "missing",
+      "expected": "1000",
+      "extracted": null
+    },
+    "BuildingOccupancy_OperationsDescription_D": {
+      "status": "missing",
+      "expected": "Commercial Building Construction and Full-Service Restaurant Operations",
+      "extracted": null
+    },
+    "BusinessInformation_FullTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "50",
+      "extracted": "2"
+    },
+    "BusinessInformation_PartTimeEmployeeCount_D": {
+      "status": "wrong",
+      "expected": "20",
+      "extracted": "#PART TIME EMPL"
+    },
+    "CommercialStructure_AnnualRevenueAmount_D": {
+      "status": "missing",
+      "expected": "5000000",
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OtherDescription_D": {
+      "status": "missing",
+      "expected": "Restaurant and Bar Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_OwnerIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_InsuredInterest_TenantIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CityName_D": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_CountyName_D": {
+      "status": "missing",
+      "expected": "Marion",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_LineOne_D": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_PostalCode_D": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "CommercialStructure_PhysicalAddress_StateOrProvinceCode_D": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessPhoneNumber_C": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "AdditionalNamedInsureds_Any_C": {
+      "status": "wrong",
+      "expected": "Y",
+      "extracted": "#PART TIME EMPL"
+    },
+    "ContactInformation_ContactType_C": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactInformation_ContactName_C": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "ContactInformation_PhoneNumber_C": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "Location_BuildingNumber_C": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Location_Address_C": {
+      "status": "missing",
+      "expected": "101 W Washington St",
+      "extracted": null
+    },
+    "Location_City_C": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "Location_StateOrProvinceCode_C": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Location_ZIPCode_C": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "Location_InsideCityLimitsIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Location_Occupancy_C": {
+      "status": "missing",
+      "expected": "Occupied",
+      "extracted": null
+    },
+    "Location_DescriptionOfOccupancy_C": {
+      "status": "missing",
+      "expected": "Commercial Building and Restaurant Operations",
+      "extracted": null
+    },
+    "Location_Employees_C": {
+      "status": "missing",
+      "expected": "30+ Full-Time, 20 Part-Time",
+      "extracted": null
+    },
+    "Location_AnnualRevenueAmount_C": {
+      "status": "missing",
+      "expected": "5000000",
+      "extracted": null
+    },
+    "Location_OccupiedArea_C": {
+      "status": "missing",
+      "expected": "1500",
+      "extracted": null
+    },
+    "Location_AreaOpenToPublic_C": {
+      "status": "missing",
+      "expected": "1000",
+      "extracted": null
+    },
+    "Location_TotalBuildingArea_C": {
+      "status": "missing",
+      "expected": "3000",
+      "extracted": null
+    },
+    "Location_LeasedToOthersIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_Type_C": {
+      "status": "missing",
+      "expected": "Restaurant and Bar Operations",
+      "extracted": null
+    },
+    "NatureOfBusiness_DateBusinessStarted_C": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "NatureOfBusiness_DescriptionOfPrimaryOperations_C": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "YesNoQuestions_HaveSafetyManuals_C": {
+      "status": "missing",
+      "expected": "Y",
+      "extracted": null
+    },
+    "CurrentInsurance_CurrentCarrier_C": {
+      "status": "missing",
+      "expected": "Zurich North America",
+      "extracted": null
+    },
+    "CurrentInsurance_NoPriorInsuranceIndicator_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentInsurance_CurrentPremiumAmount_C": {
+      "status": "missing",
+      "expected": "50000",
+      "extracted": null
+    },
+    "LossHistory_NoLossesIndicated_C": {
+      "status": "missing",
+      "expected": "N",
+      "extracted": null
+    },
+    "CommercialStructure_Question_ABBCode_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherDescription_D": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OtherIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Indianapolis"
+    },
+    "BusinessInformation_BusinessType_ApartmentsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_CondominiumsIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ContractorIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "123-4567"
+    },
+    "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OfficeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherDescription_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_OtherIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RestaurantIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_RetailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_WholesaleIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_A": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant Operations",
+      "extracted": null
+    },
+    "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
+      "status": "wrong",
+      "expected": 0.5,
+      "extracted": "Full-Service Restaural"
+    },
+    "CommercialStructure_InstallationRepairWorkPercent_A": {
+      "status": "missing",
+      "expected": 10,
+      "extracted": null
+    },
+    "NamedInsured_BusinessStartDate_A": {
+      "status": "missing",
+      "expected": "09/30/2016",
+      "extracted": null
+    },
+    "CommercialPolicy_OperationsDescription_B": {
+      "status": "missing",
+      "expected": "Restaurant Operations",
+      "extracted": null
+    },
+    "AdditionalInterest_CertificateRequiredIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_InterestEndDate_A": {
+      "status": "missing",
+      "expected": "06/30/2024",
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "06/30/2024"
+    },
+    "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_CoOwnerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Indianapolis"
+    },
+    "AdditionalInterest_Interest_LendersLossPayableIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "#FULL TIME EMPL"
+    },
+    "AdditionalInterest_Interest_LienholderIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_LossPayeeIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "101 W Washington St"
+    },
+    "AdditionalInterest_Interest_MortgageeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_OwnerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_RegistrantIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Interest_TrusteeIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Item_ScheduledItemClassCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_MailingAddress_CityName_A": {
+      "status": "matched",
+      "expected": "Indianapolis",
+      "extracted": "Indianapolis"
+    },
+    "AdditionalInterest_MailingAddress_LineOne_A": {
+      "status": "matched",
+      "expected": "101 W Washington St",
+      "extracted": "101 W Washington St"
+    },
+    "AdditionalInterest_MailingAddress_PostalCode_A": {
+      "status": "matched",
+      "expected": "46225",
+      "extracted": "46225"
+    },
+    "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
+      "status": "matched",
+      "expected": "IN",
+      "extracted": "IN"
+    },
+    "AdditionalInterest_PolicyRequiredIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "AdditionalInterest_Primary_PhoneNumber_A": {
+      "status": "partial",
+      "expected": "317-123-4567",
+      "extracted": "123-4567"
+    },
+    "AdditionalInterest_SendBillIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_NonPaymentIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CancelNonRenew_NonRenewalIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_OtherIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CancelNonRenew_UnderwritingIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_ApplicantHireOthersOperateDronesExplanation_A": {
+      "status": "missing",
+      "expected": "Yes",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "06/15/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "09/01/2019",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AACCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AADCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAFCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAHCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAICode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_AAJCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessName_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "BusinessInformation_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "03/01/2023",
+      "extracted": null
+    },
+    "BusinessInformation_GivenName_A": {
+      "status": "missing",
+      "expected": "Stephen",
+      "extracted": null
+    },
+    "BusinessInformation_Hometown_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "BusinessInformation_MaritalStatus_A": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "BusinessInformation_SexCode_A": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "BusinessInformation_StateCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "BusinessInformation_ZipCode_A": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "LocationInformation_LocationAddress_A": {
+      "status": "missing",
+      "expected": "101 W Washington St, Indianapolis, IN 46204",
+      "extracted": null
+    },
+    "LocationInformation_LocationCity_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "LocationInformation_LocationStateCode_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "LocationInformation_LocationZipCode_A": {
+      "status": "missing",
+      "expected": "46204",
+      "extracted": null
+    },
+    "LocationInformation_InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LocationInformation_Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "LocationInformation_DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "Commercial Building Construction",
+      "extracted": null
+    },
+    "LocationInformation_Employees_A": {
+      "status": "missing",
+      "expected": 30,
+      "extracted": null
+    },
+    "LocationInformation_AnnualRevenue_A": {
+      "status": "missing",
+      "expected": 750000,
+      "extracted": null
+    },
+    "LocationInformation_OccupiedArea_A": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "LocationInformation_AreaOpenToPublic_A": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "LocationInformation_TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "LocationInformation_LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_DateBusinessStarted_A": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "NatureOfBusiness_DescriptionOfPrimaryOperations_A": {
+      "status": "missing",
+      "expected": "Full-service restaurant with seating for 100, bar, and private dining rooms.",
+      "extracted": null
+    },
+    "GeneralInformation_NamedInsuredName_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "GeneralInformation_FederalIDNumber_A": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "GeneralInformation_BusinessPhoneNumber_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "GeneralInformation_Audit_A": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "GeneralInformation_PaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "GeneralInformation_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "03/01/2023",
+      "extracted": null
+    },
+    "GeneralInformation_BillingPlan_A": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABBCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_ABCCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAACode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KABCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KACCode_A": {
+      "status": "missing",
+      "expected": "CGL",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAKCode_A": {
+      "status": "wrong",
+      "expected": "Property",
+      "extracted": "lemented various safety protocpls"
+    },
+    "CommercialPolicy_Question_KALCode_A": {
+      "status": "missing",
+      "expected": "Liability",
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAMCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KANCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CommercialPolicy_Question_KAOCode_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
+      "status": "missing",
+      "expected": "12/31/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
+      "status": "wrong",
+      "expected": "Regular maintenance and inspections",
+      "extracted": "Hernandez-Carter"
+    },
+    "OtherPolicy_LineOfBusinessCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "OtherPolicy_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "Subsidiary_OrganizationName_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "Subsidiary_ParentOwnershipPercent_A": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "Subsidiary_ParentSubsidiaryRelationshipDescription_A": {
+      "status": "wrong",
+      "expected": "None",
+      "extracted": "% OWNED"
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "02/01/2019",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B": {
+      "status": "missing",
+      "expected": "03/31/2021",
+      "extracted": null
+    },
+    "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDescription_B": {
+      "status": "missing",
+      "expected": "Negotiated settlement with creditor",
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+    },
+    "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Producer'sNote_A": {
+      "status": "missing",
+      "expected": "This policy provides coverage for the named insureds and any additional named insureds listed below.",
+      "extracted": null
+    },
+    "BusinessPhone_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "LocationNumber_A": {
+      "status": "missing",
+      "expected": "101 W Washington St, Indianapolis, IN 46204",
+      "extracted": null
+    },
+    "BuildingNumber_B": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Address_B": {
+      "status": "wrong",
+      "expected": "101 W Washington St",
+      "extracted": "Indianapolis, IN 46225"
+    },
+    "City_B": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "State_B": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Zip_B": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "InsideCityLimits_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy_B": {
+      "status": "missing",
+      "expected": "Owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancy_B": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "Employees_B": {
+      "status": "missing",
+      "expected": "30+",
+      "extracted": null
+    },
+    "AnnualRevenue_B": {
+      "status": "missing",
+      "expected": "$1,000,000",
+      "extracted": null
+    },
+    "OccupiedArea_B": {
+      "status": "missing",
+      "expected": "5,000 sq ft",
+      "extracted": null
+    },
+    "AreaOpenToPublic_B": {
+      "status": "wrong",
+      "expected": "2,500 sq ft",
+      "extracted": "1000"
+    },
+    "TotalBuildingArea_B": {
+      "status": "missing",
+      "expected": "10,000 sq ft",
+      "extracted": null
+    },
+    "LeasedToOthers_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_D": {
+      "status": "missing",
+      "expected": "Restaurant",
+      "extracted": null
+    },
+    "DateBusinessStarted_D": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations_D": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant with seating for 50 customers",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "02/15/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_JudgementOrLien_ResolutionDate_B": {
+      "status": "missing",
+      "expected": "04/10/2020",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_B": {
+      "status": "missing",
+      "expected": "01/20/2019",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_B": {
+      "status": "missing",
+      "expected": "03/05/2019",
+      "extracted": null
+    },
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_B": {
+      "status": "missing",
+      "expected": "CGL",
+      "extracted": null
+    },
+    "Subsidiary_ParentOwnershipPercent_B": {
+      "status": "missing",
+      "expected": "50%",
+      "extracted": null
+    },
+    "Subsidiary_ParentSubsidiaryRelationshipDescription_B": {
+      "status": "wrong",
+      "expected": "Parent-Subsidiary Relationship",
+      "extracted": "% OWNED"
+    },
+    "OtherPolicy_LineOfBusinessCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "OtherPolicy_LineOfBusinessCode_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "chk_OccupiedByEmployeesIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_OccupancyTypeIndicator_B": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "chk_EmployeesIndicator_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_AnualRevenueIndicator_D": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_AreaOpenToPublicIndicator_E": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_TotalBuildingAreaIndicator_F": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_LeasedToOthersIndicator_G": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Date_BusinessStarted_H": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "DescriptionOfPrimaryOperations_I": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant",
+      "extracted": null
+    },
+    "chk_SafetyManualsIndicator_J": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CurrentCarrier_K": {
+      "status": "missing",
+      "expected": "Zurich North America",
+      "extracted": null
+    },
+    "chk_NoPriorInsuranceIndicator_L": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium_M": {
+      "status": "missing",
+      "expected": "$100000",
+      "extracted": null
+    },
+    "OccupiedArea_SquareFootage_O": {
+      "status": "missing",
+      "expected": 8000,
+      "extracted": null
+    },
+    "chk_AuditIndicator_P": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LinesOfBusinessIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessAutoIndicator_A": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "Off"
+    },
+    "CGLIndicator_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
+    },
+    "PropertyIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "WorkersCompensationIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "ProfessionalLiabilityIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NoFaultIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "PersonalInjuryProtectionIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CoverageEndorsementIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessAutoPolicyFormNumber_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "CGLPolicyFormNumber_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "PropertyPolicyFormNumber_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "WorkersCompensationPolicyFormNumber_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "ProfessionalLiabilityPolicyFormNumber_A": {
+      "status": "missing",
+      "expected": "Hernandez-Carter",
+      "extracted": null
+    },
+    "BusinessAutoCoverageLimit_A": {
+      "status": "missing",
+      "expected": 1000000,
+      "extracted": null
+    },
+    "CGLCoverageLimit_A": {
+      "status": "wrong",
+      "expected": 500000,
+      "extracted": "1000000"
+    },
+    "PropertyCoverageLimit_A": {
+      "status": "missing",
+      "expected": 750000,
+      "extracted": null
+    },
+    "WorkersCompensationCoverageLimit_A": {
+      "status": "missing",
+      "expected": 50000,
+      "extracted": null
+    },
+    "ProfessionalLiabilityCoverageLimit_A": {
+      "status": "missing",
+      "expected": 250000,
+      "extracted": null
+    },
+    "BusinessAutoDeductible_A": {
+      "status": "missing",
+      "expected": 1000,
+      "extracted": null
+    },
+    "CGLDeductible_A": {
+      "status": "wrong",
+      "expected": 2000,
+      "extracted": "S"
+    },
+    "PropertyDeductible_A": {
+      "status": "missing",
+      "expected": 3000,
+      "extracted": null
+    },
+    "WorkersCompensationDeductible_A": {
+      "status": "missing",
+      "expected": 100,
+      "extracted": null
+    },
+    "ProfessionalLiabilityDeductible_A": {
+      "status": "missing",
+      "expected": 500,
+      "extracted": null
+    },
+    "BusinessAutoAnnualPremium_A": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "CGLAnnualPremium_A": {
+      "status": "wrong",
+      "expected": 7500,
+      "extracted": "600000"
+    },
+    "PropertyAnnualPremium_A": {
+      "status": "missing",
+      "expected": 11250,
+      "extracted": null
+    },
+    "WorkersCompensationAnnualPremium_A": {
+      "status": "missing",
+      "expected": 3750,
+      "extracted": null
+    },
+    "ProfessionalLiabilityAnnualPremium_A": {
+      "status": "missing",
+      "expected": 1875,
+      "extracted": null
+    },
+    "ProducerNote_A": {
+      "status": "missing",
+      "expected": "All drivers must have a valid Indiana driver's license and proof of insurance.",
+      "extracted": null
+    },
+    "NatureofBusinessIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "TypeOfBusiness_A": {
+      "status": "missing",
+      "expected": "Restaurant",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "03/15/2020",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "07/15/2022",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$150,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_A": {
+      "status": "wrong",
+      "expected": "06/01/2018",
+      "extracted": "08/27/2021"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_A": {
+      "status": "wrong",
+      "expected": "08/31/2021",
+      "extracted": "08/27/2024"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
+      "status": "wrong",
+      "expected": "$80,000.00",
+      "extracted": "15000"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "01/01/2017",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "04/30/2020",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_LineOfBusinessCode_A": {
+      "status": "missing",
+      "expected": "5812",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$40,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_PolicyYear_A": {
+      "status": "missing",
+      "expected": "2022",
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_A": {
+      "status": "missing",
+      "expected": "09/01/2016",
+      "extracted": null
+    },
+    "PriorCoverage_Property_ExpirationDate_A": {
+      "status": "missing",
+      "expected": "11/30/2021",
+      "extracted": null
+    },
+    "PriorCoverage_Property_InsurerFullName_A": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_A": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_A": {
+      "status": "missing",
+      "expected": "$120,000.00",
+      "extracted": null
+    },
+    "Producer_Name_A": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "Producer_Address_A": {
+      "status": "missing",
+      "expected": "101 W Washington St, Indianapolis, IN 46204",
+      "extracted": null
+    },
+    "Producer_City_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "Producer_State_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "Producer_Zip_A": {
+      "status": "missing",
+      "expected": "46225",
+      "extracted": null
+    },
+    "Producer_Telephone_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "CurrentCarrier_A": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "NoPriorInsurance_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CurrentPremium_A": {
+      "status": "missing",
+      "expected": "$50,000.00",
+      "extracted": null
+    },
+    "BusinessAuto_LinesOfBusiness_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CGL_LinesOfBusiness_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Property_LinesOfBusiness_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CGL_Indicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "NoFault_Indicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "ContactType_A": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "ContactName_A": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "ContactPhone_A": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "BuildingNumber_A": {
+      "status": "missing",
+      "expected": "1",
+      "extracted": null
+    },
+    "Address_A": {
+      "status": "matched",
+      "expected": "101 W Washington St",
+      "extracted": "101 W Washington St"
+    },
+    "City_A": {
+      "status": "missing",
+      "expected": "Indianapolis",
+      "extracted": null
+    },
+    "State_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    },
+    "InsideCityLimits_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Occupancy_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "DescriptionOfOccupancy_A": {
+      "status": "missing",
+      "expected": "Commercial Building",
+      "extracted": null
+    },
+    "Employees_A": {
+      "status": "missing",
+      "expected": 50,
+      "extracted": null
+    },
+    "AnnualRevenue_A": {
+      "status": "wrong",
+      "expected": "$1,000,000.00",
+      "extracted": "$2500000"
+    },
+    "OccupiedArea_A": {
+      "status": "missing",
+      "expected": 5000,
+      "extracted": null
+    },
+    "AreaOpenToPublic_A": {
+      "status": "matched",
+      "expected": 1000,
+      "extracted": "1000"
+    },
+    "TotalBuildingArea_A": {
+      "status": "missing",
+      "expected": 15000,
+      "extracted": null
+    },
+    "LeasedToOthers_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "YesManualSafety_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "YesTrainingProgram_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "YesInsurance_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "YesPremiumPaymentPlan_A": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "LossHistory_NoPriorLossesIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/27/2021",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "08/27/2024",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_B": {
+      "status": "matched",
+      "expected": "08/27/2021",
+      "extracted": "08/27/2021"
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_B": {
+      "status": "matched",
+      "expected": "08/27/2024",
+      "extracted": "08/27/2024"
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_B": {
+      "status": "partial",
+      "expected": 0,
+      "extracted": "9000"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/27/2021",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "08/27/2024",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "PriorCoverage_PolicyYear_B": {
+      "status": "missing",
+      "expected": 2021,
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "08/27/2021",
+      "extracted": null
+    },
+    "PriorCoverage_Property_ExpirationDate_B": {
+      "status": "missing",
+      "expected": "08/27/2024",
+      "extracted": null
+    },
+    "PriorCoverage_Property_InsurerFullName_B": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_Property_PolicyNumberIdentifier_B": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "08/27/2021",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "08/27/2024",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_InsurerFullName_C": {
+      "status": "missing",
+      "expected": "Zurich North America Insurance Company LLC",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_PolicyNumberIdentifier_C": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "PriorCoverage_Automobile_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "08/27/2021",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "08/27/2024",
+      "extracted": null
+    },
+    "PolicyNumber_BA_37810023": {
+      "status": "missing",
+      "expected": "BA-37810023",
+      "extracted": null
+    },
+    "CurrentCarrier_ZurichNorthAmericaInsuranceCompanyLLC": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "16535"
+    },
+    "LossHistory_AmountOfLoss_B": {
+      "status": "missing",
+      "expected": 0,
+      "extracted": null
+    },
+    "Business_Sex/GenderCode_B": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "Business_MaritalStatus_B": {
+      "status": "missing",
+      "expected": "S",
+      "extracted": null
+    },
+    "Business_EmploymentType_B": {
+      "status": "missing",
+      "expected": "O",
+      "extracted": null
+    },
+    "Contact_ContactInformationType_B": {
+      "status": "missing",
+      "expected": "general info",
+      "extracted": null
+    },
+    "Contact_ContactName_B": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "Contact_ContactPhone_B": {
+      "status": "missing",
+      "expected": "(317) 123-4567",
+      "extracted": null
+    },
+    "BusinessLocation_Address_B": {
+      "status": "partial",
+      "expected": "101 W Washington St, Indianapolis, IN",
+      "extracted": "101 W Washington St, Indianapolis, IN 46225"
+    },
+    "BusinessLocation_CityStateZipCode_B": {
+      "status": "wrong",
+      "expected": "46204, IN",
+      "extracted": "Indianapolis, IN 46225"
+    },
+    "BusinessLocation_InsideCityLimits_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessLocation_Occupancy_B": {
+      "status": "wrong",
+      "expected": "B",
+      "extracted": "Commercial Property"
+    },
+    "BusinessLocation_DescriptionOfOccupancy_B": {
+      "status": "wrong",
+      "expected": "office building",
+      "extracted": "Food Service Establishment"
+    },
+    "BusinessLocation_Employees_B": {
+      "status": "wrong",
+      "expected": 10,
+      "extracted": "#FULL TIME EMPL #PART TIME EMPL"
+    },
+    "BusinessLocation_AnnualRevenue_B": {
+      "status": "missing",
+      "expected": 5000000,
+      "extracted": null
+    },
+    "BusinessLocation_OccupiedArea_B": {
+      "status": "wrong",
+      "expected": 30000,
+      "extracted": "500"
+    },
+    "BusinessLocation_AreaOpenToPublic_B": {
+      "status": "missing",
+      "expected": 20000,
+      "extracted": null
+    },
+    "BusinessLocation_TotalBuildingArea_B": {
+      "status": "wrong",
+      "expected": 100000,
+      "extracted": "15000"
+    },
+    "BusinessLocation_LeasedtoOthers_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusiness_Sex/GenderCode_C": {
+      "status": "missing",
+      "expected": "M",
+      "extracted": null
+    },
+    "NatureOfBusiness_TypeOfBusiness_C": {
+      "status": "missing",
+      "expected": "Restaurant",
+      "extracted": null
+    },
+    "NatureOfBusiness_DateOfIncorporation_C": {
+      "status": "missing",
+      "expected": "10/30/2016",
+      "extracted": null
+    },
+    "NamedInsureds_NamedInsuredName_C": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "NamedInsureds_NamedInsuredEntity_C": {
+      "status": "missing",
+      "expected": "P",
+      "extracted": null
+    },
+    "GeneralInformation_QuoteBindRequest_B": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "GeneralInformation_LinesOfBusinessAttached_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "GeneralInformation_EffectiveDate_B": {
+      "status": "missing",
+      "expected": "09/27/2021",
+      "extracted": null
+    },
+    "GeneralInformation_BillingPlan_B": {
+      "status": "missing",
+      "expected": "Direct",
+      "extracted": null
+    },
+    "GeneralInformation_PaymentPlan_B": {
+      "status": "missing",
+      "expected": "Monthly",
+      "extracted": null
+    },
+    "GeneralInformation_Audit_C": {
+      "status": "missing",
+      "expected": "A",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_InsurerFullName_C": {
+      "status": "missing",
+      "expected": "Zurich North America",
+      "extracted": null
+    },
+    "PriorCoverage_GeneralLiability_TotalPremiumAmount_C": {
+      "status": "partial",
+      "expected": "$150,000.00",
+      "extracted": "1500"
+    },
+    "PriorCoverage_OtherLine_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "01/01/2020",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "12/31/2022",
+      "extracted": null
+    },
+    "PriorCoverage_OtherLine_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": "$50,000.00",
+      "extracted": null
+    },
+    "PriorCoverage_PolicyYear_C": {
+      "status": "missing",
+      "expected": "2021",
+      "extracted": null
+    },
+    "PriorCoverage_Property_EffectiveDate_C": {
+      "status": "missing",
+      "expected": "01/01/2018",
+      "extracted": null
+    },
+    "PriorCoverage_Property_ExpirationDate_C": {
+      "status": "missing",
+      "expected": "12/31/2020",
+      "extracted": null
+    },
+    "PriorCoverage_Property_TotalPremiumAmount_C": {
+      "status": "missing",
+      "expected": "$75,000.00",
+      "extracted": null
+    },
+    "BusinessAuto_LiabilityInsuranceIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessAuto_PersonalUseIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BusinessAuto_MiscellaneousLine_indicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CGL_InsuranceIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "CGL_SmallBusinessIndicator_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Property_OccupancyIndicator_A": {
+      "status": "missing",
+      "expected": "owned",
+      "extracted": null
+    },
+    "Property_TenantOccupancyIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "Property_CondoUnitOccupancyIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "GeneralLiability_LiabilityLimitsIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "GeneralLiability_UnderinsuredMotoristIndicator_B": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "50000"
+    },
+    "GeneralLiability_WrongfulDischargeOfBloodIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "GeneralLiability_PersonalPropertyCoverageIndicator_C": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "OTHER: 5812"
+    },
+    "OtherLine_SmallBusinessIndicator_D": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_ClaimDate_A": {
+      "status": "missing",
+      "expected": "01/03/2018",
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "Y"
+    },
+    "LossHistory_InformationYearCount_A": {
+      "status": "missing",
+      "expected": 3,
+      "extracted": null
+    },
+    "LossHistory_LineOfBusiness_A": {
+      "status": "missing",
+      "expected": "Property Damage Liability",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDate_A": {
+      "status": "missing",
+      "expected": "12/15/2018",
+      "extracted": null
+    },
+    "LossHistory_OccurrenceDescription_A": {
+      "status": "missing",
+      "expected": "Slip and Fall Accident at Restaurant",
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_A": {
+      "status": "missing",
+      "expected": 10000.0,
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_A": {
+      "status": "wrong",
+      "expected": 5000.0,
+      "extracted": "N"
+    },
+    "LossHistory_TotalAmount_A": {
+      "status": "missing",
+      "expected": 15000.0,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_B": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_B": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_LineOfBusiness_B": {
+      "status": "missing",
+      "expected": "General Liability",
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_B": {
+      "status": "missing",
+      "expected": 0.0,
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_B": {
+      "status": "missing",
+      "expected": 0.0,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_OpenCode_C": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "LossHistory_ClaimStatus_SubrogationCode_C": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LossHistory_LineOfBusiness_C": {
+      "status": "missing",
+      "expected": "Workers Compensation",
+      "extracted": null
+    },
+    "LossHistory_PaidAmount_C": {
+      "status": "missing",
+      "expected": 0.0,
+      "extracted": null
+    },
+    "LossHistory_ReservedAmount_C": {
+      "status": "missing",
+      "expected": 0.0,
+      "extracted": null
+    },
+    "Business_Auto": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "CGL": {
+      "status": "wrong",
+      "expected": true,
+      "extracted": "COMMERCIAL GENERAL LIABILITY"
+    },
+    "Property": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "chk_PriorInsurance": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "DateStarted_Business": {
+      "status": "missing",
+      "expected": "06/01/2016",
+      "extracted": null
+    },
+    "DescriptionPrimaryOperations": {
+      "status": "missing",
+      "expected": "Full-Service Restaurant with Commercial Kitchen and Dining Area",
+      "extracted": null
+    },
+    "HasSafetyManuals": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "OccupancyOwned": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "DescriptionOccupancy": {
+      "status": "missing",
+      "expected": "Commercial Building",
+      "extracted": null
+    },
+    "AreaOpenPublic": {
+      "status": "partial",
+      "expected": 10000.0,
+      "extracted": "1000"
+    },
+    "TypeBusiness": {
+      "status": "missing",
+      "expected": "Food Service Establishment",
+      "extracted": null
+    },
+    "OccupancyTenantCondUnitOwner": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "HasMultipleNamedInsureds": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "LocationNumberAddress": {
+      "status": "missing",
+      "expected": "101 W Washington St, Indianapolis, IN 46204",
+      "extracted": null
+    },
+    "InsideCityLimitsYesNo": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "EmployeesFullTime": {
+      "status": "missing",
+      "expected": 30.0,
+      "extracted": null
+    },
+    "LeasedToOthersYesNo": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "NatureOfBusinessType": {
+      "status": "missing",
+      "expected": "Restaurant Establishment",
+      "extracted": null
+    },
+    "NamedInsuredCorporateEntity": {
+      "status": "missing",
+      "expected": "Hernandez-Carter Partnership",
+      "extracted": null
+    },
+    "AuditFrequencyAnnual": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "BillingPlanDirect": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "PaymentPlanMonthly": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "Quote": {
+      "status": "missing",
+      "expected": "Quote",
+      "extracted": null
+    },
+    "NamedInsuredInitials_A": {
+      "status": "missing",
+      "expected": "S.W.",
+      "extracted": null
+    },
+    "PolicyInformationPracticesNoticeIndicator_A": {
+      "status": "missing",
+      "expected": true,
+      "extracted": null
+    },
+    "ProducerAuthorizedRepresentative_FullName_A": {
+      "status": "missing",
+      "expected": "Stephen Walker",
+      "extracted": null
+    },
+    "ProducerNationalIdentifier_A": {
+      "status": "missing",
+      "expected": "33-2575069",
+      "extracted": null
+    },
+    "Producer_StateLicenseIdentifier_A": {
+      "status": "missing",
+      "expected": "IN",
+      "extracted": null
+    }
+  },
+  "accuracy": 6.56,
+  "exact_match_rate": 6.05,
+  "coverage": 16.86
+}

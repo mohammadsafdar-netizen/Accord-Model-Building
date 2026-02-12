@@ -1,0 +1,692 @@
+[
+  {
+    "label": "DATE",
+    "value": "TIME",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "IN",
+    "value": "46225",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "IN",
+    "value": "46225",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "IN",
+    "value": "46225",
+    "page": 1,
+    "confidence": 0.96
+  },
+  {
+    "label": "GL CODE",
+    "value": "SIC",
+    "page": 1,
+    "confidence": 0.62
+  },
+  {
+    "label": "GL CODE",
+    "value": "SIC",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "GL-BB",
+    "value": "5812",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "GL-BB",
+    "value": "5812",
+    "page": 1,
+    "confidence": 0.97
+  },
+  {
+    "label": "IN",
+    "value": "46204",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "IN",
+    "value": "POLICY NUMBER",
+    "page": 1,
+    "confidence": 0.98
+  },
+  {
+    "label": "S",
+    "value": "10000",
+    "page": 1,
+    "confidence": 0.52
+  },
+  {
+    "label": "2",
+    "value": "PARTNERSHIP",
+    "page": 1,
+    "confidence": 0.81
+  },
+  {
+    "label": "BUSINESS PHONE #:",
+    "value": "(317) 123-4567",
+    "page": 1,
+    "confidence": 0.74
+  },
+  {
+    "label": "(317)",
+    "value": "123-4567",
+    "page": 1,
+    "confidence": 0.68
+  },
+  {
+    "label": "2",
+    "value": "PARTNERSHIP",
+    "page": 1,
+    "confidence": 0.81
+  },
+  {
+    "label": "2",
+    "value": "PARTNERSHIP",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "Zurich North America Insurance Company LLC",
+    "value": "16535",
+    "page": 1,
+    "confidence": 0.81
+  },
+  {
+    "label": "GANEACT",
+    "value": "Stephen Walker",
+    "page": 1,
+    "confidence": 0.56
+  },
+  {
+    "label": "PHONFo. Extl:",
+    "value": "317-123-4567",
+    "page": 1,
+    "confidence": 0.53
+  },
+  {
+    "label": "FAX",
+    "value": "317-123-4568",
+    "page": 1,
+    "confidence": 0.67
+  },
+  {
+    "label": "ADDRESS:",
+    "value": "stephen:walker@hernandezcarter.com",
+    "page": 1,
+    "confidence": 0.79
+  },
+  {
+    "label": "CODE:",
+    "value": "Hernandez-Carter",
+    "page": 1,
+    "confidence": 0.94
+  },
+  {
+    "label": "CANCEL",
+    "value": "01/16/2024",
+    "page": 1,
+    "confidence": 0.93
+  },
+  {
+    "label": "CYBER AND PRIVACY",
+    "value": "1000",
+    "page": 1,
+    "confidence": 0.68
+  },
+  {
+    "label": "FIDUCIARY LIABILITY",
+    "value": "5000",
+    "page": 1,
+    "confidence": 0.78
+  },
+  {
+    "label": "BUSINESS OWNERS",
+    "value": "50000",
+    "page": 1,
+    "confidence": 0.96
+  },
+  {
+    "label": "GARAGE AND DEALERS",
+    "value": "3000",
+    "page": 1,
+    "confidence": 0.76
+  },
+  {
+    "label": "COMMERCIAL GENERAL LIABILITY",
+    "value": "600000",
+    "page": 1,
+    "confidence": 0.76
+  },
+  {
+    "label": "LIQUOR LIABILITY",
+    "value": "S",
+    "page": 1,
+    "confidence": 0.52
+  },
+  {
+    "label": "COMMERCIAL INLAND MARINE",
+    "value": "75000",
+    "page": 1,
+    "confidence": 0.67
+  },
+  {
+    "label": "MOTOR CARRIER",
+    "value": "50000",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "COMMERCIAL PROPERTY",
+    "value": "300000",
+    "page": 1,
+    "confidence": 0.83
+  },
+  {
+    "label": "Our company has",
+    "value": "lemented various safety protocpls",
+    "page": 1,
+    "confidence": 0.72
+  },
+  {
+    "label": "DIRECT",
+    "value": "Monthly",
+    "page": 1,
+    "confidence": 1.0
+  },
+  {
+    "label": "NAICS",
+    "value": "FEIN OR SOC SEC #",
+    "page": 1,
+    "confidence": 0.98
+  },
+  {
+    "label": "NOT FOR PROFIT ORG",
+    "value": "SUBCHAPTER \"S\" CORPORATION",
+    "page": 1,
+    "confidence": 0.87
+  },
+  {
+    "label": "NAICS",
+    "value": "FEIN OR SOC SEC #",
+    "page": 1,
+    "confidence": 0.96
+  },
+  {
+    "label": "BUSINESS PHONE #",
+    "value": "123-4567",
+    "page": 1,
+    "confidence": 0.68
+  },
+  {
+    "label": "NOT FOR PROFIT ORG",
+    "value": "SUBCHAPTER \"S\" CORPORATION",
+    "page": 1,
+    "confidence": 0.79
+  },
+  {
+    "label": "NAICS",
+    "value": "FEIN OR SOC SEC #",
+    "page": 1,
+    "confidence": 0.99
+  },
+  {
+    "label": "NOT FOR PROFIT ORG",
+    "value": "SUBCHAPTER \"S\" CORPORATION",
+    "page": 1,
+    "confidence": 0.75
+  },
+  {
+    "label": "ANNUAL REVENUES: $",
+    "value": "2500000",
+    "page": 2,
+    "confidence": 0.97
+  },
+  {
+    "label": "ANNUAL REVENUES: $",
+    "value": "2500000",
+    "page": 2,
+    "confidence": 0.93
+  },
+  {
+    "label": "TOTAL BUILDING AREA:",
+    "value": "15000",
+    "page": 2,
+    "confidence": 0.69
+  },
+  {
+    "label": "CONTACT TYPE:",
+    "value": "General Information",
+    "page": 2,
+    "confidence": 0.73
+  },
+  {
+    "label": "CONTACT NAME:",
+    "value": "Stephen Walker",
+    "page": 2,
+    "confidence": 0.98
+  },
+  {
+    "label": "STREET",
+    "value": "101 W Washington St",
+    "page": 2,
+    "confidence": 0.62
+  },
+  {
+    "label": "INTEREST",
+    "value": "#FULL TIME EMPL",
+    "page": 2,
+    "confidence": 0.82
+  },
+  {
+    "label": "CITY:",
+    "value": "Indianapolis",
+    "page": 2,
+    "confidence": 0.72
+  },
+  {
+    "label": "TENANT",
+    "value": "#PART TIME EMPL",
+    "page": 2,
+    "confidence": 0.74
+  },
+  {
+    "label": "COUNTY:",
+    "value": "Marion",
+    "page": 2,
+    "confidence": 0.88
+  },
+  {
+    "label": "DESCRIPTION OF OPERATIONS:",
+    "value": "Food Service Establishment",
+    "page": 2,
+    "confidence": 0.89
+  },
+  {
+    "label": "STREET",
+    "value": "101 W Washington St",
+    "page": 2,
+    "confidence": 0.93
+  },
+  {
+    "label": "CITY:",
+    "value": "Indianapolis",
+    "page": 2,
+    "confidence": 0.72
+  },
+  {
+    "label": "TENANT",
+    "value": "#PART TIME EMPL",
+    "page": 2,
+    "confidence": 0.74
+  },
+  {
+    "label": "COUNTY:",
+    "value": "Marion",
+    "page": 2,
+    "confidence": 0.84
+  },
+  {
+    "label": "TOTAL BUILDING AREA:",
+    "value": "9000",
+    "page": 2,
+    "confidence": 0.86
+  },
+  {
+    "label": "DESCRIPTION OF OPERATIONS:",
+    "value": "Food Service Establishment",
+    "page": 2,
+    "confidence": 0.82
+  },
+  {
+    "label": "STREET",
+    "value": "101 W Washington St",
+    "page": 2,
+    "confidence": 0.93
+  },
+  {
+    "label": "ANNUAL REVENUES:",
+    "value": "S",
+    "page": 2,
+    "confidence": 0.3
+  },
+  {
+    "label": "OCCUPIED AREA:",
+    "value": "5000",
+    "page": 2,
+    "confidence": 0.93
+  },
+  {
+    "label": "CITY:",
+    "value": "Indianapolis",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "OPEN TO PUBLIC AREA:",
+    "value": "1000",
+    "page": 2,
+    "confidence": 0.56
+  },
+  {
+    "label": "COUNTY:",
+    "value": "Marion",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "TOTAL BUILDING AREA:",
+    "value": "1500",
+    "page": 2,
+    "confidence": 0.64
+  },
+  {
+    "label": "ZIP: 46225",
+    "value": "Full-s",
+    "page": 2,
+    "confidence": 0.63
+  },
+  {
+    "label": "DESCRIPTION OF OPERATIONS:",
+    "value": "Restaurants; Bars; Events",
+    "page": 2,
+    "confidence": 0.47
+  },
+  {
+    "label": "STREET",
+    "value": "101 W Washington St",
+    "page": 2,
+    "confidence": 0.84
+  },
+  {
+    "label": "INTEREST",
+    "value": "#FULL TIME EMPL",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "OCCUPIED AREA:",
+    "value": "500",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "CITY:",
+    "value": "Indianapolis",
+    "page": 2,
+    "confidence": 0.79
+  },
+  {
+    "label": "TENANT",
+    "value": "#PART TIME EMPL",
+    "page": 2,
+    "confidence": 0.74
+  },
+  {
+    "label": "OPEN TO PUBLIC AREA:",
+    "value": "1000",
+    "page": 2,
+    "confidence": 0.56
+  },
+  {
+    "label": "COUNTY:",
+    "value": "Marion",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "ZIP: 46225",
+    "value": "Indiar",
+    "page": 2,
+    "confidence": 0.63
+  },
+  {
+    "label": "DESCRIPTION OF OPERATIONS:",
+    "value": "Commercial Building Construction and Full-Service Restaurant Operations",
+    "page": 2,
+    "confidence": 0.73
+  },
+  {
+    "label": "SERVICE",
+    "value": "Full-Service Restaural",
+    "page": 2,
+    "confidence": 0.64
+  },
+  {
+    "label": "LOSS PAYEE",
+    "value": "101 W Washington St",
+    "page": 2,
+    "confidence": 0.71
+  },
+  {
+    "label": "ITEM",
+    "value": "N",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "OWNER",
+    "value": "Indianapolis",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "IN",
+    "value": "46225",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "REFERENCE",
+    "value": "LOAN #",
+    "page": 2,
+    "confidence": 0.48
+  },
+  {
+    "label": "INTEREST END DATE:",
+    "value": "06/30/2024",
+    "page": 2,
+    "confidence": 1.0
+  },
+  {
+    "label": "PHONE (AC, No, Ext):",
+    "value": "317-123-4567",
+    "page": 2,
+    "confidence": 0.49
+  },
+  {
+    "label": "RELATIONSHIP DESCRIPTION",
+    "value": "% OWNED",
+    "page": 3,
+    "confidence": 0.76
+  },
+  {
+    "label": "RELATIONSHIP DESCRIPTION",
+    "value": "% OWNED",
+    "page": 3,
+    "confidence": 0.82
+  },
+  {
+    "label": "HAS APPLICANT HAD A FORECLOSURE, REPOSSESSION, BANKRUPTCY OR FILED FOR BANKRUPTCY DURING THE LAST FIVE (5) YEARS?",
+    "value": ")pe",
+    "page": 3,
+    "confidence": 0.63
+  },
+  {
+    "label": "REMARKS",
+    "value": "PROCESSING INSTRUCTIONS (ACORD 101, Additional Remarks Schedule; may be attached if more space is required)",
+    "page": 3,
+    "confidence": 0.48
+  },
+  {
+    "label": "PROPERTY",
+    "value": "OTHER: 5812",
+    "page": 3,
+    "confidence": 0.99
+  },
+  {
+    "label": "POLICY NUMBER",
+    "value": "BA-37810023",
+    "page": 3,
+    "confidence": 0.73
+  },
+  {
+    "label": "PREMIUM",
+    "value": "$80,000.00",
+    "page": 3,
+    "confidence": 0.9
+  },
+  {
+    "label": "EFFECTIVE DATE",
+    "value": "06/01/2018",
+    "page": 3,
+    "confidence": 0.8
+  },
+  {
+    "label": "EXPIRATION DATE",
+    "value": "08/31/2021",
+    "page": 3,
+    "confidence": 0.75
+  },
+  {
+    "label": "Y",
+    "value": "N",
+    "page": 4,
+    "confidence": 0.96
+  },
+  {
+    "label": "N",
+    "value": "Y",
+    "page": 4,
+    "confidence": 0.36
+  },
+  {
+    "label": "TOTAL LOSSES: $",
+    "value": "15000.0",
+    "page": 4,
+    "confidence": 0.98
+  },
+  {
+    "label": "a",
+    "value": "fraudulent insurance act_",
+    "page": 4,
+    "confidence": 0.64
+  },
+  {
+    "label": "S",
+    "value": "$50,000.00",
+    "page": 4,
+    "confidence": 0.31
+  },
+  {
+    "label": "S",
+    "value": "S75,000.00",
+    "page": 4,
+    "confidence": 0.31
+  },
+  {
+    "label": "GATION",
+    "value": "OPEN",
+    "page": 4,
+    "confidence": 1.0
+  },
+  {
+    "label": "0.0",
+    "value": "0.0",
+    "page": 4,
+    "confidence": 0.52
+  },
+  {
+    "label": "0.0",
+    "value": "N",
+    "page": 4,
+    "confidence": 0.36
+  },
+  {
+    "label": "or",
+    "value": "attempting to defraud the company_",
+    "page": 4,
+    "confidence": 0.88
+  },
+  {
+    "label": "TYPE",
+    "value": "DESCRIPTION OF OCCURRENCE OR CLAIM",
+    "page": 4,
+    "confidence": 0.9
+  },
+  {
+    "label": "PROPERTY",
+    "value": "OTHER: 5812",
+    "page": 4,
+    "confidence": 0.85
+  },
+  {
+    "label": "POLICY NUMBER",
+    "value": "BA-37810023",
+    "page": 4,
+    "confidence": 0.75
+  },
+  {
+    "label": "EFFECTIVE DATE",
+    "value": "08/27/2021",
+    "page": 4,
+    "confidence": 0.71
+  },
+  {
+    "label": "EXPIRATION DATE",
+    "value": "08/27/2024",
+    "page": 4,
+    "confidence": 0.96
+  },
+  {
+    "label": "CARRIER",
+    "value": "Zurich North America",
+    "page": 4,
+    "confidence": 1.0
+  },
+  {
+    "label": "PREMIUM",
+    "value": "S150,000.00",
+    "page": 4,
+    "confidence": 0.87
+  },
+  {
+    "label": "EFFECTIVE DATE",
+    "value": "08/27/2021",
+    "page": 4,
+    "confidence": 0.97
+  },
+  {
+    "label": "EXPIRATION DATE",
+    "value": "08/27/2024",
+    "page": 4,
+    "confidence": 0.96
+  },
+  {
+    "label": "AMOUNT RESERVED",
+    "value": "N",
+    "page": 4,
+    "confidence": 0.92
+  },
+  {
+    "label": "of defrauding the company.",
+    "value": "Penalties (may) * include imprisonment; fines and denial of insurance benefits _",
+    "page": 4,
+    "confidence": 0.76
+  },
+  {
+    "label": "ANSWERS TO QUESTIONS ON THIS APPLICATION:",
+    "value": "HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER",
+    "page": 4,
+    "confidence": 0.6
+  }
+]

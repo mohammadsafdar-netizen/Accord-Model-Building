@@ -9,6 +9,11 @@ pymupdf
 # OCR
 easyocr
 opencv-python
+Pillow
+
+# Optional: Surya (Marker's OCR engine) - often better accuracy than EasyOCR
+# pip install surya-ocr  then use --ocr-backend surya
+# surya-ocr
 
 # Image processing
 Pillow

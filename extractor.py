@@ -86,17 +86,20 @@ class ACORDExtractor:
         use_vision_descriptions: bool = False,
         vision_checkboxes_only: bool = False,
         vision_fast: bool = False,
+        vision_batch_size: Optional[int] = None,
+        vision_max_tokens: int = 16384,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
         self.registry = schema_registry
         self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
-        # When True, crop pages to tiles, describe each with small VLM, then send crops+descriptions to main VLM
         self.use_vision_descriptions = use_vision_descriptions and self.use_vision
-        # When True, run only checkbox vision pass; skip general vision (saves time on large forms)
         self.vision_checkboxes_only = vision_checkboxes_only
-        # When True, use larger batches and 1 page for vision to reduce API calls (may increase truncation risk)
         self.vision_fast = vision_fast
+        # General vision pass: fields per VLM call. Higher = fewer calls, needs higher max_tokens. Default 12 (was 10).
+        self.vision_batch_size = vision_batch_size
+        # Max tokens per VLM response; 16384 reduces "Batch response empty" truncation and allows larger batches.
+        self.vision_max_tokens = vision_max_tokens
 
     # ==================================================================
     # Main entry point
@@ -234,11 +237,36 @@ class ACORDExtractor:
                 if key in spatial_fields:
                     print(f"    {key}: {spatial_fields[key]}")
 
-        # ---- Step 4: Extracted dict, source tracking, and step count ------
+        # ---- Step 3c: Build empty JSON, pre-fill from OCR, save for VLM ------
+        from form_json_builder import (
+            build_empty_form_json_from_schema,
+            prefill_form_json_from_ocr,
+            label_value_pairs_to_json_list,
+            save_empty_form_json,
+        )
+        from utils import save_json as _save_json
+        empty_json = build_empty_form_json_from_schema(schema, use_defaults=False)
+        lv_list = label_value_pairs_to_json_list(ocr_result.spatial_indices)
+        prefilled_json, prefill_sources, prefill_details = prefill_form_json_from_ocr(
+            empty_json, schema, spatial_fields, lv_list
+        )
+        save_empty_form_json(empty_json, output_dir / "empty_form.json")
+        _save_json(prefilled_json, output_dir / "prefilled_form.json")
+        _save_json(lv_list, output_dir / "label_value_pairs.json")
+        _save_json(prefill_sources, output_dir / "prefill_sources.json")
+        _save_json(prefill_details, output_dir / "prefill_details.json")
+        prefill_count = len([v for v in prefilled_json.values() if v is not None and str(v).strip()])
+        print(f"  [PREFILL] Empty form JSON pre-filled from OCR: {prefill_count} fields (spatial + label-value)")
+
+        # ---- Step 4: Extracted dict = prefilled JSON (VLM/LLM will fill remaining nulls) ------
         extracted: Dict[str, Any] = {}
-        field_sources: Dict[str, str] = {}  # "spatial" | "vision" | "text_llm" | "gap_fill"
-        # Start with spatially pre-extracted fields (highest confidence)
-        extracted.update(spatial_fields)
+        field_sources: Dict[str, str] = {}  # "spatial" | "label_value" | "vision" | "text_llm" | "gap_fill"
+        # Start from prefilled: all OCR-derived values (spatial + label_value) already in prefilled_json
+        for k, v in prefilled_json.items():
+            if v is not None and str(v).strip():
+                extracted[k] = v
+                field_sources[k] = prefill_sources.get(k, "label_value")
+        # Ensure spatial fields are marked as spatial (they are in prefill_sources)
         for k in spatial_fields:
             field_sources[k] = "spatial"
         all_field_names = set(schema.fields.keys())
@@ -562,7 +590,7 @@ class ACORDExtractor:
         Large categories are batched into sub-batches of BATCH_SIZE fields
         to keep LLM context focused and JSON template manageable.
         """
-        BATCH_SIZE = 30
+        BATCH_SIZE = 50  # 50 = fewer round-trips; safe on 24GB. Use 30 on low memory.
         tooltips = self.registry.get_tooltips(form_type, field_names)
         result: Dict[str, Any] = {}
 
@@ -628,7 +656,7 @@ class ACORDExtractor:
         those section crops to the VLM (form-specific, section-scoped). Otherwise uses
         full pages or describe-then-extract regions.
         """
-        VISION_BATCH = 20 if self.vision_fast else 10  # Fast: fewer API calls (may truncate)
+        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 12)
         MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
@@ -764,9 +792,9 @@ class ACORDExtractor:
                 )
             try:
                 if len(image_paths_to_use) == 1:
-                    response = self.llm.generate_with_image(prompt, image_paths_to_use[0], max_tokens=8192)
+                    response = self.llm.generate_with_image(prompt, image_paths_to_use[0], max_tokens=self.vision_max_tokens)
                 else:
-                    response = self.llm.generate_with_images(prompt, image_paths_to_use, max_tokens=8192)
+                    response = self.llm.generate_with_images(prompt, image_paths_to_use, max_tokens=self.vision_max_tokens)
                 batch_result = self.llm.parse_json(response)
                 # Debug: log raw VLM response for first batch; log when parse returns 0 keys
                 batch_num = i // VISION_BATCH + 1
@@ -802,7 +830,8 @@ class ACORDExtractor:
         1 (checked) or Off (not checked) for each. Uses a focused checkbox-only prompt.
         Smaller batches reduce empty content / truncation with large VLMs.
         """
-        VISION_BATCH = 20 if self.vision_fast else 10  # Fast: fewer API calls (may truncate)
+        # Checkbox payload is small; batch 18–20 is safe. Override via vision_batch_size for checkbox pass not used.
+        cb_batch = 20 if self.vision_fast else 18
         MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
@@ -830,8 +859,8 @@ class ACORDExtractor:
                         return b
             return None
 
-        for i in range(0, len(missing_fields), VISION_BATCH):
-            batch = missing_fields[i : i + VISION_BATCH]
+        for i in range(0, len(missing_fields), cb_batch):
+            batch = missing_fields[i : i + cb_batch]
             batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
             prompt = build_vision_checkbox_prompt(
                 form_type=form_type,
@@ -839,11 +868,10 @@ class ACORDExtractor:
                 tooltips=batch_tooltips,
             )
             try:
-                # Higher max_tokens reduces chance of truncation/empty (eval_count=4096)
                 if len(paths) == 1:
-                    response = self.llm.generate_with_image(prompt, paths[0], max_tokens=8192)
+                    response = self.llm.generate_with_image(prompt, paths[0], max_tokens=self.vision_max_tokens)
                 else:
-                    response = self.llm.generate_with_images(prompt, paths, max_tokens=8192)
+                    response = self.llm.generate_with_images(prompt, paths, max_tokens=self.vision_max_tokens)
                 batch_result = self.llm.parse_json(response)
                 for k, v in batch_result.items():
                     if v is None or (isinstance(v, str) and not v.strip()):

@@ -78,6 +78,10 @@ Examples:
         help="Use GPU for OCR (default: CPU-only)",
     )
     parser.add_argument(
+        "--ocr-backend", choices=("easyocr", "surya"), default="easyocr",
+        help="Bbox OCR backend: easyocr or surya (default: easyocr)",
+    )
+    parser.add_argument(
         "--timeout", type=int, default=300,
         help="LLM request timeout in seconds (default: 300)",
     )
@@ -111,7 +115,8 @@ Examples:
         dpi=args.dpi,
         easyocr_gpu=args.gpu,
         force_cpu=not args.gpu,
-        docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for EasyOCR + LLM
+        docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for bbox OCR + LLM
+        bbox_backend=args.ocr_backend,
     )
 
     llm = LLMEngine(

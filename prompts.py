@@ -560,3 +560,58 @@ JSON:
 {json_tmpl}
 """
     return prompt
+
+
+# ===========================================================================
+# Phase 1: one-shot fill-nulls prompt (text LLM only)
+# ===========================================================================
+
+def build_fill_nulls_prompt(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+    docling_text: str,
+    bbox_text: str,
+    label_value_text: str = "",
+    prefilled_summary: str = "",
+    max_docling: int = 6000,
+    max_bbox: int = 4000,
+    max_lv: int = 2000,
+) -> str:
+    """
+    One-shot prompt for Phase 1: given form text and label-value pairs,
+    fill only the null keys. Use when prefill is strong and you want fewer LLM calls.
+    """
+    layout = _layout_hint(form_type)
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    json_tmpl = _json_template(missing_fields)
+
+    prompt = f"""You are filling missing fields on an ACORD {form_type} form. Some fields were already extracted (spatial/layout); you must fill ONLY the keys listed below using the form text.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== ALREADY FILLED (for context; do not change these) ===
+{prefilled_summary[:1500] if prefilled_summary else "(none)"}
+
+=== FIELDS YOU MUST FILL (replace null with value from form text) ===
+{field_block}
+
+=== DOCLING OCR TEXT ===
+{docling_text[:max_docling]}
+
+=== BBOX OCR TEXT (positions) ===
+{bbox_text[:max_bbox]}
+
+{f"=== LABEL-VALUE PAIRS ==={chr(10)}{label_value_text[:max_lv]}" if label_value_text else ""}
+
+RULES:
+- Use EXACTLY the field key names above. Return ONLY a JSON object with those keys.
+- Replace null with the value found in the form text. If not found, omit the key.
+- Dates: MM/DD/YYYY. Checkboxes: "1" or "Off".
+- No markdown, no explanation. Valid JSON only.
+
+JSON to fill:
+{json_tmpl}
+"""
+    return prompt

@@ -192,6 +192,8 @@ def run_single_form(
     vision_checkboxes_only: bool = False,
     vision_fast: bool = False,
     use_graph: bool = False,
+    vision_batch_size: Optional[int] = None,
+    vision_max_tokens: int = 16384,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -215,6 +217,8 @@ def run_single_form(
         use_vision_descriptions=use_vision_descriptions,
         vision_checkboxes_only=vision_checkboxes_only,
         vision_fast=vision_fast,
+        vision_batch_size=vision_batch_size,
+        vision_max_tokens=vision_max_tokens,
     )
 
     start = time.time()
@@ -375,6 +379,12 @@ def main():
     )
     parser.add_argument("--gpu", action="store_true", help="Use GPU for OCR")
     parser.add_argument(
+        "--ocr-backend",
+        choices=("easyocr", "surya"),
+        default="easyocr",
+        help="Bbox OCR backend: easyocr (default) or surya (Marker's engine; often better accuracy)",
+    )
+    parser.add_argument(
         "--vram-reserve",
         type=float,
         default=VRAM_RESERVE_GB_DEFAULT,
@@ -420,6 +430,14 @@ def main():
     parser.add_argument(
         "--no-parallel-ocr", action="store_true",
         help="Disable parallel OCR (run Docling then EasyOCR sequentially).",
+    )
+    parser.add_argument(
+        "--vision-batch-size", type=int, default=None, metavar="N",
+        help="Fields per VLM call in general vision pass (default: 12). Higher = fewer calls, needs --vision-max-tokens. Try 15 with 16384 tokens.",
+    )
+    parser.add_argument(
+        "--vision-max-tokens", type=int, default=16384, metavar="N",
+        help="Max tokens per VLM response (default: 16384). Reduces truncation/empty batches; allows larger --vision-batch-size.",
     )
     args = parser.parse_args()
 
@@ -504,7 +522,8 @@ def main():
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (faster, needs 24GB+)
         ocr_unload_wait_seconds=args.unload_wait,
-        parallel_ocr=not args.no_parallel_ocr,  # Parallel Docling+EasyOCR when Docling=CPU, EasyOCR=GPU
+        parallel_ocr=not args.no_parallel_ocr,  # Parallel Docling+bbox OCR when Docling=CPU, bbox=GPU
+        bbox_backend=args.ocr_backend,
     )
     llm = LLMEngine(
         model=args.model,
@@ -547,6 +566,8 @@ def main():
                 vision_checkboxes_only=args.vision_checkboxes_only,
                 vision_fast=args.vision_fast,
                 use_graph=args.use_graph,
+                vision_batch_size=args.vision_batch_size,
+                vision_max_tokens=args.vision_max_tokens,
             )
             type_results.append(result)
 

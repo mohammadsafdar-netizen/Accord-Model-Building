@@ -13,6 +13,8 @@ This document summarizes how **Docling**, **BBox (EasyOCR)**, and **label-value 
 | **Spatial index** | Rows, columns, **label-value pairs** | Pairs like `CANCEL -> 01/16/2024`; some mispairs (e.g. LOB name → `$`). Fed to LLM as additional context. |
 | **Section detection** | Header-based clusters of bbox blocks | Section-scoped **Docling** and **BBox** text per category; section crops for VLM when enabled. |
 
+**Bbox OCR backend:** You can use **EasyOCR** (default) or **Surya** (Marker’s engine). Surya often gives better accuracy and speed on documents; benchmarks (e.g. Marker vs Docling) favor Surya. Use `--ocr-backend surya` (and `pip install surya-ocr`) to try it. Docling is always used for structure; only the bbox+text stage (spatial index, label-value pairs) switches between EasyOCR and Surya.
+
 **Rule of thumb:** When the same text appears in both Docling and BBox, **prefer BBox positions** to assign values to fields (e.g. status row, driver columns, LOB checkboxes).
 
 ---

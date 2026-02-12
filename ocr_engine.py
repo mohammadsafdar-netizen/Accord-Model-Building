@@ -58,6 +58,29 @@ except ImportError:
     EASYOCR_AVAILABLE = False
 
 try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+
+# Surya (Marker's OCR engine) - optional alternative to EasyOCR for bbox + text
+SURYA_AVAILABLE = False
+SURYA_TASK_OCR_BOXES = None
+if PIL_AVAILABLE:
+    try:
+        from surya.detection import DetectionPredictor
+        from surya.recognition import RecognitionPredictor
+        from surya.foundation import FoundationPredictor
+        SURYA_AVAILABLE = True
+        try:
+            from surya.common.surya.schema import TaskNames
+            SURYA_TASK_OCR_BOXES = [TaskNames.ocr_with_boxes]
+        except ImportError:
+            SURYA_TASK_OCR_BOXES = None  # recognition_predictor may use default task
+    except ImportError:
+        pass
+
+try:
     from docling.document_converter import DocumentConverter, PdfFormatOption
     from docling.datamodel.pipeline_options import PdfPipelineOptions
     from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
@@ -192,8 +215,9 @@ class OCRResult:
     image_paths: List[Path]
     clean_image_paths: List[Path]
     num_pages: int
-    # Docling layout: one list per page, each element {l, t, r, b, label?} for describe-then-extract
     docling_regions_per_page: Optional[List[List[Dict]]] = None
+    # Native Docling (key_value_items, tables) per page when API available
+    docling_native_pairs_per_page: Optional[List[List[Tuple[str, str]]]] = None
 
     @property
     def full_docling_text(self) -> str:
@@ -255,9 +279,78 @@ def is_likely_value(text: str) -> bool:
     return not is_likely_label(text_clean)
 
 
+def _block_acceptable_as_value(block: "TextBlock", max_value_len: int = 200) -> bool:
+    """True if this block should be allowed as a value in label-value pairing (reduces wrong pairs)."""
+    text = (block.text or "").strip()
+    # Reject label-like: ends with colon (e.g. "ANNUAL REVENUES: $" is a label, not value)
+    if re.search(r":\s*$", text) or text.rstrip("$%").strip().endswith(":"):
+        return False
+    # Reject pure punctuation or single symbol (e.g. "%", "S" alone)
+    if len(text) <= 2 and re.match(r"^[%\$.0-9\s]+$", text):
+        return False
+    # Reject long legal/boilerplate (not form field values)
+    if len(text) > max_value_len or "Applicable in " in text or "benefit or knowingly" in text:
+        return False
+    return True
+
+
+def _block_acceptable_as_label(block: "TextBlock", max_label_len: int = 120) -> bool:
+    """True if this block should be used as a label (exclude long legal/boilerplate)."""
+    text = (block.text or "").strip()
+    if len(text) > max_label_len:
+        return False
+    if "Applicable in " in text or "benefit or knowingly" in text or "presented to or by an insurer" in text:
+        return False
+    return True
+
+
 # ===========================================================================
-# Docling-guided label-value extraction (from markdown structure)
+# Docling native structure (key_value_items, tables) when available
 # ===========================================================================
+
+def extract_docling_native_pairs(doc: Any) -> List[Tuple[str, str]]:
+    """
+    Extract (label, value) pairs from Docling document's native structure
+    (key_value_items, tables) when the API is available. Returns [] if not.
+    Use alongside markdown-based parsing for better coverage.
+    """
+    pairs: List[Tuple[str, str]] = []
+    if doc is None:
+        return pairs
+    try:
+        # key_value_items: list of items with .key and .value (or similar)
+        kv_list = getattr(doc, "key_value_items", None)
+        if isinstance(kv_list, (list, tuple)):
+            for item in kv_list:
+                key = getattr(item, "key", None)
+                val = getattr(item, "value", None) or getattr(item, "text", None)
+                if key is not None and val is not None:
+                    k = str(key).strip()
+                    v = str(val).strip()
+                    if k and v:
+                        pairs.append((k, v))
+        # tables: export header + rows as (header_cell, data_cell) per column
+        tables = getattr(doc, "tables", None)
+        if isinstance(tables, (list, tuple)):
+            for table in tables:
+                export_df = getattr(table, "export_to_dataframe", None)
+                if export_df is not None:
+                    try:
+                        df = export_df(doc=doc)
+                        if df is not None and not df.empty:
+                            cols = list(df.columns)
+                            for _, row in df.iterrows():
+                                for c in cols:
+                                    h = str(c).strip()
+                                    v = str(row.get(c, "")).strip()
+                                    if h and v and _normalize_for_match(h) != _normalize_for_match(v):
+                                        pairs.append((h, v))
+                    except Exception:
+                        pass
+    except Exception:
+        pass
+    return pairs
+
 
 def _normalize_for_match(text: str) -> str:
     """Normalize text for label/value matching: lowercase, collapse whitespace."""
@@ -351,6 +444,7 @@ class OCREngine:
         column_tolerance: int = 40,
         ocr_unload_wait_seconds: Optional[int] = None,
         parallel_ocr: bool = True,
+        bbox_backend: str = "easyocr",
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -363,9 +457,16 @@ class OCREngine:
         self.OCR_UNLOAD_WAIT_SECONDS = ocr_unload_wait_seconds if ocr_unload_wait_seconds is not None else 5
         # When True and Docling=CPU + EasyOCR=GPU, run both in parallel to cut OCR wall time
         self.parallel_ocr = parallel_ocr
+        # "easyocr" (default) or "surya" (Marker's OCR engine; often better accuracy/speed)
+        self.bbox_backend = bbox_backend.lower() if bbox_backend else "easyocr"
+        if self.bbox_backend not in ("easyocr", "surya"):
+            self.bbox_backend = "easyocr"
 
         self._docling_converter = None
         self._easyocr_reader = None
+        self._surya_det = None
+        self._surya_rec = None
+        self._surya_foundation = None
 
     # ------------------------------------------------------------------
     # GPU memory cleanup
@@ -389,10 +490,22 @@ class OCREngine:
         print("  [OCR] EasyOCR unloaded from GPU")
         time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
+    def cleanup_surya(self):
+        """Free Surya OCR from GPU memory. Must be called before LLM on GPU."""
+        had = self._surya_rec is not None
+        self._surya_det = None
+        self._surya_rec = None
+        self._surya_foundation = None
+        cleanup_gpu_memory()
+        if had:
+            print("  [OCR] Surya unloaded from GPU")
+            time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
+
     def cleanup(self):
         """Free ALL GPU memory from OCR models."""
         self.cleanup_docling()
         self.cleanup_easyocr()
+        self.cleanup_surya()
         print("  [OCR] All OCR GPU memory released")
 
     # ------------------------------------------------------------------
@@ -544,24 +657,28 @@ class OCREngine:
             pass
         return out
 
-    def run_docling(self, image_paths: List[Path], use_gpu: bool = False) -> Tuple[List[str], List[List[Dict]]]:
-        """Run Docling OCR on each page image. Returns (markdown per page, regions per page)."""
+    def run_docling(self, image_paths: List[Path], use_gpu: bool = False) -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
+        """Run Docling OCR on each page. Returns (markdown per page, regions per page, native pairs per page)."""
         converter = self._get_docling(use_gpu=use_gpu)
         pages: List[str] = []
         docling_regions_per_page: List[List[Dict]] = []
+        native_pairs_per_page: List[List[Tuple[str, str]]] = []
         for img_path in image_paths:
             cleanup_gpu_memory()
             try:
                 result = converter.convert(img_path)
-                md = result.document.export_to_markdown()
+                doc = result.document
+                md = doc.export_to_markdown()
                 pages.append(md)
-                regions = self._extract_docling_regions(result.document)
+                regions = self._extract_docling_regions(doc)
                 docling_regions_per_page.append(regions)
+                native_pairs_per_page.append(extract_docling_native_pairs(doc))
             except Exception as e:
                 pages.append(f"[Docling OCR error: {e}]")
                 docling_regions_per_page.append([])
+                native_pairs_per_page.append([])
             cleanup_gpu_memory()
-        return pages, docling_regions_per_page
+        return pages, docling_regions_per_page, native_pairs_per_page
 
     # ------------------------------------------------------------------
     # EasyOCR with bounding boxes
@@ -601,6 +718,83 @@ class OCREngine:
         return all_pages
 
     # ------------------------------------------------------------------
+    # Surya OCR (Marker's engine) - optional alternative to EasyOCR
+    # ------------------------------------------------------------------
+
+    def _get_surya_predictors(self, use_gpu: bool = True):
+        """Lazy-init Surya detection + recognition predictors."""
+        if self._surya_rec is not None and self._surya_det is not None:
+            return self._surya_det, self._surya_rec
+        if not SURYA_AVAILABLE:
+            raise RuntimeError("surya-ocr is not installed. pip install surya-ocr")
+        if not PIL_AVAILABLE:
+            raise RuntimeError("PIL/Pillow is required for Surya. pip install Pillow")
+        cleanup_gpu_memory()
+        self._surya_foundation = FoundationPredictor()
+        self._surya_det = DetectionPredictor()
+        self._surya_rec = RecognitionPredictor(self._surya_foundation)
+        return self._surya_det, self._surya_rec
+
+    def run_surya(self, image_paths: List[Path]) -> List[List[Dict]]:
+        """Run Surya OCR (Marker's engine) on each image; returns list of bbox dicts per page.
+        Same output shape as run_easyocr for drop-in use with build_spatial_index.
+        """
+        det, rec = self._get_surya_predictors(use_gpu=self.easyocr_gpu)
+        all_pages: List[List[Dict]] = []
+        for img_path in image_paths:
+            cleanup_gpu_memory()
+            try:
+                img = Image.open(str(img_path)).convert("RGB")
+            except Exception as e:
+                print(f"  Surya error opening {img_path.name}: {e}")
+                all_pages.append([])
+                continue
+            try:
+                kwargs = {"det_predictor": det}
+                if SURYA_TASK_OCR_BOXES is not None:
+                    kwargs["task_names"] = SURYA_TASK_OCR_BOXES
+                predictions = rec([img], **kwargs)
+            except Exception as e:
+                print(f"  Surya error on {img_path.name}: {e}")
+                all_pages.append([])
+                continue
+            page_data: List[Dict] = []
+            for pred in predictions:
+                text_lines = getattr(pred, "text_lines", None) if not isinstance(pred, dict) else pred.get("text_lines")
+                if not text_lines:
+                    text_lines = []
+                for line in text_lines or []:
+                    bbox = getattr(line, "bbox", None) or (line.get("bbox") if isinstance(line, dict) else None)
+                    if not bbox or len(bbox) < 4:
+                        polygon = getattr(line, "polygon", None) or (line.get("polygon") if isinstance(line, dict) else None)
+                        if polygon and len(polygon) >= 4:
+                            xs = [p[0] for p in polygon]
+                            ys = [p[1] for p in polygon]
+                            bbox = [min(xs), min(ys), max(xs), max(ys)]
+                        else:
+                            continue
+                    x_min, y_min = int(bbox[0]), int(bbox[1])
+                    x_max, y_max = int(bbox[2]), int(bbox[3])
+                    text = (getattr(line, "text", None) or (line.get("text") if isinstance(line, dict) else None)) or ""
+                    conf = getattr(line, "confidence", None) or (line.get("confidence", 1.0) if isinstance(line, dict) else 1.0)
+                    if conf is None:
+                        conf = 1.0
+                    page_data.append({
+                        "text": re.sub(r"\s+", " ", str(text)).strip(),
+                        "x": (x_min + x_max) // 2,
+                        "y": (y_min + y_max) // 2,
+                        "x_min": x_min, "y_min": y_min,
+                        "x_max": x_max, "y_max": y_max,
+                        "width": x_max - x_min,
+                        "height": y_max - y_min,
+                        "confidence": round(float(conf), 2),
+                    })
+            page_data.sort(key=lambda d: (d["y"], d["x"]))
+            all_pages.append(page_data)
+            cleanup_gpu_memory()
+        return all_pages
+
+    # ------------------------------------------------------------------
     # Spatial indexing
     # ------------------------------------------------------------------
 
@@ -611,6 +805,7 @@ class OCREngine:
         page_height: int = 0,
         page: int = 1,
         docling_markdown: Optional[str] = None,
+        docling_native_pairs: Optional[List[Tuple[str, str]]] = None,
     ) -> SpatialIndex:
         idx = SpatialIndex(page_width=page_width, page_height=page_height, page=page)
 
@@ -631,8 +826,10 @@ class OCREngine:
         idx.columns = self._detect_columns(idx.blocks)
         idx.tables = self._detect_tables(idx.rows, idx.columns)
 
-        if docling_markdown and docling_markdown.strip():
-            docling_pairs = parse_docling_markdown_pairs(docling_markdown)
+        if (docling_native_pairs or (docling_markdown and docling_markdown.strip())):
+            docling_pairs: List[Tuple[str, str]] = list(docling_native_pairs) if docling_native_pairs else []
+            if docling_markdown and docling_markdown.strip():
+                docling_pairs += parse_docling_markdown_pairs(docling_markdown)
             docling_guided = self._find_label_value_pairs_docling_guided(
                 idx.blocks, docling_pairs, max_gap=300
             )
@@ -727,8 +924,14 @@ class OCREngine:
         pairs: List[LabelValuePair] = []
         used_value_ids: Set[int] = set()
         for label_str, value_str in docling_pairs:
-            label_blocks = [b for b in blocks if self._text_matches(b.text, label_str)]
-            value_blocks = [b for b in blocks if self._text_matches(b.text, value_str)]
+            label_blocks = [
+                b for b in blocks
+                if self._text_matches(b.text, label_str) and _block_acceptable_as_label(b)
+            ]
+            value_blocks = [
+                b for b in blocks
+                if self._text_matches(b.text, value_str) and _block_acceptable_as_value(b)
+            ]
             best_pair: Optional[Tuple[TextBlock, TextBlock]] = None
             best_gap = max_gap + 1
             for lb in label_blocks:
@@ -752,8 +955,12 @@ class OCREngine:
 
     def _find_label_value_pairs(self, blocks: List[TextBlock]) -> List[LabelValuePair]:
         pairs: List[LabelValuePair] = []
-        labels = [b for b in blocks if b.is_label]
-        values = [b for b in blocks if b.is_value]
+        labels = [b for b in blocks if b.is_label and _block_acceptable_as_label(b)]
+        # Only allow blocks that look like values (exclude label-like, legal text, single symbols)
+        values = [
+            b for b in blocks
+            if b.is_value and not b.is_label and _block_acceptable_as_value(b)
+        ]
         used: Set[int] = set()
         for label in labels:
             best_val: Optional[TextBlock] = None
@@ -891,7 +1098,8 @@ class OCREngine:
         print("  [OCR] Removing table lines ...")
         clean_paths = self.create_clean_images(image_paths)
 
-        # ---- Phase 1 & 2: Docling + EasyOCR (parallel when Docling=CPU, EasyOCR=GPU) ----
+        # ---- Phase 1 & 2: Docling + bbox OCR (EasyOCR or Surya; parallel when Docling=CPU, bbox=GPU) ----
+        bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
         run_parallel = (
             self.parallel_ocr
             and use_gpu
@@ -899,60 +1107,78 @@ class OCREngine:
         )
         if run_parallel:
             docling_mode = "CPU (offload)"
-            easyocr_mode = "GPU"
-            print(f"  [OCR] Running Docling ({docling_mode}) + EasyOCR ({easyocr_mode}) in parallel ...")
-            docling_pages: List[str] = []
-            docling_regions_per_page: List[List[Dict]] = []
-            bbox_pages: List[List[Dict]] = []
+            bbox_mode = "GPU"
+            print(f"  [OCR] Running Docling ({docling_mode}) + {bbox_backend_name} ({bbox_mode}) in parallel ...")
+            docling_pages = []
+            docling_regions_per_page = []
+            native_pairs_per_page: List[List[Tuple[str, str]]] = []
+            bbox_pages = []
 
-            def _run_docling() -> Tuple[List[str], List[List[Dict]]]:
+            def _run_docling() -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
                 return self.run_docling(image_paths, use_gpu=False)
 
-            def _run_easyocr() -> List[List[Dict]]:
+            def _run_bbox() -> List[List[Dict]]:
+                if self.bbox_backend == "surya":
+                    return self.run_surya(clean_paths)
                 return self.run_easyocr(clean_paths)
 
             with ThreadPoolExecutor(max_workers=2) as executor:
                 fut_d = executor.submit(_run_docling)
-                fut_e = executor.submit(_run_easyocr)
-                docling_pages, docling_regions_per_page = fut_d.result()
-                bbox_pages = fut_e.result()
+                fut_b = executor.submit(_run_bbox)
+                docling_pages, docling_regions_per_page, native_pairs_per_page = fut_d.result()
+                bbox_pages = fut_b.result()
 
             total_chars = sum(len(p) for p in docling_pages)
             total_blocks = sum(len(p) for p in bbox_pages)
-            print(f"  [OCR] Docling produced {total_chars} chars; EasyOCR found {total_blocks} blocks")
+            print(f"  [OCR] Docling produced {total_chars} chars; {bbox_backend_name} found {total_blocks} blocks")
             self.cleanup_docling()
-            self.cleanup_easyocr()
+            if self.bbox_backend == "surya":
+                self.cleanup_surya()
+            else:
+                self.cleanup_easyocr()
         else:
             docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
             print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
-            docling_pages, docling_regions_per_page = self.run_docling(image_paths, use_gpu=docling_use_gpu)
+            docling_pages, docling_regions_per_page, native_pairs_per_page = self.run_docling(
+                image_paths, use_gpu=docling_use_gpu
+            )
             total_chars = sum(len(p) for p in docling_pages)
             print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
             self.cleanup_docling()
 
-            easyocr_mode = "GPU" if use_gpu else "CPU"
-            print(f"  [OCR] Running EasyOCR with bounding boxes ({easyocr_mode}) ...")
-            bbox_pages = self.run_easyocr(clean_paths)
+            bbox_mode = "GPU" if use_gpu else "CPU"
+            print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
+            if self.bbox_backend == "surya":
+                bbox_pages = self.run_surya(clean_paths)
+                self.cleanup_surya()
+            else:
+                bbox_pages = self.run_easyocr(clean_paths)
+                self.cleanup_easyocr()
             total_blocks = sum(len(p) for p in bbox_pages)
-            print(f"  [OCR] EasyOCR found {total_blocks} text blocks")
-            self.cleanup_easyocr()
+            print(f"  [OCR] {bbox_backend_name} found {total_blocks} text blocks")
 
         # Extra wait so LLM has a clear GPU when it loads
         time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
         # ---- Phase 3: Build spatial indices (CPU only, no GPU needed) ----
         print("  [OCR] Building spatial indices ...")
-        spatial_indices: List[SpatialIndex] = []
+        spatial_indices = []
         for page_num, page_bbox in enumerate(bbox_pages, 1):
-            # Get dimensions from the image
             pw, ph = 0, 0
             if CV2_AVAILABLE and page_num <= len(image_paths):
                 img = cv2.imread(str(image_paths[page_num - 1]))
                 if img is not None:
                     ph, pw = img.shape[:2]
             docling_md = docling_pages[page_num - 1] if page_num <= len(docling_pages) else None
+            docling_native = (
+                native_pairs_per_page[page_num - 1]
+                if native_pairs_per_page and page_num <= len(native_pairs_per_page)
+                else None
+            )
             si = self.build_spatial_index(
-                page_bbox, pw, ph, page=page_num, docling_markdown=docling_md
+                page_bbox, pw, ph, page=page_num,
+                docling_markdown=docling_md,
+                docling_native_pairs=docling_native,
             )
             spatial_indices.append(si)
             print(
@@ -969,4 +1195,5 @@ class OCREngine:
             clean_image_paths=clean_paths,
             num_pages=len(image_paths),
             docling_regions_per_page=docling_regions_per_page if docling_regions_per_page else None,
+            docling_native_pairs_per_page=native_pairs_per_page if native_pairs_per_page else None,
         )

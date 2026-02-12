@@ -34,5 +34,13 @@
   "Policy_LineOfBusiness_CrimeIndicator_A": "1",
   "CrimeLineOfBusiness_PremiumAmount_A": "$1000",
   "Policy_LineOfBusiness_UmbrellaIndicator_A": "1",
-  "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": "$2000"
+  "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": "$2000",
+  "Policy_Status_QuoteIndicator_A": false,
+  "Policy_Status_BoundIndicator_A": false,
+  "Policy_Status_IssueIndicator_A": false,
+  "Policy_Status_CancelIndicator_A": false,
+  "Policy_Status_RenewIndicator_A": false,
+  "Policy_Status_ChangeIndicator_A": false,
+  "Policy_Status_EffectiveDate_A": "03/07/2024",
+  "Insurer_Underwriter_FullName_A": "Melissa Deleon"
 }

@@ -189,6 +189,8 @@ def run_single_form(
     registry: SchemaRegistry,
     use_vision: bool = False,
     use_vision_descriptions: bool = False,
+    vision_checkboxes_only: bool = False,
+    vision_fast: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -210,6 +212,8 @@ def run_single_form(
         ocr, llm, registry,
         use_vision=use_vision,
         use_vision_descriptions=use_vision_descriptions,
+        vision_checkboxes_only=vision_checkboxes_only,
+        vision_fast=vision_fast,
     )
 
     start = time.time()
@@ -381,6 +385,14 @@ def main():
         "--vision-describer-model", type=str, default=None,
         help="Small VLM for describing image regions when --vision-descriptions (default: same as --vision-model)",
     )
+    parser.add_argument(
+        "--vision-checkboxes-only", action="store_true",
+        help="Run only checkbox vision pass; skip general vision (much faster on large forms, text LLM fills the rest)",
+    )
+    parser.add_argument(
+        "--vision-fast", action="store_true",
+        help="Use larger vision batches (20) and 1 page; skip section crops. Faster but more risk of truncated VLM output.",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -430,7 +442,13 @@ def main():
     print(f"  Mode:  {gpu_mode}")
     print(f"  Forms: {', '.join(args.forms)}" + (" (one per form)" if args.one_per_form else ""))
     if args.vision:
-        print(f"  Vision: {args.vision_model}" + (" + descriptions (crop→describe→extract)" if args.vision_descriptions else ""))
+        vision_note = args.vision_model
+        if args.vision_checkboxes_only:
+            vision_note += " (checkboxes only)"
+        if args.vision_fast:
+            vision_note += " [fast]"
+        vision_note += (" + descriptions (crop→describe→extract)" if args.vision_descriptions else "")
+        print(f"  Vision: {vision_note}")
     print(f"  Total PDFs to run: {total_pdfs}")
     for ft in args.forms:
         forms = all_test_forms.get(ft, [])
@@ -484,6 +502,8 @@ def main():
                 entry, form_type, ocr, llm, registry,
                 use_vision=args.vision,
                 use_vision_descriptions=args.vision_descriptions,
+                vision_checkboxes_only=args.vision_checkboxes_only,
+                vision_fast=args.vision_fast,
             )
             type_results.append(result)
 

@@ -84,6 +84,8 @@ class ACORDExtractor:
         schema_registry: SchemaRegistry,
         use_vision: bool = False,
         use_vision_descriptions: bool = False,
+        vision_checkboxes_only: bool = False,
+        vision_fast: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -91,6 +93,10 @@ class ACORDExtractor:
         self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
         # When True, crop pages to tiles, describe each with small VLM, then send crops+descriptions to main VLM
         self.use_vision_descriptions = use_vision_descriptions and self.use_vision
+        # When True, run only checkbox vision pass; skip general vision (saves time on large forms)
+        self.vision_checkboxes_only = vision_checkboxes_only
+        # When True, use larger batches and 1 page for vision to reduce API calls (may increase truncation risk)
+        self.vision_fast = vision_fast
 
     # ==================================================================
     # Main entry point
@@ -244,7 +250,7 @@ class ACORDExtractor:
         category_steps = len([c for c in categories if c not in special])
         total_steps = 0
         if self.use_vision and ocr_result.clean_image_paths:
-            total_steps += 2  # vision: checkbox pass + general pass (or 1 if skip)
+            total_steps += 1 if self.vision_checkboxes_only else 2  # vision: checkbox only, or checkbox + general
         total_steps += category_steps
         if "driver" in schema.categories and form_type == "127":
             total_steps += 1
@@ -291,7 +297,7 @@ class ACORDExtractor:
                     print(f"    -> {new_cb} checkbox fields from VLM")
 
             missing_after_vision_cb = [n for n in all_field_names if n not in extracted]
-            if missing_after_vision_cb and not vision_skipped_404:
+            if missing_after_vision_cb and not vision_skipped_404 and not self.vision_checkboxes_only:
                 step += 1
                 print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - remaining ({len(missing_after_vision_cb)} fields) ...")
                 try:
@@ -316,9 +322,12 @@ class ACORDExtractor:
                             field_sources[k] = "vision"
                             new_count += 1
                     print(f"    -> {new_count} additional fields from VLM")
-            elif missing_after_vision_cb and vision_skipped_404:
+            elif missing_after_vision_cb and (vision_skipped_404 or self.vision_checkboxes_only):
                 step += 1
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) skipped (model not found)")
+                if self.vision_checkboxes_only:
+                    print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - remaining skipped (--vision-checkboxes-only)")
+                else:
+                    print(f"\n  [{step}/{total_steps}] Vision pass (VLM) skipped (model not found)")
 
             self.llm.unload_vision_model()
 
@@ -616,8 +625,8 @@ class ACORDExtractor:
         those section crops to the VLM (form-specific, section-scoped). Otherwise uses
         full pages or describe-then-extract regions.
         """
-        VISION_BATCH = 10  # Smaller batches to avoid 4096-token truncation (non-JSON)
-        MAX_PAGES = 2
+        VISION_BATCH = 20 if self.vision_fast else 10  # Fast: fewer API calls (may truncate)
+        MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
         if not paths:
@@ -626,9 +635,9 @@ class ACORDExtractor:
         section_crop_paths: List[Path] = []
 
         # Form-specific section crops: when sections and output_dir exist, crop to sections
-        # that are relevant to the missing fields' categories
+        # that are relevant to the missing fields' categories (skip when vision_fast to use full pages = faster)
         section_crop_paths: List[Path] = []
-        if sections and output_dir is not None and missing_fields:
+        if sections and output_dir is not None and missing_fields and not self.vision_fast:
             categories_needed: Set[str] = set()
             for f in missing_fields:
                 fi = schema.fields.get(f) if schema else None
@@ -790,8 +799,8 @@ class ACORDExtractor:
         1 (checked) or Off (not checked) for each. Uses a focused checkbox-only prompt.
         Smaller batches reduce empty content / truncation with large VLMs.
         """
-        VISION_BATCH = 10  # Small batches to avoid truncation / empty response (eval_count=4096)
-        MAX_PAGES = 2
+        VISION_BATCH = 20 if self.vision_fast else 10  # Fast: fewer API calls (may truncate)
+        MAX_PAGES = 1 if self.vision_fast else 2
         result: Dict[str, Any] = {}
         paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
         if not paths:

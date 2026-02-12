@@ -50,6 +50,8 @@ def main():
     p.add_argument("--ground-truth", type=Path, default=None, help="Ground truth JSON (default: <pdf>.json beside PDF)")
     p.add_argument("--fast", action="store_true", help="Use fast path: 2–8 fill-nulls LLM calls instead of full category extraction (faster, lower accuracy)")
     p.add_argument("--max-llm-chunks", type=int, default=0, help="With --fast: max chunks (0=all). Use 4–6 for quick run.")
+    p.add_argument("--vision", action="store_true", help="Use VLM for all extraction (vision model sees form images; no text-only LLM for categories/driver/vehicle)")
+    p.add_argument("--vision-model", type=str, default="llava:7b", help="Ollama vision model when --vision (e.g. llava:7b, qwen2-vl:7b)")
     args = p.parse_args()
 
     if args.pdf is None:
@@ -98,10 +100,13 @@ def main():
             cmd += ["--max-llm-chunks", str(args.max_llm_chunks)]
         return subprocess.run(cmd).returncode
 
+    use_vision = getattr(args, "vision", False)
     print("\n" + "=" * 60)
-    print("  PHASE 1 EXTRACTION (text-only LLM, no VLM)")
+    print("  PHASE 1 EXTRACTION (" + ("VLM for all extraction" if use_vision else "text-only LLM") + ")")
     print("  PDF:", args.pdf.name)
-    print("  Model:", args.model)
+    print("  Model:", args.vision_model if use_vision else args.model)
+    if use_vision:
+        print("  Vision: ON (VLM gets all data; text LLM only for gap-fill)")
     print("  OCR bbox backend:", args.ocr_backend)
     print("  Output:", args.out)
     print("=" * 60 + "\n")
@@ -116,16 +121,16 @@ def main():
         bbox_backend=args.ocr_backend,
     )
 
-    # Text-only LLM (no vision model)
+    # LLM: with --vision use VLM for extraction; text model still used for gap-fill
     llm = LLMEngine(
         model=args.model,
         base_url=args.ollama_url,
-        vision_model=None,
-        vision_describer_model=None,
+        vision_model=args.vision_model if use_vision else None,
+        vision_describer_model=None,  # describer step removed
     )
 
     registry = SchemaRegistry(schemas_dir=Path(__file__).parent / "schemas")
-    extractor = ACORDExtractor(ocr, llm, registry, use_vision=False)
+    extractor = ACORDExtractor(ocr, llm, registry, use_vision=use_vision)
 
     result = extractor.extract(
         pdf_path=args.pdf,
@@ -173,9 +178,9 @@ def main():
     print("  Saved:", extracted_path)
     print("  Metadata:", meta_path)
     print("=" * 60)
-    print("\nTo add Phase 2 (VLM on top), run full pipeline with --vision:")
-    print("  python main.py", str(args.pdf), "--vision --vision-model <vlm>")
-    print("  or use test_pipeline.py with --vision for batch runs.")
+    if not use_vision:
+        print("\nTo use VLM for all extraction, run with --vision:")
+        print("  python run_phase1_extraction.py --pdf", str(args.pdf), "--vision --vision-model llava:7b")
     print()
 
     return 0

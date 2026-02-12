@@ -531,6 +531,79 @@ JSON (use these exact keys):
     return prompt
 
 
+def build_vision_unified_prompt(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+    docling_text: str,
+    bbox_text: str,
+    label_value_text: str = "",
+    max_docling: int = 10000,
+    max_bbox: int = 8000,
+    max_lv: int = 3000,
+) -> str:
+    """
+    Unified VLM prompt: use the attached form image(s) together with the Docling document
+    and spatial/OCR text to fill the remaining fields. Schema-derived field list and
+    tooltips tell the model exactly which keys to output.
+    """
+    layout = _layout_hint(form_type)
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    json_tmpl = _json_template(missing_fields)
+    keys_list = ", ".join(f'"{f}"' for f in missing_fields[:30])
+    if len(missing_fields) > 30:
+        keys_list += f", ... ({len(missing_fields)} total)"
+
+    docling_block = (docling_text or "")[:max_docling]
+    if len(docling_text or "") > max_docling:
+        docling_block += "\n... [truncated]"
+
+    bbox_block = (bbox_text or "")[:max_bbox]
+    if len(bbox_text or "") > max_bbox:
+        bbox_block += "\n... [truncated]"
+
+    lv_block = (label_value_text or "")[:max_lv]
+    if len(label_value_text or "") > max_lv:
+        lv_block += "\n... [truncated]"
+
+    prompt = f"""You are extracting data from a scanned ACORD {form_type} form. You have:
+1. The FORM IMAGE(S) attached – use them as the primary source to read handwritten or unclear text.
+2. The DOCLING DOCUMENT below – structured text from document layout analysis.
+3. The SPATIAL/BBOX OCR below – positional text (label/value with coordinates) for disambiguation (e.g. status row, columns, LOB).
+4. The LABEL-VALUE PAIRS – OCR-derived "label -> value" pairs.
+
+Some fields were already filled using high-confidence spatial mapping. Your task is to fill ONLY the REMAINING fields listed below. Use the image + Docling + spatial info together. Output JSON with exactly the keys listed; use "1" or "Off" for checkboxes.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== DOCLING DOCUMENT (structured layout text) ===
+{docling_block}
+
+=== SPATIAL / BBOX OCR (positional text – use for column/row disambiguation) ===
+{bbox_block}
+"""
+    if lv_block.strip():
+        prompt += f"""
+=== LABEL-VALUE PAIRS (OCR marker output) ===
+{lv_block}
+"""
+    prompt += f"""
+=== REMAINING FIELDS TO FILL (use these EXACT key names: {keys_list}) ===
+{field_block}
+
+RULES:
+- Use ONLY the exact field names above. Copy them character-for-character.
+- Dates: MM/DD/YYYY. Checkboxes/indicators: "1" or "Off" only.
+- Output ONLY valid JSON. No markdown, no ```, no explanation.
+- Prefer the form image when text is unclear; use Docling and BBox for structure and disambiguation.
+
+JSON (use these exact keys):
+{json_tmpl}
+"""
+    return prompt
+
+
 def build_vision_checkbox_prompt(
     form_type: str,
     missing_fields: List[str],

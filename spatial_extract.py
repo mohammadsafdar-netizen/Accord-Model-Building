@@ -229,6 +229,25 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if date_val:
         result["Form_CompletionDate_A"] = date_val
 
+    # --- Agency Customer ID (top-right, often near DATE) ---
+    custid_lbl = _find_label(page1_bbox, "AGENCY CUSTOMER ID", y_max=350, x_min=1200)
+    if custid_lbl:
+        custid_region = _find_in_region(
+            page1_bbox,
+            custid_lbl["x"] + 50, min(custid_lbl["x"] + 400, 2500),
+            custid_lbl["y"] - 20, custid_lbl["y"] + 50,
+        )
+    else:
+        custid_region = _find_in_region(page1_bbox, 2000, 2500, 100, 200)
+    for b in custid_region:
+        text = b["text"].strip()
+        if re.match(r'^\d{2}-\d{7}$', text):
+            result["Producer_CustomerIdentifier_A"] = text
+            break
+        if re.match(r'^[A-Z0-9\-]+$', text) and 4 <= len(text) <= 20:
+            result["Producer_CustomerIdentifier_A"] = text
+            break
+
     # --- Carrier/Insurer (below CARRIER label, within carrier column) ---
     carrier_region = _region_below_label(
         page1_bbox, carrier_lbl, (1200, 2100, 250, 370),
@@ -276,6 +295,18 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if product_code:
         result["Insurer_ProductCode_A"] = product_code
 
+    # --- Underwriter Office (address or identifier; label "UNDERWRITER OFFICE") ---
+    uw_office_lbl = _find_label(page1_bbox, "UNDERWRITER OFFICE", y_max=700, x_min=1100)
+    if uw_office_lbl:
+        uw_office_region = _region_below_label(
+            page1_bbox, uw_office_lbl, (1400, 2400, 500, 600),
+            y_offset=15, y_range=90,
+            x_left=uw_office_lbl["x"], x_right=uw_office_lbl["x"] + 600,
+        )
+        office_text = _best_text(uw_office_region, min_len=5)
+        if office_text and "underwriter" not in office_text.lower():
+            result["Insurer_Underwriter_OfficeIdentifier_A"] = office_text
+
     # --- Agent contact info (below agent name area) ---
     # Use agency label Y to anchor contact search region
     contact_y_base = (agency_lbl["y"] + 280) if agency_lbl else 540
@@ -317,6 +348,19 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     addr_region = _find_in_region(
         page1_bbox, 100, 1000, addr_y_base, addr_y_base + 130,
     )
+    # Street line (LineOne): topmost block that looks like street (has digit or St/Ave/Blvd/Suite)
+    addr_sorted = sorted(addr_region, key=lambda b: (b["y"], b["x"]))
+    for b in addr_sorted:
+        text = b["text"].strip()
+        if not text or len(text) < 5:
+            continue
+        if re.match(r'^[A-Z]{2}$', text) or re.match(r'^\d{5}$', text):
+            continue
+        if re.match(r'^[A-Z][a-z]+$', text) and len(text) < 15 and b["y"] > addr_y_base + 70:
+            continue
+        if re.search(r'\d', text) or any(x in text.upper() for x in ("ST", "AVE", "BLVD", "SUITE", "STE", "STREET", "DR", "LN")):
+            result["Producer_MailingAddress_LineOne_A"] = text
+            break
     for b in addr_region:
         text = b["text"].strip()
         # City detection (lower portion of address block)
@@ -365,6 +409,9 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
         text = b["text"].strip()
         if text and text not in ("$", "S") and len(text) > 2:
             result["Billing_Plan"] = text
+            result["BillingPlan_A"] = text
+            result["CommercialPolicy_BillingPlan_A"] = text
+            result["GeneralInformation_BillingPlan_A"] = text
             break
 
     payment_x_left = (payment_lbl["x"] - 100) if payment_lbl else 1050
@@ -378,6 +425,9 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
         text = b["text"].strip()
         if text and text not in ("$", "S") and len(text) > 2:
             result["Payment_Plan"] = text
+            result["PaymentPlan_A"] = text
+            result["CommercialPolicy_PaymentPlan_A"] = text
+            result["GeneralInformation_PaymentPlan_A"] = text
             break
 
     # --- Named Insured (below NAME label) ---
@@ -398,6 +448,25 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
             result["NamedInsured_FullName_A"] = text
             break
 
+    # Named insured street (LineOne): between name and city rows
+    ni_street_y_end = (ni_name_lbl["y"] + 165) if ni_name_lbl else 2240
+    ni_street_y_start = (ni_name_lbl["y"] + 100) if ni_name_lbl else 2180
+    ni_street_region = _find_in_region(page1_bbox, 100, 900, ni_street_y_start, ni_street_y_end)
+    for b in sorted(ni_street_region, key=lambda x: (x["y"], x["x"])):
+        text = b["text"].strip()
+        if not text or len(text) < 4:
+            continue
+        if _is_common_label(text) or re.match(r'^[A-Z]{2}$', text) or re.match(r'^\d{5}$', text):
+            continue
+        if re.match(r'^\d{2}-\d{7}$', text):
+            continue
+        if re.search(r'\d', text) or any(x in text.upper() for x in ("ST", "AVE", "BLVD", "SUITE", "STE", "STREET", "DR", "LN", "ROAD", "RD")):
+            result["NamedInsured_MailingAddress_LineOne_A"] = text
+            break
+        if len(text) > 8 and not re.match(r'^[A-Z][a-z]+$', text):
+            result["NamedInsured_MailingAddress_LineOne_A"] = text
+            break
+
     # Named insured address (anchored relative to NAME label)
     ni_city_y = (ni_name_lbl["y"] + 165) if ni_name_lbl else 2240
     ni_city = _find_in_region(page1_bbox, 100, 500, ni_city_y, ni_city_y + 60)
@@ -416,13 +485,15 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
             result["NamedInsured_MailingAddress_PostalCode_A"] = m.group(2)
             break
 
-    # Tax ID (anchored relative to NAME label)
+    # Tax ID / Federal ID (anchored relative to NAME label; FEIN format NN-NNNNNNN)
     tax_y = (ni_name_lbl["y"] + 25) if ni_name_lbl else 2100
     tax_region = _find_in_region(page1_bbox, 2100, 2500, tax_y, tax_y + 100)
     for b in tax_region:
         text = b["text"].strip()
         if re.match(r'^\d{2}-\d{7}$', text):
             result["NamedInsured_TaxIdentifier_A"] = text
+            result["FederalIDNumber_A"] = text
+            result["CommercialPolicy_FederalIDNumber_A"] = text
             break
 
     # --- Lines of business detection ---
@@ -438,6 +509,66 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if underwriter_name:
         result["Insurer_Underwriter_FullName_A"] = underwriter_name
 
+    return result
+
+
+def _extract_125_page2(page2_bbox: List[Dict]) -> Dict[str, Any]:
+    """
+    Pre-extract first location/premises address from Form 125 page 2.
+    Looks for LOCATION / PREMISES / ADDRESS label and first address block (street, city, state, zip).
+    """
+    result: Dict[str, Any] = {}
+    if not page2_bbox:
+        return result
+    # Find anchor: LOCATION, PREMISES, or ADDRESS label (page 2 top area)
+    anchor = (
+        _find_label(page2_bbox, "LOCATION", y_max=600, x_max=800)
+        or _find_label(page2_bbox, "PREMISES", y_max=600, x_max=800)
+        or _find_label(page2_bbox, "ADDRESS", y_max=600, x_max=800)
+    )
+    if anchor:
+        y_start = anchor["y"] + 40
+        y_end = min(anchor["y"] + 280, 1200)
+    else:
+        y_start, y_end = 250, 700
+    region = _find_in_region(page2_bbox, 100, 1200, y_start, y_end)
+    region.sort(key=lambda b: (b["y"], b["x"]))
+    street = None
+    city = None
+    state = None
+    zip_val = None
+    for b in region:
+        text = b["text"].strip()
+        if not text or len(text) < 2:
+            continue
+        tl = text.lower()
+        if tl in ("location", "premises", "address", "no.", "building", "description", "city", "state", "zip"):
+            continue
+        if re.match(r"^[A-Z]{2}$", text):
+            state = text
+            continue
+        if re.match(r"^\d{5}(-\d{4})?$", text):
+            zip_val = text.split("-")[0]
+            continue
+        if re.match(r"^[A-Z][a-z]+$", text) and len(text) > 3 and 4 <= len(text) <= 25:
+            if city is None and state is None:
+                city = text
+            continue
+        if re.search(r"\d", text) or any(x in text.upper() for x in ("ST", "AVE", "BLVD", "SUITE", "STE", "STREET", "DR", "LN", "ROAD", "RD")):
+            if street is None and len(text) >= 5:
+                street = text
+    if street:
+        result["CommercialStructure_PhysicalAddress_LineOne_A"] = street
+    if city:
+        result["CommercialStructure_PhysicalAddress_CityName_A"] = city
+    if state:
+        result["CommercialStructure_PhysicalAddress_StateOrProvinceCode_A"] = state
+    if zip_val:
+        result["CommercialStructure_PhysicalAddress_PostalCode_A"] = zip_val
+    if street or city or state or zip_val:
+        parts = [p for p in [street, city, (state + " " + zip_val) if state and zip_val else (state or zip_val)] if p]
+        if parts:
+            result["LocationBuilding_Address_A"] = ", ".join(parts)
     return result
 
 
@@ -814,6 +945,45 @@ def extract_127_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if insured_name:
         result["NamedInsured_FullName_A"] = insured_name
 
+    # --- Named Insured address (city, state, zip) if present below name ---
+    ni_addr_y = (insured_lbl["y"] + 90) if insured_lbl else 550
+    ni_addr_region = _find_in_region(page1_bbox, insured_x - 50, naic_x, ni_addr_y, ni_addr_y + 100)
+    for b in ni_addr_region:
+        text = b["text"].strip()
+        if re.match(r"^[A-Z]{2}$", text):
+            result["NamedInsured_State_A"] = text
+        if re.match(r"^\d{5}(-\d{4})?$", text):
+            result["NamedInsured_ZipCode_A"] = text.split("-")[0]
+        if re.match(r"^[A-Z][a-z]+$", text) and len(text) > 3 and "NamedInsured_City_A" not in result:
+            result["NamedInsured_City_A"] = text
+
+    # --- Policy expiration date (if EXPIRATION or EXP DATE label present) ---
+    exp_lbl = _find_label(page1_bbox, "EXPIRATION", y_max=600, x_min=0) or _find_label(page1_bbox, "EXP DATE", y_max=600, x_min=0)
+    if exp_lbl:
+        exp_region = _region_below_label(
+            page1_bbox, exp_lbl, (exp_lbl["x"], exp_lbl["x"] + 350, exp_lbl["y"], exp_lbl["y"] + 80),
+            y_offset=15, y_range=70,
+            x_left=exp_lbl["x"] - 50, x_right=exp_lbl["x"] + 350,
+        )
+        exp_date = _find_date_value(exp_region)
+        if exp_date:
+            result["Policy_Expiration_Date_A"] = exp_date
+
+    # --- Agency Customer ID (top-right) ---
+    custid_lbl = _find_label(page1_bbox, "AGENCY CUSTOMER ID", y_max=350, x_min=1200)
+    if custid_lbl:
+        custid_region = _find_in_region(
+            page1_bbox, custid_lbl["x"] + 50, min(custid_lbl["x"] + 400, 2500),
+            custid_lbl["y"] - 20, custid_lbl["y"] + 50,
+        )
+    else:
+        custid_region = _find_in_region(page1_bbox, 2000, 2500, 100, 200)
+    for b in custid_region:
+        text = b["text"].strip()
+        if re.match(r"^\d{2}-\d{7}$", text) or (re.match(r"^[A-Z0-9\-]+$", text) and 4 <= len(text) <= 20):
+            result["Producer_CustomerIdentifier_A"] = text
+            break
+
     return result
 
 
@@ -920,6 +1090,18 @@ def extract_137_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if naic:
         result["Insurer_NAICCode_A"] = naic
 
+    # --- Policy expiration date (if EXPIRATION or EXP DATE label present) ---
+    exp_lbl = _find_label(page1_bbox, "EXPIRATION", y_max=600, x_min=0) or _find_label(page1_bbox, "EXP DATE", y_max=600, x_min=0)
+    if exp_lbl:
+        exp_region = _region_below_label(
+            page1_bbox, exp_lbl, (exp_lbl["x"], exp_lbl["x"] + 350, exp_lbl["y"], exp_lbl["y"] + 80),
+            y_offset=15, y_range=70,
+            x_left=exp_lbl["x"] - 50, x_right=exp_lbl["x"] + 350,
+        )
+        exp_date = _find_date_value(exp_region)
+        if exp_date:
+            result["Policy_ExpirationDate_C"] = exp_date
+
     # --- Agency Customer ID (top-right, y≈100-170) ---
     custid_lbl = _find_label(page1_bbox, "AGENCY CUSTOMER ID", y_max=200, x_min=1200)
     if custid_lbl:
@@ -932,6 +1114,9 @@ def extract_137_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     for b in custid_region:
         text = b["text"].strip()
         if re.match(r'^\d{2}-\d{7}$', text):
+            result["Producer_CustomerIdentifier_A"] = text
+            break
+        if re.match(r'^[A-Z0-9\-]+$', text) and 4 <= len(text) <= 20:
             result["Producer_CustomerIdentifier_A"] = text
             break
 
@@ -1701,7 +1886,11 @@ def spatial_preextract(
     page1 = bbox_pages[0] if len(bbox_pages) > 0 else []
 
     if form_type == "125":
-        return extract_125_header(page1)
+        result = extract_125_header(page1)
+        if len(bbox_pages) >= 2 and bbox_pages[1]:
+            page2_result = _extract_125_page2(bbox_pages[1])
+            result.update(page2_result)
+        return result
     elif form_type == "127":
         # Merge: header first, then drivers (driver fields overwrite any shared keys; header does not produce driver keys).
         header = extract_127_header(page1)

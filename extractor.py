@@ -36,6 +36,7 @@ from prompts import (
     build_vision_extraction_prompt,
     build_vision_extraction_prompt_with_region_descriptions,
     build_vision_checkbox_prompt,
+    build_vision_unified_prompt,
 )
 from spatial_extract import spatial_preextract
 from section_config import get_section_ids_for_category
@@ -280,7 +281,7 @@ class ACORDExtractor:
         category_steps = len([c for c in categories if c not in special])
         total_steps = 0
         if self.use_vision and ocr_result.clean_image_paths:
-            total_steps += 1 if self.vision_checkboxes_only else 2  # vision: checkbox only, or checkbox + general
+            total_steps += 1  # vision: single unified pass (image + docling + spatial)
         total_steps += category_steps
         if "driver" in schema.categories and form_type == "127":
             total_steps += 1
@@ -289,169 +290,141 @@ class ACORDExtractor:
         total_steps += 1  # gap-fill pass
 
         step = 0
+        vision_skipped_404 = False  # set True if VLM model not found
 
-        # ---- Step 4a: Vision pass FIRST (VLM on form images) --------------
+        # ---- Step 4a: Vision pass (unified: image + Docling + spatial/OCR) ----
         missing_after_spatial = [n for n in all_field_names if n not in extracted]
         if self.use_vision and missing_after_spatial and ocr_result.clean_image_paths:
             self.llm.unload_text_model()
-            checkbox_field_set: Set[str] = set()
-            if schema:
-                for fname, finfo in schema.fields.items():
-                    if finfo.field_type in ("checkbox", "radio"):
-                        checkbox_field_set.add(fname)
-            missing_checkboxes = [f for f in missing_after_spatial if f in checkbox_field_set]
-            vision_skipped_404 = False
-
-            if missing_checkboxes:
-                step += 1
-                cb_batch = 20 if self.vision_fast else 18  # 18 = fewer round-trips, still safe (small payload)
-                n_batches = (len(missing_checkboxes) + cb_batch - 1) // cb_batch
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields, {n_batches} batches of {cb_batch}) ...")
-                try:
-                    checkbox_result = self._vision_pass_checkboxes(
-                        form_type=form_type,
-                        missing_fields=missing_checkboxes,
-                        image_paths=ocr_result.clean_image_paths,
-                        schema=schema,
-                    )
-                except VisionModelNotFoundError as e:
-                    print(f"    [VLM] Skipping vision pass: {e}")
-                    vision_skipped_404 = True
-                    checkbox_result = {}
-                else:
-                    new_cb = 0
-                    for k, v in checkbox_result.items():
-                        if k not in extracted and v is not None:
-                            extracted[k] = self._normalise_checkbox_value(v)
-                            field_sources[k] = "vision"
-                            new_cb += 1
-                    print(f"    -> {new_cb} checkbox fields from VLM")
-
-            missing_after_vision_cb = [n for n in all_field_names if n not in extracted]
-            if missing_after_vision_cb and not vision_skipped_404 and not self.vision_checkboxes_only:
-                step += 1
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - remaining ({len(missing_after_vision_cb)} fields) ...")
-                try:
-                    vision_result = self._vision_pass(
-                        form_type=form_type,
-                        missing_fields=missing_after_vision_cb,
-                        image_paths=ocr_result.clean_image_paths,
-                        schema=schema,
-                        ocr_result=ocr_result,
-                        output_dir=output_dir,
-                        sections=sections,
-                    )
-                except VisionModelNotFoundError as e:
-                    print(f"    [VLM] Skipping vision pass: {e}")
-                    vision_skipped_404 = True
-                    vision_result = {}
-                else:
-                    new_count = 0
-                    for k, v in vision_result.items():
-                        if k not in extracted and v is not None:
-                            extracted[k] = v
-                            field_sources[k] = "vision"
-                            new_count += 1
-                    print(f"    -> {new_count} additional fields from VLM")
-            elif missing_after_vision_cb and (vision_skipped_404 or self.vision_checkboxes_only):
-                step += 1
-                if self.vision_checkboxes_only:
-                    print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - remaining skipped (--vision-checkboxes-only)")
-                else:
-                    print(f"\n  [{step}/{total_steps}] Vision pass (VLM) skipped (model not found)")
-
+            step += 1
+            n_batches = (len(missing_after_spatial) + (self.vision_batch_size or (20 if self.vision_fast else 12)) - 1) // (self.vision_batch_size or (20 if self.vision_fast else 12))
+            print(f"\n  [{step}/{total_steps}] Vision pass (VLM) – image + Docling + spatial/OCR ({len(missing_after_spatial)} remaining fields, {n_batches} batch(es)) ...")
+            try:
+                vision_result = self._vision_pass_unified(
+                    form_type=form_type,
+                    missing_fields=missing_after_spatial,
+                    image_paths=ocr_result.clean_image_paths,
+                    docling_text=docling_text,
+                    bbox_text=bbox_text,
+                    lv_text=lv_text,
+                    schema=schema,
+                )
+            except VisionModelNotFoundError as e:
+                print(f"    [VLM] Skipping vision pass: {e}")
+                vision_skipped_404 = True
+                vision_result = {}
+            else:
+                new_count = 0
+                for k, v in vision_result.items():
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "vision"
+                        new_count += 1
+                print(f"    -> {new_count} fields from VLM (unified)")
             self.llm.unload_vision_model()
 
+        # When VLM was used for extraction, skip text-LLM category/driver/vehicle (VLM got all data)
+        vision_actually_ran = bool(
+            self.use_vision and ocr_result.clean_image_paths and not vision_skipped_404
+        )
+        if vision_actually_ran:
+            total_steps -= category_steps
+            if form_type == "127" and "driver" in schema.categories:
+                total_steps -= 1
+            if form_type in ("127", "137") and "vehicle" in schema.categories:
+                total_steps -= 1
+
         # ---- Step 4b: Category-by-category TEXT LLM extraction ------------
-        for category in categories:
-            if category in special:
-                continue  # handled separately below
+        if not vision_actually_ran:
+            for category in categories:
+                if category in special:
+                    continue  # handled separately below
 
-            step += 1
-            field_names = schema.categories.get(category, [])
-            if not field_names:
-                continue
+                step += 1
+                field_names = schema.categories.get(category, [])
+                if not field_names:
+                    continue
 
-            # Use section-scoped context when form sections are detected, else page-focused or full
-            section_ids = get_section_ids_for_category(form_type, category) if sections else []
-            if sections and section_ids:
-                cat_bb = get_section_scoped_bbox_text(page_bbox, sections, section_ids)
-                cat_doc = get_section_scoped_docling(page_docling, sections, section_ids)
-                cat_lv = lv_text
-            elif category in CAT_PAGES:
-                cat_doc, cat_bb, cat_lv = _get_context_for_pages(CAT_PAGES[category])
-            else:
-                cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
+                # Use section-scoped context when form sections are detected, else page-focused or full
+                section_ids = get_section_ids_for_category(form_type, category) if sections else []
+                if sections and section_ids:
+                    cat_bb = get_section_scoped_bbox_text(page_bbox, sections, section_ids)
+                    cat_doc = get_section_scoped_docling(page_docling, sections, section_ids)
+                    cat_lv = lv_text
+                elif category in CAT_PAGES:
+                    cat_doc, cat_bb, cat_lv = _get_context_for_pages(CAT_PAGES[category])
+                else:
+                    cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
 
-            # Skip fields already pre-extracted spatially
-            remaining = [f for f in field_names if f not in extracted]
-            if not remaining:
-                print(f"\n  [{step}/{total_steps}] {category}: all {len(field_names)} fields already pre-extracted")
-                continue
+                # Skip fields already pre-extracted spatially
+                remaining = [f for f in field_names if f not in extracted]
+                if not remaining:
+                    print(f"\n  [{step}/{total_steps}] {category}: all {len(field_names)} fields already pre-extracted")
+                    continue
 
-            print(f"\n  [{step}/{total_steps}] Extracting {category} ({len(remaining)}/{len(field_names)} fields) ...")
-            use_section_scoped = bool(sections and section_ids)
-            cat_result = self._extract_category(
-                form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped
-            )
-            # Only add LLM results for fields not already spatially extracted
-            for k, v in cat_result.items():
-                if k not in extracted:
-                    extracted[k] = v
-                    field_sources[k] = "text_llm"
-            print(f"    -> {len(cat_result)} fields extracted")
+                print(f"\n  [{step}/{total_steps}] Extracting {category} ({len(remaining)}/{len(field_names)} fields) ...")
+                use_section_scoped = bool(sections and section_ids)
+                cat_result = self._extract_category(
+                    form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped
+                )
+                # Only add LLM results for fields not already spatially extracted
+                for k, v in cat_result.items():
+                    if k not in extracted:
+                        extracted[k] = v
+                        field_sources[k] = "text_llm"
+                print(f"    -> {len(cat_result)} fields extracted")
 
-        # ---- Driver extraction (127 only) --------------------------------
-        if form_type == "127" and "driver" in schema.categories:
-            step += 1
-            # Count how many driver fields are already spatially extracted
-            driver_fields = schema.categories.get("driver", [])
-            pre_extracted_drivers = [f for f in driver_fields if f in extracted]
-            remaining_drivers = [f for f in driver_fields if f not in extracted]
-            
-            if pre_extracted_drivers:
-                print(f"\n  [{step}/{total_steps}] Drivers: {len(pre_extracted_drivers)} pre-extracted, {len(remaining_drivers)} remaining for LLM ...")
-            else:
-                print(f"\n  [{step}/{total_steps}] Extracting drivers ...")
-            driver_section_ids = get_section_ids_for_category(form_type, "driver")
-            if sections and driver_section_ids:
-                driver_docling = get_section_scoped_docling(page_docling, sections, driver_section_ids)
-                driver_bbox = get_section_scoped_bbox_text(page_bbox, sections, driver_section_ids)
-            else:
-                driver_docling, driver_bbox = docling_text, bbox_text
-            driver_result = self._extract_all_drivers(
-                form_type, schema, ocr_result, driver_docling, driver_bbox
-            )
-            # Only add LLM results for fields not already spatially extracted
-            new_count = 0
-            for k, v in driver_result.items():
-                if k not in extracted:
-                    extracted[k] = v
-                    field_sources[k] = "text_llm"
-                    new_count += 1
-            print(f"    -> {new_count} additional driver fields from LLM")
+            # ---- Driver extraction (127 only) --------------------------------
+            if form_type == "127" and "driver" in schema.categories:
+                step += 1
+                # Count how many driver fields are already spatially extracted
+                driver_fields = schema.categories.get("driver", [])
+                pre_extracted_drivers = [f for f in driver_fields if f in extracted]
+                remaining_drivers = [f for f in driver_fields if f not in extracted]
 
-        # ---- Vehicle extraction (127 / 137) ------------------------------
-        if form_type in ("127", "137") and "vehicle" in schema.categories:
-            step += 1
-            print(f"\n  [{step}/{total_steps}] Extracting vehicles ...")
-            vehicle_section_ids = get_section_ids_for_category(form_type, "vehicle")
-            if sections and vehicle_section_ids:
-                vehicle_docling = get_section_scoped_docling(page_docling, sections, vehicle_section_ids)
-                vehicle_bbox = get_section_scoped_bbox_text(page_bbox, sections, vehicle_section_ids)
-            else:
-                vehicle_docling, vehicle_bbox = docling_text, bbox_text
-            vehicle_result = self._extract_all_vehicles(
-                form_type, schema, vehicle_docling, vehicle_bbox
-            )
-            # Only add LLM results for fields not already spatially extracted
-            new_vehicle = 0
-            for k, v in vehicle_result.items():
-                if k not in extracted:
-                    extracted[k] = v
-                    field_sources[k] = "text_llm"
-                    new_vehicle += 1
-            print(f"    -> {new_vehicle} vehicle fields extracted")
+                if pre_extracted_drivers:
+                    print(f"\n  [{step}/{total_steps}] Drivers: {len(pre_extracted_drivers)} pre-extracted, {len(remaining_drivers)} remaining for LLM ...")
+                else:
+                    print(f"\n  [{step}/{total_steps}] Extracting drivers ...")
+                driver_section_ids = get_section_ids_for_category(form_type, "driver")
+                if sections and driver_section_ids:
+                    driver_docling = get_section_scoped_docling(page_docling, sections, driver_section_ids)
+                    driver_bbox = get_section_scoped_bbox_text(page_bbox, sections, driver_section_ids)
+                else:
+                    driver_docling, driver_bbox = docling_text, bbox_text
+                driver_result = self._extract_all_drivers(
+                    form_type, schema, ocr_result, driver_docling, driver_bbox
+                )
+                # Only add LLM results for fields not already spatially extracted
+                new_count = 0
+                for k, v in driver_result.items():
+                    if k not in extracted:
+                        extracted[k] = v
+                        field_sources[k] = "text_llm"
+                        new_count += 1
+                print(f"    -> {new_count} additional driver fields from LLM")
+
+            # ---- Vehicle extraction (127 / 137) ------------------------------
+            if form_type in ("127", "137") and "vehicle" in schema.categories:
+                step += 1
+                print(f"\n  [{step}/{total_steps}] Extracting vehicles ...")
+                vehicle_section_ids = get_section_ids_for_category(form_type, "vehicle")
+                if sections and vehicle_section_ids:
+                    vehicle_docling = get_section_scoped_docling(page_docling, sections, vehicle_section_ids)
+                    vehicle_bbox = get_section_scoped_bbox_text(page_bbox, sections, vehicle_section_ids)
+                else:
+                    vehicle_docling, vehicle_bbox = docling_text, bbox_text
+                vehicle_result = self._extract_all_vehicles(
+                    form_type, schema, vehicle_docling, vehicle_bbox
+                )
+                # Only add LLM results for fields not already spatially extracted
+                new_vehicle = 0
+                for k, v in vehicle_result.items():
+                    if k not in extracted:
+                        extracted[k] = v
+                        field_sources[k] = "text_llm"
+                        new_vehicle += 1
+                print(f"    -> {new_vehicle} vehicle fields extracted")
 
         # ---- Gap-fill pass -----------------------------------------------
         step += 1
@@ -651,6 +624,88 @@ class ACORDExtractor:
 
         return result
 
+    def _vision_pass_unified(
+        self,
+        form_type: str,
+        missing_fields: List[str],
+        image_paths: List[Path],
+        docling_text: str,
+        bbox_text: str,
+        lv_text: str,
+        schema,
+    ) -> Dict[str, Any]:
+        """
+        Single VLM pass with full context: form image(s) + Docling doc + spatial/bbox OCR + label-value pairs.
+        Fills remaining fields using schema-derived field list. Batches by VISION_BATCH to stay within context.
+        """
+        VISION_BATCH = self.vision_batch_size if self.vision_batch_size is not None else (20 if self.vision_fast else 12)
+        MAX_PAGES = 1 if self.vision_fast else 2
+        result: Dict[str, Any] = {}
+        paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
+        if not paths:
+            return result
+        tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+
+        def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
+            if vlm_key in batch_keys:
+                return vlm_key
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            vlm_norm = re.sub(r"_+", "_", vlm_norm).strip("_")
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+                if b_norm == vlm_norm:
+                    return b
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+                if len(b_norm) < 5:
+                    continue
+                if vlm_norm in b_norm or b_norm in vlm_norm:
+                    if min(len(vlm_norm), len(b_norm)) / max(len(vlm_norm), len(b_norm)) >= 0.6:
+                        return b
+            return None
+
+        checkbox_field_set: Set[str] = set()
+        if schema:
+            for fname, finfo in schema.fields.items():
+                if finfo.field_type in ("checkbox", "radio"):
+                    checkbox_field_set.add(fname)
+
+        for i in range(0, len(missing_fields), VISION_BATCH):
+            batch = missing_fields[i : i + VISION_BATCH]
+            batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
+            prompt = build_vision_unified_prompt(
+                form_type=form_type,
+                missing_fields=batch,
+                tooltips=batch_tooltips,
+                docling_text=docling_text,
+                bbox_text=bbox_text,
+                label_value_text=lv_text,
+            )
+            try:
+                if len(paths) == 1:
+                    response = self.llm.generate_with_image(prompt, paths[0], max_tokens=self.vision_max_tokens)
+                else:
+                    response = self.llm.generate_with_images(prompt, paths, max_tokens=self.vision_max_tokens)
+                batch_result = self.llm.parse_json(response)
+                batch_num = i // VISION_BATCH + 1
+                if batch_num == 1:
+                    preview = (response or "").strip()[:400] or "(empty)"
+                    print(f"    [VLM] Batch 1 response preview: {preview!r}")
+                for k, v in batch_result.items():
+                    if v is None or (isinstance(v, str) and not v.strip()):
+                        continue
+                    canonical = _match_key(k, batch)
+                    if canonical:
+                        if canonical in checkbox_field_set:
+                            result[canonical] = self._normalise_checkbox_value(v)
+                        else:
+                            result[canonical] = v
+            except Exception as e:
+                print(f"    [VLM] Unified batch error: {e}")
+        return result
+
     def _vision_pass(
         self,
         form_type: str,
@@ -728,9 +783,8 @@ class ACORDExtractor:
                         return b
             return None
 
-        # Describe-then-extract: layout-based or grid crops, describe with small VLM, then main VLM
-        # Skip when we already have form-specific section crops
-        use_descriptions = not use_section_crops and self.use_vision_descriptions and VISION_UTILS_AVAILABLE
+        # Describer step removed: use full-page or section crops only (no describe-then-extract).
+        use_descriptions = False
         tile_paths: List[Path] = []
         region_descriptions: List[str] = []
         MAX_REGIONS = 16  # Cap total crops (Docling + EasyOCR) to avoid overload

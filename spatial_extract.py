@@ -424,8 +424,14 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     lob_fields = _extract_125_lob(page1_bbox)
     result.update(lob_fields)
 
-    # --- Policy status (y≈800-830) ---
-    # FUTURE: Vision LLM will handle this much better
+    # --- Policy status row (QUOTE / BOUND / ISSUE / CANCEL / RENEW / CHANGE) ---
+    status_fields = _extract_125_status_row(page1_bbox)
+    result.update(status_fields)
+
+    # --- Underwriter name (person at carrier, not company name) ---
+    underwriter_name = _extract_125_underwriter(page1_bbox)
+    if underwriter_name:
+        result["Insurer_Underwriter_FullName_A"] = underwriter_name
 
     return result
 
@@ -538,12 +544,112 @@ def _extract_125_lob(page1_bbox: List[Dict]) -> Dict[str, Any]:
                         result[premium_field] = premium_val
                     break
 
-    # Also detect policy status (y≈800-830)
-    # Look for BOUND, QUOTE checkmarks
-    status_blocks = [b for b in page1_bbox if 780 <= b["y"] <= 830]
-    # These are usually too complex for spatial extraction, skip
-
     return result
+
+
+def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
+    """
+    Extract Policy status row: QUOTE, BOUND, ISSUE, CANCEL, RENEW, CHANGE.
+    Status region: y≈640-850, x≈1300-2400. For each label, look for checked value (X, 1, Y, $, S) in same row.
+    Also extract Policy_Status_EffectiveDate_A from a date in this region.
+    """
+    result: Dict[str, Any] = {}
+    STATUS_LABELS = [
+        ("QUOTE", "Policy_Status_QuoteIndicator_A"),
+        ("BOUND", "Policy_Status_BoundIndicator_A"),
+        ("ISSUE", "Policy_Status_IssueIndicator_A"),
+        ("CANCEL", "Policy_Status_CancelIndicator_A"),
+        ("RENEW", "Policy_Status_RenewIndicator_A"),
+        ("CHANGE", "Policy_Status_ChangeIndicator_A"),
+    ]
+    CHECKED = {"x", "1", "y", "yes", "$", "s", "✓", "check", "checked"}
+    status_band = [b for b in page1_bbox if 620 <= b["y"] <= 860 and 1280 <= b["x"] <= 2450]
+    if not status_band:
+        return result
+    for label_text, field_name in STATUS_LABELS:
+        label_blocks = [b for b in status_band if label_text.lower() in b["text"].strip().lower()]
+        if not label_blocks:
+            continue
+        lbl = min(label_blocks, key=lambda b: b["x"])
+        ly, lx = lbl["y"], lbl["x"]
+        # Value is typically same row (dy <= 45) and to the right (x within lx+30 to lx+180)
+        value_blocks = [
+            b for b in status_band
+            if abs(b["y"] - ly) <= 45 and lx + 20 <= b["x"] <= lx + 220
+            and b.get("text")
+        ]
+        checked = False
+        for b in value_blocks:
+            t = b["text"].strip().lower()
+            if re.match(r"^\d{1,2}/\d{1,2}/\d{4}$", b["text"].strip()):
+                continue
+            if t in ("of", "transaction", "quote", "bound", "issue", "cancel", "renew", "change", "pm", "am"):
+                continue
+            if t in CHECKED or t in ("1", "x", "y"):
+                checked = True
+                break
+        result[field_name] = checked
+    # Policy_Status_EffectiveDate_A: date in status region (MM/DD/YYYY)
+    for b in status_band:
+        m = re.search(r"\d{1,2}/\d{1,2}/\d{4}", b["text"].strip())
+        if m:
+            result["Policy_Status_EffectiveDate_A"] = m.group(0)
+            break
+    # Policy_Status_EffectiveTime_A: 4-digit HHMM if present (e.g. 10 + PM -> 2200)
+    time_blocks = [b for b in status_band if re.match(r"^\d{1,4}$", b["text"].strip())]
+    pm_blocks = [b for b in status_band if b["text"].strip().upper() == "PM"]
+    am_blocks = [b for b in status_band if b["text"].strip().upper() == "AM"]
+    for tb in time_blocks:
+        val = int(tb["text"].strip())
+        if 0 <= val <= 24 and any(abs(tb["y"] - p["y"]) <= 30 for p in pm_blocks):
+            result["Policy_Status_EffectiveTime_A"] = (val + 12) * 100 if val < 12 else val * 100
+            break
+        if 0 <= val <= 24 and any(abs(tb["y"] - a["y"]) <= 30 for a in am_blocks):
+            result["Policy_Status_EffectiveTime_A"] = val * 100 if val <= 12 else (val - 12) * 100
+            break
+        if 100 <= val <= 2359:
+            result["Policy_Status_EffectiveTime_A"] = val
+            break
+        if 1 <= val <= 12:
+            result["Policy_Status_EffectiveTime_A"] = val * 100
+            break
+    return result
+
+
+def _extract_125_underwriter(page1_bbox: List[Dict]) -> Optional[str]:
+    """
+    Find UNDERWRITER label (exclude UNDERWRITER OFFICE); take value below or to the right (person name).
+    """
+    # Find "UNDERWRITER" but not "UNDERWRITER OFFICE"
+    candidates = []
+    for b in page1_bbox:
+        if b["y"] > 900:
+            continue
+        text = b["text"].strip().upper()
+        if "UNDERWRITER" in text and "OFFICE" not in text:
+            candidates.append(b)
+    if not candidates:
+        return None
+    underwriter_lbl = min(candidates, key=lambda b: (b["y"], b["x"]))
+    ly, lx = underwriter_lbl["y"], underwriter_lbl["x"]
+    # Value: below label (y + 30 to y + 80) and same column (x ± 150)
+    value_region = _find_in_region(
+        page1_bbox, max(0, lx - 150), lx + 350,
+        ly + 25, ly + 90,
+        exclude_labels=False,
+    )
+    for b in value_region:
+        text = b["text"].strip()
+        if _is_common_label(text):
+            continue
+        if "UNDERWRITER" in text.upper() or "OFFICE" in text.upper():
+            continue
+        if re.match(r"^\d", text) or len(text) < 2:
+            continue
+        if len(text) > 60:
+            continue
+        return text
+    return None
 
 
 # ===========================================================================

@@ -22,8 +22,8 @@ from typing import Any, Dict, List, Optional
 # Value normalisation
 # ===========================================================================
 
-_CHECKBOX_TRUE = {"true", "1", "on", "yes", "x", "checked"}
-_CHECKBOX_FALSE = {"false", "0", "off", "no", "unchecked", ""}
+_CHECKBOX_TRUE = {"true", "1", "on", "yes", "x", "checked", "y"}
+_CHECKBOX_FALSE = {"false", "0", "off", "no", "unchecked", "", "n"}
 
 # Common date formats for parsing (order matters: try more specific first)
 _DATE_FORMATS = [
@@ -83,6 +83,14 @@ def normalise_value(
         return "true" if value else "false"
     if isinstance(value, (int, float)):
         s = str(value)
+        # Checkbox: treat 1/0 as true/false when field is checkbox
+        fn_lower = field_name.lower()
+        is_checkbox = (
+            "indicator" in fn_lower or fn_lower.startswith("chk")
+            or (checkbox_fields and field_name in checkbox_fields)
+        )
+        if is_checkbox and value in (0, 1):
+            return "true" if value == 1 else "false"
     elif isinstance(value, dict):
         s = json.dumps(value, sort_keys=True).lower()
     elif isinstance(value, list):

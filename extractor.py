@@ -38,6 +38,14 @@ from prompts import (
     build_vision_checkbox_prompt,
 )
 from spatial_extract import spatial_preextract
+from section_config import get_section_ids_for_category
+from form_sections import (
+    get_sections_for_form,
+    get_section_scoped_bbox_text,
+    get_section_scoped_docling,
+    crop_sections_to_images,
+    FormSection,
+)
 
 try:
     from vision_utils import (
@@ -191,6 +199,17 @@ class ACORDExtractor:
         # ---- Step 3a: Save intermediate OCR outputs for monitoring ----------
         self._save_intermediate(ocr_result, page_bbox_text, page_lv_text, output_dir)
 
+        # ---- Step 3a': Form-specific section detection (header-based clustering) ----
+        sections: List[FormSection] = get_sections_for_form(form_type, page_bbox)
+        if sections:
+            from utils import save_json as _save_json
+            sections_debug = [
+                {"section_id": s.section_id, "page": s.page, "title": s.title, "crop_bbox": s.crop_bbox, "block_count": len(s.blocks)}
+                for s in sections
+            ]
+            _save_json(sections_debug, output_dir / "form_sections.json")
+            print(f"  [SECTIONS] Detected {len(sections)} form sections (header-based)")
+
         # ---- Step 3b: Spatial pre-extraction (high-confidence fields) ------
         print("\n  [SPATIAL] Pre-extracting from BBox positions ...")
         spatial_fields = spatial_preextract(form_type, page_bbox)
@@ -239,8 +258,13 @@ class ACORDExtractor:
             if not field_names:
                 continue
 
-            # Use page-focused context for certain categories
-            if category in CAT_PAGES:
+            # Use section-scoped context when form sections are detected, else page-focused or full
+            section_ids = get_section_ids_for_category(form_type, category) if sections else []
+            if sections and section_ids:
+                cat_bb = get_section_scoped_bbox_text(page_bbox, sections, section_ids)
+                cat_doc = get_section_scoped_docling(page_docling, sections, section_ids)
+                cat_lv = lv_text
+            elif category in CAT_PAGES:
                 cat_doc, cat_bb, cat_lv = _get_context_for_pages(CAT_PAGES[category])
             else:
                 cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
@@ -252,8 +276,9 @@ class ACORDExtractor:
                 continue
 
             print(f"\n  [{step}/{total_steps}] Extracting {category} ({len(remaining)}/{len(field_names)} fields) ...")
+            use_section_scoped = bool(sections and section_ids)
             cat_result = self._extract_category(
-                form_type, category, remaining, cat_doc, cat_bb, cat_lv
+                form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped
             )
             # Only add LLM results for fields not already spatially extracted
             for k, v in cat_result.items():
@@ -305,7 +330,16 @@ class ACORDExtractor:
         missing = [n for n in all_field_names if n not in extracted]
         if missing:
             print(f"\n  [{step}/{total_steps}] Gap-fill pass ({len(missing)} missing fields) ...")
-            gap_result = self._gap_fill(form_type, missing, bbox_text, lv_text)
+            gap_bbox_text = bbox_text
+            if sections:
+                gap_section_ids: Set[str] = set()
+                for f in missing:
+                    fi = schema.fields.get(f) if schema else None
+                    if fi and getattr(fi, "category", None):
+                        gap_section_ids.update(get_section_ids_for_category(form_type, fi.category))
+                if gap_section_ids:
+                    gap_bbox_text = get_section_scoped_bbox_text(page_bbox, sections, list(gap_section_ids))
+            gap_result = self._gap_fill(form_type, missing, gap_bbox_text, lv_text)
             # Only add fields that weren't already extracted
             new_count = 0
             for k, v in gap_result.items():
@@ -357,6 +391,8 @@ class ACORDExtractor:
                     image_paths=ocr_result.clean_image_paths,
                     schema=schema,
                     ocr_result=ocr_result,
+                    output_dir=output_dir,
+                    sections=sections,
                 )
                 new_count = 0
                 for k, v in vision_result.items():
@@ -482,6 +518,7 @@ class ACORDExtractor:
         docling_text: str,
         bbox_text: str,
         lv_text: str = "",
+        section_scoped: bool = False,
     ) -> Dict[str, Any]:
         """Extract one category of fields using a two-pass strategy.
         
@@ -505,6 +542,7 @@ class ACORDExtractor:
                 docling_text=docling_text,
                 bbox_text=bbox_text,
                 label_value_text=lv_text,
+                section_scoped=section_scoped,
             )
             response = self.llm.generate(prompt)
             batch_result = self.llm.parse_json(response)
@@ -544,12 +582,14 @@ class ACORDExtractor:
         image_paths: List[Path],
         schema,
         ocr_result: Any = None,
+        output_dir: Optional[Path] = None,
+        sections: Optional[List[FormSection]] = None,
     ) -> Dict[str, Any]:
         """
         Use a vision LLM (Ollama VLM) to extract missing fields from form page images.
-        Optional: when use_vision_descriptions is True, crop to regions (layout-based
-        from Docling/EasyOCR or fixed 2x2 grid), describe each with a small VLM, then
-        send crops + descriptions to the main VLM for extraction.
+        When sections are provided, crops page images to section bboxes and sends only
+        those section crops to the VLM (form-specific, section-scoped). Otherwise uses
+        full pages or describe-then-extract regions.
         """
         VISION_BATCH = 20
         MAX_PAGES = 2
@@ -558,18 +598,58 @@ class ACORDExtractor:
         if not paths:
             return result
         tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+        section_crop_paths: List[Path] = []
+
+        # Form-specific section crops: when sections and output_dir exist, crop to sections
+        # that are relevant to the missing fields' categories
+        section_crop_paths: List[Path] = []
+        if sections and output_dir is not None and missing_fields:
+            categories_needed: Set[str] = set()
+            for f in missing_fields:
+                fi = schema.fields.get(f) if schema else None
+                if fi and getattr(fi, "category", None):
+                    categories_needed.add(fi.category)
+            section_ids_needed: List[str] = []
+            for cat in categories_needed:
+                section_ids_needed.extend(get_section_ids_for_category(form_type, cat))
+            section_ids_needed = list(dict.fromkeys(section_ids_needed))  # preserve order, dedup
+            if section_ids_needed:
+                crops_dir = Path(output_dir) / "vision_section_crops"
+                section_crop_paths = crop_sections_to_images(
+                    paths,
+                    sections,
+                    section_ids_needed,
+                    crops_dir,
+                    page_stem=paths[0].stem.rsplit("_", 1)[0] if paths else "page",
+                )
+                if section_crop_paths:
+                    print(f"    [VLM] Using {len(section_crop_paths)} section crop(s) for vision pass")
+                    paths = section_crop_paths
+
+        use_section_crops = bool(section_crop_paths)
 
         def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
             if vlm_key in batch_keys:
                 return vlm_key
             vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
             for b in batch_keys:
-                if b.strip().replace(" ", "_").replace("-", "_").lower() == vlm_norm:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                if b_norm == vlm_norm:
                     return b
+            # Fuzzy: one key contains the other (handles AuthorizedRep vs AuthorizedRepresentative)
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                if len(b_norm) < 5:
+                    continue
+                if vlm_norm in b_norm or b_norm in vlm_norm:
+                    ratio = min(len(vlm_norm), len(b_norm)) / max(len(vlm_norm), len(b_norm))
+                    if ratio >= 0.6:
+                        return b
             return None
 
         # Describe-then-extract: layout-based or grid crops, describe with small VLM, then main VLM
-        use_descriptions = self.use_vision_descriptions and VISION_UTILS_AVAILABLE
+        # Skip when we already have form-specific section crops
+        use_descriptions = not use_section_crops and self.use_vision_descriptions and VISION_UTILS_AVAILABLE
         tile_paths: List[Path] = []
         region_descriptions: List[str] = []
         MAX_REGIONS = 16  # Cap total crops (Docling + EasyOCR) to avoid overload
@@ -691,8 +771,16 @@ class ACORDExtractor:
                 return vlm_key
             vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").lower()
             for b in batch_keys:
-                if b.strip().replace(" ", "_").replace("-", "_").lower() == vlm_norm:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                if b_norm == vlm_norm:
                     return b
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").lower()
+                if len(b_norm) < 5:
+                    continue
+                if vlm_norm in b_norm or b_norm in vlm_norm:
+                    if min(len(vlm_norm), len(b_norm)) / max(len(vlm_norm), len(b_norm)) >= 0.6:
+                        return b
             return None
 
         for i in range(0, len(missing_fields), VISION_BATCH):

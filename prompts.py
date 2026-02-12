@@ -27,7 +27,7 @@ Page 1 (top-to-bottom):
   - AGENCY/PRODUCER (left side): The agent/broker selling the policy - company name, contact person, phone, email, address
   - COMPANY/INSURER (right side, near top): The insurance CARRIER providing coverage + 5-digit NAIC code
   - NAMED INSURED/APPLICANT: The customer buying insurance - business name, mailing address
-  - POLICY: Policy number, effective date, expiration date, status checkboxes (Quote/Bound/Issue)
+  - POLICY: Policy number, effective date, expiration date. STATUS row: Quote / Bound / Issue / Cancel (each has a checkbox; return 1 if marked, Off if not). Date in the status block = Policy_Status_EffectiveDate_A.
   - LINE OF BUSINESS: Checkboxes for CGL, Commercial Property, Business Auto, Umbrella, etc. with premium amounts
 Page 2: Premises/location, Nature of business, Legal entity.
 Page 3+: Prior coverage, Loss history, Attachments.
@@ -41,9 +41,8 @@ Page 1 (top-to-bottom):
   - NAMED INSURED: The customer/business buying insurance
   - POLICY NUMBER: Starts with letters then numbers (e.g., BA-12345678)
   - PRODUCER/AGENT: The broker
-  - DRIVER TABLE (middle/bottom of page 1):
-    13 rows (suffix _A to _M), columns left-to-right:
-    #, First Name, City, Last Name, State, Zip, Sex, DOB, License#, License State
+  - DRIVER TABLE (middle/bottom of page 1): 13 rows, suffix _A to _M.
+    Use BBox X positions to assign columns: # (x<180), First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850-930), DOB (~1080-1160), License# (~1500-1620), License State (~1830-1920). Row order = driver number: row 1=_A, row 2=_B, etc.
 CRITICAL: "ACORD" or "ACORD CORPORATION" is the FORM PUBLISHER, not the insurer!
 NAIC code is a 5-digit number (not a tax ID which has format XX-XXXXXXX).
 DRIVER SUFFIX: #1=_A, #2=_B, #3=_C ... #13=_M."""
@@ -51,8 +50,8 @@ DRIVER SUFFIX: #1=_A, #2=_B, #3=_C ... #13=_M."""
 ACORD_137_LAYOUT = """ACORD 137 - Commercial Auto Section (Vehicle Schedule)
 Page 1: Named Insured, Policy effective date, Insurer, NAIC code.
          Vehicle schedule with coverage symbols/limits (suffixes _A to _F).
-         Business Auto Symbols: 1=Any Auto, 2=Owned, 3=Hired, etc.
-Page 2+: Coverage details, deductibles, liability limits.
+         Business Auto Symbols 1-9 are CHECKBOXES (1=Any Auto, 2=Owned, 3=Hired, etc.): use BBox to see which symbol column is marked; return 1 or Off.
+Page 2+: Same layout for Truckers (_B) and Motor Carrier (_C). Coverage amounts and deductibles appear in fixed X regions; use BBox Y to match labels to values.
 VEHICLE SUFFIX: _A to _F for different vehicle/coverage rows."""
 
 
@@ -79,7 +78,9 @@ _CATEGORY_HINTS = {
         "NOT the agent/producer and NOT the customer/named insured. "
         "Look for the COMPANY field or 'INSURER' label at the top of the form. "
         "NAIC code is a 5-digit number next to the carrier name. "
-        "CRITICAL: The Producer/Agent name is a PERSON or AGENCY. The Insurer is the INSURANCE COMPANY."
+        "CRITICAL: The Producer/Agent name is a PERSON or AGENCY. The Insurer is the INSURANCE COMPANY. "
+        "UNDERWRITER = a PERSON's name at the carrier (e.g. John Doe), NOT the company name. "
+        "Insurer_Underwriter_FullName_A = person; Insurer_FullName_A = company name."
     ),
     "producer": (
         "PRODUCER/AGENT/AGENCY = the broker/agent selling the policy. "
@@ -96,8 +97,10 @@ _CATEGORY_HINTS = {
     ),
     "policy": (
         "POLICY fields: policy number, effective/expiration dates, "
-        "status indicators (Quote/Bound/Issue). Dates in MM/DD/YYYY. "
-        "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM, e.g. 1000 for 10:00 AM, 1430 for 2:30 PM. Do NOT use a date for time fields. "
+        "status indicators (Quote/Bound/Issue/Cancel/Renew). Dates in MM/DD/YYYY. "
+        "Policy_Status_EffectiveDate_A = the date in the STATUS OF / TRANSACTION block (next to Quote/Bound/Cancel). "
+        "Policy_EffectiveDate_A = PROPOSED EFF DATE in the policy block (proposed effective date). Do NOT confuse the two. "
+        "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM, e.g. 1000 for 10:00 AM, 2200 for 10:00 PM. Do NOT use a date for time fields. "
         "CRITICAL: 'Indicator' fields are CHECKBOXES - return ONLY '1' (checked) or 'Off' (not checked). "
         "Do NOT put text values or dollar amounts in Indicator fields. "
         "LineOfBusiness Indicator = is that line of business selected? '1' if checkbox is marked."
@@ -105,8 +108,9 @@ _CATEGORY_HINTS = {
     "driver": (
         "DRIVER fields from the driver table. Each row is one driver. "
         "Suffix _A = Driver #1, _B = Driver #2 ... _M = Driver #13. "
-        "Use BBox X positions to disambiguate columns: "
-        "first name, city, last name, state, DOB may run together in Docling OCR."
+        "Use BBox row order (Y) for driver number and BBox X positions for columns: "
+        "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), DOB (~1080-1160), License# (~1500-1620), License State (~1830). "
+        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment."
     ),
     "vehicle": (
         "VEHICLE fields: Year, Make, Model, VIN, body type, GVW, cost new, "
@@ -187,6 +191,7 @@ def build_extraction_prompt(
     label_value_text: str = "",
     max_docling: int = 8000,
     max_bbox: int = 5000,
+    section_scoped: bool = False,
 ) -> str:
     """
     Build a category-specific extraction prompt.
@@ -195,6 +200,11 @@ def build_extraction_prompt(
     """
     layout = _layout_hint(form_type)
     cat_hint = _category_hint(category)
+    section_note = (
+        "The text below is limited to the relevant form section(s); use it together with BBox positions for correct field assignment."
+        if section_scoped
+        else ""
+    )
     field_block = _format_fields_with_tooltips(field_names, tooltips)
 
     has_indicators = category == "checkbox" or any(
@@ -217,6 +227,7 @@ def build_extraction_prompt(
 
 === SECTION CONTEXT ===
 {cat_hint}
+{section_note}
 
 === FIELDS TO EXTRACT ===
 {field_block}
@@ -233,7 +244,7 @@ CRITICAL RULES:
 1. You MUST use EXACTLY the field key names shown above. Do NOT rename or invent keys.
 2. Fill in the JSON template below - replace null with the extracted value (as a string).
 3. If a field is blank/missing, remove it from output (do not return null or empty string).
-4. Use BOTH OCR sources: Docling for structure, BBox for spatial positions.
+4. Use BOTH OCR sources: Docling for structure, BBox for spatial positions. When the same information appears in both, BBox X,Y positions decide which field a value belongs to (e.g. status row, driver columns, LOB columns).
 5. Dates: MM/DD/YYYY. Numbers: as strings.
 6. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not. NEVER put text in Indicator fields.'}
 7. Do NOT paraphrase - use the exact text from the OCR.

@@ -1,22 +1,198 @@
 {
   "form_number": "137",
   "form_name": "Commercial Auto Section",
-  "total_fields": 102,
+  "total_fields": 454,
   "fields": {
-    "NamedInsured_FullName_A": {
-      "name": "NamedInsured_FullName_A",
+    "CommercialVehicleLineOfBusiness_RemarkText_A": {
+      "name": "CommercialVehicleLineOfBusiness_RemarkText_A",
       "type": "text",
-      "tooltip": "Named insured full name as on policy.",
-      "default_value": "Dayam Nadeem",
-      "category": "named_insured",
+      "tooltip": "From GT: CommercialVehicleLineOfBusiness RemarkText A",
+      "default_value": null,
+      "category": "vehicle",
       "suffix": "_A"
     },
-    "Policy_EffectiveDate_A": {
-      "name": "Policy_EffectiveDate_A",
+    "CommercialVehicleLineOfBusiness_RemarkText_B": {
+      "name": "CommercialVehicleLineOfBusiness_RemarkText_B",
       "type": "text",
-      "tooltip": "Policy date (MM/DD/YYYY).",
-      "default_value": "03/15/2024",
-      "category": "policy",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "CommercialVehicleLineOfBusiness_RemarkText_C": {
+      "name": "CommercialVehicleLineOfBusiness_RemarkText_C",
+      "type": "text",
+      "tooltip": "From GT: CommercialVehicleLineOfBusiness RemarkText C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Driver_BirthDate_E": {
+      "name": "Driver_BirthDate_E",
+      "type": "text",
+      "tooltip": "From GT: Driver BirthDate E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_BirthDate_F": {
+      "name": "Driver_BirthDate_F",
+      "type": "text",
+      "tooltip": "From GT: Driver BirthDate F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_ExperienceYearCount_E": {
+      "name": "Driver_ExperienceYearCount_E",
+      "type": "text",
+      "tooltip": "From GT: Driver ExperienceYearCount E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_ExperienceYearCount_F": {
+      "name": "Driver_ExperienceYearCount_F",
+      "type": "text",
+      "tooltip": "From GT: Driver ExperienceYearCount F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_GenderCode_E": {
+      "name": "Driver_GenderCode_E",
+      "type": "text",
+      "tooltip": "From GT: Driver GenderCode E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_GenderCode_F": {
+      "name": "Driver_GenderCode_F",
+      "type": "text",
+      "tooltip": "From GT: Driver GenderCode F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_GivenName_E": {
+      "name": "Driver_GivenName_E",
+      "type": "text",
+      "tooltip": "From GT: Driver GivenName E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_GivenName_F": {
+      "name": "Driver_GivenName_F",
+      "type": "text",
+      "tooltip": "From GT: Driver GivenName F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_LicenseNumberIdentifier_E": {
+      "name": "Driver_LicenseNumberIdentifier_E",
+      "type": "text",
+      "tooltip": "From GT: Driver LicenseNumberIdentifier E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_LicenseNumberIdentifier_F": {
+      "name": "Driver_LicenseNumberIdentifier_F",
+      "type": "text",
+      "tooltip": "From GT: Driver LicenseNumberIdentifier F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_LicensedStateOrProvinceCode_E": {
+      "name": "Driver_LicensedStateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": "From GT: Driver LicensedStateOrProvinceCode E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_LicensedStateOrProvinceCode_F": {
+      "name": "Driver_LicensedStateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": "From GT: Driver LicensedStateOrProvinceCode F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_LicensedYear_E": {
+      "name": "Driver_LicensedYear_E",
+      "type": "text",
+      "tooltip": "From GT: Driver LicensedYear E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_LicensedYear_F": {
+      "name": "Driver_LicensedYear_F",
+      "type": "text",
+      "tooltip": "From GT: Driver LicensedYear F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_Surname_E": {
+      "name": "Driver_Surname_E",
+      "type": "text",
+      "tooltip": "From GT: Driver Surname E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_Surname_F": {
+      "name": "Driver_Surname_F",
+      "type": "text",
+      "tooltip": "From GT: Driver Surname F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_TaxIdentifier_E": {
+      "name": "Driver_TaxIdentifier_E",
+      "type": "text",
+      "tooltip": "From GT: Driver TaxIdentifier E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_TaxIdentifier_F": {
+      "name": "Driver_TaxIdentifier_F",
+      "type": "text",
+      "tooltip": "From GT: Driver TaxIdentifier F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Driver_Vehicle_UsePercent_E": {
+      "name": "Driver_Vehicle_UsePercent_E",
+      "type": "text",
+      "tooltip": "From GT: Driver Vehicle UsePercent E",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_E"
+    },
+    "Driver_Vehicle_UsePercent_F": {
+      "name": "Driver_Vehicle_UsePercent_F",
+      "type": "text",
+      "tooltip": "From GT: Driver Vehicle UsePercent F",
+      "default_value": null,
+      "category": "driver",
+      "suffix": "_F"
+    },
+    "Form_CompletionDate_A": {
+      "name": "Form_CompletionDate_A",
+      "type": "text",
+      "tooltip": "From GT: Form CompletionDate A",
+      "default_value": null,
+      "category": "header",
       "suffix": "_A"
     },
     "Insurer_FullName_A": {
@@ -35,6 +211,366 @@
       "category": "insurer",
       "suffix": "_A"
     },
+    "NamedInsured_FullName_A": {
+      "name": "NamedInsured_FullName_A",
+      "type": "text",
+      "tooltip": "Named insured full name as on policy.",
+      "default_value": "Dayam Nadeem",
+      "category": "named_insured",
+      "suffix": "_A"
+    },
+    "NamedInsured_SignatureDate_A": {
+      "name": "NamedInsured_SignatureDate_A",
+      "type": "text",
+      "tooltip": "From GT: NamedInsured SignatureDate A",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_A"
+    },
+    "NamedInsured_SignatureDate_B": {
+      "name": "NamedInsured_SignatureDate_B",
+      "type": "text",
+      "tooltip": "From GT: NamedInsured SignatureDate B",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_B"
+    },
+    "NamedInsured_SignatureDate_C": {
+      "name": "NamedInsured_SignatureDate_C",
+      "type": "text",
+      "tooltip": "Named insured signature (text or 'signed').",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_C"
+    },
+    "NamedInsured_Signature_A": {
+      "name": "NamedInsured_Signature_A",
+      "type": "text",
+      "tooltip": "From GT: NamedInsured Signature A",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_A"
+    },
+    "NamedInsured_Signature_B": {
+      "name": "NamedInsured_Signature_B",
+      "type": "text",
+      "tooltip": "From GT: NamedInsured Signature B",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_B"
+    },
+    "NamedInsured_Signature_C": {
+      "name": "NamedInsured_Signature_C",
+      "type": "text",
+      "tooltip": "Named insured signature (text or 'signed').",
+      "default_value": null,
+      "category": "named_insured",
+      "suffix": "_C"
+    },
+    "Policy_EffectiveDate_A": {
+      "name": "Policy_EffectiveDate_A",
+      "type": "text",
+      "tooltip": "Policy date (MM/DD/YYYY).",
+      "default_value": "03/15/2024",
+      "category": "policy",
+      "suffix": "_A"
+    },
+    "Policy_EffectiveDate_C": {
+      "name": "Policy_EffectiveDate_C",
+      "type": "text",
+      "tooltip": "From GT: Policy EffectiveDate C",
+      "default_value": null,
+      "category": "policy",
+      "suffix": "_C"
+    },
+    "Policy_ExpirationDate_C": {
+      "name": "Policy_ExpirationDate_C",
+      "type": "text",
+      "tooltip": "From GT: Policy ExpirationDate C",
+      "default_value": null,
+      "category": "policy",
+      "suffix": "_C"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "name": "Policy_PolicyNumberIdentifier_A",
+      "type": "text",
+      "tooltip": "From GT: Policy PolicyNumberIdentifier A",
+      "default_value": null,
+      "category": "policy",
+      "suffix": "_A"
+    },
+    "Producer_AuthorizedRepresentative_Signature_A": {
+      "name": "Producer_AuthorizedRepresentative_Signature_A",
+      "type": "text",
+      "tooltip": "From GT: Producer AuthorizedRepresentative Signature A",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_A"
+    },
+    "Producer_AuthorizedRepresentative_Signature_B": {
+      "name": "Producer_AuthorizedRepresentative_Signature_B",
+      "type": "text",
+      "tooltip": "Producer/agent signature (text or 'signed').",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_B"
+    },
+    "Producer_AuthorizedRepresentative_Signature_C": {
+      "name": "Producer_AuthorizedRepresentative_Signature_C",
+      "type": "text",
+      "tooltip": "Producer/agent signature (text or 'signed').",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_C"
+    },
+    "Producer_CustomerIdentifier_A": {
+      "name": "Producer_CustomerIdentifier_A",
+      "type": "text",
+      "tooltip": "From GT: Producer CustomerIdentifier A",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_A"
+    },
+    "Producer_FullName_A": {
+      "name": "Producer_FullName_A",
+      "type": "text",
+      "tooltip": "From GT: Producer FullName A",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_A"
+    },
+    "Producer_NationalIdentifier_A": {
+      "name": "Producer_NationalIdentifier_A",
+      "type": "text",
+      "tooltip": "From GT: Producer NationalIdentifier A",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_A"
+    },
+    "Producer_NationalIdentifier_B": {
+      "name": "Producer_NationalIdentifier_B",
+      "type": "text",
+      "tooltip": "Producer national identifier (e.g. NPN).",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_B"
+    },
+    "Producer_NationalIdentifier_C": {
+      "name": "Producer_NationalIdentifier_C",
+      "type": "text",
+      "tooltip": "Producer national identifier (e.g. NPN).",
+      "default_value": null,
+      "category": "producer",
+      "suffix": "_C"
+    },
+    "Signature": {
+      "name": "Signature",
+      "type": "text",
+      "tooltip": "From GT: Signature",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_A"
+    },
+    "Signature_C": {
+      "name": "Signature_C",
+      "type": "text",
+      "tooltip": "From GT: Signature C",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_C"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_A": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_B": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_D": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_D",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_D. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_E": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_G": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BodilyInjury_EachPersonLimitIndicator_H": {
+      "name": "Vehicle_BodilyInjury_EachPersonLimitIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BodilyInjury_EachPersonLimitIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BodilyInjury_PerAccidentLimitAmount_A": {
+      "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BodilyInjury_PerAccidentLimitAmount_B": {
+      "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BodilyInjury_PerAccidentLimitAmount_C": {
+      "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BodilyInjury_PerPersonLimitAmount_A": {
+      "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BodilyInjury_PerPersonLimitAmount_B": {
+      "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BodilyInjury_PerPersonLimitAmount_C": {
+      "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_EightIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_EightIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_EightIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_EightIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_EightIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_EightIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_EightIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_EightIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_EightIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_EightIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_EightIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_EightIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_EightIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_EightIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_EightIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_FourIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_FourIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_FourIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_NineIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_NineIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_NineIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
     "Vehicle_BusinessAutoSymbol_OneIndicator_A": {
       "name": "Vehicle_BusinessAutoSymbol_OneIndicator_A",
       "type": "checkbox",
@@ -43,29 +579,205 @@
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_OtherCoverage_LimitAmount_C": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_C",
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_A": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_A",
       "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_BusinessAutoSymbol_TwoIndicator_A": {
-      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_A",
-      "type": "checkbox",
-      "tooltip": "Checkbox: BusinessAutoSymbol Two. Return 1 if checked, Off if not.",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_OtherCoverage_LimitAmount_D": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_D",
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_B": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_B",
       "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode B",
       "default_value": null,
       "category": "vehicle",
-      "suffix": "_D"
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_C": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_E": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_F": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_G": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_G",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode G",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolCode_H": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_H",
+      "type": "text",
+      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode H",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_E": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_OtherSymbolIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_E": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_SevenIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_SevenIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SevenIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_SixIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_SixIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_SixIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
     },
     "Vehicle_BusinessAutoSymbol_ThreeIndicator_E": {
       "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_E",
@@ -75,58 +787,202 @@
       "category": "vehicle",
       "suffix": "_E"
     },
-    "Vehicle_OtherCoverage_SymbolDescription_E": {
-      "name": "Vehicle_OtherCoverage_SymbolDescription_E",
-      "type": "text",
-      "tooltip": "Text description or remark.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_E"
-    },
-    "Vehicle_OtherCoverage_LimitAmount_E": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_E",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_E"
-    },
-    "Vehicle_OtherCoverageDescription_F": {
-      "name": "Vehicle_OtherCoverageDescription_F",
-      "type": "text",
-      "tooltip": "Text description or remark.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_F"
-    },
-    "Vehicle_OtherCoverage_SymbolDescription_F": {
-      "name": "Vehicle_OtherCoverage_SymbolDescription_F",
-      "type": "text",
-      "tooltip": "Text description or remark.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_F"
-    },
-    "Vehicle_OtherCoverage_LimitAmount_F": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_F",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_F"
-    },
-    "Vehicle_HiredBorrowed_YesIndicator_A": {
-      "name": "Vehicle_HiredBorrowed_YesIndicator_A",
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_F",
       "type": "checkbox",
-      "tooltip": "Checkbox: HiredBorrowed Yes. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_ThreeIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_ThreeIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_ThreeIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_A": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: BusinessAutoSymbol Two. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_HiredBorrowed_HiredCostAmount_A": {
-      "name": "Vehicle_HiredBorrowed_HiredCostAmount_A",
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_B": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_TwoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_C": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_TwoIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_F": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_TwoIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_G": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_TwoIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_BusinessAutoSymbol_TwoIndicator_H": {
+      "name": "Vehicle_BusinessAutoSymbol_TwoIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_BusinessAutoSymbol_TwoIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_Collision_DeductibleAmount_A": {
+      "name": "Vehicle_Collision_DeductibleAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle Collision DeductibleAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Collision_DeductibleAmount_B": {
+      "name": "Vehicle_Collision_DeductibleAmount_B",
       "type": "text",
       "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Collision_DeductibleAmount_C": {
+      "name": "Vehicle_Collision_DeductibleAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle Collision DeductibleAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Collision_DeductibleWaiverIndicator_A": {
+      "name": "Vehicle_Collision_DeductibleWaiverIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Collision_DeductibleWaiverIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Collision_DeductibleWaiverIndicator_B": {
+      "name": "Vehicle_Collision_DeductibleWaiverIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Collision DeductibleWaiver. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Collision_DeductibleWaiverIndicator_C": {
+      "name": "Vehicle_Collision_DeductibleWaiverIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Collision_DeductibleWaiverIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_A": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_CombinedSingleLimit_LimitIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_B": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_CombinedSingleLimit_LimitIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_D": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_D",
+      "type": "checkbox",
+      "tooltip": "Checkbox: CombinedSingleLimit Limit. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_E": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_CombinedSingleLimit_LimitIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_G": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_CombinedSingleLimit_LimitIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_CombinedSingleLimit_LimitIndicator_H": {
+      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_CombinedSingleLimit_LimitIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_Comprehensive_DeductibleAmount_A": {
+      "name": "Vehicle_Comprehensive_DeductibleAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle Comprehensive DeductibleAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_Comprehensive_DeductibleAmount_B": {
+      "name": "Vehicle_Comprehensive_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Comprehensive_DeductibleAmount_C": {
+      "name": "Vehicle_Comprehensive_DeductibleAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle Comprehensive DeductibleAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Coverage_CollisionIndicator_A": {
+      "name": "Vehicle_Coverage_CollisionIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Coverage Collision. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A"
@@ -139,13 +995,69 @@
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_HiredPhysicalDamage_VehicleCount_A": {
-      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_A",
-      "type": "text",
-      "tooltip": "Number of vehicles (numeric).",
+    "Vehicle_Coverage_FireIndicator_B": {
+      "name": "Vehicle_Coverage_FireIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Coverage Fire. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
-      "suffix": "_A"
+      "suffix": "_B"
+    },
+    "Vehicle_Coverage_FireIndicator_C": {
+      "name": "Vehicle_Coverage_FireIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_FireIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Coverage_FireTheftIndicator_B": {
+      "name": "Vehicle_Coverage_FireTheftIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_FireTheftIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Coverage_FireTheftIndicator_C": {
+      "name": "Vehicle_Coverage_FireTheftIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_FireTheftIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Coverage_FireTheftWindstormIndicator_C": {
+      "name": "Vehicle_Coverage_FireTheftWindstormIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_FireTheftWindstormIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_Coverage_FiretheftWindstormIndicator_B": {
+      "name": "Vehicle_Coverage_FiretheftWindstormIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_FiretheftWindstormIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B": {
+      "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C": {
+      "name": "Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_LimitedSpecifiedPerilsIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
     },
     "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A": {
       "name": "Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A",
@@ -155,261 +1067,125 @@
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_NonOwnedGroup_EmployeeIndicator_A": {
-      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_A",
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B": {
+      "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B",
       "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Employee. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: Vehicle_Coverage_SpecifiedCauseOfLossIndicator_B. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_Coverage_CollisionIndicator_A": {
-      "name": "Vehicle_Coverage_CollisionIndicator_A",
-      "type": "checkbox",
-      "tooltip": "Checkbox: Coverage Collision. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_F": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_F",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_F"
-    },
-    "Vehicle_NonOwnedGroup_VolunteerIndicator_A": {
-      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_A",
-      "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Volunteer. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_G": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_G",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_G"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_H": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_H",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_H"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_I": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_I",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_I"
-    },
-    "Vehicle_NonOwnedGroup_PartnerIndicator_A": {
-      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_A",
-      "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Partner. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Producer_AuthorizedRepresentative_Signature_B": {
-      "name": "Producer_AuthorizedRepresentative_Signature_B",
-      "type": "text",
-      "tooltip": "Producer/agent signature (text or 'signed').",
-      "default_value": null,
-      "category": "producer",
       "suffix": "_B"
     },
-    "Producer_NationalIdentifier_B": {
-      "name": "Producer_NationalIdentifier_B",
-      "type": "text",
-      "tooltip": "Producer national identifier (e.g. NPN).",
+    "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C": {
+      "name": "Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_Coverage_SpecifiedCauseOfLossIndicator_C. Return 1 if checked, Off if not.",
       "default_value": null,
-      "category": "producer",
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredBorrowed_HiredCostAmount_A": {
+      "name": "Vehicle_HiredBorrowed_HiredCostAmount_A",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_HiredCostAmount_B": {
+      "name": "Vehicle_HiredBorrowed_HiredCostAmount_B",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
       "suffix": "_B"
     },
-    "Vehicle_CombinedSingleLimit_LimitIndicator_D": {
-      "name": "Vehicle_CombinedSingleLimit_LimitIndicator_D",
+    "Vehicle_HiredBorrowed_HiredCostAmount_C": {
+      "name": "Vehicle_HiredBorrowed_HiredCostAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed HiredCostAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredBorrowed_IfAnyBasisIndicator_A": {
+      "name": "Vehicle_HiredBorrowed_IfAnyBasisIndicator_A",
       "type": "checkbox",
-      "tooltip": "Checkbox: CombinedSingleLimit Limit. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_IfAnyBasisIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_IfAnyBasisIndicator_B": {
+      "name": "Vehicle_HiredBorrowed_IfAnyBasisIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_IfAnyBasisIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredBorrowed_IfAnyBasisIndicator_C": {
+      "name": "Vehicle_HiredBorrowed_IfAnyBasisIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_IfAnyBasisIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredBorrowed_NoIndicator_A": {
+      "name": "Vehicle_HiredBorrowed_NoIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_NoIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_NoIndicator_B": {
+      "name": "Vehicle_HiredBorrowed_NoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_NoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredBorrowed_NoIndicator_C": {
+      "name": "Vehicle_HiredBorrowed_NoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_NoIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_A": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_B": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_C": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_D": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D"
-    },
-    "Vehicle_TruckersSymbol_FortyTwoIndicator_A": {
-      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_A",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_TruckersSymbol_FortyTwoIndicator_E": {
-      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_E",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_E"
-    },
-    "Vehicle_TruckersSymbol_FortyThreeIndicator_E": {
-      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_E",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_E"
-    },
-    "Vehicle_Comprehensive_DeductibleAmount_B": {
-      "name": "Vehicle_Comprehensive_DeductibleAmount_B",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortySixIndicator_E": {
-      "name": "Vehicle_TruckersSymbol_FortySixIndicator_E",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_E"
-    },
-    "Vehicle_Coverage_FireIndicator_B": {
-      "name": "Vehicle_Coverage_FireIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: Coverage Fire. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortySixIndicator_F": {
-      "name": "Vehicle_TruckersSymbol_FortySixIndicator_F",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_F"
-    },
-    "Vehicle_TruckersSymbol_FortyThreeIndicator_B": {
-      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortyThreeIndicator_G": {
-      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_G",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_G"
-    },
-    "Vehicle_Collision_DeductibleAmount_B": {
-      "name": "Vehicle_Collision_DeductibleAmount_B",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortyTwoIndicator_C": {
-      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_C",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_Collision_DeductibleWaiverIndicator_B": {
-      "name": "Vehicle_Collision_DeductibleWaiverIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: Collision DeductibleWaiver. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B": {
-      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortySixIndicator_H": {
-      "name": "Vehicle_TruckersSymbol_FortySixIndicator_H",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_H"
-    },
-    "Vehicle_TruckersSymbol_FortyFiveIndicator_C": {
-      "name": "Vehicle_TruckersSymbol_FortyFiveIndicator_C",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyFive. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_TruckersSymbol_OtherSymbolIndicator_H": {
-      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_H",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol OtherSymbol. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_H"
-    },
-    "Vehicle_TruckersSymbol_FortyEightIndicator_I": {
-      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_I",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_I"
-    },
-    "Vehicle_TrailerInterchange_StateOrProvinceCode_A": {
-      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_A",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_TrailerInterchange_DayCount_A": {
-      "name": "Vehicle_TrailerInterchange_DayCount_A",
-      "type": "text",
-      "tooltip": "Number of days (numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_TrailerInterchange_Radius_A": {
-      "name": "Vehicle_TrailerInterchange_Radius_A",
-      "type": "text",
-      "tooltip": "Radius value (miles or numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_A"
-    },
-    "Vehicle_HiredBorrowed_YesIndicator_B": {
-      "name": "Vehicle_HiredBorrowed_YesIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: HiredBorrowed Yes. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
     },
     "Vehicle_HiredBorrowed_StateOrProvinceCode_E": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_E",
@@ -427,221 +1203,173 @@
       "category": "vehicle",
       "suffix": "_F"
     },
-    "Vehicle_HiredBorrowed_HiredCostAmount_B": {
-      "name": "Vehicle_HiredBorrowed_HiredCostAmount_B",
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_G": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_G",
       "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode G",
       "default_value": null,
       "category": "vehicle",
-      "suffix": "_B"
+      "suffix": "_G"
     },
-    "Vehicle_TruckersSymbol_FortyEightIndicator_J": {
-      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_J",
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_H": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_H",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode H",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_HiredBorrowed_StateOrProvinceCode_I": {
+      "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_I",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode I",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_HiredBorrowed_YesIndicator_A": {
+      "name": "Vehicle_HiredBorrowed_YesIndicator_A",
       "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_J"
-    },
-    "Vehicle_TrailerInterchange_StateOrProvinceCode_B": {
-      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_B",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TrailerInterchange_DayCount_B": {
-      "name": "Vehicle_TrailerInterchange_DayCount_B",
-      "type": "text",
-      "tooltip": "Number of days (numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TrailerInterchange_Radius_B": {
-      "name": "Vehicle_TrailerInterchange_Radius_B",
-      "type": "text",
-      "tooltip": "Radius value (miles or numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersHiredBorrowed_YesIndicator_B": {
-      "name": "Vehicle_TruckersHiredBorrowed_YesIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersHiredBorrowed Yes. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B": {
-      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C": {
-      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B": {
-      "name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TruckersSymbol_FortyEightIndicator_K": {
-      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_K",
-      "type": "checkbox",
-      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_K"
-    },
-    "Vehicle_TrailerInterchange_StateOrProvinceCode_C": {
-      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_C",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_TrailerInterchange_DayCount_C": {
-      "name": "Vehicle_TrailerInterchange_DayCount_C",
-      "type": "text",
-      "tooltip": "Number of days (numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_TrailerInterchange_Radius_C": {
-      "name": "Vehicle_TrailerInterchange_Radius_C",
-      "type": "text",
-      "tooltip": "Radius value (miles or numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_C"
-    },
-    "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B": {
-      "name": "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_NonOwned_YesIndicator_B": {
-      "name": "Vehicle_NonOwned_YesIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: NonOwned Yes. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_L": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_L",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_L"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_M": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_M",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_M"
-    },
-    "Vehicle_NonOwnedGroup_EmployeeIndicator_B": {
-      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_B",
-      "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Employee. Return 1 if checked, Off if not.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_TrailerInterchange_TrailerValueAmount_A": {
-      "name": "Vehicle_TrailerInterchange_TrailerValueAmount_A",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "tooltip": "Checkbox: HiredBorrowed Yes. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A"
     },
-    "Vehicle_NonOwned_StateOrProvinceCode_N": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_N",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_N"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_O": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_O",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_O"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_P": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_P",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_P"
-    },
-    "Vehicle_NonOwnedGroup_VolunteerIndicator_B": {
-      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_B",
+    "Vehicle_HiredBorrowed_YesIndicator_B": {
+      "name": "Vehicle_HiredBorrowed_YesIndicator_B",
       "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Volunteer. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: HiredBorrowed Yes. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B"
     },
-    "Vehicle_NonOwned_StateOrProvinceCode_Q": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_Q",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_Q"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_R": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_R",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_R"
-    },
-    "Vehicle_NonOwned_StateOrProvinceCode_S": {
-      "name": "Vehicle_NonOwned_StateOrProvinceCode_S",
-      "type": "text",
-      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_S"
-    },
-    "Vehicle_NonOwnedGroup_PartnerIndicator_B": {
-      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_B",
+    "Vehicle_HiredBorrowed_YesIndicator_C": {
+      "name": "Vehicle_HiredBorrowed_YesIndicator_C",
       "type": "checkbox",
-      "tooltip": "Checkbox: NonOwnedGroup Partner. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: Vehicle_HiredBorrowed_YesIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredPhysicalDamage_DayCount_A": {
+      "name": "Vehicle_HiredPhysicalDamage_DayCount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage DayCount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_DayCount_B": {
+      "name": "Vehicle_HiredPhysicalDamage_DayCount_B",
+      "type": "text",
+      "tooltip": "Number of days (numeric).",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_DayCount_C": {
+      "name": "Vehicle_HiredPhysicalDamage_DayCount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage DayCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredPhysicalDamage_PrimaryIndicator_A": {
+      "name": "Vehicle_HiredPhysicalDamage_PrimaryIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_PrimaryIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B": {
+      "name": "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: HiredPhysicalDamage Primary. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_PrimaryIndicator_C": {
+      "name": "Vehicle_HiredPhysicalDamage_PrimaryIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_PrimaryIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredPhysicalDamage_SecondaryIndicator_A": {
+      "name": "Vehicle_HiredPhysicalDamage_SecondaryIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_SecondaryIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_SecondaryIndicator_B": {
+      "name": "Vehicle_HiredPhysicalDamage_SecondaryIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_SecondaryIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_SecondaryIndicator_C": {
+      "name": "Vehicle_HiredPhysicalDamage_SecondaryIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_SecondaryIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_A": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_B": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_C": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_D": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_E": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_F": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
     },
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_G": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_G",
@@ -658,46 +1386,6 @@
       "default_value": null,
       "category": "vehicle",
       "suffix": "_H"
-    },
-    "Vehicle_HiredPhysicalDamage_DayCount_B": {
-      "name": "Vehicle_HiredPhysicalDamage_DayCount_B",
-      "type": "text",
-      "tooltip": "Number of days (numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_HiredPhysicalDamage_VehicleCount_B": {
-      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_B",
-      "type": "text",
-      "tooltip": "Number of vehicles (numeric).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_B"
-    },
-    "Vehicle_OtherCoverageDescription_I": {
-      "name": "Vehicle_OtherCoverageDescription_I",
-      "type": "text",
-      "tooltip": "Text description or remark.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_I"
-    },
-    "Vehicle_OtherCoverage_SymbolDescription_I": {
-      "name": "Vehicle_OtherCoverage_SymbolDescription_I",
-      "type": "text",
-      "tooltip": "Text description or remark.",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_I"
-    },
-    "Vehicle_OtherCoverage_LimitAmount_I": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_I",
-      "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
-      "default_value": null,
-      "category": "vehicle",
-      "suffix": "_I"
     },
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_I": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_I",
@@ -731,26 +1419,994 @@
       "category": "vehicle",
       "suffix": "_L"
     },
-    "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B": {
-      "name": "Vehicle_HiredPhysicalDamage_PrimaryIndicator_B",
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_M": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_M",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode M",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_M"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_N": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_N",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode N",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_N"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_O": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_O",
+      "type": "text",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode O",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_P": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_P",
       "type": "checkbox",
-      "tooltip": "Checkbox: HiredPhysicalDamage Primary. Return 1 if checked, Off if not.",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_StateOrProvinceCode_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_P"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_Q": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_Q",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_StateOrProvinceCode_Q. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_Q"
+    },
+    "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_R": {
+      "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_R",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_HiredPhysicalDamage_StateOrProvinceCode_R. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_R"
+    },
+    "Vehicle_HiredPhysicalDamage_VehicleCount_A": {
+      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_A",
+      "type": "text",
+      "tooltip": "Number of vehicles (numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_HiredPhysicalDamage_VehicleCount_B": {
+      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_B",
+      "type": "text",
+      "tooltip": "Number of vehicles (numeric).",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B"
     },
-    "Vehicle_OtherCoverage_SymbolDescription_J": {
-      "name": "Vehicle_OtherCoverage_SymbolDescription_J",
+    "Vehicle_HiredPhysicalDamage_VehicleCount_C": {
+      "name": "Vehicle_HiredPhysicalDamage_VehicleCount_C",
       "type": "text",
-      "tooltip": "Text description or remark.",
+      "tooltip": "From GT: Vehicle HiredPhysicalDamage VehicleCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MedicalPayments_PerPersonLimitAmount_A": {
+      "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MedicalPayments_PerPersonLimitAmount_B": {
+      "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MedicalPayments_PerPersonLimitAmount_C": {
+      "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_A": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_B": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_C": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_E": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_F": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_G": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_G",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode G",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolCode_H": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_H",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode H",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_B": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_H": {
+      "name": "Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_OtherSymbolIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_MotorCarrierSymbol_SeventyIndicator_I": {
+      "name": "Vehicle_MotorCarrierSymbol_SeventyIndicator_I",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SeventyIndicator_I. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_MotorCarrierSymbol_SeventyIndicator_J": {
+      "name": "Vehicle_MotorCarrierSymbol_SeventyIndicator_J",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SeventyIndicator_J. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_J"
     },
-    "Vehicle_OtherCoverage_LimitAmount_J": {
-      "name": "Vehicle_OtherCoverage_LimitAmount_J",
+    "Vehicle_MotorCarrierSymbol_SeventyIndicator_K": {
+      "name": "Vehicle_MotorCarrierSymbol_SeventyIndicator_K",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SeventyIndicator_K. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_MotorCarrierSymbol_SeventyOneIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SeventyOneIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SeventyOneIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyEightIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyEightIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyEightIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyEightIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyEightIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_B": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyFourIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyFourIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_I": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_I",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyNineIndicator_I. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_J": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_J",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyNineIndicator_J. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_K": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyNineIndicator_K",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyNineIndicator_K. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyOneIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyOneIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyOneIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_B": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_H": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySevenIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySevenIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtySixIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtySixIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtySixIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_B": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_H": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyThreeIndicator_H. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_A": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_B": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_C": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_E": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_F": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_G": {
+      "name": "Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_MotorCarrierSymbol_SixtyTwoIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_BodilyInjuryLimitAmount_C": {
+      "name": "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_BodilyInjuryLimitAmount_C",
       "type": "text",
-      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "tooltip": "From GT: Vehicle MotorCarrier LiabilityLimitPerOccurrence BodilyInjuryLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_PropertyDamageLimit_B": {
+      "name": "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_PropertyDamageLimit_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle MotorCarrier LiabilityLimitPerOccurrence PropertyDamageLimit B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeCount_A": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeCount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeCount_B": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeCount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeCount_C": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeCount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Employee. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Employee. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_EmployeeIndicator_C": {
+      "name": "Vehicle_NonOwnedGroup_EmployeeIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwnedGroup_EmployeeIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwnedGroup_PartnerCount_A": {
+      "name": "Vehicle_NonOwnedGroup_PartnerCount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_PartnerCount_B": {
+      "name": "Vehicle_NonOwnedGroup_PartnerCount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_PartnerCount_C": {
+      "name": "Vehicle_NonOwnedGroup_PartnerCount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwnedGroup_PartnerIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Partner. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_PartnerIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Partner. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_PartnerIndicator_C": {
+      "name": "Vehicle_NonOwnedGroup_PartnerIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwnedGroup_PartnerIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerCount_A": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerCount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerCount_B": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerCount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerCount_C": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerCount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerIndicator_A": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Volunteer. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerIndicator_B": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwnedGroup Volunteer. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwnedGroup_VolunteerIndicator_C": {
+      "name": "Vehicle_NonOwnedGroup_VolunteerIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwnedGroup_VolunteerIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwned_NoIndicator_A": {
+      "name": "Vehicle_NonOwned_NoIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_NoIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_NoIndicator_B": {
+      "name": "Vehicle_NonOwned_NoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_NoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_NoIndicator_C": {
+      "name": "Vehicle_NonOwned_NoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_NoIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_A": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_AA": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_AA",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_AA. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_AB": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_AB",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_AB. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_B": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_C": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_D": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_E": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_F": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_G": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_G",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_H": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_H",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_I": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_I",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_K": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_K",
+      "type": "text",
+      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode K",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_L": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_L",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_L"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_M": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_M",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_M"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_N": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_N",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_N"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_O": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_O",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_P": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_P",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_P"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_Q": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_Q",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_Q"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_R": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_R",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_R"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_S": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_S",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_S"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_T": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_T",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_T. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_T"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_U": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_U",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_U. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_U"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_V": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_V",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_V. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_V"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_W": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_W",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_W. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_W"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_X": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_X",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_X. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_X"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_Y": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_Y",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_Y. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_Y"
+    },
+    "Vehicle_NonOwned_StateOrProvinceCode_Z": {
+      "name": "Vehicle_NonOwned_StateOrProvinceCode_Z",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_StateOrProvinceCode_Z. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_Z"
+    },
+    "Vehicle_NonOwned_YesIndicator_A": {
+      "name": "Vehicle_NonOwned_YesIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_YesIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_NonOwned_YesIndicator_B": {
+      "name": "Vehicle_NonOwned_YesIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: NonOwned Yes. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_NonOwned_YesIndicator_C": {
+      "name": "Vehicle_NonOwned_YesIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_NonOwned_YesIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_OtherCoverageDescription_C": {
+      "name": "Vehicle_OtherCoverageDescription_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_OtherCoverageDescription_D": {
+      "name": "Vehicle_OtherCoverageDescription_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_OtherCoverageDescription_E": {
+      "name": "Vehicle_OtherCoverageDescription_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverageDescription_F": {
+      "name": "Vehicle_OtherCoverageDescription_F",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_OtherCoverageDescription_I": {
+      "name": "Vehicle_OtherCoverageDescription_I",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_OtherCoverageDescription_J": {
+      "name": "Vehicle_OtherCoverageDescription_J",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription J",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_J"
@@ -763,13 +2419,69 @@
       "category": "vehicle",
       "suffix": "_K"
     },
-    "Vehicle_OtherCoverage_SymbolDescription_K": {
-      "name": "Vehicle_OtherCoverage_SymbolDescription_K",
+    "Vehicle_OtherCoverageDescription_N": {
+      "name": "Vehicle_OtherCoverageDescription_N",
       "type": "text",
-      "tooltip": "Text description or remark.",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription N",
       "default_value": null,
       "category": "vehicle",
-      "suffix": "_K"
+      "suffix": "_N"
+    },
+    "Vehicle_OtherCoverageDescription_O": {
+      "name": "Vehicle_OtherCoverageDescription_O",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverageDescription O",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_C": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_C",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_D": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_D",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_E": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_E",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_F": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_F",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_I": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_I",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_J": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_J",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
     },
     "Vehicle_OtherCoverage_LimitAmount_K": {
       "name": "Vehicle_OtherCoverage_LimitAmount_K",
@@ -779,45 +2491,1149 @@
       "category": "vehicle",
       "suffix": "_K"
     },
-    "CommercialVehicleLineOfBusiness_RemarkText_B": {
-      "name": "CommercialVehicleLineOfBusiness_RemarkText_B",
+    "Vehicle_OtherCoverage_LimitAmount_N": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_N",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage LimitAmount N",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_N"
+    },
+    "Vehicle_OtherCoverage_LimitAmount_O": {
+      "name": "Vehicle_OtherCoverage_LimitAmount_O",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage LimitAmount O",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_C": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_D": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_E": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_E",
       "type": "text",
       "tooltip": "Text description or remark.",
       "default_value": null,
       "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_F": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_F",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_I": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_I",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_J": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_J",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_K": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_K",
+      "type": "text",
+      "tooltip": "Text description or remark.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_N": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_N",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription N",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_N"
+    },
+    "Vehicle_OtherCoverage_SymbolDescription_O": {
+      "name": "Vehicle_OtherCoverage_SymbolDescription_O",
+      "type": "text",
+      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription O",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_O"
+    },
+    "Vehicle_PriorExperience_SerialNumber_C": {
+      "name": "Vehicle_PriorExperience_SerialNumber_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle PriorExperience SerialNumber C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_PropertyDamage_PerAccidentLimitAmount_A": {
+      "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_PropertyDamage_PerAccidentLimitAmount_B": {
+      "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
       "suffix": "_B"
     },
-    "NamedInsured_Signature_C": {
-      "name": "NamedInsured_Signature_C",
+    "Vehicle_PropertyDamage_PerAccidentLimitAmount_C": {
+      "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_C",
       "type": "text",
-      "tooltip": "Named insured signature (text or 'signed').",
+      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount C",
       "default_value": null,
-      "category": "named_insured",
+      "category": "vehicle",
       "suffix": "_C"
     },
-    "NamedInsured_SignatureDate_C": {
-      "name": "NamedInsured_SignatureDate_C",
+    "Vehicle_RegistrationStateOrProvinceCode_C": {
+      "name": "Vehicle_RegistrationStateOrProvinceCode_C",
       "type": "text",
-      "tooltip": "Named insured signature (text or 'signed').",
+      "tooltip": "From GT: Vehicle RegistrationStateOrProvinceCode C",
       "default_value": null,
-      "category": "named_insured",
+      "category": "vehicle",
       "suffix": "_C"
     },
-    "Producer_AuthorizedRepresentative_Signature_C": {
-      "name": "Producer_AuthorizedRepresentative_Signature_C",
+    "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_A": {
+      "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_A",
       "type": "text",
-      "tooltip": "Producer/agent signature (text or 'signed').",
+      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount A",
       "default_value": null,
-      "category": "producer",
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_B": {
+      "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_C": {
+      "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount C",
+      "default_value": null,
+      "category": "vehicle",
       "suffix": "_C"
     },
-    "Producer_NationalIdentifier_C": {
-      "name": "Producer_NationalIdentifier_C",
+    "Vehicle_TowingAndLabour_LimitAmount_A": {
+      "name": "Vehicle_TowingAndLabour_LimitAmount_A",
       "type": "text",
-      "tooltip": "Producer national identifier (e.g. NPN).",
+      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount A",
       "default_value": null,
-      "category": "producer",
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TowingAndLabour_LimitAmount_B": {
+      "name": "Vehicle_TowingAndLabour_LimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TowingAndLabour_LimitAmount_C": {
+      "name": "Vehicle_TowingAndLabour_LimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
       "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B": {
+      "name": "Vehicle_TrailerInterchangeCollision_DeductibleAmount_B",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchangeCollision_DeductibleAmount_C": {
+      "name": "Vehicle_TrailerInterchangeCollision_DeductibleAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchangeCollision DeductibleAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_B": {
+      "name": "Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_C": {
+      "name": "Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TrailerInterchangeCollision_DeductibleWaiverIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_DayCount_A": {
+      "name": "Vehicle_TrailerInterchange_DayCount_A",
+      "type": "text",
+      "tooltip": "Number of days (numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_DayCount_B": {
+      "name": "Vehicle_TrailerInterchange_DayCount_B",
+      "type": "text",
+      "tooltip": "Number of days (numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_DayCount_C": {
+      "name": "Vehicle_TrailerInterchange_DayCount_C",
+      "type": "text",
+      "tooltip": "Number of days (numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_DayCount_D": {
+      "name": "Vehicle_TrailerInterchange_DayCount_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange DayCount D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TrailerInterchange_DayCount_E": {
+      "name": "Vehicle_TrailerInterchange_DayCount_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange DayCount E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TrailerInterchange_DayCount_F": {
+      "name": "Vehicle_TrailerInterchange_DayCount_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange DayCount F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TrailerInterchange_Radius_A": {
+      "name": "Vehicle_TrailerInterchange_Radius_A",
+      "type": "text",
+      "tooltip": "Radius value (miles or numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_Radius_B": {
+      "name": "Vehicle_TrailerInterchange_Radius_B",
+      "type": "text",
+      "tooltip": "Radius value (miles or numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_Radius_C": {
+      "name": "Vehicle_TrailerInterchange_Radius_C",
+      "type": "text",
+      "tooltip": "Radius value (miles or numeric).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_Radius_D": {
+      "name": "Vehicle_TrailerInterchange_Radius_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange Radius D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TrailerInterchange_Radius_E": {
+      "name": "Vehicle_TrailerInterchange_Radius_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange Radius E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TrailerInterchange_Radius_F": {
+      "name": "Vehicle_TrailerInterchange_Radius_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange Radius F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_A": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_B": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_C": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_D": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_E": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TrailerInterchange_StateOrProvinceCode_F": {
+      "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_A": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_B": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_C": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_D": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_E": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TrailerInterchange_TrailerCount_F": {
+      "name": "Vehicle_TrailerInterchange_TrailerCount_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TrailerInterchange_TrailerValueAmount_A": {
+      "name": "Vehicle_TrailerInterchange_TrailerValueAmount_A",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TrailerInterchange_TrailerValueAmount_B": {
+      "name": "Vehicle_TrailerInterchange_TrailerValueAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TrailerInterchange TrailerValueAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_HiredCostAmount_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersHiredBorrowed HiredCostAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersHiredBorrowed_IfAnyBasisIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersHiredBorrowed_NoIndicator_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_NoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersHiredBorrowed_NoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_NoIndicator_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_NoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersHiredBorrowed_NoIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_A": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_B",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_C",
+      "type": "text",
+      "tooltip": "Two-letter state code (e.g. IN, OH, CA).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_D": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_D",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode D",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_D"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_E": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_F": {
+      "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersHiredBorrowed_YesIndicator_B": {
+      "name": "Vehicle_TruckersHiredBorrowed_YesIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersHiredBorrowed Yes. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersHiredBorrowed_YesIndicator_C": {
+      "name": "Vehicle_TruckersHiredBorrowed_YesIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersHiredBorrowed_YesIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_FiftyIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FiftyIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FiftyIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_I": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_I",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_J": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_J",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_TruckersSymbol_FortyEightIndicator_K": {
+      "name": "Vehicle_TruckersSymbol_FortyEightIndicator_K",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyEight. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_TruckersSymbol_FortyFiveIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortyFiveIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyFive. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_FortyNineIndicator_I": {
+      "name": "Vehicle_TruckersSymbol_FortyNineIndicator_I",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyNineIndicator_I. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_I"
+    },
+    "Vehicle_TruckersSymbol_FortyNineIndicator_J": {
+      "name": "Vehicle_TruckersSymbol_FortyNineIndicator_J",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyNineIndicator_J. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_J"
+    },
+    "Vehicle_TruckersSymbol_FortyNineIndicator_K": {
+      "name": "Vehicle_TruckersSymbol_FortyNineIndicator_K",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyNineIndicator_K. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_K"
+    },
+    "Vehicle_TruckersSymbol_FortyOneIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortyOneIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyOneIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortySevenIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortySevenIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySevenIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortySevenIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortySevenIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySevenIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_FortySevenIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_FortySevenIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySevenIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_FortySevenIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_FortySevenIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySevenIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySixIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_B": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySixIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySixIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortySixIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_FortySixIndicator_H": {
+      "name": "Vehicle_TruckersSymbol_FortySixIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortySix. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyThreeIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_B": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyThreeIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyThreeIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_FortyThreeIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_FortyThreeIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyThree. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_B": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyTwoIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol FortyTwo. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyTwoIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_FortyTwoIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_FortyTwoIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_FortyTwoIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_A": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_B": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_C": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_E": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_E",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode E",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_F": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_F",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode F",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_G": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_G",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode G",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolCode_H": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolCode_H",
+      "type": "text",
+      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode H",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_A": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_A",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_A. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_B": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_B",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_B. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_C": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_E": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_E",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_E. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_E"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_F": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_F",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_F. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_F"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_G": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_G",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TruckersSymbol_OtherSymbolIndicator_G. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_G"
+    },
+    "Vehicle_TruckersSymbol_OtherSymbolIndicator_H": {
+      "name": "Vehicle_TruckersSymbol_OtherSymbolIndicator_H",
+      "type": "checkbox",
+      "tooltip": "Checkbox: TruckersSymbol OtherSymbol. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_H"
+    },
+    "Vehicle_TypeCode_C": {
+      "name": "Vehicle_TypeCode_C",
+      "type": "checkbox",
+      "tooltip": "Checkbox: Vehicle_TypeCode_C. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_UninsuredMotorist BodilyInjury Limit Amount_C": {
+      "name": "Vehicle_UninsuredMotorist BodilyInjury Limit Amount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorist BodilyInjury Limit Amount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerAccidentLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_B",
+      "type": "text",
+      "tooltip": "Dollar amount (e.g. 50000 or $50,000).",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_C": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerAccidentLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_B": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_C": {
+      "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A": {
+      "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit A",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_A"
+    },
+    "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B": {
+      "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit B",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_B"
+    },
+    "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C": {
+      "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C",
+      "type": "text",
+      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit C",
+      "default_value": null,
+      "category": "vehicle",
+      "suffix": "_C"
+    },
+    "YearlyPremium_TaxableAmount_C": {
+      "name": "YearlyPremium_TaxableAmount_C",
+      "type": "text",
+      "tooltip": "From GT: YearlyPremium TaxableAmount C",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_C"
+    },
+    "box_LiabilityLimits CSL_P": {
+      "name": "box_LiabilityLimits CSL_P",
+      "type": "text",
+      "tooltip": "From GT: box LiabilityLimits CSL P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_LiabilityLimits_SplitLimit_P": {
+      "name": "box_LiabilityLimits_SplitLimit_P",
+      "type": "text",
+      "tooltip": "From GT: box LiabilityLimits SplitLimit P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_PhysicalDamage_Collision_Deductible_P": {
+      "name": "box_PhysicalDamage_Collision_Deductible_P",
+      "type": "text",
+      "tooltip": "From GT: box PhysicalDamage Collision Deductible P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_PhysicalDamage_Comprehensive_Deductible_P": {
+      "name": "box_PhysicalDamage_Comprehensive_Deductible_P",
+      "type": "text",
+      "tooltip": "From GT: box PhysicalDamage Comprehensive Deductible P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_TrailerInterchange_Days_P": {
+      "name": "box_TrailerInterchange_Days_P",
+      "type": "text",
+      "tooltip": "From GT: box TrailerInterchange Days P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_TrailerInterchange_Deductible_P": {
+      "name": "box_TrailerInterchange_Deductible_P",
+      "type": "text",
+      "tooltip": "From GT: box TrailerInterchange Deductible P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_TrailerInterchange_NumberOfTrailers_P": {
+      "name": "box_TrailerInterchange_NumberOfTrailers_P",
+      "type": "text",
+      "tooltip": "From GT: box TrailerInterchange NumberOfTrailers P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_TrailerInterchange_Radius_P": {
+      "name": "box_TrailerInterchange_Radius_P",
+      "type": "text",
+      "tooltip": "From GT: box TrailerInterchange Radius P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_TrailerInterchange_State_P": {
+      "name": "box_TrailerInterchange_State_P",
+      "type": "text",
+      "tooltip": "From GT: box TrailerInterchange State P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "box_UninsuredUnderinsuredMotorist_LiabilityLimit_P": {
+      "name": "box_UninsuredUnderinsuredMotorist_LiabilityLimit_P",
+      "type": "text",
+      "tooltip": "From GT: box UninsuredUnderinsuredMotorist LiabilityLimit P",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_1Any_Auto_P": {
+      "name": "chk_CoveredAutoSymbols_1Any_Auto_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_1Any_Auto_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_2_Owned_Autos_P": {
+      "name": "chk_CoveredAutoSymbols_2_Owned_Autos_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_2_Owned_Autos_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_3_Owned_Private_Passenger_P": {
+      "name": "chk_CoveredAutoSymbols_3_Owned_Private_Passenger_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_3_Owned_Private_Passenger_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_4_Owned.OtherThanPP_P": {
+      "name": "chk_CoveredAutoSymbols_4_Owned.OtherThanPP_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_4_Owned.OtherThanPP_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_7_Specified Autos_P": {
+      "name": "chk_CoveredAutoSymbols_7_Specified Autos_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_7_Specified Autos_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_8_Hired_P": {
+      "name": "chk_CoveredAutoSymbols_8_Hired_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_8_Hired_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_CoveredAutoSymbols_9_NonOwned_P": {
+      "name": "chk_CoveredAutoSymbols_9_NonOwned_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_CoveredAutoSymbols_9_NonOwned_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_MedicalPayments_PIP_Applicable_P": {
+      "name": "chk_MedicalPayments_PIP_Applicable_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_MedicalPayments_PIP_Applicable_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
+    },
+    "chk_UninsuredUnderinsuredMotorist_Applicable_P": {
+      "name": "chk_UninsuredUnderinsuredMotorist_Applicable_P",
+      "type": "checkbox",
+      "tooltip": "Checkbox: chk_UninsuredUnderinsuredMotorist_Applicable_P. Return 1 if checked, Off if not.",
+      "default_value": null,
+      "category": "general",
+      "suffix": "_P"
     }
   },
   "categories": {

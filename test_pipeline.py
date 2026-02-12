@@ -32,6 +32,7 @@ from llm_engine import LLMEngine
 from schema_registry import SchemaRegistry
 from extractor import ACORDExtractor
 from compare import compare_fields, load_ground_truth, print_report
+from gt_flatten import flatten_gt_for_comparison
 from utils import save_json
 
 
@@ -250,7 +251,7 @@ def run_single_form(
     # ---- Compare against ground truth ----
     if gt_path and gt_path.exists():
         gt_raw = load_ground_truth(gt_path)
-        gt_flat = flatten_ground_truth(gt_raw)
+        gt_flat = flatten_gt_for_comparison(gt_raw, form_type)
 
         # Build checkbox field set from schema
         schema = registry.get_schema(form_type)

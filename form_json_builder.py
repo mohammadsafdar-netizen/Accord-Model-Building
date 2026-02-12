@@ -36,6 +36,71 @@ def _normalize_label(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+# Labels that must never match amount/premium/limit/deductible fields (avoid e.g. "NO. OF MEMBERS" → PARTNERSHIP filling a premium field)
+_AMOUNT_FIELD_LABEL_BLOCKLIST = frozenset({
+    "partnership", "owner", "bus", "cell", "home", "members", "no of members",
+    "phone", "fax", "percent", "percentage", "use", "employer", "driver",
+})
+
+
+def _value_looks_numeric(value: str) -> bool:
+    """True if value looks like a number (digits, optional $ and commas)."""
+    s = (value or "").strip().replace("$", "").replace(",", "").replace(" ", "")
+    if not s:
+        return False
+    return bool(re.match(r"^\d+\.?\d*$", s))
+
+
+def _value_looks_like_address(value: str) -> bool:
+    """True if value looks like a full street address (should not go in Occupancy)."""
+    v = (value or "").strip().upper()
+    return any(
+        x in v for x in ("MAIN ST", "MAIN STREET", " AVE ", " AVE.", "BLVD", "SUITE", "STE ", " ST ", " ST.")
+    )
+
+
+def _is_allowed_checkbox_value(value: str) -> bool:
+    """True if value is an allowed checkbox/radio prefill (1, 0, X, S, Yes, No, Off, true, false)."""
+    v = (value or "").strip().lower()
+    return v in ("1", "0", "x", "s", "yes", "no", "off", "true", "false", "on", "y", "n")
+
+
+def _allow_label_value_prefill(
+    field_name: str,
+    fi: FieldInfo,
+    label_norm: str,
+    value: str,
+) -> bool:
+    """
+    Return True if this label-value pair is allowed to prefill the given field.
+    Enforces: amount-field blocklist + numeric value; occupancy vs address; checkbox allowed values only.
+    """
+    name_lower = field_name.lower()
+    tip = (fi.tooltip or "").lower()
+
+    # Checkbox/radio: only prefill from label-value if value is in allowed set
+    if fi.field_type in ("checkbox", "radio"):
+        if not _is_allowed_checkbox_value(value):
+            return False
+
+    # Amount-like fields: blocklist labels and require numeric value
+    if any(x in name_lower for x in ("premium", "amount", "limit", "deductible")):
+        label_words = set(label_norm.split())
+        if label_words & _AMOUNT_FIELD_LABEL_BLOCKLIST:
+            return False
+        if label_norm in _AMOUNT_FIELD_LABEL_BLOCKLIST:
+            return False
+        if not _value_looks_numeric(value):
+            return False
+
+    # Occupancy vs address: do not put full street address in Occupancy field
+    if "occupancy" in name_lower or "descriptionofoccupancy" in name_lower or "occupancy" in tip or "descriptionofoccupancy" in tip:
+        if _value_looks_like_address(value):
+            return False
+
+    return True
+
+
 def _label_matches_field(label_norm: str, field_name: str, tooltip: Optional[str]) -> bool:
     """True if label likely refers to this schema field (name or tooltip). Prefer tooltip to reduce false positives."""
     return _label_match_basis(label_norm, field_name, tooltip) is not None
@@ -128,17 +193,24 @@ def prefill_form_json_from_ocr(
                 elif len(field_name) > len(best_field):
                     best_field = field_name
                     best_basis = basis
-        if best_field is not None and (prefilled.get(best_field) is None or prefilled.get(best_field) == ""):
-            prefilled[best_field] = value
-            source_map[best_field] = "label_value"
-            basis_desc = (
-                f"OCR pair \"{label}\" → value matched to field by {best_basis}."
-            )
-            details_map[best_field] = {
-                "source": "label_value",
-                "basis": basis_desc,
-                "confidence": pair_confidence,
-            }
+        if best_field is None:
+            continue
+        if prefilled.get(best_field) is not None and prefilled.get(best_field) != "":
+            continue
+        fi = schema.fields[best_field]
+        # Stricter matching: reject bad prefill for amount, occupancy, and checkbox fields
+        if not _allow_label_value_prefill(best_field, fi, label_norm, value):
+            continue
+        prefilled[best_field] = value
+        source_map[best_field] = "label_value"
+        basis_desc = (
+            f"OCR pair \"{label}\" → value matched to field by {best_basis}."
+        )
+        details_map[best_field] = {
+            "source": "label_value",
+            "basis": basis_desc,
+            "confidence": pair_confidence,
+        }
 
     return prefilled, source_map, details_map
 

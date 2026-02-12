@@ -444,9 +444,10 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
 def _extract_125_lob(page1_bbox: List[Dict]) -> Dict[str, Any]:
     """
     Extract Lines of Business checkboxes and premiums from Form 125.
-    
-    Layout: y≈850-1250, three columns of LOBs.
-    A LOB is "checked" if there's a dollar amount to its right.
+
+    Column x-ranges (approximate): LOB name (left ~200-600, mid ~1000-1400, right ~1800-2200);
+    checkbox column (left ~620-660, mid ~1430-1460, right ~2225-2260); premium column to the
+    right of each LOB name in the same row. Take premium from numeric/$ cells only, not LOB name.
     """
     result: Dict[str, Any] = {}
 
@@ -527,14 +528,21 @@ def _extract_125_lob(page1_bbox: List[Dict]) -> Dict[str, Any]:
                     if has_checkbox_marker:
                         result[indicator_field] = "1"
 
-                    # Look for premium amount to the right
+                    # Premium column x-ranges (right of checkbox): left col 680-950, mid 1480-1750, right 2280-2500
+                    if lob_x < 900:
+                        premium_x_min, premium_x_max = 680, 950
+                    elif lob_x < 1700:
+                        premium_x_min, premium_x_max = 1480, 1750
+                    else:
+                        premium_x_min, premium_x_max = 2280, 2500
                     premium_val = None
                     for j in range(i + 1, min(i + 4, len(row))):
-                        raw = row[j]["text"].strip()
-                        # Skip bare $ or S (checkbox markers)
+                        cell = row[j]
+                        if not (premium_x_min <= cell["x"] <= premium_x_max):
+                            continue
+                        raw = cell["text"].strip()
                         if raw in ("$", "S"):
                             continue
-                        # Dollar amount (may start with $ or S due to OCR)
                         cleaned = _clean_amount(raw)
                         if cleaned:
                             num = cleaned.replace("$", "").replace(",", "")
@@ -567,7 +575,8 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
         ("RENEW", "Policy_Status_RenewIndicator_A"),
         ("CHANGE", "Policy_Status_ChangeIndicator_A"),
     ]
-    CHECKED = {"x", "1", "y", "yes", "$", "s", "✓", "check", "checked"}  # S = selected in some forms
+    # Checkbox cell: X, S, $, 1, Y, checkmark etc. S = selected on some forms. Tight x window = checkbox cell only.
+    CHECKED = {"x", "1", "y", "yes", "$", "s", "✓", "check", "checked", "•", "■"}
     status_band = [b for b in page1_bbox if 620 <= b["y"] <= 860 and 1280 <= b["x"] <= 2450]
     if not status_band:
         return result
@@ -577,10 +586,10 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
             continue
         lbl = min(label_blocks, key=lambda b: b["x"])
         ly, lx = lbl["y"], lbl["x"]
-        # Value is typically same row (dy <= 45) and to the right (x within lx+30 to lx+180)
+        # Value = same row, narrow x window (checkbox cell only; avoid date/time in next cell)
         value_blocks = [
             b for b in status_band
-            if abs(b["y"] - ly) <= 45 and lx + 20 <= b["x"] <= lx + 220
+            if abs(b["y"] - ly) <= 40 and lx + 15 <= b["x"] <= lx + 140
             and b.get("text")
         ]
         checked = False
@@ -590,7 +599,7 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
                 continue
             if t in ("of", "transaction", "quote", "bound", "issue", "cancel", "renew", "change", "pm", "am"):
                 continue
-            if t in CHECKED or t in ("1", "x", "y"):
+            if t in CHECKED or (len(t) <= 2 and t in ("1", "x", "y", "s")):
                 checked = True
                 break
         result[field_name] = checked
@@ -600,12 +609,18 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
         if m:
             result["Policy_Status_EffectiveDate_A"] = m.group(0)
             break
-    # Policy_Status_EffectiveTime_A: 4-digit HHMM if present (e.g. 10 + PM -> 2200)
+    # Policy_Status_EffectiveTime_A: 4-digit HHMM only. Never write a date into the time field.
     time_blocks = [b for b in status_band if re.match(r"^\d{1,4}$", b["text"].strip())]
     pm_blocks = [b for b in status_band if b["text"].strip().upper() == "PM"]
     am_blocks = [b for b in status_band if b["text"].strip().upper() == "AM"]
     for tb in time_blocks:
-        val = int(tb["text"].strip())
+        raw = tb["text"].strip()
+        val = int(raw)
+        if len(raw) == 4 and 2000 <= val <= 2099:
+            continue
+        if re.match(r"^\d{1,2}\d{2}$", raw) and len(raw) == 4 and 100 <= val <= 2359:
+            result["Policy_Status_EffectiveTime_A"] = val
+            break
         if 0 <= val <= 24 and any(abs(tb["y"] - p["y"]) <= 30 for p in pm_blocks):
             result["Policy_Status_EffectiveTime_A"] = (val + 12) * 100 if val < 12 else val * 100
             break
@@ -615,7 +630,7 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
         if 100 <= val <= 2359:
             result["Policy_Status_EffectiveTime_A"] = val
             break
-        if 1 <= val <= 12:
+        if 1 <= val <= 12 and len(raw) <= 2:
             result["Policy_Status_EffectiveTime_A"] = val * 100
             break
     return result
@@ -973,14 +988,10 @@ def _extract_137_left_coverage(
 ) -> Dict[str, Any]:
     """
     Extract left-side coverage amounts (LIABILITY, PD, MED PAY, UM).
-    
-    Uses a section-based approach:
-      1. Find coverage label Y positions (LIABILITY, PROPERTY DAMAGE, etc.)
-      2. Define section Y ranges between labels
-      3. Collect all amounts (x≈1050-1260) within each section range
-    
-    This avoids row-clustering issues where labels and amounts can be
-    on slightly different Y positions (up to 60px apart).
+
+    Amount column only: x≈1050-1260. Checkbox/symbol columns (Business Auto 1-9) are
+    separate; we do not fill Indicator fields with limit amounts. Uses a section-based
+    approach: find label Y positions, define section Y ranges, collect amounts in that x-range.
     """
     result: Dict[str, Any] = {}
 
@@ -1088,7 +1099,9 @@ def _extract_137_right_coverage(
 ) -> Dict[str, Any]:
     """
     Extract right-side physical damage deductibles and towing limit.
-    
+
+    Amount column only: x≈2200-2450 for deductible amounts. Checkbox/indicator columns
+    are separate; do not fill symbol Indicator fields with numeric amounts.
     Uses a hybrid approach:
       1. Row-based label matching for TOWING, COMP, SPECIFIED, COLLISION
       2. Positional fallback: if SCOL label is OCR-corrupted, assign
@@ -1396,13 +1409,17 @@ def _find_next_number(row: List[Dict], after_idx: int, x_range: Tuple[int, int] 
 def extract_127_drivers(page1_bbox: List[Dict]) -> Dict[str, Any]:
     """
     Extract driver table rows from Form 127 page 1 using precise X positions.
-    
-    Column positions (from actual OCR analysis):
+
+    Rows: stable sort by Y, then cluster by Y tolerance; each row sorted by X for column assignment.
+    Column X bands (from OCR analysis); where bands overlap (e.g. first name vs city at 239-320),
+    disambiguation uses _is_city_name vs _is_person_name so city vs person name are assigned correctly.
+
+    Column positions:
       x ≈ 127-130:  Driver # (row number)
       x ≈ 239-274:  First Name (GivenName)
       x ≈ 291-320:  City
-      x ≈ 596-660:  Last Name (Surname) 
-      x ≈ 608:      State (always 2-letter, overlaps with surname X range)
+      x ≈ 596-660:  Last Name (Surname)
+      x ≈ 608:      State (2-letter, overlaps with surname X range)
       x ≈ 706-710:  Zip code (5 digits)
       x ≈ 885-893:  Sex (M/F)
       x ≈ 950-955:  Marital Status
@@ -1410,7 +1427,7 @@ def extract_127_drivers(page1_bbox: List[Dict]) -> Dict[str, Any]:
       x ≈ 1289-1293: Years Experience
       x ≈ 1376-1380: Year Licensed
       x ≈ 1527-1585: License Number / Other IDs
-    
+
     Driver rows span y ≈ 700-2000, each row ~80-120 pixels apart.
     """
     result: Dict[str, Any] = {}
@@ -1686,6 +1703,7 @@ def spatial_preextract(
     if form_type == "125":
         return extract_125_header(page1)
     elif form_type == "127":
+        # Merge: header first, then drivers (driver fields overwrite any shared keys; header does not produce driver keys).
         header = extract_127_header(page1)
         drivers = extract_127_drivers(page1)
         header.update(drivers)

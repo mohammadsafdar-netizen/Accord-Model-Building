@@ -413,9 +413,14 @@ class ACORDExtractor:
                 print(f"\n  [{step}/{total_steps}] Drivers: {len(pre_extracted_drivers)} pre-extracted, {len(remaining_drivers)} remaining for LLM ...")
             else:
                 print(f"\n  [{step}/{total_steps}] Extracting drivers ...")
-            
+            driver_section_ids = get_section_ids_for_category(form_type, "driver")
+            if sections and driver_section_ids:
+                driver_docling = get_section_scoped_docling(page_docling, sections, driver_section_ids)
+                driver_bbox = get_section_scoped_bbox_text(page_bbox, sections, driver_section_ids)
+            else:
+                driver_docling, driver_bbox = docling_text, bbox_text
             driver_result = self._extract_all_drivers(
-                form_type, schema, ocr_result, docling_text, bbox_text
+                form_type, schema, ocr_result, driver_docling, driver_bbox
             )
             # Only add LLM results for fields not already spatially extracted
             new_count = 0
@@ -430,8 +435,14 @@ class ACORDExtractor:
         if form_type in ("127", "137") and "vehicle" in schema.categories:
             step += 1
             print(f"\n  [{step}/{total_steps}] Extracting vehicles ...")
+            vehicle_section_ids = get_section_ids_for_category(form_type, "vehicle")
+            if sections and vehicle_section_ids:
+                vehicle_docling = get_section_scoped_docling(page_docling, sections, vehicle_section_ids)
+                vehicle_bbox = get_section_scoped_bbox_text(page_bbox, sections, vehicle_section_ids)
+            else:
+                vehicle_docling, vehicle_bbox = docling_text, bbox_text
             vehicle_result = self._extract_all_vehicles(
-                form_type, schema, docling_text, bbox_text
+                form_type, schema, vehicle_docling, vehicle_bbox
             )
             # Only add LLM results for fields not already spatially extracted
             new_vehicle = 0
@@ -889,8 +900,10 @@ class ACORDExtractor:
         if value is None:
             return "Off"
         s = str(value).strip().lower()
-        if s in ("true", "yes", "1", "on", "x", "checked", "yes"):
+        if s in ("true", "yes", "1", "on", "x", "checked", "y", "s"):
             return "1"
+        if re.match(r"^\d{3,}$", s) or re.match(r"\d{1,2}/\d{1,2}/\d{4}", s):
+            return "Off"
         return "Off"
 
     # ==================================================================
@@ -1177,7 +1190,12 @@ class ACORDExtractor:
             )
             if is_checkbox:
                 lower = str_val.lower()
-                normalised[key] = "1" if lower in ("true", "yes", "1", "on", "x", "checked") else "Off"
+                if re.match(r"^\d{3,}$", str_val) or re.match(r"\d{1,2}/\d{1,2}/\d{4}", str_val):
+                    normalised[key] = "Off"
+                elif lower in ("true", "yes", "1", "on", "x", "checked", "y", "s"):
+                    normalised[key] = "1"
+                else:
+                    normalised[key] = "Off"
                 continue
 
             # Boolean normalisation for non-checkbox fields
@@ -1185,8 +1203,10 @@ class ACORDExtractor:
                 normalised[key] = "true" if value else "false"
                 continue
 
-            # Time field (HHMM): normalise to 4-digit string
+            # Time field (HHMM): normalise to 4-digit string only; never put a date in a time field
             if ("effectivetime" in key_lower or "expirationtime" in key_lower) and "indicator" not in key_lower:
+                if re.match(r"\d{1,2}/\d{1,2}/\d{4}", str_val) or ("/" in str_val or "-" in str_val) and re.search(r"\d{4}", str_val):
+                    continue
                 digits = re.sub(r"[^\d]", "", str_val)
                 if digits and len(digits) <= 4 and digits.isdigit():
                     normalised[key] = digits.zfill(4)
@@ -1205,6 +1225,21 @@ class ACORDExtractor:
                 if cleaned:
                     normalised[key] = cleaned
                     continue
+
+            # Address-like: normalise semicolon to comma (e.g. "Indianapolis; IN" -> "Indianapolis, IN")
+            if any(x in key_lower for x in (
+                "address", "officeidentifier", "lineone", "cityname",
+                "stateorprovincecode", "postalcode",
+            )):
+                str_val = str_val.replace(";", ",").strip()
+                if "postalcode" in key_lower and str_val:
+                    digits_only = re.sub(r"[^\d]", "", str_val)
+                    if len(digits_only) >= 5 and digits_only.isdigit():
+                        str_val = digits_only[:5] if len(digits_only) > 5 else digits_only
+                    elif not str_val.isdigit() and len(str_val) > 5:
+                        pass
+                normalised[key] = str_val
+                continue
 
             normalised[key] = str_val
 

@@ -87,14 +87,16 @@ _CATEGORY_HINTS = {
         "PRODUCER/AGENT/AGENCY = the broker/agent selling the policy. "
         "NOT the insurance company (Insurer) and NOT the customer (Named Insured). "
         "Look for 'AGENCY', 'PRODUCER', 'AGENT' labels. "
-        "Contact person = the individual at the agency. Phone/fax/email belong to the agency."
+        "Contact person = the individual at the agency. Phone/fax/email belong to the agency. "
+        "Underwriter office = address (street, city, state, zip). Do not put 'Monthly' or payment terms there."
     ),
     "named_insured": (
         "NAMED INSURED/APPLICANT = the business or person BUYING insurance. "
         "NOT the agent and NOT the carrier. "
         "Look for 'NAMED INSURED', 'APPLICANT', 'FIRST NAMED INSURED' labels. "
         "Their MAILING ADDRESS is separate from the producer/agent address. "
-        "ZIP CODE is a 5-digit number (NOT a phone number)."
+        "ZIP CODE is a 5-digit number (NOT a phone number). "
+        "Occupancy = type of occupancy (e.g. owned, leased); do not put a full street address in an Occupancy field. Address fields get street/city/state/zip; Occupancy gets a single word or short phrase."
     ),
     "policy": (
         "POLICY fields: policy number, effective/expiration dates, "
@@ -103,9 +105,8 @@ _CATEGORY_HINTS = {
         "Policy_EffectiveDate_A = PROPOSED EFF DATE in the policy block (proposed effective date). Do NOT confuse the two. "
         "Policy_Status_EffectiveTime_A = TIME only as 4-digit HHMM (e.g. 1000 for 10:00 AM). NEVER put a date in a time field. "
         "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM only. "
-        "CRITICAL: 'Indicator' fields are CHECKBOXES - return ONLY '1' (checked) or 'Off' (not checked). "
-        "Do NOT put text values or dollar amounts in Indicator fields. "
-        "LineOfBusiness Indicator = is that line of business selected? '1' if checkbox is marked."
+        "For any field with 'Indicator' in the name or schema type checkbox/radio: return only the string '1' (checked) or 'Off' (unchecked). Do not put dates, times, amounts, or addresses in these fields. "
+        "Line of Business premium fields (e.g. GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A) must be numeric dollar amounts only. LOB description or name goes in description fields, not in premium/amount fields."
     ),
     "driver": (
         "DRIVER fields from the driver table. Each row is one driver. "
@@ -113,27 +114,30 @@ _CATEGORY_HINTS = {
         "Use BBox row order (Y) for driver number and BBox X positions for columns: "
         "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), Marital Status, DOB (~1080-1160), % Use (Use Veh #), DOC (Driver Other Car), Broadened No-Fault, License# (~1500-1620), License State (~1830). "
         "Driver_Vehicle_UsePercent_* = percentage in '% Use' column (e.g. 100, 50). Driver_Coverage_DriverOtherCarCode_* and Driver_Coverage_BroadenedNoFaultCode_* = N/Y or 1/Off from DOC and Broadened No-Fault columns. "
-        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment. Do NOT put % Use or ZIP in checkbox/indicator fields."
+        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment. Do not put phone numbers or percentages in ZIP or License#; do not put ZIP in phone fields. Do NOT put % Use or ZIP in checkbox/indicator fields."
     ),
     "vehicle": (
         "VEHICLE fields: Year, Make, Model, VIN, body type, GVW, cost new, "
-        "radius of use, garaging location. Suffixes _A-_E (127) or _A-_F (137)."
+        "radius of use, garaging location. Suffixes _A-_E (127) or _A-_F (137). "
+        "Business Auto Symbol and Indicator fields are checkboxes (1/Off); limits and deductibles are numeric."
     ),
     "coverage": (
         "COVERAGE fields: Business Auto symbols (1-9), liability limits, "
         "deductibles, physical damage, other coverages. "
         "Symbol values: 1=Any Auto, 2=Owned Autos Only, 7=Specifically Described, 8=Hired, 9=Non-Owned. "
         "Form 137: Vehicle_BusinessAutoSymbol_*Indicator and Vehicle_BusinessAutoSymbol_OtherSymbolCode are per vehicle row (_A to _F); use BBox to see which symbol column is marked. "
-        "Coverage Indicator fields = checkboxes only ('1' or 'Off'); limit/deductible amounts = numeric values."
+        "Business Auto Symbol and Indicator fields are CHECKBOXES: output only '1' or 'Off'. Limits and deductibles are numeric. "
+        "For any field with 'Indicator' in the name or schema type checkbox/radio: return only '1' (checked) or 'Off' (unchecked). Do not put dates, times, amounts, or addresses in these fields."
     ),
     "checkbox": (
-        "CHECKBOX/INDICATOR fields: return ONLY \"1\" if checked (X, checkmark, filled box), "
-        "\"Off\" if unchecked or empty box. "
-        "NEVER return text values, dollar amounts, or descriptions for Indicator fields."
+        "For any field with 'Indicator' in the name or schema type checkbox/radio: return only the string '1' (checked) or 'Off' (unchecked). "
+        "Do not put dates, times, amounts, or addresses in these fields. "
+        "CHECKBOX/INDICATOR fields: return ONLY '1' if checked (X, checkmark, filled box), 'Off' if unchecked or empty box. Never text or numbers."
     ),
     "location": (
         "LOCATION/PREMISES fields: physical address, city, state, zip of the insured business. "
         "ZIP is a 5-digit or 9-digit postal code, NOT a phone number. "
+        "Occupancy = type of occupancy (e.g. owned, leased); do not put a full street address in an Occupancy field. Address fields get street/city/state/zip; Occupancy gets a single word or short phrase. "
         "In TABLES/SCHEDULES: the value for each field is the CELL CONTENT under the column header, NOT the header label. "
         "E.g. '#FULL TIME EMPL' and '#PART TIME EMPL' are column headers; the value is the number in that column (e.g. 30, 10). "
         "'$ANNUAL REVENUES:' is a label; the value is the dollar amount. 'OCCUPIED AREA' is a header; the value is the square footage number."
@@ -257,6 +261,8 @@ CRITICAL RULES:
 6. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not. NEVER put text in Indicator fields.'}
 7. Do NOT paraphrase - use the exact text from the OCR.
 8. ZIP codes are 5-digit numbers, NOT phone numbers. Phone numbers have dashes (xxx-xxx-xxxx).
+
+Indicator/checkbox fields: output exactly "1" or "Off"; never text or numbers.
 
 JSON TEMPLATE (use these EXACT keys):
 {json_tmpl}

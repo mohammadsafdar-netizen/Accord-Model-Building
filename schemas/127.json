@@ -717,8 +717,8 @@
     },
     "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator": {
       "name": "CommercialVehicleLineOfBusiness_Attachment_AdditionalInterestIndicator",
-      "type": "text",
-      "tooltip": "From GT: CommercialVehicleLineOfBusiness Attachment AdditionalInterestIndicator",
+      "type": "checkbox",
+      "tooltip": "From GT: CommercialVehicleLineOfBusiness Attachment AdditionalInterestIndicator. Return 1 if checked, Off if not.",
       "default_value": null,
       "category": "checkbox",
       "suffix": "_A"

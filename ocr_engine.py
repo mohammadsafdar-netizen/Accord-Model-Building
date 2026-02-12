@@ -255,6 +255,82 @@ def is_likely_value(text: str) -> bool:
 
 
 # ===========================================================================
+# Docling-guided label-value extraction (from markdown structure)
+# ===========================================================================
+
+def _normalize_for_match(text: str) -> str:
+    """Normalize text for label/value matching: lowercase, collapse whitespace."""
+    return re.sub(r"\s+", " ", text.strip()).lower()
+
+
+def parse_docling_markdown_pairs(md: str) -> List[Tuple[str, str]]:
+    """
+    Parse Docling-exported markdown to extract (label, value) string pairs.
+    Uses: 1) Markdown tables (first row = headers, following rows = values per column)
+          2) Lines like "LABEL: value" or "LABEL\\nvalue"
+          3) Section headers (##) as context; following lines as label/value where applicable.
+    Returns list of (label_text, value_text) for use in matching to EasyOCR blocks.
+    """
+    pairs: List[Tuple[str, str]] = []
+    if not md or not md.strip():
+        return pairs
+
+    # --- Tables: split by markdown table pattern | ... | ... |
+    table_pattern = re.compile(r"\|([^|]+)\|")
+    lines = md.split("\n")
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        # Match table row
+        cells = table_pattern.findall(line)
+        cells = [c.strip() for c in cells if c.strip()]
+        if len(cells) >= 2 and not re.match(r"^[-:\s]+$", cells[0]):
+            # Possible table start; collect rows until separator or empty
+            rows: List[List[str]] = [cells]
+            i += 1
+            while i < len(lines):
+                next_cells = table_pattern.findall(lines[i])
+                next_cells = [c.strip() for c in next_cells if c.strip()]
+                if len(next_cells) < 2:
+                    break
+                if re.match(r"^[-:\s]+$", next_cells[0]):
+                    i += 1
+                    break
+                rows.append(next_cells)
+                i += 1
+            if len(rows) >= 2:
+                headers = rows[0]
+                for r in rows[1:]:
+                    for col, header in enumerate(headers):
+                        if col < len(r) and header and r[col]:
+                            # Avoid header-like as value (same as header)
+                            val = r[col].strip()
+                            if val and _normalize_for_match(val) != _normalize_for_match(header):
+                                pairs.append((header.strip(), val))
+            continue
+
+        # --- "LABEL: value" on same line
+        if ":" in line and len(line) < 200:
+            before, _, after = line.partition(":")
+            before = before.strip()
+            after = after.strip()
+            if before and after and len(before) < 80:
+                pairs.append((before, after))
+        i += 1
+
+    # --- "LABEL:" on one line, value on next (common in forms)
+    for j in range(len(lines) - 1):
+        line = lines[j].strip()
+        if line.endswith(":") and 2 <= len(line) <= 100:
+            label = line[:-1].strip()
+            value_line = lines[j + 1].strip()
+            if value_line and not value_line.startswith("|") and not value_line.startswith("#"):
+                pairs.append((label, value_line))
+
+    return pairs
+
+
+# ===========================================================================
 # OCR Engine
 # ===========================================================================
 
@@ -530,6 +606,7 @@ class OCREngine:
         page_width: int = 0,
         page_height: int = 0,
         page: int = 1,
+        docling_markdown: Optional[str] = None,
     ) -> SpatialIndex:
         idx = SpatialIndex(page_width=page_width, page_height=page_height, page=page)
 
@@ -549,7 +626,18 @@ class OCREngine:
         idx.rows = self._cluster_into_rows(idx.blocks)
         idx.columns = self._detect_columns(idx.blocks)
         idx.tables = self._detect_tables(idx.rows, idx.columns)
-        idx.label_value_pairs = self._find_label_value_pairs(idx.blocks)
+
+        if docling_markdown and docling_markdown.strip():
+            docling_pairs = parse_docling_markdown_pairs(docling_markdown)
+            docling_guided = self._find_label_value_pairs_docling_guided(
+                idx.blocks, docling_pairs, max_gap=300
+            )
+            used_label_ids: Set[int] = {id(p.label) for p in docling_guided}
+            heuristic = self._find_label_value_pairs(idx.blocks)
+            fallback = [p for p in heuristic if id(p.label) not in used_label_ids]
+            idx.label_value_pairs = docling_guided + fallback
+        else:
+            idx.label_value_pairs = self._find_label_value_pairs(idx.blocks)
         return idx
 
     def _cluster_into_rows(self, blocks: List[TextBlock]) -> List[Row]:
@@ -616,6 +704,47 @@ class OCREngine:
         if all(is_likely_label(b.text) for b in first.blocks):
             table.header_row = first
         return [table]
+
+    def _text_matches(self, block_text: str, target: str) -> bool:
+        """True if block text and target match after normalization (exact or contained)."""
+        bn = _normalize_for_match(block_text)
+        tn = _normalize_for_match(target)
+        if not bn or not tn:
+            return False
+        return bn == tn or tn in bn or bn in tn
+
+    def _find_label_value_pairs_docling_guided(
+        self,
+        blocks: List[TextBlock],
+        docling_pairs: List[Tuple[str, str]],
+        max_gap: int = 300,
+    ) -> List[LabelValuePair]:
+        """Build label-value pairs by matching Docling (label, value) strings to EasyOCR blocks."""
+        pairs: List[LabelValuePair] = []
+        used_value_ids: Set[int] = set()
+        for label_str, value_str in docling_pairs:
+            label_blocks = [b for b in blocks if self._text_matches(b.text, label_str)]
+            value_blocks = [b for b in blocks if self._text_matches(b.text, value_str)]
+            best_pair: Optional[Tuple[TextBlock, TextBlock]] = None
+            best_gap = max_gap + 1
+            for lb in label_blocks:
+                for vb in value_blocks:
+                    if id(vb) in used_value_ids:
+                        continue
+                    if not vb.is_to_right_of(lb, max_gap=max_gap):
+                        continue
+                    gap = vb.x_min - lb.x_max
+                    if gap < best_gap:
+                        best_gap = gap
+                        best_pair = (lb, vb)
+            if best_pair is not None:
+                lb, vb = best_pair
+                pairs.append(LabelValuePair(
+                    label=lb, value=vb,
+                    confidence=min(lb.confidence, vb.confidence),
+                ))
+                used_value_ids.add(id(vb))
+        return pairs
 
     def _find_label_value_pairs(self, blocks: List[TextBlock]) -> List[LabelValuePair]:
         pairs: List[LabelValuePair] = []
@@ -791,7 +920,10 @@ class OCREngine:
                 img = cv2.imread(str(image_paths[page_num - 1]))
                 if img is not None:
                     ph, pw = img.shape[:2]
-            si = self.build_spatial_index(page_bbox, pw, ph, page=page_num)
+            docling_md = docling_pages[page_num - 1] if page_num <= len(docling_pages) else None
+            si = self.build_spatial_index(
+                page_bbox, pw, ph, page=page_num, docling_markdown=docling_md
+            )
             spatial_indices.append(si)
             print(
                 f"    Page {page_num}: {len(si.blocks)} blocks, "

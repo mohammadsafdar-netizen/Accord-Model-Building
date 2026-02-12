@@ -274,8 +274,9 @@ class ACORDExtractor:
 
             if missing_checkboxes:
                 step += 1
-                n_batches = (len(missing_checkboxes) + VISION_BATCH - 1) // VISION_BATCH
-                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields, {n_batches} batches of {VISION_BATCH}) ...")
+                cb_batch = 20 if self.vision_fast else 10
+                n_batches = (len(missing_checkboxes) + cb_batch - 1) // cb_batch
+                print(f"\n  [{step}/{total_steps}] Vision pass (VLM) - checkboxes ({len(missing_checkboxes)} fields, {n_batches} batches of {cb_batch}) ...")
                 try:
                     checkbox_result = self._vision_pass_checkboxes(
                         form_type=form_type,

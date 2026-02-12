@@ -20,6 +20,7 @@ import os
 import re
 import statistics
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 # Must be set before torch import to reduce GPU memory fragmentation
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
@@ -349,6 +350,7 @@ class OCREngine:
         row_tolerance: int = 25,
         column_tolerance: int = 40,
         ocr_unload_wait_seconds: Optional[int] = None,
+        parallel_ocr: bool = True,
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -359,6 +361,8 @@ class OCREngine:
         self.column_tolerance = column_tolerance
         # Wait after unloading OCR from GPU before next model (default 5s; use 4 on 24GB+)
         self.OCR_UNLOAD_WAIT_SECONDS = ocr_unload_wait_seconds if ocr_unload_wait_seconds is not None else 5
+        # When True and Docling=CPU + EasyOCR=GPU, run both in parallel to cut OCR wall time
+        self.parallel_ocr = parallel_ocr
 
         self._docling_converter = None
         self._easyocr_reader = None
@@ -887,25 +891,51 @@ class OCREngine:
         print("  [OCR] Removing table lines ...")
         clean_paths = self.create_clean_images(image_paths)
 
-        # ---- Phase 1: Docling OCR (CPU when offload, else GPU) ----
-        docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
-        print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
-        docling_pages, docling_regions_per_page = self.run_docling(image_paths, use_gpu=docling_use_gpu)
-        total_chars = sum(len(p) for p in docling_pages)
-        print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
+        # ---- Phase 1 & 2: Docling + EasyOCR (parallel when Docling=CPU, EasyOCR=GPU) ----
+        run_parallel = (
+            self.parallel_ocr
+            and use_gpu
+            and self.docling_cpu_when_gpu
+        )
+        if run_parallel:
+            docling_mode = "CPU (offload)"
+            easyocr_mode = "GPU"
+            print(f"  [OCR] Running Docling ({docling_mode}) + EasyOCR ({easyocr_mode}) in parallel ...")
+            docling_pages: List[str] = []
+            docling_regions_per_page: List[List[Dict]] = []
+            bbox_pages: List[List[Dict]] = []
 
-        # Unload Docling from GPU before EasyOCR (no-op if Docling was CPU)
-        self.cleanup_docling()
+            def _run_docling() -> Tuple[List[str], List[List[Dict]]]:
+                return self.run_docling(image_paths, use_gpu=False)
 
-        # ---- Phase 2: EasyOCR (GPU when use_gpu, else CPU) ----
-        easyocr_mode = "GPU" if use_gpu else "CPU"
-        print(f"  [OCR] Running EasyOCR with bounding boxes ({easyocr_mode}) ...")
-        bbox_pages = self.run_easyocr(clean_paths)
-        total_blocks = sum(len(p) for p in bbox_pages)
-        print(f"  [OCR] EasyOCR found {total_blocks} text blocks")
+            def _run_easyocr() -> List[List[Dict]]:
+                return self.run_easyocr(clean_paths)
 
-        # Unload EasyOCR from GPU before LLM (cleanup_easyocr already waits)
-        self.cleanup_easyocr()
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                fut_d = executor.submit(_run_docling)
+                fut_e = executor.submit(_run_easyocr)
+                docling_pages, docling_regions_per_page = fut_d.result()
+                bbox_pages = fut_e.result()
+
+            total_chars = sum(len(p) for p in docling_pages)
+            total_blocks = sum(len(p) for p in bbox_pages)
+            print(f"  [OCR] Docling produced {total_chars} chars; EasyOCR found {total_blocks} blocks")
+            self.cleanup_docling()
+            self.cleanup_easyocr()
+        else:
+            docling_mode = "CPU (offload)" if (use_gpu and self.docling_cpu_when_gpu) else ("GPU" if docling_use_gpu else "CPU")
+            print(f"  [OCR] Running Docling OCR ({docling_mode}) ...")
+            docling_pages, docling_regions_per_page = self.run_docling(image_paths, use_gpu=docling_use_gpu)
+            total_chars = sum(len(p) for p in docling_pages)
+            print(f"  [OCR] Docling produced {total_chars} chars across {len(docling_pages)} pages")
+            self.cleanup_docling()
+
+            easyocr_mode = "GPU" if use_gpu else "CPU"
+            print(f"  [OCR] Running EasyOCR with bounding boxes ({easyocr_mode}) ...")
+            bbox_pages = self.run_easyocr(clean_paths)
+            total_blocks = sum(len(p) for p in bbox_pages)
+            print(f"  [OCR] EasyOCR found {total_blocks} text blocks")
+            self.cleanup_easyocr()
 
         # Extra wait so LLM has a clear GPU when it loads
         time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)

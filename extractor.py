@@ -107,6 +107,7 @@ class ACORDExtractor:
         pdf_path: str | Path,
         form_type: Optional[str] = None,
         output_dir: Optional[str | Path] = None,
+        ocr_result: Optional[OCRResult] = None,
     ) -> Dict[str, Any]:
         """
         Extract fields from a scanned ACORD form.
@@ -115,6 +116,7 @@ class ACORDExtractor:
             pdf_path: Path to the PDF.
             form_type: "125", "127", or "137". Auto-detected if None.
             output_dir: Directory for intermediate files (images, OCR cache).
+            ocr_result: If provided, skip OCR and use this result (e.g. from LangGraph OCR node).
 
         Returns:
             Dict with keys:
@@ -129,18 +131,18 @@ class ACORDExtractor:
 
         start = time.time()
 
-        # ---- Step 0: Free GPU for OCR ------------------------------------
         print(f"\n{'='*60}")
         print(f"  ACORD FORM EXTRACTION")
         print(f"  PDF: {pdf_path.name}")
         print(f"{'='*60}")
-        # Unload all LLMs so OCR has full GPU; wait for VRAM to be released
-        self.llm.unload_model()
 
-        # ---- Step 1: OCR (GPU sequenced inside, with unload waits) -------
-        # process() does: Docling GPU → unload → EasyOCR GPU → unload
-        # After this, GPU is fully free for the LLM
-        ocr_result = self.ocr.process(pdf_path, output_dir)
+        # ---- Step 0 & 1: OCR (or use provided result) --------------------
+        if ocr_result is None:
+            self.llm.unload_model()
+            ocr_result = self.ocr.process(pdf_path, output_dir)
+        else:
+            # Use pre-computed OCR from e.g. LangGraph OCR node
+            pass
 
         # ---- Step 2: Detect form type -----------------------------------
         if form_type is None:

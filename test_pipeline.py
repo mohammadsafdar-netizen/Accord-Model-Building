@@ -191,6 +191,7 @@ def run_single_form(
     use_vision_descriptions: bool = False,
     vision_checkboxes_only: bool = False,
     vision_fast: bool = False,
+    use_graph: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -218,11 +219,22 @@ def run_single_form(
 
     start = time.time()
     try:
-        result = extractor.extract(
-            pdf_path=pdf_path,
-            form_type=form_type,
-            output_dir=form_output_dir,
-        )
+        if use_graph:
+            from extraction_graph import run_extraction
+            result = run_extraction(
+                pdf_path=pdf_path,
+                form_type=form_type,
+                output_dir=form_output_dir,
+                ocr_engine=ocr,
+                extractor=extractor,
+                use_graph=True,
+            )
+        else:
+            result = extractor.extract(
+                pdf_path=pdf_path,
+                form_type=form_type,
+                output_dir=form_output_dir,
+            )
     except Exception as e:
         import traceback
         traceback.print_exc()
@@ -401,6 +413,14 @@ def main():
         "--unload-wait", type=int, default=8, metavar="SEC",
         help="Seconds to wait after unloading a model before loading the next (default: 8). Use 5 on 24GB+ VRAM for faster runs.",
     )
+    parser.add_argument(
+        "--use-graph", action="store_true",
+        help="Run extraction via LangGraph (OCR node then extract node). Uses parallel Docling+EasyOCR when applicable.",
+    )
+    parser.add_argument(
+        "--no-parallel-ocr", action="store_true",
+        help="Disable parallel OCR (run Docling then EasyOCR sequentially).",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -457,12 +477,16 @@ def main():
             vision_note += " [fast]"
         vision_note += (" + descriptions (crop→describe→extract)" if args.vision_descriptions else "")
         print(f"  Vision: {vision_note}")
-    if args.docling_gpu or args.unload_wait != 8:
+    if args.docling_gpu or args.unload_wait != 8 or args.use_graph or args.no_parallel_ocr:
         speed_parts = []
         if args.docling_gpu:
             speed_parts.append("Docling=GPU")
         if args.unload_wait != 8:
             speed_parts.append(f"unload_wait={args.unload_wait}s")
+        if args.use_graph:
+            speed_parts.append("LangGraph")
+        if args.no_parallel_ocr:
+            speed_parts.append("no-parallel-OCR")
         print(f"  Speed: {', '.join(speed_parts)}")
     print(f"  Total PDFs to run: {total_pdfs}")
     for ft in args.forms:
@@ -480,6 +504,7 @@ def main():
         force_cpu=not args.gpu,
         docling_cpu_when_gpu=not args.docling_gpu,  # --docling-gpu: Docling on GPU (faster, needs 24GB+)
         ocr_unload_wait_seconds=args.unload_wait,
+        parallel_ocr=not args.no_parallel_ocr,  # Parallel Docling+EasyOCR when Docling=CPU, EasyOCR=GPU
     )
     llm = LLMEngine(
         model=args.model,
@@ -521,6 +546,7 @@ def main():
                 use_vision_descriptions=args.vision_descriptions,
                 vision_checkboxes_only=args.vision_checkboxes_only,
                 vision_fast=args.vision_fast,
+                use_graph=args.use_graph,
             )
             type_results.append(result)
 

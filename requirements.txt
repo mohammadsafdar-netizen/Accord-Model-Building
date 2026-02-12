@@ -22,5 +22,8 @@ json_repair
 # Logging
 rich
 
+# Optional: LangGraph for extraction pipeline (parallel OCR node + extract node)
+langgraph
+
 # Deep learning (needed by docling/easyocr)
 torch

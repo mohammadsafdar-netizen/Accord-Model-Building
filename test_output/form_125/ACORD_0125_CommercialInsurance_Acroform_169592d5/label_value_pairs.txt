@@ -1,4 +1,6 @@
 --- Page 1 ---
+BUSINESS PHONE # -> (202) 456-7890
+BUSINESS PHONE #: -> (202) 456-7890
 GANEACT -> Adam Aguilar
 PHONFo. Extl: -> 202-123-4567
 FAX -> 202-901-2345
@@ -27,6 +29,13 @@ NOT FOR PROFIT ORG -> SUBCHAPTER "S" CORPORATION
 NO. OF MEMBERS -> 2
 
 --- Page 2 ---
+CITY: -> Washington D.C.
+CITY: -> Arlington
+OPEN TO PUBLIC AREA: -> 400
+TOTAL BUILDING AREA: -> 100,000
+S -> 250,000
+OCCUPIED AREA: -> 50,000
+ANNUAL REVENUES: $ -> 2500000
 AGENCY CUSTOMER ID: -> Adam Aguilar
 CONTACT NAME: -> Crystal Mcdaniel
 CONTACT NAME: -> Valerie Matthews
@@ -34,7 +43,6 @@ STREET -> 1234 16th St NW
 INTEREST -> #FULL TIME EMPL
 OWNER -> 30
 OCCUPIED AREA: -> 1000
-CITY: -> Washington D.C.
 TENANT -> #PART TIME EMPL
 OPEN TO PUBLIC AREA: -> 500
 COUNTY: -> Washington D.C.
@@ -46,14 +54,10 @@ OWNER -> 25
 OCCUPIED AREA: -> 800
 CITY: -> Washington
 TENANT -> #PART TIME EMPL
-OPEN TO PUBLIC AREA: -> 400
-TOTAL BUILDING AREA: -> 100,000
 DESCRIPTION OF OPERATIONS: -> Machine Shop Operations
 STREET -> 1234 16th St NW
 ANNUAL REVENUES: -> S
 OWNER -> 30
-OCCUPIED AREA: -> 50,000
-CITY: -> Arlington
 OPEN TO PUBLIC AREA: -> 20,000
 COUNTY: -> Fairfax
 TOTAL BUILDING AREA: -> 100000
@@ -91,6 +95,9 @@ EFFECTIVE DATE -> 01/02/2024
 EXPIRATION DATE -> 03/02/2024
 
 --- Page 4 ---
+S -> 25000
+01/03/2018 -> 01/09/2022
+Applicable in NJ: -> Any
 AGENCY CUSTOMER ID: -> Adam Aguilar
 PROPERTY -> OTHER: 3599
 CARRIER -> Nationwide Insurance Corporation
@@ -113,7 +120,6 @@ Applicable in FL and OK: -> Any
 Applicable in KS: -> Any
 presented to or by an insurer, purported insurer, broker or any agent thereof, any written statement as part of, -> or in support of, an application for the issuance
 of defrauding the company. -> Penalties (may) * include imprisonment; fines and denial of insurance benefits _
-Applicable in NJ: -> Any
 Applicable in OR: -> Any
 Applicable in PR: -> Any
 ANSWERS TO QUESTIONS ON THIS APPLICATION: -> HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER

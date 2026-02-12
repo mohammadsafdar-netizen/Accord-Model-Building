@@ -4,6 +4,7 @@
   "Insurer_NAICCode_A": "23787",
   "Producer_FullName_A": "Downs, Bruce and Torres",
   "Policy_PolicyNumberIdentifier_A": "BA-44346598",
+  "Insurer_ProductCode_A": "CGL-12345",
   "Producer_ContactPerson_PhoneNumber_A": "202-123-4567",
   "Producer_FaxNumber_A": "202-901-2345",
   "Producer_ContactPerson_FullName_A": "Adam Aguilar",
@@ -34,5 +35,14 @@
   "Policy_LineOfBusiness_CrimeIndicator_A": "1",
   "CrimeLineOfBusiness_PremiumAmount_A": "$1000.00",
   "Policy_LineOfBusiness_UmbrellaIndicator_A": "1",
-  "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": "$1500.00"
+  "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": "$1500.00",
+  "Policy_Status_QuoteIndicator_A": false,
+  "Policy_Status_BoundIndicator_A": false,
+  "Policy_Status_IssueIndicator_A": false,
+  "Policy_Status_CancelIndicator_A": false,
+  "Policy_Status_RenewIndicator_A": false,
+  "Policy_Status_ChangeIndicator_A": false,
+  "Policy_Status_EffectiveDate_A": "02/15/2024",
+  "Policy_Status_EffectiveTime_A": 1000,
+  "Insurer_Underwriter_FullName_A": "John Doe"
 }

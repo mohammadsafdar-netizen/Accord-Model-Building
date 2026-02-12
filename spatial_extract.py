@@ -271,6 +271,11 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if policy_num:
         result["Policy_PolicyNumberIdentifier_A"] = policy_num
 
+    # --- Product/Program code (separate from policy number; e.g. CGL-12345) ---
+    product_code = _extract_125_product_code(page1_bbox, policy_num)
+    if product_code:
+        result["Insurer_ProductCode_A"] = product_code
+
     # --- Agent contact info (below agent name area) ---
     # Use agency label Y to anchor contact search region
     contact_y_base = (agency_lbl["y"] + 280) if agency_lbl else 540
@@ -562,7 +567,7 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
         ("RENEW", "Policy_Status_RenewIndicator_A"),
         ("CHANGE", "Policy_Status_ChangeIndicator_A"),
     ]
-    CHECKED = {"x", "1", "y", "yes", "$", "s", "✓", "check", "checked"}
+    CHECKED = {"x", "1", "y", "yes", "$", "s", "✓", "check", "checked"}  # S = selected in some forms
     status_band = [b for b in page1_bbox if 620 <= b["y"] <= 860 and 1280 <= b["x"] <= 2450]
     if not status_band:
         return result
@@ -614,6 +619,42 @@ def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
             result["Policy_Status_EffectiveTime_A"] = val * 100
             break
     return result
+
+
+def _extract_125_product_code(page1_bbox: List[Dict], policy_number: Optional[str] = None) -> Optional[str]:
+    """
+    Find PRODUCT CODE or PROGRAM CODE label; return value below or to the right.
+    Product code is typically like CGL-12345 (not the policy number).
+    """
+    candidates = []
+    for b in page1_bbox:
+        if b["y"] > 600:
+            continue
+        text = b["text"].strip().upper()
+        if "SUBCODE" in text:
+            continue
+        if "PRODUCT CODE" in text or "PROGRAM CODE" in text or (("PRODUCT" in text or "PROGRAM" in text) and "CODE" in text):
+            candidates.append(b)
+    if not candidates:
+        return None
+    lbl = min(candidates, key=lambda b: (b["y"], b["x"]))
+    ly, lx = lbl["y"], lbl["x"]
+    value_region = _find_in_region(
+        page1_bbox, max(0, lx - 50), lx + 400,
+        ly, ly + 80,
+        exclude_labels=False,
+    )
+    for b in value_region:
+        text = b["text"].strip()
+        if _is_common_label(text) or not text:
+            continue
+        # Avoid returning policy number as product code
+        if policy_number and text == policy_number:
+            continue
+        # Product code often looks like XXX-12345 or alphanumeric
+        if re.match(r"^[A-Z0-9]+-[A-Z0-9]+$", text, re.I) or (len(text) >= 4 and re.match(r"^[A-Za-z0-9\-]+$", text)):
+            return text
+    return None
 
 
 def _extract_125_underwriter(page1_bbox: List[Dict]) -> Optional[str]:

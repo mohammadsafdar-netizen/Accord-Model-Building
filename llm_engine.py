@@ -31,6 +31,15 @@ except ImportError:
     JSON_REPAIR_AVAILABLE = False
 
 
+class VisionModelNotFoundError(RuntimeError):
+    """Raised when Ollama returns 404 for the vision model (not pulled or wrong name)."""
+    def __init__(self, model: str, message: str = ""):
+        self.model = model
+        super().__init__(
+            message or f"Vision model '{model}' not found. Run: ollama pull {model}  (or ollama list to see available models)."
+        )
+
+
 class LLMEngine:
     """
     Text-only LLM interface via Ollama.
@@ -438,6 +447,14 @@ class LLMEngine:
                     if err:
                         print(f"  [VLM] Ollama error: {err}")
                 return text or ""
+            except requests.exceptions.HTTPError as exc:
+                if exc.response is not None and exc.response.status_code == 404:
+                    raise VisionModelNotFoundError(model or self.vision_model or "?")
+                last_error = exc
+                if attempt < self.max_retries:
+                    wait = 2 ** attempt
+                    print(f"  [VLM] Attempt {attempt} failed ({exc}), retrying in {wait}s ...")
+                    time.sleep(wait)
             except (requests.RequestException, KeyError) as exc:
                 last_error = exc
                 if attempt < self.max_retries:
@@ -495,6 +512,11 @@ class LLMEngine:
                     for p in raw:
                         if isinstance(p, dict) and p.get("type") == "text" and p.get("text"):
                             parts.append(p["text"])
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code == 404:
+                raise VisionModelNotFoundError(model or self.vision_model or "?")
+            print(f"  [VLM] Streaming fallback error: {e}")
+            return ""
         except (requests.RequestException, json.JSONDecodeError) as e:
             print(f"  [VLM] Streaming fallback error: {e}")
             return ""

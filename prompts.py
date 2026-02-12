@@ -25,11 +25,11 @@ ACORD_125_LAYOUT = """ACORD 125 - Commercial Insurance Application
 Page 1 (top-to-bottom):
   - DATE (top right): Form completion date in MM/DD/YYYY
   - AGENCY/PRODUCER (left side): The agent/broker selling the policy - company name, contact person, phone, email, address
-  - COMPANY/INSURER (right side, near top): The insurance CARRIER providing coverage + 5-digit NAIC code
+  - COMPANY/INSURER (right side, near top): The insurance CARRIER providing coverage + 5-digit NAIC code. PRODUCT/PROGRAM CODE (if present) is a separate code (e.g. CGL-12345), NOT the policy number.
   - NAMED INSURED/APPLICANT: The customer buying insurance - business name, mailing address
-  - POLICY: Policy number, effective date, expiration date. STATUS row: Quote / Bound / Issue / Cancel (each has a checkbox; return 1 if marked, Off if not). Date in the status block = Policy_Status_EffectiveDate_A.
+  - POLICY: Policy number, effective date, expiration date. STATUS row: Quote / Bound / Issue / Cancel / Renew / Change (each has a checkbox; return 1 if marked, Off if not). Status date = Policy_Status_EffectiveDate_A; status time = Policy_Status_EffectiveTime_A as 4-digit HHMM (e.g. 1000), never a date.
   - LINE OF BUSINESS: Checkboxes for CGL, Commercial Property, Business Auto, Umbrella, etc. with premium amounts
-Page 2: Premises/location, Nature of business, Legal entity.
+Page 2: Premises/location, Nature of business, Legal entity. In tables (employee count, annual revenue, area): use the VALUE in the cell, not the column header label.
 Page 3+: Prior coverage, Loss history, Attachments.
 CRITICAL: "ACORD" or "ACORD CORPORATION" is the FORM PUBLISHER, not the insurer or producer!
 Carrier/Insurer != Agent/Producer != Customer/Named Insured. NAIC = 5 digits."""
@@ -80,7 +80,8 @@ _CATEGORY_HINTS = {
         "NAIC code is a 5-digit number next to the carrier name. "
         "CRITICAL: The Producer/Agent name is a PERSON or AGENCY. The Insurer is the INSURANCE COMPANY. "
         "UNDERWRITER = a PERSON's name at the carrier (e.g. John Doe), NOT the company name. "
-        "Insurer_Underwriter_FullName_A = person; Insurer_FullName_A = company name."
+        "Insurer_Underwriter_FullName_A = person; Insurer_FullName_A = company name. "
+        "Insurer_ProductCode_A = PRODUCT or PROGRAM code (e.g. CGL-12345), separate from POLICY NUMBER; do NOT use the policy number here."
     ),
     "producer": (
         "PRODUCER/AGENT/AGENCY = the broker/agent selling the policy. "
@@ -100,7 +101,8 @@ _CATEGORY_HINTS = {
         "status indicators (Quote/Bound/Issue/Cancel/Renew). Dates in MM/DD/YYYY. "
         "Policy_Status_EffectiveDate_A = the date in the STATUS OF / TRANSACTION block (next to Quote/Bound/Cancel). "
         "Policy_EffectiveDate_A = PROPOSED EFF DATE in the policy block (proposed effective date). Do NOT confuse the two. "
-        "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM, e.g. 1000 for 10:00 AM, 2200 for 10:00 PM. Do NOT use a date for time fields. "
+        "Policy_Status_EffectiveTime_A = TIME only as 4-digit HHMM (e.g. 1000 for 10:00 AM). NEVER put a date in a time field. "
+        "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM only. "
         "CRITICAL: 'Indicator' fields are CHECKBOXES - return ONLY '1' (checked) or 'Off' (not checked). "
         "Do NOT put text values or dollar amounts in Indicator fields. "
         "LineOfBusiness Indicator = is that line of business selected? '1' if checkbox is marked."
@@ -109,8 +111,9 @@ _CATEGORY_HINTS = {
         "DRIVER fields from the driver table. Each row is one driver. "
         "Suffix _A = Driver #1, _B = Driver #2 ... _M = Driver #13. "
         "Use BBox row order (Y) for driver number and BBox X positions for columns: "
-        "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), DOB (~1080-1160), License# (~1500-1620), License State (~1830). "
-        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment."
+        "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), Marital Status, DOB (~1080-1160), % Use (Use Veh #), DOC (Driver Other Car), Broadened No-Fault, License# (~1500-1620), License State (~1830). "
+        "Driver_Vehicle_UsePercent_* = percentage in '% Use' column (e.g. 100, 50). Driver_Coverage_DriverOtherCarCode_* and Driver_Coverage_BroadenedNoFaultCode_* = N/Y or 1/Off from DOC and Broadened No-Fault columns. "
+        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment. Do NOT put % Use or ZIP in checkbox/indicator fields."
     ),
     "vehicle": (
         "VEHICLE fields: Year, Make, Model, VIN, body type, GVW, cost new, "
@@ -119,7 +122,9 @@ _CATEGORY_HINTS = {
     "coverage": (
         "COVERAGE fields: Business Auto symbols (1-9), liability limits, "
         "deductibles, physical damage, other coverages. "
-        "Symbol values: 1=Any Auto, 2=Owned Autos Only, 7=Specifically Described, 8=Hired, 9=Non-Owned."
+        "Symbol values: 1=Any Auto, 2=Owned Autos Only, 7=Specifically Described, 8=Hired, 9=Non-Owned. "
+        "Form 137: Vehicle_BusinessAutoSymbol_*Indicator and Vehicle_BusinessAutoSymbol_OtherSymbolCode are per vehicle row (_A to _F); use BBox to see which symbol column is marked. "
+        "Coverage Indicator fields = checkboxes only ('1' or 'Off'); limit/deductible amounts = numeric values."
     ),
     "checkbox": (
         "CHECKBOX/INDICATOR fields: return ONLY \"1\" if checked (X, checkmark, filled box), "
@@ -128,7 +133,10 @@ _CATEGORY_HINTS = {
     ),
     "location": (
         "LOCATION/PREMISES fields: physical address, city, state, zip of the insured business. "
-        "ZIP is a 5-digit or 9-digit postal code, NOT a phone number."
+        "ZIP is a 5-digit or 9-digit postal code, NOT a phone number. "
+        "In TABLES/SCHEDULES: the value for each field is the CELL CONTENT under the column header, NOT the header label. "
+        "E.g. '#FULL TIME EMPL' and '#PART TIME EMPL' are column headers; the value is the number in that column (e.g. 30, 10). "
+        "'$ANNUAL REVENUES:' is a label; the value is the dollar amount. 'OCCUPIED AREA' is a header; the value is the square footage number."
     ),
     "loss_history": (
         "LOSS HISTORY fields: prior claims, dates, amounts, descriptions."

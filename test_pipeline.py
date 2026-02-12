@@ -12,7 +12,7 @@ Usage:
     python test_pipeline.py --gpu --forms 125 127 137
     python test_pipeline.py --gpu --one-per-form   # 3 PDFs total: one 125, one 127, one 137
     python test_pipeline.py --gpu --model qwen2.5:7b
-    python test_pipeline.py --gpu --vision --vision-model qwen2-vl:30b --vram-reserve 2  # Keep 2GB for Ollama (big VLMs)
+    python test_pipeline.py --gpu --vision --vision-model qwen2.5-vl:30b --vram-reserve 2  # or qwen3-vl:30b
 """
 
 from __future__ import annotations
@@ -363,7 +363,7 @@ def main():
         type=float,
         default=VRAM_RESERVE_GB_DEFAULT,
         metavar="GB",
-        help=f"Reserve this much GPU VRAM (GB) for Ollama / other processes; our OCR uses the rest (default: {VRAM_RESERVE_GB_DEFAULT}). Use with big VLMs (e.g. qwen2-vl:30b).",
+        help=f"Reserve this much GPU VRAM (GB) for Ollama / other processes; our OCR uses the rest (default: {VRAM_RESERVE_GB_DEFAULT}). Use with big VLMs (e.g. qwen2.5-vl:30b, qwen3-vl:30b).",
     )
     parser.add_argument(
         "--vision", action="store_true",
@@ -371,7 +371,7 @@ def main():
     )
     parser.add_argument(
         "--vision-model", type=str, default="llava:7b",
-        help="Ollama vision model for --vision. Use 7B+ (e.g. llava:7b, qwen2-vl:7b); 4B VLMs often return empty (default: llava:7b)",
+        help="Ollama vision model for --vision (e.g. llava:7b, qwen2.5-vl:7b, qwen2.5-vl:30b, qwen3-vl:30b). Default: llava:7b",
     )
     parser.add_argument(
         "--vision-descriptions", action="store_true",

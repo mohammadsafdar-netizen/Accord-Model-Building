@@ -127,6 +127,9 @@ def normalise_value(
     # Amount-like: strip $ and commas for comparison
     if any(x in fn_lower for x in ("amount", "limit", "premium", "deductible", "cost")) and "count" not in fn_lower:
         return _normalise_amount(s)
+    # Area/count fields that may have comma-formatted numbers (e.g. 100,000 vs 100000)
+    if ("area" in fn_lower or "count" in fn_lower) and re.match(r"^[\d,.\s]+$", s):
+        return _normalise_amount(s)
 
     return s.lower()
 

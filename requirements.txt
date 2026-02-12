@@ -11,12 +11,10 @@ easyocr
 opencv-python
 Pillow
 
-# Optional: Surya (Marker's OCR engine) - often better accuracy than EasyOCR
-# pip install surya-ocr  then use --ocr-backend surya
-# surya-ocr
+# Surya (Marker's OCR) - use --ocr-backend surya; often better accuracy than EasyOCR
+surya-ocr
 
-# Image processing
-Pillow
+# Image processing (Pillow already above)
 
 # LLM client
 requests

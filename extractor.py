@@ -27,9 +27,13 @@ from typing import Any, Dict, List, Optional, Set
 
 from ocr_engine import OCREngine, OCRResult, cleanup_gpu_memory
 from llm_engine import LLMEngine, VisionModelNotFoundError
-from schema_registry import SchemaRegistry, EXTRACTION_ORDER, detect_form_type
+from schema_registry import (
+    SchemaRegistry, EXTRACTION_ORDER, CATEGORY_BATCHES, SPECIAL_CATEGORIES,
+    detect_form_type,
+)
 from prompts import (
     build_extraction_prompt,
+    build_batched_extraction_prompt,
     build_driver_row_prompt,
     build_vehicle_prompt,
     build_gap_fill_prompt,
@@ -45,6 +49,32 @@ try:
     from rag_examples import ExampleRAGStore
 except ImportError:
     ExampleRAGStore = None  # type: ignore
+
+# Optional: Semantic field matcher (MiniLM embeddings)
+try:
+    from semantic_matcher import SemanticFieldMatcher, SENTENCE_TRANSFORMERS_AVAILABLE
+except ImportError:
+    SemanticFieldMatcher = None  # type: ignore
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+
+# Optional: Template anchoring
+try:
+    from template_registry import TemplateRegistry
+except ImportError:
+    TemplateRegistry = None  # type: ignore
+
+# Optional: Table Transformer
+try:
+    from table_detector import TableTransformerEngine, TRANSFORMERS_AVAILABLE as TT_AVAILABLE
+except ImportError:
+    TableTransformerEngine = None  # type: ignore
+    TT_AVAILABLE = False
+
+# Optional: Ensemble fusion
+try:
+    from ensemble import EnsembleFusion
+except ImportError:
+    EnsembleFusion = None  # type: ignore
 from form_sections import (
     get_sections_for_form,
     get_section_scoped_bbox_text,
@@ -97,6 +127,12 @@ class ACORDExtractor:
         vision_max_tokens: int = 16384,
         strict_verify: bool = False,
         rag_store: Optional[Any] = None,
+        use_semantic_matching: bool = True,
+        use_templates: bool = False,
+        use_table_transformer: bool = False,
+        use_ensemble: bool = False,
+        use_batch_categories: bool = True,
+        use_acroform: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -114,6 +150,17 @@ class ACORDExtractor:
         self.strict_verify = strict_verify
         # Optional RAG: few-shot examples from ground truth (ExampleRAGStore). Improves accuracy.
         self.rag_store = rag_store
+        # Feature flags for new capabilities
+        self.use_semantic_matching = use_semantic_matching and SENTENCE_TRANSFORMERS_AVAILABLE
+        self.use_templates = use_templates and TemplateRegistry is not None
+        self.use_table_transformer = use_table_transformer and TableTransformerEngine is not None
+        self.use_ensemble = use_ensemble and EnsembleFusion is not None
+        self.use_batch_categories = use_batch_categories
+        self.use_acroform = use_acroform
+        # Lazy-initialized components
+        self._semantic_matcher_cache: Dict[str, Any] = {}
+        self._template_registry: Optional[Any] = None
+        self._table_transformer: Optional[Any] = None
 
     # ==================================================================
     # Main entry point
@@ -205,16 +252,35 @@ class ACORDExtractor:
         # All-pages label-value text
         lv_text = "\n".join(page_lv_text)
 
-        # Category -> pages mapping (which pages to look at)
-        # For forms: header/insurer/producer/named_insured are on page 1
-        # Driver tables are on page 1 (127) or pages 1-2
-        # Other content may span all pages
-        CAT_PAGES = {
-            "header": [0],
-            "insurer": [0],
-            "producer": [0],
-            "named_insured": [0],
-        }
+        # Category -> pages mapping (which pages to look at for focused context)
+        num_pages = len(page_docling)
+        if form_type == "125":
+            CAT_PAGES = {
+                "header": [0], "insurer": [0], "producer": [0],
+                "named_insured": [0], "policy": [0], "checkbox": [0],
+                "location": [1] if num_pages > 1 else [0],
+                "general": [1, 2] if num_pages > 2 else ([1] if num_pages > 1 else [0]),
+                "loss_history": ([2, 3] if num_pages > 3 else [2]) if num_pages > 2 else [0],
+                "remarks": ([2, 3] if num_pages > 3 else [2]) if num_pages > 2 else [0],
+            }
+        elif form_type == "127":
+            CAT_PAGES = {
+                "header": [0], "insurer": [0], "producer": [0],
+                "named_insured": [0], "policy": [0],
+                "driver": [0], "vehicle": [0, 1] if num_pages > 1 else [0],
+            }
+        elif form_type == "137":
+            CAT_PAGES = {
+                "header": [0], "insurer": [0], "producer": [0],
+                "named_insured": [0], "policy": [0],
+                "vehicle": [0, 1] if num_pages > 1 else [0],
+                "coverage": [0, 1] if num_pages > 1 else [0],
+            }
+        else:
+            CAT_PAGES = {
+                "header": [0], "insurer": [0], "producer": [0],
+                "named_insured": [0],
+            }
 
         def _get_context_for_pages(page_indices: List[int]) -> tuple:
             """Get focused OCR context for specific pages."""
@@ -237,6 +303,20 @@ class ACORDExtractor:
             _save_json(sections_debug, output_dir / "form_sections.json")
             print(f"  [SECTIONS] Detected {len(sections)} form sections (header-based)")
 
+        # ---- Step 3b-pre: AcroForm field extraction (debug + optional use) ------
+        acroform_fields: Dict[str, Any] = {}
+        if ocr_result.acroform_fields:
+            # Filter to only fields in the schema
+            schema_keys = set(schema.fields.keys()) if schema else set()
+            for k, v in ocr_result.acroform_fields.items():
+                if k in schema_keys:
+                    acroform_fields[k] = v
+            if acroform_fields:
+                mode_label = "ACTIVE" if self.use_acroform else "DEBUG ONLY"
+                print(f"  [ACROFORM] {len(acroform_fields)} fields matched schema (of {len(ocr_result.acroform_fields)} total) [{mode_label}]")
+                _save_json = __import__('utils', fromlist=['save_json']).save_json
+                _save_json(acroform_fields, output_dir / "acroform_fields_debug.json")
+
         # ---- Step 3b: Spatial pre-extraction (high-confidence fields) ------
         print("\n  [SPATIAL] Pre-extracting from BBox positions ...")
         spatial_fields = spatial_preextract(form_type, page_bbox)
@@ -247,11 +327,31 @@ class ACORDExtractor:
 
         if spatial_fields:
             # Show key fields found
-            for key in ["Insurer_FullName_A", "Insurer_NAICCode_A", 
+            for key in ["Insurer_FullName_A", "Insurer_NAICCode_A",
                         "Producer_FullName_A", "NamedInsured_FullName_A",
                         "Policy_PolicyNumberIdentifier_A", "Form_CompletionDate_A"]:
                 if key in spatial_fields:
                     print(f"    {key}: {spatial_fields[key]}")
+
+        # ---- Step 3b': Template anchoring (opt-in) ------
+        template_fields: Dict[str, Any] = {}
+        if self.use_templates:
+            template_fields = self._run_template_extraction(form_type, page_bbox, output_dir)
+
+        # ---- Step 3b'': Table Transformer (opt-in) ------
+        if self.use_table_transformer and ocr_result.image_paths:
+            self._run_table_transformer(ocr_result, page_bbox, output_dir)
+
+        # ---- Step 3b''': Collect table markdown for prompts ------
+        table_markdown = ""
+        if ocr_result.docling_tables_per_page:
+            md_parts = []
+            for page_idx, tables in enumerate(ocr_result.docling_tables_per_page):
+                for t_idx, table in enumerate(tables):
+                    md = table.to_markdown()
+                    if md:
+                        md_parts.append(f"--- Page {page_idx + 1}, Table {t_idx + 1} ---\n{md}")
+            table_markdown = "\n\n".join(md_parts)
 
         # ---- Step 3c: Build empty JSON, pre-fill from OCR, save for VLM ------
         from form_json_builder import (
@@ -261,10 +361,24 @@ class ACORDExtractor:
             save_empty_form_json,
         )
         from utils import save_json as _save_json
+
+        # Initialize semantic matcher if enabled
+        semantic_matcher = None
+        if self.use_semantic_matching and SemanticFieldMatcher is not None:
+            cache_key = form_type
+            if cache_key not in self._semantic_matcher_cache:
+                try:
+                    self._semantic_matcher_cache[cache_key] = SemanticFieldMatcher(schema)
+                    print(f"  [SEMANTIC] MiniLM matcher initialized for form {form_type}")
+                except Exception as e:
+                    print(f"  [SEMANTIC] Failed to initialize: {e}")
+            semantic_matcher = self._semantic_matcher_cache.get(cache_key)
+
         empty_json = build_empty_form_json_from_schema(schema, use_defaults=False)
         lv_list = label_value_pairs_to_json_list(ocr_result.spatial_indices)
         prefilled_json, prefill_sources, prefill_details = prefill_form_json_from_ocr(
-            empty_json, schema, spatial_fields, lv_list
+            empty_json, schema, spatial_fields, lv_list,
+            semantic_matcher=semantic_matcher,
         )
         save_empty_form_json(empty_json, output_dir / "empty_form.json")
         _save_json(prefilled_json, output_dir / "prefilled_form.json")
@@ -272,19 +386,64 @@ class ACORDExtractor:
         _save_json(prefill_sources, output_dir / "prefill_sources.json")
         _save_json(prefill_details, output_dir / "prefill_details.json")
         prefill_count = len([v for v in prefilled_json.values() if v is not None and str(v).strip()])
-        print(f"  [PREFILL] Empty form JSON pre-filled from OCR: {prefill_count} fields (spatial + label-value)")
+        semantic_count = sum(1 for v in prefill_sources.values() if v == "semantic")
+        prefill_msg = f"  [PREFILL] Empty form JSON pre-filled from OCR: {prefill_count} fields (spatial + label-value"
+        if semantic_count:
+            prefill_msg += f" + {semantic_count} semantic"
+        prefill_msg += ")"
+        print(prefill_msg)
 
         # ---- Step 4: Extracted dict = prefilled JSON (VLM/LLM will fill remaining nulls) ------
         extracted: Dict[str, Any] = {}
-        field_sources: Dict[str, str] = {}  # "spatial" | "label_value" | "vision" | "text_llm" | "gap_fill"
-        # Start from prefilled: all OCR-derived values (spatial + label_value) already in prefilled_json
+        field_sources: Dict[str, str] = {}  # "acroform" | "spatial" | "label_value" | "semantic" | "template" | "vision" | "text_llm" | "gap_fill"
+
+        # AcroForm fields first (only when --use-acroform is enabled)
+        if self.use_acroform and acroform_fields:
+            for k, v in acroform_fields.items():
+                if v is not None and str(v).strip():
+                    extracted[k] = v
+                    field_sources[k] = "acroform"
+
+        # Start from prefilled: all OCR-derived values (spatial + label_value + semantic) already in prefilled_json
         for k, v in prefilled_json.items():
             if v is not None and str(v).strip():
-                extracted[k] = v
-                field_sources[k] = prefill_sources.get(k, "label_value")
-        # Ensure spatial fields are marked as spatial (they are in prefill_sources)
+                if k not in extracted:
+                    extracted[k] = v
+                    field_sources[k] = prefill_sources.get(k, "label_value")
+        # Ensure spatial fields are marked as spatial
         for k in spatial_fields:
-            field_sources[k] = "spatial"
+            if not (self.use_acroform and field_sources.get(k) == "acroform"):
+                field_sources[k] = "spatial"
+
+        # Merge template fields (don't overwrite spatial or acroform)
+        if template_fields:
+            for k, v in template_fields.items():
+                if k not in extracted and v is not None and str(v).strip():
+                    extracted[k] = v
+                    field_sources[k] = "template"
+            print(f"  [TEMPLATE] {sum(1 for k in template_fields if k in extracted and field_sources.get(k) == 'template')} fields from template anchoring")
+
+        # Initialize ensemble if enabled
+        ensemble: Optional[Any] = None
+        if self.use_ensemble and EnsembleFusion is not None:
+            ensemble = EnsembleFusion()
+            # Add AcroForm results (highest confidence) — only when enabled
+            if self.use_acroform and acroform_fields:
+                ensemble.add_results("acroform", acroform_fields, confidence=0.99)
+            # Add spatial results
+            ensemble.add_results("spatial", spatial_fields, confidence=0.95)
+            # Add template results
+            if template_fields:
+                ensemble.add_results("template", template_fields, confidence=0.90)
+            # Add label_value results
+            lv_fields = {k: v for k, v in extracted.items() if field_sources.get(k) == "label_value"}
+            if lv_fields:
+                ensemble.add_results("label_value", lv_fields, confidence=0.75)
+            # Add semantic results
+            sem_fields = {k: v for k, v in extracted.items() if field_sources.get(k) == "semantic"}
+            if sem_fields:
+                ensemble.add_results("semantic", sem_fields, confidence=0.80)
+
         all_field_names = set(schema.fields.keys())
 
         # Determine which categories to extract
@@ -339,6 +498,8 @@ class ACORDExtractor:
                         extracted[k] = v
                         field_sources[k] = "vision"
                         new_count += 1
+                if ensemble:
+                    ensemble.add_results("vision", vision_result, confidence=0.70)
                 print(f"    -> {new_count} fields from VLM (unified)")
             self.llm.unload_vision_model()
             # VRAM cleanup after vision pass
@@ -357,45 +518,57 @@ class ACORDExtractor:
 
         # ---- Step 4b: Category-by-category TEXT LLM extraction ------------
         if self.use_text_llm and not vision_actually_ran:
-            for category in categories:
-                if category in special:
-                    continue  # handled separately below
-
-                step += 1
-                field_names = schema.categories.get(category, [])
-                if not field_names:
-                    continue
-
-                # Use section-scoped context when form sections are detected, else page-focused or full
-                section_ids = get_section_ids_for_category(form_type, category) if sections else []
-                if sections and section_ids:
-                    cat_bb = get_section_scoped_bbox_text(page_bbox, sections, section_ids)
-                    cat_doc = get_section_scoped_docling(page_docling, sections, section_ids)
-                    cat_lv = lv_text
-                elif category in CAT_PAGES:
-                    cat_doc, cat_bb, cat_lv = _get_context_for_pages(CAT_PAGES[category])
-                else:
-                    cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
-
-                # Skip fields already pre-extracted spatially
-                remaining = [f for f in field_names if f not in extracted]
-                if not remaining:
-                    print(f"\n  [{step}/{total_steps}] {category}: all {len(field_names)} fields already pre-extracted")
-                    continue
-
-                print(f"\n  [{step}/{total_steps}] Extracting {category} ({len(remaining)}/{len(field_names)} fields) ...")
-                use_section_scoped = bool(sections and section_ids)
-                cat_result = self._extract_category(
-                    form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped
+            if self.use_batch_categories:
+                # Batched extraction: group small categories into fewer LLM calls
+                self._extract_batched_categories(
+                    form_type, schema, categories, special, extracted, field_sources,
+                    sections, page_bbox, page_docling, CAT_PAGES,
+                    _get_context_for_pages, docling_text, bbox_text, lv_text,
+                    table_markdown, step, total_steps, ensemble,
                 )
-                # Only add LLM results; never overwrite spatial pre-extraction
-                for k, v in cat_result.items():
-                    if field_sources.get(k) == "spatial":
+            else:
+                # Original: one LLM call per category
+                for category in categories:
+                    if category in special:
+                        continue  # handled separately below
+
+                    step += 1
+                    field_names = schema.categories.get(category, [])
+                    if not field_names:
                         continue
-                    if k not in extracted:
-                        extracted[k] = v
-                        field_sources[k] = "text_llm"
-                print(f"    -> {len(cat_result)} fields extracted")
+
+                    # Use section-scoped context when form sections are detected, else page-focused or full
+                    section_ids = get_section_ids_for_category(form_type, category) if sections else []
+                    if sections and section_ids:
+                        cat_bb = get_section_scoped_bbox_text(page_bbox, sections, section_ids)
+                        cat_doc = get_section_scoped_docling(page_docling, sections, section_ids)
+                        cat_lv = lv_text
+                    elif category in CAT_PAGES:
+                        cat_doc, cat_bb, cat_lv = _get_context_for_pages(CAT_PAGES[category])
+                    else:
+                        cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
+
+                    # Skip fields already pre-extracted spatially
+                    remaining = [f for f in field_names if f not in extracted]
+                    if not remaining:
+                        print(f"\n  [{step}/{total_steps}] {category}: all {len(field_names)} fields already pre-extracted")
+                        continue
+
+                    print(f"\n  [{step}/{total_steps}] Extracting {category} ({len(remaining)}/{len(field_names)} fields) ...")
+                    use_section_scoped = bool(sections and section_ids)
+                    cat_result = self._extract_category(
+                        form_type, category, remaining, cat_doc, cat_bb, cat_lv, use_section_scoped,
+                    )
+                    # Only add LLM results; never overwrite spatial pre-extraction
+                    for k, v in cat_result.items():
+                        if field_sources.get(k) == "spatial":
+                            continue
+                        if k not in extracted:
+                            extracted[k] = v
+                            field_sources[k] = "text_llm"
+                    if ensemble:
+                        ensemble.add_results("text_llm", cat_result, confidence=0.65)
+                    print(f"    -> {len(cat_result)} fields extracted")
 
             # ---- Driver extraction (127 only) --------------------------------
             if form_type == "127" and "driver" in schema.categories:
@@ -427,6 +600,8 @@ class ACORDExtractor:
                         extracted[k] = v
                         field_sources[k] = "text_llm"
                         new_count += 1
+                if ensemble:
+                    ensemble.add_results("text_llm", driver_result, confidence=0.65)
                 print(f"    -> {new_count} additional driver fields from LLM")
 
             # ---- Vehicle extraction (127 / 137) ------------------------------
@@ -451,6 +626,8 @@ class ACORDExtractor:
                         extracted[k] = v
                         field_sources[k] = "text_llm"
                         new_vehicle += 1
+                if ensemble:
+                    ensemble.add_results("text_llm", vehicle_result, confidence=0.65)
                 print(f"    -> {new_vehicle} vehicle fields extracted")
 
         # ---- Gap-fill pass (only when text LLM is enabled) ---------------
@@ -480,13 +657,32 @@ class ACORDExtractor:
                     extracted[k] = v
                     field_sources[k] = "gap_fill"
                     new_count += 1
+            if ensemble:
+                ensemble.add_results("gap_fill", gap_result, confidence=0.50)
             print(f"    -> {new_count} additional fields recovered")
+
+        # ---- Ensemble fusion (when enabled) ----
+        ensemble_metadata: Optional[Dict[str, Any]] = None
+        if ensemble:
+            fused_fields, ensemble_metadata = ensemble.fuse()
+            # Use ensemble results as the primary extracted dict
+            pre_ensemble_count = len(extracted)
+            for k, v in fused_fields.items():
+                if k not in extracted and v is not None:
+                    extracted[k] = v
+                    field_sources[k] = ensemble_metadata[k]["source"]
+            disagreements = ensemble.get_disagreements()
+            print(f"  [ENSEMBLE] Fused {len(fused_fields)} fields from {len(ensemble._results)} field entries")
+            if disagreements:
+                print(f"    {len(disagreements)} field(s) with source disagreements")
+            _save_json(ensemble_metadata, output_dir / "ensemble_metadata.json")
 
         # ---- Verification (consensus: cross-check LLM/VLM vs BBox OCR) ----
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
         verified, field_confidence = self._verify_with_bbox_consensus(extracted, bbox_plain, spatial_fields)
         field_verified = {k: (k in verified) for k in extracted}
         print(f"    {len(verified)}/{len(extracted)} values found in OCR text")
+
         if self.strict_verify:
             spatial_key_set = set(spatial_fields.keys())
             before = len(extracted)
@@ -505,14 +701,20 @@ class ACORDExtractor:
         if field_types:
             extracted = normalizer_all(extracted, field_types)
 
+        # NOTE: Default unchecked checkboxes to "Off" was REMOVED.
+        # It converted "missing" fields (neutral for accuracy) into "wrong" fields
+        # (hurts accuracy) when GT has checked=True for boxes the extractor didn't find.
+
         # ---- Validate field names ----------------------------------------
         # Spatial fields are protected from schema validation (they use GT-matching names)
-        spatial_keys = set(spatial_fields.keys())
+        protected_keys = set(spatial_fields.keys())
+        if self.use_acroform:
+            protected_keys |= set(acroform_fields.keys())
         pre_validation_count = len(extracted)
         validated = self.registry.validate_field_names(form_type, extracted)
-        # Re-add spatially-extracted fields that were filtered out
+        # Re-add protected fields that were filtered out
         for k, v in extracted.items():
-            if k in spatial_keys and k not in validated:
+            if k in protected_keys and k not in validated:
                 validated[k] = v
         extracted = validated
         post_validation_count = len(extracted)
@@ -617,7 +819,7 @@ class ACORDExtractor:
         section_scoped: bool = False,
     ) -> Dict[str, Any]:
         """Extract one category of fields using a two-pass strategy.
-        
+
         Large categories are batched into sub-batches of BATCH_SIZE fields
         to keep LLM context focused and JSON template manageable.
         """
@@ -646,7 +848,7 @@ class ACORDExtractor:
             )
             response = self.llm.generate(prompt)
             batch_result = self.llm.parse_json(response)
-            
+
             # Only keep fields that match the requested batch
             for k, v in batch_result.items():
                 if k in batch and v is not None:
@@ -1351,6 +1553,11 @@ class ACORDExtractor:
                 normalised[key] = "true" if value else "false"
                 continue
 
+            # Normalize Y/N/True/False for "Code" fields (e.g. BroadenedNoFaultCode, DriverOtherCarCode)
+            if "code" in key_lower and str_val.lower() in ("y", "n", "yes", "no", "true", "false"):
+                normalised[key] = "True" if str_val.lower() in ("y", "yes", "true") else "False"
+                continue
+
             # Time field (HHMM): normalise to 4-digit string only; never put a date in a time field
             if ("effectivetime" in key_lower or "expirationtime" in key_lower) and "indicator" not in key_lower:
                 if re.match(r"\d{1,2}/\d{1,2}/\d{4}", str_val) or ("/" in str_val or "-" in str_val) and re.search(r"\d{4}", str_val):
@@ -1413,3 +1620,229 @@ class ACORDExtractor:
             except (ValueError, IndexError):
                 pass
         return None
+
+    # ==================================================================
+    # Batched category extraction (Feature 3)
+    # ==================================================================
+
+    def _extract_batched_categories(
+        self,
+        form_type: str,
+        schema: Any,
+        categories: List[str],
+        special: set,
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        sections: list,
+        page_bbox: list,
+        page_docling: list,
+        cat_pages: dict,
+        get_context_fn: Any,
+        docling_text: str,
+        bbox_text: str,
+        lv_text: str,
+        table_markdown: str,
+        step: int,
+        total_steps: int,
+        ensemble: Optional[Any],
+    ) -> None:
+        """Extract categories in batches to reduce LLM calls."""
+        # Build a set of categories present in this form
+        available_cats = {c for c in categories if c not in special}
+
+        for batch in CATEGORY_BATCHES:
+            batch_cats = [c for c in batch if c in available_cats]
+            if not batch_cats:
+                continue
+
+            # Collect all field names from all categories in this batch
+            all_batch_fields = []
+            for cat in batch_cats:
+                fields = schema.categories.get(cat, [])
+                all_batch_fields.extend(fields)
+
+            if not all_batch_fields:
+                continue
+
+            # Skip already-extracted fields
+            remaining = [f for f in all_batch_fields if f not in extracted]
+            if not remaining:
+                step += 1
+                cats_label = "+".join(batch_cats)
+                print(f"\n  [{step}/{total_steps}] {cats_label}: all fields already pre-extracted")
+                continue
+
+            step += 1
+            cats_label = "+".join(batch_cats)
+
+            # Determine context: use most specific available
+            # For batches with page-specific categories, use their pages
+            batch_pages = set()
+            for cat in batch_cats:
+                if cat in cat_pages:
+                    batch_pages.update(cat_pages[cat])
+
+            # Try section-scoped context first
+            batch_section_ids = []
+            for cat in batch_cats:
+                if sections:
+                    batch_section_ids.extend(get_section_ids_for_category(form_type, cat))
+
+            if sections and batch_section_ids:
+                cat_bb = get_section_scoped_bbox_text(page_bbox, sections, batch_section_ids)
+                cat_doc = get_section_scoped_docling(page_docling, sections, batch_section_ids)
+                cat_lv = lv_text
+            elif batch_pages:
+                cat_doc, cat_bb, cat_lv = get_context_fn(sorted(batch_pages))
+            else:
+                cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
+
+            print(f"\n  [{step}/{total_steps}] Extracting {cats_label} ({len(remaining)}/{len(all_batch_fields)} fields, batched) ...")
+
+            tooltips = self.registry.get_tooltips(form_type, remaining)
+            few_shot = ""
+            if self.rag_store is not None:
+                few_shot = self.rag_store.retrieve(form_type, batch_cats[0], remaining, k=3)
+
+            prompt = build_batched_extraction_prompt(
+                form_type=form_type,
+                categories=batch_cats,
+                field_names=remaining,
+                tooltips=tooltips,
+                docling_text=cat_doc,
+                bbox_text=cat_bb,
+                label_value_text=cat_lv,
+                section_scoped=bool(sections and batch_section_ids),
+                few_shot_examples=few_shot,
+                table_markdown=table_markdown,
+            )
+            response = self.llm.generate(prompt)
+            batch_result = self.llm.parse_json(response)
+
+            # Only add LLM results; never overwrite spatial pre-extraction
+            new_count = 0
+            for k, v in batch_result.items():
+                if field_sources.get(k) == "spatial":
+                    continue
+                if k not in extracted and k in remaining and v is not None:
+                    extracted[k] = v
+                    field_sources[k] = "text_llm"
+                    new_count += 1
+            if ensemble:
+                ensemble.add_results("text_llm", batch_result, confidence=0.65)
+            print(f"    -> {new_count} fields extracted")
+
+        # Handle special categories that were in CATEGORY_BATCHES but also special
+        # (coverage is a special-ish category that can be batched on its own)
+        for cat in available_cats:
+            if cat in SPECIAL_CATEGORIES:
+                continue
+            # Check if this category was already handled in a batch
+            in_batch = any(cat in b for b in CATEGORY_BATCHES)
+            if in_batch:
+                continue
+            # Unbatched category: extract individually
+            step += 1
+            field_names = schema.categories.get(cat, [])
+            remaining = [f for f in field_names if f not in extracted]
+            if not remaining:
+                continue
+            print(f"\n  [{step}/{total_steps}] Extracting {cat} ({len(remaining)} fields) ...")
+            cat_result = self._extract_category(
+                form_type, cat, remaining, docling_text, bbox_text, lv_text
+            )
+            for k, v in cat_result.items():
+                if field_sources.get(k) == "spatial":
+                    continue
+                if k not in extracted:
+                    extracted[k] = v
+                    field_sources[k] = "text_llm"
+            if ensemble:
+                ensemble.add_results("text_llm", cat_result, confidence=0.65)
+            print(f"    -> {len(cat_result)} fields extracted")
+
+    # ==================================================================
+    # Template extraction (Feature 4)
+    # ==================================================================
+
+    def _run_template_extraction(
+        self,
+        form_type: str,
+        page_bbox: List[List[Dict]],
+        output_dir: Path,
+    ) -> Dict[str, Any]:
+        """Run template-based extraction."""
+        if self._template_registry is None:
+            try:
+                self._template_registry = TemplateRegistry()
+            except Exception as e:
+                print(f"  [TEMPLATE] Failed to load templates: {e}")
+                return {}
+
+        template = self._template_registry.get_template(form_type)
+        if template is None:
+            print(f"  [TEMPLATE] No template for form {form_type}")
+            return {}
+
+        template_fields = self._template_registry.extract_from_template(
+            template, page_bbox
+        )
+        if template_fields:
+            from utils import save_json as _save_json
+            _save_json(template_fields, output_dir / "template_extract.json")
+            print(f"  [TEMPLATE] {len(template_fields)} fields from template anchoring")
+        return template_fields
+
+    # ==================================================================
+    # Table Transformer (Feature 5)
+    # ==================================================================
+
+    def _run_table_transformer(
+        self,
+        ocr_result: OCRResult,
+        page_bbox: List[List[Dict]],
+        output_dir: Path,
+    ) -> None:
+        """Run Table Transformer on page images."""
+        if self._table_transformer is None:
+            try:
+                device = "cpu"
+                if hasattr(self.ocr, "easyocr_gpu") and self.ocr.easyocr_gpu:
+                    device = "cuda"
+                self._table_transformer = TableTransformerEngine(device=device)
+            except Exception as e:
+                print(f"  [TABLE-TRANSFORMER] Failed to initialize: {e}")
+                return
+
+        detected_tables: List[List[Any]] = []
+        for page_idx, img_path in enumerate(ocr_result.image_paths):
+            page_data = page_bbox[page_idx] if page_idx < len(page_bbox) else []
+            try:
+                tables = self._table_transformer.extract_tables(
+                    img_path, page_data, page=page_idx
+                )
+                detected_tables.append(tables)
+                if tables:
+                    print(f"  [TABLE-TRANSFORMER] Page {page_idx + 1}: {len(tables)} table(s) detected")
+            except Exception as e:
+                print(f"  [TABLE-TRANSFORMER] Page {page_idx + 1} error: {e}")
+                detected_tables.append([])
+
+        ocr_result.detected_tables_per_page = detected_tables
+
+        # Save table markdown for debugging
+        md_parts = []
+        for page_idx, tables in enumerate(detected_tables):
+            for t_idx, table in enumerate(tables):
+                md = table.to_markdown()
+                if md:
+                    md_parts.append(f"--- Page {page_idx + 1}, Table {t_idx + 1} ---\n{md}")
+        if md_parts:
+            table_md = "\n\n".join(md_parts)
+            with open(output_dir / "detected_tables.md", "w") as f:
+                f.write(table_md)
+
+        # Cleanup Table Transformer to free memory before LLM
+        self._table_transformer.cleanup()
+        self._table_transformer = None
+        cleanup_gpu_memory()

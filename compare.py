@@ -53,6 +53,26 @@ def _normalise_date(s: str) -> str:
     return s.lower()
 
 
+_ADDRESS_ABBREVIATIONS = {
+    r"\bst\b": "street", r"\bave\b": "avenue", r"\bblvd\b": "boulevard",
+    r"\bdr\b": "drive", r"\bln\b": "lane", r"\brd\b": "road",
+    r"\bct\b": "court", r"\bpl\b": "place", r"\bpkwy\b": "parkway",
+    r"\bhwy\b": "highway", r"\bste\b": "suite", r"\bapt\b": "apartment",
+    r"\bfl\b": "floor", r"\bn\b": "north", r"\bs\b": "south",
+    r"\be\b": "east", r"\bw\b": "west",
+}
+
+
+def _normalise_address_abbreviations(s: str) -> str:
+    """Expand common address abbreviations for fair comparison."""
+    s = s.lower().strip()
+    # Remove trailing periods (e.g. "St." -> "St")
+    s = re.sub(r'\.(?=\s|$)', '', s)
+    for pattern, replacement in _ADDRESS_ABBREVIATIONS.items():
+        s = re.sub(pattern, replacement, s)
+    return s
+
+
 def _normalise_amount(s: str) -> str:
     """Strip currency symbols and commas; keep digits and one decimal point for comparison."""
     s = str(s).strip()
@@ -100,10 +120,11 @@ def normalise_value(
 
     fn_lower = field_name.lower()
 
-    # Checkbox/indicator -> true/false
+    # Checkbox/indicator/code -> true/false
     is_checkbox = (
         "indicator" in fn_lower or fn_lower.startswith("chk")
         or (checkbox_fields and field_name in checkbox_fields)
+        or ("code" in fn_lower and s.lower() in _CHECKBOX_TRUE | _CHECKBOX_FALSE)
     )
     if is_checkbox:
         sl = s.lower()
@@ -130,6 +151,10 @@ def normalise_value(
     # Area/count fields that may have comma-formatted numbers (e.g. 100,000 vs 100000)
     if ("area" in fn_lower or "count" in fn_lower) and re.match(r"^[\d,.\s]+$", s):
         return _normalise_amount(s)
+
+    # Address-like fields: expand abbreviations for fair comparison
+    if any(x in fn_lower for x in ("address", "lineone", "linetwo", "cityname")):
+        return _normalise_address_abbreviations(s)
 
     return s.lower()
 

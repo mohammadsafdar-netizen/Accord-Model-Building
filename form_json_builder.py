@@ -138,20 +138,23 @@ def prefill_form_json_from_ocr(
     schema: FormSchema,
     spatial_fields: Dict[str, Any],
     label_value_pairs: List[Dict[str, Any]],
+    semantic_matcher: Optional[Any] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, str], Dict[str, Dict[str, Any]]]:
     """
     Pre-fill empty form JSON with OCR-derived data. Spatial fields (exact schema keys)
     are applied first; then label-value pairs are matched to schema fields and overlaid.
+    If a semantic_matcher is provided, unmatched labels are re-tried with MiniLM embeddings.
 
     Args:
         empty_json: Template with all schema keys and null.
         schema: Form schema for field names and tooltips.
         spatial_fields: Dict of schema_key -> value from spatial pre-extraction.
         label_value_pairs: List of {"label": str, "value": str, "page"?: int, "confidence"?: float}.
+        semantic_matcher: Optional SemanticFieldMatcher for embedding-based matching.
 
     Returns:
         (prefilled_json, source_map, details_map) where:
-        - source_map is field_name -> "spatial" | "label_value".
+        - source_map is field_name -> "spatial" | "label_value" | "semantic".
         - details_map is field_name -> {source, basis, confidence}. basis explains how the
           value was chosen; confidence is OCR pair confidence for label_value, None for spatial.
     """
@@ -170,6 +173,7 @@ def prefill_form_json_from_ocr(
             details_map[k] = {"source": "spatial", "basis": spatial_basis, "confidence": None}
 
     # 2. Match label-value pairs to schema fields (don't overwrite spatial)
+    unmatched_pairs: List[Dict[str, Any]] = []  # For semantic matching fallback
     for item in label_value_pairs:
         label = (item.get("label") or "").strip()
         value = (item.get("value") or "").strip()
@@ -194,6 +198,8 @@ def prefill_form_json_from_ocr(
                     best_field = field_name
                     best_basis = basis
         if best_field is None:
+            # Save for semantic matching pass
+            unmatched_pairs.append(item)
             continue
         if prefilled.get(best_field) is not None and prefilled.get(best_field) != "":
             continue
@@ -211,6 +217,35 @@ def prefill_form_json_from_ocr(
             "basis": basis_desc,
             "confidence": pair_confidence,
         }
+
+    # 3. Semantic matching pass for unmatched labels (MiniLM embeddings)
+    if semantic_matcher is not None and unmatched_pairs:
+        unmatched_labels = [(item.get("label") or "").strip() for item in unmatched_pairs]
+        semantic_results = semantic_matcher.batch_match(unmatched_labels)
+        for (label, field_name, score), item in zip(semantic_results, unmatched_pairs):
+            if field_name is None:
+                continue
+            if field_name in source_map:
+                continue
+            value = (item.get("value") or "").strip()
+            if not value:
+                continue
+            if prefilled.get(field_name) is not None and prefilled.get(field_name) != "":
+                continue
+            fi = schema.fields.get(field_name)
+            if fi is None:
+                continue
+            label_norm = _normalize_label(label)
+            if not _allow_label_value_prefill(field_name, fi, label_norm, value):
+                continue
+            prefilled[field_name] = value
+            source_map[field_name] = "semantic"
+            pair_confidence = item.get("confidence")
+            details_map[field_name] = {
+                "source": "semantic",
+                "basis": f"Semantic match: \"{label}\" → {field_name} (score={score:.3f})",
+                "confidence": pair_confidence,
+            }
 
     return prefilled, source_map, details_map
 

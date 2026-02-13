@@ -213,6 +213,78 @@ class LabelValuePair:
 
 
 @dataclass
+class DoclingTableCell:
+    """A single cell from a Docling-detected table."""
+    row: int
+    col: int
+    text: str
+    is_header: bool = False
+
+
+@dataclass
+class DoclingTable:
+    """A structured table extracted from Docling's native table detection."""
+    cells: List[DoclingTableCell] = field(default_factory=list)
+    num_rows: int = 0
+    num_cols: int = 0
+    headers: List[str] = field(default_factory=list)
+    bbox: Optional[Tuple[float, float, float, float]] = None
+    page: int = 0
+
+    def to_markdown(self) -> str:
+        """Convert table to markdown format."""
+        if not self.cells:
+            return ""
+        # Build grid
+        grid: Dict[Tuple[int, int], str] = {}
+        for cell in self.cells:
+            grid[(cell.row, cell.col)] = cell.text
+
+        lines = []
+        if self.headers:
+            lines.append("| " + " | ".join(self.headers) + " |")
+            lines.append("| " + " | ".join("---" for _ in self.headers) + " |")
+            start_row = 1
+        else:
+            start_row = 0
+
+        for r in range(start_row, self.num_rows):
+            row_cells = []
+            for c in range(self.num_cols):
+                row_cells.append(grid.get((r, c), ""))
+            lines.append("| " + " | ".join(row_cells) + " |")
+
+        return "\n".join(lines)
+
+    def get_row_dict(self, row_idx: int) -> Dict[str, str]:
+        """Get a dict mapping header names to cell values for a data row."""
+        if not self.headers:
+            return {}
+        result: Dict[str, str] = {}
+        for cell in self.cells:
+            if cell.row == row_idx and cell.col < len(self.headers):
+                result[self.headers[cell.col]] = cell.text
+        return result
+
+    def get_column_values(self, col_name: str) -> List[str]:
+        """Get all data values in a column by header name."""
+        if col_name not in self.headers:
+            return []
+        col_idx = self.headers.index(col_name)
+        values = []
+        for r in range(1 if self.headers else 0, self.num_rows):
+            found = False
+            for cell in self.cells:
+                if cell.row == r and cell.col == col_idx:
+                    values.append(cell.text)
+                    found = True
+                    break
+            if not found:
+                values.append("")
+        return values
+
+
+@dataclass
 class SpatialIndex:
     """Full spatial index for one page."""
     blocks: List[TextBlock] = field(default_factory=list)
@@ -220,6 +292,7 @@ class SpatialIndex:
     columns: List[Column] = field(default_factory=list)
     tables: List[TableRegion] = field(default_factory=list)
     label_value_pairs: List[LabelValuePair] = field(default_factory=list)
+    docling_tables: List[DoclingTable] = field(default_factory=list)
     page_width: int = 0
     page_height: int = 0
     page: int = 1
@@ -237,6 +310,12 @@ class OCRResult:
     docling_regions_per_page: Optional[List[List[Dict]]] = None
     # Native Docling (key_value_items, tables) per page when API available
     docling_native_pairs_per_page: Optional[List[List[Tuple[str, str]]]] = None
+    # Structured tables from Docling per page
+    docling_tables_per_page: Optional[List[List[DoclingTable]]] = None
+    # Detected tables from Table Transformer per page
+    detected_tables_per_page: Optional[List[List[Any]]] = None
+    # AcroForm (PDF form field) data: {field_name: value}
+    acroform_fields: Optional[Dict[str, Any]] = None
 
     @property
     def full_docling_text(self) -> str:
@@ -374,6 +453,82 @@ def extract_docling_native_pairs(doc: Any) -> List[Tuple[str, str]]:
 def _normalize_for_match(text: str) -> str:
     """Normalize text for label/value matching: lowercase, collapse whitespace."""
     return re.sub(r"\s+", " ", text.strip()).lower()
+
+
+def extract_docling_native_tables(doc: Any, page: int = 0) -> List[DoclingTable]:
+    """
+    Extract structured tables from Docling document's native table detection.
+    Preserves row/column structure instead of flattening to label-value pairs.
+
+    Args:
+        doc: Docling document object.
+        page: Page number (0-indexed).
+
+    Returns:
+        List of DoclingTable with full cell structure.
+    """
+    tables_out: List[DoclingTable] = []
+    if doc is None:
+        return tables_out
+
+    try:
+        doc_tables = getattr(doc, "tables", None)
+        if not isinstance(doc_tables, (list, tuple)):
+            return tables_out
+
+        for table in doc_tables:
+            export_df = getattr(table, "export_to_dataframe", None)
+            if export_df is None:
+                continue
+            try:
+                df = export_df(doc=doc)
+                if df is None or df.empty:
+                    continue
+
+                headers = [str(c).strip() for c in df.columns]
+                num_cols = len(headers)
+                num_rows = len(df) + 1  # +1 for header row
+
+                cells: List[DoclingTableCell] = []
+
+                # Header row (row 0)
+                for col_idx, header in enumerate(headers):
+                    cells.append(DoclingTableCell(
+                        row=0, col=col_idx, text=header, is_header=True
+                    ))
+
+                # Data rows
+                for row_idx, (_, row) in enumerate(df.iterrows(), start=1):
+                    for col_idx, header in enumerate(headers):
+                        val = str(row.get(header, "")).strip()
+                        cells.append(DoclingTableCell(
+                            row=row_idx, col=col_idx, text=val
+                        ))
+
+                # Try to get table bbox from Docling
+                bbox = None
+                table_prov = getattr(table, "prov", None)
+                if table_prov and hasattr(table_prov, "bbox"):
+                    b = table_prov.bbox
+                    bbox = (
+                        getattr(b, "l", 0), getattr(b, "t", 0),
+                        getattr(b, "r", 0), getattr(b, "b", 0),
+                    )
+
+                tables_out.append(DoclingTable(
+                    cells=cells,
+                    num_rows=num_rows,
+                    num_cols=num_cols,
+                    headers=headers,
+                    bbox=bbox,
+                    page=page,
+                ))
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    return tables_out
 
 
 def parse_docling_markdown_pairs(md: str) -> List[Tuple[str, str]]:
@@ -586,6 +741,59 @@ class OCREngine:
             print("  [OCR] EasyOCR GPU init failed, falling back to CPU")
             self._easyocr_reader = easyocr.Reader(["en"], gpu=False, verbose=False)
         return self._easyocr_reader
+
+    # ------------------------------------------------------------------
+    # AcroForm (PDF form field) extraction
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def extract_acroform_fields(pdf_path: Path) -> Dict[str, Any]:
+        """
+        Extract form field values directly from AcroForm PDF data using PyMuPDF.
+
+        This is the highest-confidence extraction source (confidence=0.99) because
+        it reads actual PDF form field values, not OCR interpretation.
+
+        Returns:
+            Dict mapping field names to their values. Checkbox fields have values
+            "1" (checked) or "Off" (unchecked). Text fields have string values.
+        """
+        if not PYMUPDF_AVAILABLE:
+            return {}
+        try:
+            doc = fitz.open(str(pdf_path))
+        except Exception:
+            return {}
+
+        fields: Dict[str, Any] = {}
+        for page in doc:
+            try:
+                widgets = list(page.widgets())
+            except Exception:
+                continue
+            for widget in widgets:
+                try:
+                    name = widget.field_name
+                    value = widget.field_value
+                    if not name or value is None:
+                        continue
+                    str_val = str(value).strip()
+                    if not str_val or str_val.lower() in ("", "null", "none"):
+                        continue
+                    # Checkbox fields (type 2): normalize to "1" or "Off"
+                    # PDF checkboxes use "Off" for unchecked; anything else means checked
+                    # (checked value can be "1", "Yes", "On", or the field name itself)
+                    if widget.field_type == 2:  # checkbox
+                        if str_val.lower() == "off":
+                            fields[name] = "Off"
+                        else:
+                            fields[name] = "1"
+                    else:
+                        fields[name] = str_val
+                except Exception:
+                    continue
+        doc.close()
+        return fields
 
     # ------------------------------------------------------------------
     # PDF -> images
@@ -1300,6 +1508,13 @@ class OCREngine:
         image_paths = self.pdf_to_images(pdf_path, img_dir)
         print(f"  [OCR] {len(image_paths)} page images created")
 
+        # ---- AcroForm extraction: read PDF form fields directly (highest confidence) ----
+        acroform_fields = self.extract_acroform_fields(pdf_path)
+        if acroform_fields:
+            acro_checkboxes = sum(1 for v in acroform_fields.values() if v in ("1", "Off"))
+            acro_text = len(acroform_fields) - acro_checkboxes
+            print(f"  [ACROFORM] Extracted {len(acroform_fields)} fields ({acro_text} text, {acro_checkboxes} checkboxes)")
+
         print("  [OCR] Removing table lines ...")
         clean_paths = self.create_clean_images(image_paths)
 
@@ -1341,6 +1556,7 @@ class OCREngine:
                         num_pages=len(image_paths),
                         docling_regions_per_page=None,
                         docling_native_pairs_per_page=None,
+                        acroform_fields=acroform_fields or None,
                     )
             except Exception as e:
                 print(f"  [OCR] Cache load failed ({e}), running full OCR")
@@ -1479,4 +1695,5 @@ class OCREngine:
             num_pages=len(image_paths),
             docling_regions_per_page=docling_regions_per_page if docling_regions_per_page else None,
             docling_native_pairs_per_page=native_pairs_per_page if native_pairs_per_page else None,
+            acroform_fields=acroform_fields or None,
         )

@@ -516,6 +516,11 @@ def extract_125_header(page1_bbox: List[Dict]) -> Dict[str, Any]:
     lob_fields = _extract_125_lob(page1_bbox)
     result.update(lob_fields)
 
+    # --- Total estimated premium (TOTAL row at bottom of LOB table) ---
+    total_premium = _extract_125_total_premium(page1_bbox)
+    if total_premium:
+        result["Policy_TotalEstimatedPremium_A"] = total_premium
+
     # --- Policy status row (QUOTE / BOUND / ISSUE / CANCEL / RENEW / CHANGE) ---
     status_fields = _extract_125_status_row(page1_bbox)
     result.update(status_fields)
@@ -585,6 +590,106 @@ def _extract_125_page2(page2_bbox: List[Dict]) -> Dict[str, Any]:
         parts = [p for p in [street, city, (state + " " + zip_val) if state and zip_val else (state or zip_val)] if p]
         if parts:
             result["LocationBuilding_Address_A"] = ", ".join(parts)
+
+    # --- FEIN / SSN (label on page 2, format NN-NNNNNNN) ---
+    fein_lbl = _find_label(page2_bbox, "FEIN", y_max=800) or _find_label(page2_bbox, "SOC SEC", y_max=800)
+    if fein_lbl:
+        fein_region = _region_below_label(
+            page2_bbox, fein_lbl, (fein_lbl["x"], fein_lbl["x"] + 400, fein_lbl["y"], fein_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=fein_lbl["x"] - 50, x_right=fein_lbl["x"] + 400,
+        )
+        for b in fein_region:
+            text = b["text"].strip()
+            if re.match(r'^\d{2}-\d{7}$', text):
+                result["NamedInsured_TaxIdentifier_A"] = text
+                result["FederalIDNumber_A"] = text
+                result["CommercialPolicy_FederalIDNumber_A"] = text
+                break
+
+    # --- SIC / NAICS codes ---
+    sic_lbl = _find_label(page2_bbox, "SIC", y_max=800)
+    if sic_lbl:
+        sic_region = _region_below_label(
+            page2_bbox, sic_lbl, (sic_lbl["x"], sic_lbl["x"] + 300, sic_lbl["y"], sic_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=sic_lbl["x"] - 50, x_right=sic_lbl["x"] + 300,
+        )
+        for b in sic_region:
+            text = b["text"].strip()
+            if re.match(r'^\d{4,6}$', text):
+                result["GeneralInformation_SICCode_A"] = text
+                break
+
+    naics_lbl = _find_label(page2_bbox, "NAICS", y_max=800)
+    if naics_lbl:
+        naics_region = _region_below_label(
+            page2_bbox, naics_lbl, (naics_lbl["x"], naics_lbl["x"] + 300, naics_lbl["y"], naics_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=naics_lbl["x"] - 50, x_right=naics_lbl["x"] + 300,
+        )
+        for b in naics_region:
+            text = b["text"].strip()
+            if re.match(r'^\d{4,6}$', text):
+                result["GeneralInformation_NAICSCode_A"] = text
+                break
+
+    # --- Employee counts (FULL TIME, PART TIME labels on page 2) ---
+    ft_lbl = _find_label(page2_bbox, "FULL TIME", y_max=1500)
+    if ft_lbl:
+        ft_region = _region_below_label(
+            page2_bbox, ft_lbl, (ft_lbl["x"], ft_lbl["x"] + 200, ft_lbl["y"], ft_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=ft_lbl["x"] - 50, x_right=ft_lbl["x"] + 200,
+        )
+        for b in ft_region:
+            text = b["text"].strip()
+            if re.match(r'^\d+$', text) and int(text) < 100000:
+                result["GeneralInformation_FullTimeEmployeeCount_A"] = text
+                break
+
+    pt_lbl = _find_label(page2_bbox, "PART TIME", y_max=1500)
+    if pt_lbl:
+        pt_region = _region_below_label(
+            page2_bbox, pt_lbl, (pt_lbl["x"], pt_lbl["x"] + 200, pt_lbl["y"], pt_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=pt_lbl["x"] - 50, x_right=pt_lbl["x"] + 200,
+        )
+        for b in pt_region:
+            text = b["text"].strip()
+            if re.match(r'^\d+$', text) and int(text) < 100000:
+                result["GeneralInformation_PartTimeEmployeeCount_A"] = text
+                break
+
+    # --- Annual Revenues ---
+    rev_lbl = _find_label(page2_bbox, "ANNUAL REVENUE", y_max=1500)
+    if rev_lbl:
+        rev_region = _region_below_label(
+            page2_bbox, rev_lbl, (rev_lbl["x"], rev_lbl["x"] + 400, rev_lbl["y"], rev_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=rev_lbl["x"] - 50, x_right=rev_lbl["x"] + 400,
+        )
+        for b in rev_region:
+            text = b["text"].strip()
+            cleaned = _clean_amount(text)
+            if cleaned:
+                result["GeneralInformation_AnnualRevenue_A"] = cleaned
+                break
+
+    # --- Occupied Area (square footage) ---
+    area_lbl = _find_label(page2_bbox, "OCCUPIED AREA", y_max=1500)
+    if area_lbl:
+        area_region = _region_below_label(
+            page2_bbox, area_lbl, (area_lbl["x"], area_lbl["x"] + 300, area_lbl["y"], area_lbl["y"] + 80),
+            y_offset=20, y_range=60,
+            x_left=area_lbl["x"] - 50, x_right=area_lbl["x"] + 300,
+        )
+        for b in area_region:
+            text = b["text"].strip().replace(",", "")
+            if re.match(r'^\d+$', text) and int(text) > 0:
+                result["GeneralInformation_OccupiedArea_A"] = text
+                break
+
     return result
 
 
@@ -705,6 +810,36 @@ def _extract_125_lob(page1_bbox: List[Dict]) -> Dict[str, Any]:
                     break
 
     return result
+
+
+def _extract_125_total_premium(page1_bbox: List[Dict]) -> Optional[str]:
+    """
+    Extract total estimated premium from the TOTAL row at the bottom of the LOB table.
+    The TOTAL label is typically at y≈1270-1400, with the premium amount to its right.
+    """
+    total_lbl = _find_label(page1_bbox, "TOTAL", y_min=1200, y_max=1500, x_min=1500)
+    if not total_lbl:
+        return None
+
+    # Look for amount to the right of TOTAL label
+    amount_region = _find_in_region(
+        page1_bbox,
+        total_lbl["x"] + 50, total_lbl["x"] + 500,
+        total_lbl["y"] - 30, total_lbl["y"] + 40,
+    )
+    for b in amount_region:
+        text = b["text"].strip()
+        if text in ("$", "S"):
+            continue
+        cleaned = _clean_amount(text)
+        if cleaned:
+            num = cleaned.replace("$", "").replace(",", "")
+            try:
+                if float(num) > 0:
+                    return cleaned
+            except ValueError:
+                pass
+    return None
 
 
 def _extract_125_status_row(page1_bbox: List[Dict]) -> Dict[str, Any]:
@@ -1604,6 +1739,87 @@ def _find_next_number(row: List[Dict], after_idx: int, x_range: Tuple[int, int] 
 
 
 # ===========================================================================
+# Vehicle extraction (Form 127)
+# ===========================================================================
+
+def extract_127_vehicles(bbox_pages: List[List[Dict]]) -> Dict[str, Any]:
+    """
+    Extract vehicle fields from Form 127 page 2 (or bottom of page 1).
+
+    Vehicle table: YEAR, MAKE, MODEL, VIN columns.
+    Suffixes _A to _E for up to 5 vehicles.
+    """
+    result: Dict[str, Any] = {}
+
+    # Vehicle table is typically on page 2 (index 1)
+    for page_idx in range(min(2, len(bbox_pages))):
+        page_data = bbox_pages[page_idx]
+        if not page_data:
+            continue
+
+        # Find YEAR, MAKE, MODEL, VIN column headers
+        year_lbl = _find_label(page_data, "YEAR", y_max=800)
+        make_lbl = _find_label(page_data, "MAKE", y_max=800)
+        model_lbl = _find_label(page_data, "MODEL", y_max=800)
+        vin_lbl = _find_label(page_data, "VIN", y_max=800)
+
+        if not (year_lbl or make_lbl or model_lbl or vin_lbl):
+            continue
+
+        # Determine header Y (use first found label)
+        header_y = min(
+            lbl["y"] for lbl in [year_lbl, make_lbl, model_lbl, vin_lbl] if lbl
+        )
+
+        # Column X ranges from detected labels (with fallbacks)
+        year_x = year_lbl["x"] if year_lbl else 100
+        make_x = make_lbl["x"] if make_lbl else 300
+        model_x = model_lbl["x"] if model_lbl else 600
+        vin_x = vin_lbl["x"] if vin_lbl else 900
+
+        # Data rows: below header, cluster by Y
+        data_blocks = [b for b in page_data if b["y"] > header_y + 30 and b["y"] < header_y + 600]
+        if not data_blocks:
+            continue
+
+        rows = _cluster_bbox_rows(data_blocks, tolerance=35)
+        suffixes = "ABCDE"
+
+        for veh_idx, row in enumerate(rows):
+            if veh_idx >= 5:
+                break
+            suffix = suffixes[veh_idx]
+
+            for b in row:
+                text = b["text"].strip()
+                if not text:
+                    continue
+
+                # Year (4-digit number near year_x)
+                if abs(b["x"] - year_x) < 150 and re.match(r'^(19|20)\d{2}$', text):
+                    result[f"Vehicle_ModelYear_{suffix}"] = text
+
+                # Make (near make_x, alphabetic)
+                elif abs(b["x"] - make_x) < 200 and re.match(r'^[A-Za-z]+$', text) and len(text) >= 3:
+                    if f"Vehicle_MakeDescription_{suffix}" not in result:
+                        result[f"Vehicle_MakeDescription_{suffix}"] = text
+
+                # Model (near model_x)
+                elif abs(b["x"] - model_x) < 200 and len(text) >= 2:
+                    if f"Vehicle_ModelDescription_{suffix}" not in result and text.upper() not in ("VIN", "YEAR", "MAKE", "MODEL"):
+                        result[f"Vehicle_ModelDescription_{suffix}"] = text
+
+                # VIN (17-char alphanumeric near vin_x)
+                elif abs(b["x"] - vin_x) < 300 and re.match(r'^[A-Z0-9]{10,17}$', text):
+                    result[f"Vehicle_VINIdentifier_{suffix}"] = text
+
+        if result:
+            break  # Found vehicles on this page, don't look further
+
+    return result
+
+
+# ===========================================================================
 # Driver table extraction (Form 127)
 # ===========================================================================
 
@@ -1638,20 +1854,22 @@ def extract_127_drivers(page1_bbox: List[Dict]) -> Dict[str, Any]:
     if not driver_blocks:
         return result
 
-    # Cluster into rows
+    # Cluster into rows using median Y of the row (prevents drift from running average)
     driver_blocks.sort(key=lambda b: b["y"])
     rows: List[List[Dict]] = []
     cur_row: List[Dict] = [driver_blocks[0]]
-    cur_y = driver_blocks[0]["y"]
+    row_anchor_y = driver_blocks[0]["y"]  # Use first block's Y as anchor
     for b in driver_blocks[1:]:
-        if abs(b["y"] - cur_y) <= 35:
+        if abs(b["y"] - row_anchor_y) <= 35:
             cur_row.append(b)
-            cur_y = sum(bb["y"] for bb in cur_row) / len(cur_row)
+            # Use median Y to prevent drift from outlier blocks
+            ys = sorted(bb["y"] for bb in cur_row)
+            row_anchor_y = ys[len(ys) // 2]  # median
         else:
             if len(cur_row) >= 3:  # Valid data rows have at least 3 blocks
                 rows.append(sorted(cur_row, key=lambda b: b["x"]))
             cur_row = [b]
-            cur_y = b["y"]
+            row_anchor_y = b["y"]
     if len(cur_row) >= 3:
         rows.append(sorted(cur_row, key=lambda b: b["x"]))
 
@@ -1908,10 +2126,12 @@ def spatial_preextract(
             result.update(page2_result)
         return result
     elif form_type == "127":
-        # Merge: header first, then drivers (driver fields overwrite any shared keys; header does not produce driver keys).
+        # Merge: header first, then drivers, then vehicles
         header = extract_127_header(page1)
         drivers = extract_127_drivers(page1)
         header.update(drivers)
+        vehicles = extract_127_vehicles(bbox_pages)
+        header.update(vehicles)
         return header
     elif form_type == "137":
         header = extract_137_header(page1)

@@ -205,12 +205,15 @@ def build_extraction_prompt(
     max_bbox: int = 5000,
     section_scoped: bool = False,
     few_shot_examples: str = "",
+    table_markdown: str = "",
 ) -> str:
     """
     Build a category-specific extraction prompt.
 
     Combines form layout, category hint, field tooltips, and dual OCR text.
     """
+    max_lv = 2000
+
     layout = _layout_hint(form_type)
     cat_hint = _category_hint(category)
     section_note = (
@@ -233,6 +236,13 @@ def build_extraction_prompt(
 
     json_tmpl = _json_template(field_names)
 
+    table_section = ""
+    if table_markdown and table_markdown.strip():
+        table_section = f"""
+=== STRUCTURED TABLE DATA (from document layout analysis) ===
+{table_markdown[:3000]}
+"""
+
     prompt = f"""You are extracting {category.upper()} fields from an ACORD {form_type} form.
 
 === FORM LAYOUT ===
@@ -247,11 +257,11 @@ def build_extraction_prompt(
 {f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === DOCLING OCR TEXT (structured markdown) ===
 {docling_text[:max_docling]}
-
+{table_section}
 === BBOX OCR TEXT (with X,Y positions for spatial disambiguation) ===
 {bbox_text[:max_bbox]}
 
-{f"=== LABEL-VALUE PAIRS ==={chr(10)}{label_value_text[:2000]}" if label_value_text else ""}
+{f"=== LABEL-VALUE PAIRS ==={chr(10)}{label_value_text[:max_lv]}" if label_value_text else ""}
 
 CRITICAL RULES:
 1. You MUST use EXACTLY the field key names shown above. Do NOT rename or invent keys.
@@ -263,7 +273,115 @@ CRITICAL RULES:
 7. Do NOT paraphrase - use the exact text from the OCR.
 8. ZIP codes are 5-digit numbers, NOT phone numbers. Phone numbers have dashes (xxx-xxx-xxxx).
 
+ENTITY DISAMBIGUATION:
+- Producer/Agent = LEFT side of header (the broker selling the policy)
+- Insurer/Carrier = CENTER/RIGHT of header (the company providing coverage)
+- Named Insured = BELOW header (the customer buying insurance)
+- NEVER copy a value from one entity's section to another entity's field
+
 Indicator/checkbox fields: output exactly "1" or "Off"; never text or numbers.
+
+JSON TEMPLATE (use these EXACT keys):
+{json_tmpl}
+
+Return ONLY a valid JSON object. No explanation, no markdown fences, just JSON.
+"""
+    return prompt
+
+
+def build_batched_extraction_prompt(
+    form_type: str,
+    categories: List[str],
+    field_names: List[str],
+    tooltips: Dict[str, str],
+    docling_text: str,
+    bbox_text: str,
+    label_value_text: str = "",
+    max_docling: int = 10000,
+    max_bbox: int = 6000,
+    section_scoped: bool = False,
+    few_shot_examples: str = "",
+    table_markdown: str = "",
+) -> str:
+    """
+    Build a batched extraction prompt combining multiple categories.
+
+    Similar to build_extraction_prompt but handles multiple categories
+    in a single LLM call for efficiency.
+    """
+    layout = _layout_hint(form_type)
+
+    # Combine category hints
+    cat_hints = []
+    for cat in categories:
+        hint = _category_hint(cat)
+        if hint:
+            cat_hints.append(f"[{cat.upper()}] {hint}")
+    combined_hints = "\n".join(cat_hints)
+
+    section_note = (
+        "The text below is limited to the relevant form section(s)."
+        if section_scoped
+        else ""
+    )
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+
+    has_indicators = "checkbox" in categories or any(
+        "indicator" in k.lower() or k.lower().startswith("chk") for k in field_names
+    )
+    checkbox_rule = ""
+    if has_indicators:
+        checkbox_rule = (
+            'CHECKBOX/INDICATOR RULE: Any field containing "Indicator" in its name is a CHECKBOX. '
+            'Return ONLY "1" (checked/marked/X) or "Off" (empty/unchecked). '
+            'NEVER return text, dollar amounts, or descriptions for Indicator fields.'
+        )
+
+    json_tmpl = _json_template(field_names)
+    cats_label = " + ".join(c.upper() for c in categories)
+
+    table_section = ""
+    if table_markdown and table_markdown.strip():
+        table_section = f"""
+=== STRUCTURED TABLE DATA (from document layout analysis) ===
+{table_markdown[:3000]}
+"""
+
+    prompt = f"""You are extracting {cats_label} fields from an ACORD {form_type} form.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== SECTION CONTEXT ===
+{combined_hints}
+{section_note}
+
+=== FIELDS TO EXTRACT ===
+{field_block}
+{f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
+=== DOCLING OCR TEXT (structured markdown) ===
+{docling_text[:max_docling]}
+{table_section}
+=== BBOX OCR TEXT (with X,Y positions for spatial disambiguation) ===
+{bbox_text[:max_bbox]}
+
+{f"=== LABEL-VALUE PAIRS ==={chr(10)}{label_value_text[:2000]}" if label_value_text else ""}
+
+CRITICAL RULES:
+1. You MUST use EXACTLY the field key names shown above. Do NOT rename or invent keys.
+2. Fill in the JSON template below - replace null with the extracted value (as a string).
+3. If a field is blank/missing, remove it from output (do not return null or empty string).
+4. Use BOTH OCR sources: Docling for structure, BBox for spatial positions.
+5. Dates: MM/DD/YYYY. Numbers: as strings.
+6. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not.'}
+7. Do NOT paraphrase - use the exact text from the OCR.
+8. ZIP codes are 5-digit numbers, NOT phone numbers.
+
+ENTITY DISAMBIGUATION:
+- Producer/Agent = LEFT side of header (the broker selling the policy)
+- Insurer/Carrier = CENTER/RIGHT of header (the company providing coverage)
+- Named Insured = BELOW header (the customer buying insurance)
+- NEVER copy a value from one entity's section to another entity's field
 
 JSON TEMPLATE (use these EXACT keys):
 {json_tmpl}

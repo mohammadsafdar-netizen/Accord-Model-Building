@@ -1,0 +1,107 @@
+{
+  "form_number": "125",
+  "edition": "2016/03",
+  "page_width": 2550,
+  "page_height": 3300,
+  "template_dpi": 300,
+  "anchors": [
+    {"text": "AGENCY", "page": 0, "x": 300, "y": 270},
+    {"text": "CARRIER", "page": 0, "x": 1366, "y": 270},
+    {"text": "NAIC CODE", "page": 0, "x": 2347, "y": 270},
+    {"text": "DATE", "page": 0, "x": 2300, "y": 150},
+    {"text": "POLICY NUMBER", "page": 0, "x": 1500, "y": 430},
+    {"text": "NAMED INSURED", "page": 0, "x": 300, "y": 2050}
+  ],
+  "regions": {
+    "Form_CompletionDate_A": {
+      "page": 0,
+      "x_min": 2100, "y_min": 130, "x_max": 2500, "y_max": 250,
+      "field_type": "date",
+      "extraction_hint": "Form completion date at top-right"
+    },
+    "Producer_FullName_A": {
+      "page": 0,
+      "x_min": 50, "y_min": 290, "x_max": 1100, "y_max": 370,
+      "field_type": "text",
+      "extraction_hint": "Agency/Producer name below AGENCY label"
+    },
+    "Insurer_FullName_A": {
+      "page": 0,
+      "x_min": 1200, "y_min": 290, "x_max": 2100, "y_max": 370,
+      "field_type": "text",
+      "extraction_hint": "Insurance carrier name below CARRIER label"
+    },
+    "Insurer_NAICCode_A": {
+      "page": 0,
+      "x_min": 2200, "y_min": 290, "x_max": 2500, "y_max": 370,
+      "field_type": "naic",
+      "extraction_hint": "5-digit NAIC code below NAIC CODE label"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "page": 0,
+      "x_min": 1200, "y_min": 450, "x_max": 2000, "y_max": 530,
+      "field_type": "policy_number",
+      "extraction_hint": "Policy number below POLICY NUMBER label"
+    },
+    "Producer_ContactPerson_FullName_A": {
+      "page": 0,
+      "x_min": 300, "y_min": 530, "x_max": 700, "y_max": 580,
+      "field_type": "text",
+      "extraction_hint": "Agent contact person name"
+    },
+    "Producer_ContactPerson_PhoneNumber_A": {
+      "page": 0,
+      "x_min": 300, "y_min": 590, "x_max": 700, "y_max": 660,
+      "field_type": "text",
+      "extraction_hint": "Agent phone number"
+    },
+    "Producer_ContactPerson_EmailAddress_A": {
+      "page": 0,
+      "x_min": 400, "y_min": 620, "x_max": 900, "y_max": 680,
+      "field_type": "text",
+      "extraction_hint": "Agent email address"
+    },
+    "Producer_MailingAddress_LineOne_A": {
+      "page": 0,
+      "x_min": 100, "y_min": 380, "x_max": 1000, "y_max": 440,
+      "field_type": "text",
+      "extraction_hint": "Producer street address"
+    },
+    "Policy_EffectiveDate_A": {
+      "page": 0,
+      "x_min": 100, "y_min": 1920, "x_max": 450, "y_max": 2000,
+      "field_type": "date",
+      "extraction_hint": "Proposed effective date"
+    },
+    "Policy_ExpirationDate_A": {
+      "page": 0,
+      "x_min": 450, "y_min": 1920, "x_max": 750, "y_max": 2000,
+      "field_type": "date",
+      "extraction_hint": "Proposed expiration date"
+    },
+    "NamedInsured_FullName_A": {
+      "page": 0,
+      "x_min": 100, "y_min": 2100, "x_max": 800, "y_max": 2170,
+      "field_type": "text",
+      "extraction_hint": "Named insured/applicant business name"
+    },
+    "NamedInsured_MailingAddress_LineOne_A": {
+      "page": 0,
+      "x_min": 100, "y_min": 2170, "x_max": 900, "y_max": 2240,
+      "field_type": "text",
+      "extraction_hint": "Named insured street address"
+    },
+    "NamedInsured_TaxIdentifier_A": {
+      "page": 0,
+      "x_min": 2100, "y_min": 2050, "x_max": 2500, "y_max": 2200,
+      "field_type": "text",
+      "extraction_hint": "Federal ID number (FEIN) format NN-NNNNNNN"
+    },
+    "Producer_CustomerIdentifier_A": {
+      "page": 0,
+      "x_min": 2000, "y_min": 100, "x_max": 2500, "y_max": 200,
+      "field_type": "text",
+      "extraction_hint": "Agency Customer ID at top right"
+    }
+  }
+}

@@ -122,6 +122,31 @@ Examples:
         "--vision-describer-model", type=str, default=None,
         help="Small VLM for describing regions when --vision-descriptions (default: same as --vision-model)",
     )
+    # --- New feature flags ---
+    parser.add_argument(
+        "--no-semantic-matching", action="store_true",
+        help="Disable MiniLM semantic label matching (enabled by default when sentence-transformers is installed)",
+    )
+    parser.add_argument(
+        "--table-transformer", action="store_true",
+        help="Enable Table Transformer for ML-based table detection (requires transformers package)",
+    )
+    parser.add_argument(
+        "--use-templates", action="store_true",
+        help="Enable template anchoring for standardized field positions",
+    )
+    parser.add_argument(
+        "--ensemble", action="store_true",
+        help="Enable multi-source confidence-weighted fusion",
+    )
+    parser.add_argument(
+        "--no-batch-categories", action="store_true",
+        help="Disable category batching (extract each category with a separate LLM call)",
+    )
+    parser.add_argument(
+        "--use-acroform", action="store_true",
+        help="Use AcroForm (PDF form fields) as extraction source. Off by default (scanned-image mode).",
+    )
 
     args = parser.parse_args()
 
@@ -181,6 +206,12 @@ Examples:
         use_text_llm=args.text_llm,
         use_vision_descriptions=args.vision_descriptions,
         rag_store=rag_store,
+        use_semantic_matching=not args.no_semantic_matching,
+        use_templates=args.use_templates,
+        use_table_transformer=args.table_transformer,
+        use_ensemble=args.ensemble,
+        use_batch_categories=not args.no_batch_categories,
+        use_acroform=args.use_acroform,
     )
 
     # --- Run extraction ---

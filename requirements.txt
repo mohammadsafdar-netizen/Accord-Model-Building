@@ -35,3 +35,9 @@ langgraph
 
 # Deep learning (needed by docling/easyocr)
 torch
+
+# Semantic label matching (Feature 1: MiniLM embeddings for label→field matching)
+sentence-transformers>=2.2.0
+
+# Table Transformer (Feature 5: ML-based table detection and structure recognition)
+transformers>=4.30.0

@@ -1,0 +1,44 @@
+{
+  "form_number": "137",
+  "edition": "2016/03",
+  "page_width": 2550,
+  "page_height": 3300,
+  "template_dpi": 300,
+  "anchors": [
+    {"text": "COMPANY", "page": 0, "x": 1366, "y": 200},
+    {"text": "NAIC CODE", "page": 0, "x": 2347, "y": 200},
+    {"text": "NAMED INSURED", "page": 0, "x": 300, "y": 300}
+  ],
+  "regions": {
+    "Insurer_FullName_A": {
+      "page": 0,
+      "x_min": 1200, "y_min": 220, "x_max": 2100, "y_max": 300,
+      "field_type": "text",
+      "extraction_hint": "Insurance carrier/company name"
+    },
+    "Insurer_NAICCode_A": {
+      "page": 0,
+      "x_min": 2200, "y_min": 220, "x_max": 2500, "y_max": 300,
+      "field_type": "naic",
+      "extraction_hint": "5-digit NAIC code"
+    },
+    "NamedInsured_FullName_A": {
+      "page": 0,
+      "x_min": 100, "y_min": 320, "x_max": 1100, "y_max": 420,
+      "field_type": "text",
+      "extraction_hint": "Named insured business name"
+    },
+    "Policy_EffectiveDate_A": {
+      "page": 0,
+      "x_min": 1200, "y_min": 320, "x_max": 1600, "y_max": 420,
+      "field_type": "date",
+      "extraction_hint": "Policy effective date"
+    },
+    "Policy_PolicyNumberIdentifier_A": {
+      "page": 0,
+      "x_min": 1600, "y_min": 320, "x_max": 2200, "y_max": 420,
+      "field_type": "policy_number",
+      "extraction_hint": "Policy number"
+    }
+  }
+}

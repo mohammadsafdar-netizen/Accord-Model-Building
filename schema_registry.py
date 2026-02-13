@@ -46,6 +46,18 @@ EXTRACTION_ORDER = [
     "general",
 ]
 
+# Category batching: group small categories into single LLM calls
+# Each batch is a list of categories that are extracted together
+CATEGORY_BATCHES = [
+    ["header", "insurer", "producer"],         # Top-of-form fields
+    ["named_insured", "policy"],               # Insured and policy details
+    ["location", "loss_history", "remarks", "general"],  # Misc fields
+    ["checkbox"],                              # All checkboxes
+]
+
+# Categories that are never batched (use specialized extraction paths)
+SPECIAL_CATEGORIES = {"driver", "vehicle", "coverage"}
+
 
 # ===========================================================================
 # Data classes

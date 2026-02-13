@@ -25,6 +25,11 @@ ACORD_125_HEADERS: List[Dict[str, str]] = [
     {"id": "attachments", "keywords": ["ATTACHMENTS", "ACCOUNTS RECEIVABLE", "VALUABLE PAPERS"]},
     {"id": "policy_info", "keywords": ["PROPOSED EFF DATE", "POLICY INFORMATION", "BILLING PLAN", "PAYMENT PLAN", "METHOD OF PAYMENT"]},
     {"id": "applicant_info", "keywords": ["NAME (First Named Insured)", "NAME (Other Named Insured)", "AND MAILING ADDRESS (including ZIP"]},
+    # Page 2+ sections
+    {"id": "premises_location", "keywords": ["PREMISES", "LOCATION", "BUILDING", "OCCUPIED AREA", "ANNUAL REVENUES"]},
+    {"id": "nature_of_business", "keywords": ["NATURE OF BUSINESS", "DESCRIPTION OF OPERATIONS", "SIC", "NAICS", "FEIN"]},
+    {"id": "prior_coverage", "keywords": ["PRIOR COVERAGE", "PRIOR CARRIER", "PRIOR POLICY"]},
+    {"id": "loss_history_section", "keywords": ["LOSS HISTORY", "CLAIMS", "DATE OF LOSS", "AMOUNT PAID"]},
 ]
 
 # Category -> section(s) for ACORD 125 (extraction category from schema_registry.EXTRACTION_ORDER)
@@ -35,10 +40,10 @@ ACORD_125_CATEGORY_SECTIONS: Dict[str, List[str]] = {
     "named_insured": ["applicant_info"],
     "policy": ["policy_underwriter", "status_transaction", "policy_info"],
     "checkbox": ["status_transaction", "lines_of_business", "attachments"],
-    "location": ["applicant_info", "agency_carrier"],
-    "loss_history": ["attachments"],
+    "location": ["premises_location", "applicant_info"],
+    "loss_history": ["loss_history_section", "prior_coverage", "attachments"],
     "remarks": ["attachments", "applicant_info"],
-    "general": ["applicant_info", "policy_info", "lines_of_business", "attachments"],
+    "general": ["premises_location", "nature_of_business", "applicant_info", "policy_info", "lines_of_business", "attachments"],
 }
 
 # ACORD 127 - Business Auto Section

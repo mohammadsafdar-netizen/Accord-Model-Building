@@ -195,6 +195,12 @@ def run_single_form(
     vision_batch_size: Optional[int] = None,
     vision_max_tokens: int = 16384,
     rag_store: Optional[Any] = None,
+    use_semantic_matching: bool = True,
+    use_templates: bool = False,
+    use_table_transformer: bool = False,
+    use_ensemble: bool = False,
+    use_batch_categories: bool = True,
+    use_acroform: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -222,6 +228,12 @@ def run_single_form(
         vision_batch_size=vision_batch_size,
         vision_max_tokens=vision_max_tokens,
         rag_store=rag_store,
+        use_semantic_matching=use_semantic_matching,
+        use_templates=use_templates,
+        use_table_transformer=use_table_transformer,
+        use_ensemble=use_ensemble,
+        use_batch_categories=use_batch_categories,
+        use_acroform=use_acroform,
     )
 
     start = time.time()
@@ -446,6 +458,39 @@ def main():
         "--use-rag", action="store_true",
         help="Use few-shot RAG from test_data ground truth to improve extraction accuracy.",
     )
+    # --- New feature flags ---
+    parser.add_argument(
+        "--no-semantic-matching", action="store_true",
+        help="Disable MiniLM semantic label matching",
+    )
+    parser.add_argument(
+        "--table-transformer", action="store_true",
+        help="Enable Table Transformer for ML-based table detection",
+    )
+    parser.add_argument(
+        "--use-templates", action="store_true",
+        help="Enable template anchoring for standardized field positions",
+    )
+    parser.add_argument(
+        "--ensemble", action="store_true",
+        help="Enable multi-source confidence-weighted fusion",
+    )
+    parser.add_argument(
+        "--no-batch-categories", action="store_true",
+        help="Disable category batching",
+    )
+    parser.add_argument(
+        "--use-acroform", action="store_true",
+        help="Enable AcroForm as extraction source (default: off, scanned-image mode)",
+    )
+    parser.add_argument(
+        "--docling", action="store_true",
+        help="Run Docling OCR (alias for consistency with main.py; always on in test_pipeline)",
+    )
+    parser.add_argument(
+        "--text-llm", action="store_true",
+        help="Run text LLM (always on in test_pipeline; accepted for CLI consistency)",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -534,9 +579,15 @@ def main():
         bbox_backend=bbox_backend,
         use_docling=True,
     )
+    # Larger models need longer timeouts (32B ~4x slower than 7B)
+    llm_timeout = 300
+    model_lower = args.model.lower()
+    if "32b" in model_lower or "30b" in model_lower or "70b" in model_lower:
+        llm_timeout = 600
     llm = LLMEngine(
         model=args.model,
         base_url=args.ollama_url,
+        timeout=llm_timeout,
         vision_model=args.vision_model if args.vision else None,
         vision_describer_model=args.vision_describer_model if args.vision else None,
         unload_wait_seconds=args.unload_wait,
@@ -584,6 +635,12 @@ def main():
                 vision_batch_size=args.vision_batch_size,
                 vision_max_tokens=args.vision_max_tokens,
                 rag_store=rag_store,
+                use_semantic_matching=not args.no_semantic_matching,
+                use_templates=args.use_templates,
+                use_table_transformer=args.table_transformer,
+                use_ensemble=args.ensemble,
+                use_batch_categories=not args.no_batch_categories,
+                use_acroform=args.use_acroform,
             )
             type_results.append(result)
 

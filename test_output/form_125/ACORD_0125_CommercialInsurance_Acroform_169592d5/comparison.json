@@ -1,9 +1,9 @@
 {
   "total_gt_fields": 742,
-  "matched": 173,
-  "partial_match": 25,
-  "missing": 395,
-  "wrong": 149,
+  "matched": 231,
+  "partial_match": 37,
+  "missing": 242,
+  "wrong": 232,
   "field_results": {
     "Form_CompletionDate_A": {
       "status": "matched",
@@ -21,29 +21,29 @@
       "extracted": "23787"
     },
     "Insurer_ProducerIdentifier_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "NATIONWIDE-001",
-      "extracted": "NATIONWIDE-001"
+      "extracted": "Adam Aguilar"
     },
     "Insurer_ProductCode_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "CGL-12345",
-      "extracted": "BA-44346598"
+      "extracted": "CGL-12345"
     },
     "Insurer_ProductDescription_A": {
-      "status": "partial",
+      "status": "missing",
       "expected": "Commercial General Liability",
-      "extracted": "Commercial General Liability, Fidelity Bond, Cyber and Privacy, Fiduciary Liability, Business Owners, Garage and Dealers, Commercial Inland Marine, Motor Carrier, Commercial Property"
+      "extracted": null
     },
     "Insurer_Underwriter_FullName_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "John Doe",
-      "extracted": "Adam Aguilar"
+      "extracted": "John Doe"
     },
     "Insurer_Underwriter_OfficeIdentifier_A": {
       "status": "wrong",
       "expected": "NWD-1234",
-      "extracted": "AGENCY"
+      "extracted": "ISSUE POLICY"
     },
     "Policy_PolicyNumberIdentifier_A": {
       "status": "matched",
@@ -56,9 +56,9 @@
       "extracted": "Off"
     },
     "Policy_Status_CancelIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "Policy_Status_ChangeIndicator_A": {
       "status": "matched",
@@ -71,9 +71,9 @@
       "extracted": "02/15/2024"
     },
     "Policy_Status_EffectiveTime_A": {
-      "status": "wrong",
+      "status": "partial",
       "expected": 1000,
-      "extracted": "01/02/2024"
+      "extracted": "02/13/1000"
     },
     "Policy_Status_EffectiveTimeAMIndicator_A": {
       "status": "matched",
@@ -81,9 +81,9 @@
       "extracted": "1"
     },
     "Policy_Status_EffectiveTimePMIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": false,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "Policy_Status_IssueIndicator_A": {
       "status": "matched",
@@ -111,9 +111,9 @@
       "extracted": "202-123-4567"
     },
     "Producer_CustomerIdentifier_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Adam Aguilar",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "Producer_FaxNumber_A": {
       "status": "matched",
@@ -131,9 +131,9 @@
       "extracted": "Washington"
     },
     "Producer_MailingAddress_LineOne_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "123 Main St",
-      "extracted": "1234 16th St NW"
+      "extracted": "123 Main St"
     },
     "Producer_MailingAddress_PostalCode_A": {
       "status": "matched",
@@ -141,44 +141,44 @@
       "extracted": "20016"
     },
     "Producer_MailingAddress_InsideCityLimits_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Producer_MailingAddress_Occupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Owned",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "Producer_MailingAddress_DescriptionOfOccupancy_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "Producer_MailingAddress_Employees_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 50,
-      "extracted": null
+      "extracted": "#FULL TIME EMPL #PART TIME EMPL"
     },
     "Producer_MailingAddress_AnualRevenue_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 1000000,
-      "extracted": null
+      "extracted": "$2,500,000"
     },
     "Producer_MailingAddress_OccupiedArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 50000,
-      "extracted": null
+      "extracted": "1000"
     },
     "Producer_MailingAddress_AreaOpenToPublic_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 20000,
-      "extracted": null
+      "extracted": "400"
     },
     "Producer_MailingAddress_TotalBuildingArea_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": 100000,
-      "extracted": null
+      "extracted": "100,000"
     },
     "Producer_MailingAddress_LeasedToOthers_A": {
       "status": "missing",
@@ -186,24 +186,24 @@
       "extracted": null
     },
     "Nature_of_Business_TypeOfBusiness_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Manufacturing",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "Nature_of_Business_DateBusinessStarted_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "07/24/2018",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "Nature_of_Business_DescriptionOfPrimaryOperations_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Commercial Building Construction",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "Current_Insurance_CurrentCarrier_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Nationwide Insurance",
-      "extracted": null
+      "extracted": "Nationwide Insurance Corporation"
     },
     "Current_Insurance_NoPriorInsurance_A": {
       "status": "missing",
@@ -211,9 +211,9 @@
       "extracted": null
     },
     "Current_Insurance_CurrentPremium_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": 50000,
-      "extracted": null
+      "extracted": 150000
     },
     "Producer_MailingAddress_StateOrProvinceCode_A": {
       "status": "matched",
@@ -221,94 +221,94 @@
       "extracted": "DC"
     },
     "Producer_MailingAddress_City_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Washington D.C.",
-      "extracted": null
+      "extracted": "Washington"
     },
     "Producer_MailingAddress_StreetAddress_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "1234 K St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "Producer_MailingAddress_Zip_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "20005",
-      "extracted": null
+      "extracted": "20016"
     },
     "BoilerAndMachineryLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "10000.00",
-      "extracted": "$10000.00"
+      "extracted": 10000
     },
     "BusinessOwnersLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "5000.00",
-      "extracted": "$5000.00"
+      "extracted": 5000
     },
     "CommercialInlandMarineLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "2000.00",
-      "extracted": "$2000.00"
+      "extracted": 2000
     },
     "CommercialPropertyLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "3000.00",
-      "extracted": "$3000.00"
+      "extracted": 3000
     },
     "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "1500.00",
-      "extracted": "$1500.00"
+      "extracted": 1500
     },
     "CommercialVehicleLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "8000.00",
-      "extracted": "$8000.00"
+      "extracted": 8000
     },
     "CrimeLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "1000.00",
-      "extracted": "$1000.00"
+      "extracted": 1000
     },
     "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "500.00",
-      "extracted": "$500.00"
+      "extracted": 500
     },
     "FiduciaryLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "200.00",
-      "extracted": "$200.00"
+      "extracted": 200
     },
     "GarageAndDealersLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "1500.00",
-      "extracted": "$1500.00"
+      "extracted": 1500
     },
     "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "35000.00",
-      "extracted": "$35000.00"
+      "extracted": 35000
     },
     "LiquorLiabilityLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "500.00",
-      "extracted": "$500.00"
+      "extracted": 500
     },
     "MotorCarrierLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "3000.00",
-      "extracted": "$3000.00"
+      "extracted": 3000
     },
     "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": true,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_LineOfBusiness_BusinessAutoIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_LineOfBusiness_BusinessOwnersIndicator_A": {
       "status": "matched",
@@ -321,14 +321,14 @@
       "extracted": "1"
     },
     "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A": {
-      "status": "matched",
-      "expected": true,
-      "extracted": "1"
-    },
-    "Policy_LineOfBusiness_CommercialProperty_A": {
       "status": "wrong",
       "expected": true,
       "extracted": "Off"
+    },
+    "Policy_LineOfBusiness_CommercialProperty_A": {
+      "status": "matched",
+      "expected": true,
+      "extracted": "1"
     },
     "Policy_LineOfBusiness_CrimeIndicator_A": {
       "status": "wrong",
@@ -336,19 +336,19 @@
       "extracted": "1"
     },
     "Policy_LineOfBusiness_CyberAndPrivacy_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": true,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_LineOfBusiness_GarageAndDealersIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "1"
+      "extracted": null
     },
     "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
       "status": "wrong",
@@ -366,9 +366,9 @@
       "extracted": "Off"
     },
     "Policy_LineOfBusiness_TruckersIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_LineOfBusiness_UmbrellaIndicator_A": {
       "status": "matched",
@@ -381,9 +381,9 @@
       "extracted": "Off"
     },
     "TruckersLineOfBusiness_PremiumAmount_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "10000",
-      "extracted": "$10000"
+      "extracted": 10000
     },
     "YachtLineOfBusiness_PremiumAmount_A": {
       "status": "missing",
@@ -398,7 +398,7 @@
     "Policy_SectionAttached_OtherPremiumAmount_B": {
       "status": "wrong",
       "expected": "$50,000.00",
-      "extracted": "S"
+      "extracted": 20000
     },
     "Policy_LineOfBusiness_OtherIndicator_C": {
       "status": "wrong",
@@ -408,7 +408,7 @@
     "Policy_LineOfBusiness_OtherLineOfBusinessDescription_C": {
       "status": "wrong",
       "expected": "Other Line of Business C",
-      "extracted": "LIQUOR LIABILITY"
+      "extracted": "Manufacturing and fabrication"
     },
     "Policy_LineOfBusiness_OtherIndicator_D": {
       "status": "matched",
@@ -416,9 +416,9 @@
       "extracted": "Off"
     },
     "Policy_SectionAttached_OtherPremiumAmount_D": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "$30,000.00",
-      "extracted": "500.00"
+      "extracted": null
     },
     "Policy_LineOfBusiness_OtherIndicator_E": {
       "status": "wrong",
@@ -426,24 +426,24 @@
       "extracted": "Off"
     },
     "Policy_LineOfBusiness_OtherLineOfBusinessDescription_E": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "Other Line of Business E",
-      "extracted": "FIDUCIARY LIABILITY"
+      "extracted": "S"
     },
     "Policy_LineOfBusiness_OtherIndicator_F": {
-      "status": "matched",
-      "expected": false,
-      "extracted": "Off"
-    },
-    "Policy_SectionAttached_OtherPremiumAmount_F": {
-      "status": "wrong",
-      "expected": "$40,000.00",
-      "extracted": "5000.00"
-    },
-    "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
       "status": "wrong",
       "expected": false,
       "extracted": "1"
+    },
+    "Policy_SectionAttached_OtherPremiumAmount_F": {
+      "status": "missing",
+      "expected": "$40,000.00",
+      "extracted": null
+    },
+    "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A": {
       "status": "wrong",
@@ -476,9 +476,9 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A": {
       "status": "matched",
@@ -491,14 +491,14 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_OtherIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A": {
       "status": "matched",
@@ -511,9 +511,9 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_StateSupplementIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_StatementOfValuesIndicator_A": {
       "status": "matched",
@@ -521,19 +521,19 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
       "status": "missing",
       "expected": false,
       "extracted": null
     },
-    "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A": {
-      "status": "wrong",
-      "expected": false,
-      "extracted": "1"
-    },
     "Policy_SectionAttached_DealerIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "Policy_SectionAttached_DriverInformationScheduleIndicator_A": {
       "status": "missing",
@@ -541,19 +541,19 @@
       "extracted": null
     },
     "Policy_SectionAttached_ElectronicDataProcessingIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": false,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "Policy_SectionAttached_GlassAndSignIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_SectionAttached_InstallationBuildersRiskIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Policy_SectionAttached_OpenCargoIndicator_A": {
       "status": "matched",
@@ -561,9 +561,9 @@
       "extracted": "Off"
     },
     "Policy_SectionAttached_VehicleScheduleIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": true,
-      "extracted": "Off"
+      "extracted": null
     },
     "CommercialPolicy_Attachment_OtherIndicator_B": {
       "status": "matched",
@@ -571,14 +571,14 @@
       "extracted": "Off"
     },
     "CommercialPolicy_Attachment_OtherIndicator_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_OtherIndicator_D": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy.Attachment_OtherDescription_E": {
       "status": "missing",
@@ -586,14 +586,14 @@
       "extracted": null
     },
     "CommercialPolicy_Attachment_OtherIndicator_E": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Attachment_OtherDescription_F": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Fleet Information Needed",
-      "extracted": null
+      "extracted": "Machine Shops, Commercial Machine Shop Operations"
     },
     "CommercialPolicy_Attachment_OtherIndicator_F": {
       "status": "wrong",
@@ -616,14 +616,14 @@
       "extracted": "04/16/2025"
     },
     "Policy_PaymentMethod_MethodDescription_A": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "Direct Deposit",
-      "extracted": "Monthly"
+      "extracted": "Direct"
     },
     "Policy_Payment_DepositAmount_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": 0,
-      "extracted": null
+      "extracted": 150000
     },
     "Policy_Payment_DirectBillIndicator_A": {
       "status": "wrong",
@@ -631,19 +631,19 @@
       "extracted": "Off"
     },
     "Policy_Payment_EstimatedTotalAmount_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": 500.0,
-      "extracted": null
+      "extracted": 150000
     },
     "Policy_Payment_MinimumPremiumAmount_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 250.0,
-      "extracted": null
+      "extracted": 150000
     },
     "Policy_Payment_PaymentScheduleCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "Policy_Payment_ProducerBillIndicator_A": {
       "status": "missing",
@@ -658,17 +658,17 @@
     "NamedInsured_GeneralLiabilityCode_A": {
       "status": "wrong",
       "expected": true,
-      "extracted": "3599"
+      "extracted": "S"
     },
     "NamedInsured_LegalEntity_CorporationIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "NamedInsured_LegalEntity_IndividualIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "NamedInsured_LegalEntity_JointVentureIndicator_A": {
       "status": "matched",
@@ -676,14 +676,14 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "NamedInsured_LegalEntity_MemberManagerCount_A": {
-      "status": "wrong",
+      "status": "partial",
       "expected": 0,
-      "extracted": "2"
+      "extracted": "250,000"
     },
     "NamedInsured_LegalEntity_NotForProfitIndicator_A": {
       "status": "matched",
@@ -691,14 +691,14 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_OtherDescription_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Machine Shops",
-      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_OtherIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "NamedInsured_LegalEntity_PartnershipIndicator_A": {
       "status": "matched",
@@ -706,9 +706,9 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": true,
-      "extracted": "1"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_TrustIndicator_A": {
       "status": "matched",
@@ -736,24 +736,24 @@
       "extracted": "DC"
     },
     "NamedInsured_NAICSCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "332710",
-      "extracted": null
+      "extracted": "FEIN OR SOC SEC #"
     },
     "NamedInsured_Primary_PhoneNumber_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "(202) 456-7890",
-      "extracted": "(202) 456-7890"
+      "extracted": "202-123-4567"
     },
     "NamedInsured_Primary_WebsiteAddress_A": {
-      "status": "partial",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com",
-      "extracted": "https://downsbruceandtorres.com/"
+      "extracted": "adam aguilar@downsbruceandtorrescom"
     },
     "NamedInsured_SICCode_A": {
       "status": "wrong",
       "expected": "3599",
-      "extracted": "332710"
+      "extracted": "NATIONWIDE-001"
     },
     "NamedInsured_TaxIdentifier_A": {
       "status": "matched",
@@ -763,17 +763,17 @@
     "NamedInsured_GeneralLiabilityCode_B": {
       "status": "wrong",
       "expected": true,
-      "extracted": "NATIONWIDE-001"
+      "extracted": "S"
     },
     "NamedInsured_LegalEntity_CorporationIndicator_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "NamedInsured_LegalEntity_IndividualIndicator_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_JointVentureIndicator_B": {
       "status": "matched",
@@ -786,9 +786,9 @@
       "extracted": "1"
     },
     "NamedInsured_LegalEntity_MemberManagerCount_B": {
-      "status": "matched",
+      "status": "partial",
       "expected": 2,
-      "extracted": "2"
+      "extracted": "250,000"
     },
     "NamedInsured_LegalEntity_NotForProfitIndicator_B": {
       "status": "matched",
@@ -796,9 +796,9 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_OtherDescription_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs, Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
     },
     "NamedInsured_LegalEntity_OtherIndicator_B": {
       "status": "matched",
@@ -821,14 +821,14 @@
       "extracted": "Off"
     },
     "NamedInsured_MailingAddress_CityName_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "Washington",
-      "extracted": "Washington"
+      "extracted": "Arlington"
     },
     "NamedInsured_MailingAddress_LineOne_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": "1234 I6th St NW"
+      "extracted": "1234 16th St NW"
     },
     "NamedInsured_MailingAddress_PostalCode_B": {
       "status": "matched",
@@ -841,24 +841,24 @@
       "extracted": "DC"
     },
     "NamedInsured_NAICSCode_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "332710",
-      "extracted": "332710"
+      "extracted": "FEIN OR SOC SEC #"
     },
     "NamedInsured_Primary_PhoneNumber_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "(202) 456-7890",
-      "extracted": "(202) 456-7890"
+      "extracted": "202-901-2345"
     },
     "NamedInsured_Primary_WebsiteAddress_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com/",
-      "extracted": "https://downsbruceandtorres.com/"
+      "extracted": "adam aguilar@downsbruceandtorrescom"
     },
     "NamedInsured_SICCode_B": {
       "status": "wrong",
       "expected": "3599",
-      "extracted": "332710"
+      "extracted": "FEIN OR SOC SEC #"
     },
     "NamedInsured_TaxIdentifier_B": {
       "status": "matched",
@@ -866,24 +866,24 @@
       "extracted": "59-1793294"
     },
     "NamedInsured_FullName_C": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "Adam Aguilar Downs Bruce and Torres"
+      "extracted": "Downs Bruce and Torres"
     },
     "NamedInsured_GeneralLiabilityCode_C": {
       "status": "wrong",
       "expected": true,
-      "extracted": "3599"
+      "extracted": "S"
     },
     "NamedInsured_LegalEntity_CorporationIndicator_C": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "NamedInsured_LegalEntity_IndividualIndicator_C": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "NamedInsured_LegalEntity_JointVentureIndicator_C": {
       "status": "matched",
@@ -896,9 +896,9 @@
       "extracted": "1"
     },
     "NamedInsured_LegalEntity_MemberManagerCount_C": {
-      "status": "matched",
+      "status": "partial",
       "expected": 2,
-      "extracted": "2"
+      "extracted": "25"
     },
     "NamedInsured_LegalEntity_NotForProfitIndicator_C": {
       "status": "matched",
@@ -906,14 +906,14 @@
       "extracted": "Off"
     },
     "NamedInsured_LegalEntity_OtherIndicator_C": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_PartnershipIndicator_C": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C": {
       "status": "matched",
@@ -926,9 +926,9 @@
       "extracted": "Off"
     },
     "NamedInsured_MailingAddress_CityName_C": {
-      "status": "matched",
+      "status": "partial",
       "expected": "Washington",
-      "extracted": "Washington"
+      "extracted": "Washington D.C."
     },
     "NamedInsured_MailingAddress_LineOne_C": {
       "status": "matched",
@@ -941,14 +941,14 @@
       "extracted": "20016"
     },
     "NamedInsured_MailingAddress_StateOrProvinceCode_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "DC",
-      "extracted": "DC"
+      "extracted": "VA"
     },
     "NamedInsured_NAICSCode_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "332710",
-      "extracted": "332710"
+      "extracted": "FEIN OR SOC SEC #"
     },
     "NamedInsured_Primary_PhoneNumber_C": {
       "status": "matched",
@@ -956,19 +956,19 @@
       "extracted": "(202) 456-7890"
     },
     "NamedInsured_Primary_WebsiteAddress_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com/",
-      "extracted": "https://downsbruceandtorres.com/"
+      "extracted": "adam aguilar@downsbruceandtorrescom"
     },
     "NamedInsured_SICCode_C": {
       "status": "wrong",
       "expected": "3599",
-      "extracted": "332710"
+      "extracted": "FEIN OR SOC SEC #"
     },
     "NamedInsured_TaxIdentifier_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "59-1793294",
-      "extracted": "59-1793294"
+      "extracted": "3599"
     },
     "Driver_GivenName_A": {
       "status": "missing",
@@ -1071,49 +1071,49 @@
       "extracted": null
     },
     "Location_Number": {
-      "status": "missing",
+      "status": "partial",
       "expected": 1,
-      "extracted": null
+      "extracted": "1234"
     },
     "Location_Building_Number": {
-      "status": "missing",
+      "status": "partial",
       "expected": 1,
-      "extracted": null
+      "extracted": "1234"
     },
     "Location_Address_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW, Washington D.C. 20016"
     },
     "Location_CityName_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Washington",
-      "extracted": null
+      "extracted": "Arlington"
     },
     "Location_StateOrProvinceCode_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "DC",
-      "extracted": null
+      "extracted": "VA"
     },
     "Location_Zip_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "Inside_City_Limits_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Occupancy_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "owned",
-      "extracted": null
+      "extracted": "1"
     },
     "Description_of_Occupancy_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL: 1000, #PART TIME EMPL: 800"
     },
     "Employees_B": {
       "status": "missing",
@@ -1121,24 +1121,24 @@
       "extracted": null
     },
     "Annual_Revenue_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 1000000,
-      "extracted": null
+      "extracted": "2500000"
     },
     "Occupied_Area_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 50000,
-      "extracted": null
+      "extracted": "#FULL TIME EMPL"
     },
     "Area_Open_to_Public_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Total_Building_Area_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": 200000,
-      "extracted": null
+      "extracted": "200000"
     },
     "Leased_to_Others_B": {
       "status": "missing",
@@ -1151,14 +1151,14 @@
       "extracted": null
     },
     "Date_Business_Started_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "07/24/2018",
-      "extracted": null
+      "extracted": "01/02/2024"
     },
     "Description_of_Primary_Operations_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Full-Service Restaurant",
-      "extracted": null
+      "extracted": "Machine Shop Operations"
     },
     "Yes_No_Question_1_B": {
       "status": "missing",
@@ -1166,9 +1166,9 @@
       "extracted": null
     },
     "Current_Insurance_Current_Carrier_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Nationwide Insurance",
-      "extracted": null
+      "extracted": "Nationwide Insurance Corporation"
     },
     "Current_Insurance_No_Prior_Insurance_B": {
       "status": "missing",
@@ -1176,9 +1176,9 @@
       "extracted": null
     },
     "Current_Insurance_Current_Premium_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": 50000.0,
-      "extracted": null
+      "extracted": 150000
     },
     "Loss_History_No_Losses_B": {
       "status": "missing",
@@ -1186,9 +1186,9 @@
       "extracted": null
     },
     "Loss_History_Amount_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": 0.0,
-      "extracted": null
+      "extracted": 35000
     },
     "NamedInsured_Contact_FullName_A": {
       "status": "wrong",
@@ -1196,19 +1196,19 @@
       "extracted": "Adam Aguilar"
     },
     "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_Contact_PrimaryHomePhoneIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A": {
       "status": "wrong",
@@ -1221,19 +1221,19 @@
       "extracted": "Off"
     },
     "NamedInsured_Contact_SecondaryHomePhoneIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "NamedInsured_Contact_FullName_B": {
       "status": "wrong",
       "expected": "Valerie Matthews",
-      "extracted": "Adam Aguilar"
+      "extracted": "Crystal Mcdaniel"
     },
     "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "NamedInsured_Contact_PrimaryCellPhoneIndicator_B": {
       "status": "missing",
@@ -1246,9 +1246,9 @@
       "extracted": "Off"
     },
     "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "NamedInsured_Contact_SecondaryCellPhoneIndicator_B": {
       "status": "missing",
@@ -1256,9 +1256,9 @@
       "extracted": null
     },
     "NamedInsured_Contact_SecondaryHomePhoneIndicator_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "BuildingOccupancy_OccupiedArea_A": {
       "status": "matched",
@@ -1266,9 +1266,9 @@
       "extracted": "1000"
     },
     "BuildingOccupancy_OpenToPublicArea_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "500",
-      "extracted": "500"
+      "extracted": "20000"
     },
     "BuildingOccupancy_OperationsDescription_A": {
       "status": "matched",
@@ -1288,7 +1288,7 @@
     "CommercialStructure_AnnualRevenueAmount_A": {
       "status": "wrong",
       "expected": "$2,000,000",
-      "extracted": "$ANNUAL REVENUES:"
+      "extracted": 2500000
     },
     "CommercialStructure_Building_ProducerIdentifier_A": {
       "status": "wrong",
@@ -1298,7 +1298,7 @@
     "CommercialStructure_InsuredInterest_OtherDescription_A": {
       "status": "wrong",
       "expected": "Equipment Storage and Maintenance",
-      "extracted": "#FULL TIME EMPL"
+      "extracted": "OWNERS"
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_A": {
       "status": "matched",
@@ -1306,9 +1306,9 @@
       "extracted": "Off"
     },
     "CommercialStructure_InsuredInterest_OwnerIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialStructure_InsuredInterest_TenantIndicator_A": {
       "status": "matched",
@@ -1316,9 +1316,9 @@
       "extracted": "Off"
     },
     "CommercialStructure_Location_ProducerIdentifier_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "67890",
-      "extracted": "1234 16th St NW"
+      "extracted": null
     },
     "CommercialStructure_PhysicalAddress_CityName_A": {
       "status": "partial",
@@ -1331,9 +1331,9 @@
       "extracted": "Fairfax"
     },
     "CommercialStructure_PhysicalAddress_LineOne_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "1234 16th St NW",
-      "extracted": "1234 16th St NW"
+      "extracted": "STREET"
     },
     "CommercialStructure_PhysicalAddress_PostalCode_A": {
       "status": "matched",
@@ -1346,19 +1346,19 @@
       "extracted": "DC"
     },
     "CommercialStructure_Question_ABBCode_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "OWNER"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialStructure_RiskLocation_OtherIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A": {
       "status": "matched",
@@ -1376,9 +1376,9 @@
       "extracted": "800"
     },
     "BuildingOccupancy_OpenToPublicArea_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "400",
-      "extracted": "400"
+      "extracted": "500"
     },
     "BuildingOccupancy_OperationsDescription_B": {
       "status": "matched",
@@ -1386,44 +1386,44 @@
       "extracted": "Machine Shop Operations"
     },
     "BusinessInformation_FullTimeEmployeeCount_B": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "25",
-      "extracted": "#FULL TIME EMPL"
+      "extracted": "2"
     },
     "BusinessInformation_PartTimeEmployeeCount_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "5",
-      "extracted": "#PART TIME EMPL"
+      "extracted": null
     },
     "CommercialStructure_AnnualRevenueAmount_B": {
       "status": "wrong",
       "expected": "$1,500,000",
-      "extracted": "$ANNUAL REVENUES:"
+      "extracted": 2500000
     },
     "AgencyPart_AccessPlusSubmission_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "AgencyPart_QuoteBindRequest_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Quote",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "EffectiveDate_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "03/15/2024",
-      "extracted": null
+      "extracted": "03/01/2019"
     },
     "BillingPlan_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Direct",
-      "extracted": null
+      "extracted": "DIRECT"
     },
     "PaymentPlan_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "Audit_A": {
       "status": "missing",
@@ -1436,19 +1436,19 @@
       "extracted": null
     },
     "FederalIDNumber_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "59-1793294",
-      "extracted": null
+      "extracted": "59-1793294"
     },
     "BusinessPhone_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "Website_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com/",
-      "extracted": null
+      "extracted": "https://www.downsbruceandtorres.com/"
     },
     "ContactInformation_ContactType_A": {
       "status": "missing",
@@ -1456,89 +1456,89 @@
       "extracted": null
     },
     "ContactInformation_ContactName_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Adam Aguilar",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "ContactInformation_PhoneNumber_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 123-4567"
     },
     "Location/Building_LocationNumber_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "Location/Building_BuildingNumber_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 1,
-      "extracted": null
+      "extracted": "400"
     },
     "Location/Building_Address_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "Location/Building_CityName_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Washington D.C.",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "Location/Building_StateOrProvinceCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "Location/Building_ZipCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "Location/Building_InsideCityLimitsIndicator_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Location/Building_Occupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "owned",
-      "extracted": null
+      "extracted": "50,000"
     },
     "Location/Building_DescriptionOfOccupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations, Machine Shop Operations, Manufacturing and fabrication"
     },
     "Location/Building_Employees_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "full-time 30+ hrs/week",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL #PART TIME EMPL"
     },
     "Location/Building_AnnualRevenueAmount_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "$2,000,000",
-      "extracted": null
+      "extracted": 2500000
     },
     "Location/Building_OccupiedArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "20000sq ft",
-      "extracted": null
+      "extracted": "50,000"
     },
     "Location/Building_AreaOpenToPublic_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "10000sq ft",
-      "extracted": null
+      "extracted": "500"
     },
     "Location/Building_TotalBuildingArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "30000sq ft",
-      "extracted": null
+      "extracted": "200000"
     },
     "Location/Building_LeasedToOthersIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "NatureOfBusiness_TypeOfBusiness_A": {
       "status": "missing",
@@ -1556,14 +1556,14 @@
       "extracted": null
     },
     "LossHistory_LossesExistIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialStructure_Building_ProducerIdentifier_B": {
       "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "1234 16th St NW"
+      "extracted": "NATIONWIDE-001"
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_B": {
       "status": "matched",
@@ -1571,14 +1571,14 @@
       "extracted": "Off"
     },
     "CommercialStructure_InsuredInterest_OwnerIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialStructure_InsuredInterest_TenantIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": false,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "CommercialStructure_Location_ProducerIdentifier_B": {
       "status": "missing",
@@ -1586,19 +1586,19 @@
       "extracted": null
     },
     "CommercialStructure_PhysicalAddress_CityName_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "Washington",
-      "extracted": "Washington"
+      "extracted": "Arlington"
     },
     "CommercialStructure_PhysicalAddress_CountyName_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "DC",
-      "extracted": null
+      "extracted": "Fairfax"
     },
     "CommercialStructure_PhysicalAddress_LineOne_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": "1234 16th St NW",
-      "extracted": "1234 16th St NW"
+      "extracted": null
     },
     "CommercialStructure_PhysicalAddress_PostalCode_B": {
       "status": "matched",
@@ -1611,9 +1611,9 @@
       "extracted": "DC"
     },
     "CommercialStructure_Question_ABBCode_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "OCCUPIED AREA"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B": {
       "status": "matched",
@@ -1626,34 +1626,34 @@
       "extracted": "Off"
     },
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "Construction_BuildingArea_B": {
       "status": "wrong",
       "expected": "100,000",
-      "extracted": "100000"
+      "extracted": "200000"
     },
     "BuildingOccupancy_OccupiedArea_C": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "50,000",
       "extracted": "50000"
     },
     "BuildingOccupancy_OpenToPublicArea_C": {
       "status": "wrong",
       "expected": "20,000",
-      "extracted": "20000"
+      "extracted": "400"
     },
     "BuildingOccupancy_OperationsDescription_C": {
       "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": "Manufacturing and fabrication"
+      "extracted": "Commercial Machine Shop Operations"
     },
     "BusinessInformation_FullTimeEmployeeCount_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "30",
-      "extracted": "#FULL TIME EMPL"
+      "extracted": null
     },
     "BusinessInformation_PartTimeEmployeeCount_C": {
       "status": "wrong",
@@ -1661,14 +1661,14 @@
       "extracted": "#PART TIME EMPL"
     },
     "CommercialStructure_AnnualRevenueAmount_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "250,000",
-      "extracted": "$ANNUAL REVENUES:"
+      "extracted": null
     },
     "CommercialStructure_Building_ProducerIdentifier_C": {
       "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "BA-44346598"
+      "extracted": "1234 16th St NW"
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_C": {
       "status": "matched",
@@ -1681,34 +1681,34 @@
       "extracted": "1"
     },
     "CommercialStructure_InsuredInterest_TenantIndicator_C": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "CommercialStructure_Location_ProducerIdentifier_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "NATIONWIDE-001"
     },
     "AgencyPart_AgencyTypeCode_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Direct",
-      "extracted": null
+      "extracted": "DIRECT"
     },
     "AgencyPart_AgencyContactType_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "General Info",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "AgencyPart_AgencyContactName_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Adam Aguilar",
-      "extracted": null
+      "extracted": "Crystal Mcdaniel"
     },
     "AgencyPart_AgencyContactPhone_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "AgencyPart_MVRTypeCode_B": {
       "status": "missing",
@@ -1716,19 +1716,19 @@
       "extracted": null
     },
     "AgencyPart_NoPriorInsuranceIndicator_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "Construction_BuildingArea_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "100000",
-      "extracted": "100000"
+      "extracted": "200000"
     },
     "EffectiveDate_MMMDDYYYY_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "03/24/2024",
-      "extracted": null
+      "extracted": "02/15/2024"
     },
     "BillingPlan_Type_B": {
       "status": "missing",
@@ -1736,9 +1736,9 @@
       "extracted": null
     },
     "PaymentPlan_RepaymentFrequency_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "Audit_PaymentCycle_B": {
       "status": "missing",
@@ -1751,9 +1751,9 @@
       "extracted": null
     },
     "NamedInsured_Name_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "FederalIDNumber_SSNNumber_B": {
       "status": "missing",
@@ -1761,14 +1761,14 @@
       "extracted": null
     },
     "BusinessPhoneNumber_TelephoneNumber_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "AdditionalNamedInsureds_Name_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Shannon Rodriguez",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "ContactInformation_ContactType_B": {
       "status": "missing",
@@ -1776,79 +1776,79 @@
       "extracted": null
     },
     "ContactInformation_ContactName_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Valerie Matthews",
-      "extracted": null
+      "extracted": "Crystal Mcdaniel"
     },
     "ContactInformation_ContactPhone_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "(202) 456-7891",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "LocationBuildingAddress_Address_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "LocationBuildingAddress_CityName_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Washington",
-      "extracted": null
+      "extracted": "Washington"
     },
     "LocationBuildingAddress_StateOrProvinceCode_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "LocationBuildingAddress_PostalCode_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "InsideCityLimitsIndicator_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Occupancy_OccupiedArea_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "50,000",
-      "extracted": null
+      "extracted": "1000"
     },
     "DescriptionOfOccupancy_OperationsDescription_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Manufacturing and fabrication"
     },
     "Employees_FullTimeEmployeeCount_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "30",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL"
     },
     "Employees_PartTimeEmployeeCount_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "10",
-      "extracted": null
+      "extracted": "250,000"
     },
     "AnnualRevenue_AnnualRevenueAmount_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": "250,000",
-      "extracted": null
+      "extracted": 2500000
     },
     "OccupiedArea_SquareFootage_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": "50,000",
-      "extracted": null
+      "extracted": "50000"
     },
     "AreaOpenToPublic_SquareFootage_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "20,000",
-      "extracted": null
+      "extracted": "500"
     },
     "TotalBuildingArea_SquareFootage_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "100,000",
-      "extracted": null
+      "extracted": "200000"
     },
     "LeasedToOthers_Indicator_B": {
       "status": "missing",
@@ -1866,9 +1866,9 @@
       "extracted": null
     },
     "DescriptionOfPrimaryOperations_NatureOfBusiness_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "YesNoQuestions_HaveSafetyManuals_B": {
       "status": "missing",
@@ -1876,19 +1876,19 @@
       "extracted": null
     },
     "CurrentInsurance_CurrentCarrier_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Nationwide Insurance",
-      "extracted": null
+      "extracted": "Nationwide Insurance Corporation"
     },
     "CurrentInsurance_NoPriorInsuranceIndicator_B": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialStructure_PhysicalAddress_CityName_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "Arlington",
-      "extracted": "Arlington"
+      "extracted": "Washington D.C."
     },
     "CommercialStructure_PhysicalAddress_CountyName_C": {
       "status": "wrong",
@@ -1906,19 +1906,19 @@
       "extracted": "20016"
     },
     "CommercialStructure_PhysicalAddress_StateOrProvinceCode_C": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "DC",
-      "extracted": "VA"
+      "extracted": "DC"
     },
     "CommercialStructure_Question_ABBCode_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": true,
-      "extracted": "CITY"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C": {
-      "status": "matched",
+      "status": "missing",
       "expected": true,
-      "extracted": "1"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_OtherIndicator_C": {
       "status": "matched",
@@ -1926,39 +1926,39 @@
       "extracted": "Off"
     },
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C": {
-      "status": "matched",
+      "status": "wrong",
       "expected": false,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "BuildingOccupancy_OccupiedArea_D": {
-      "status": "partial",
+      "status": "matched",
       "expected": "50000",
-      "extracted": "1000, 800, 50000, 50000"
+      "extracted": "50000"
     },
     "BuildingOccupancy_OpenToPublicArea_D": {
-      "status": "partial",
+      "status": "matched",
       "expected": "20000",
-      "extracted": "500, 400, 20000, 20000"
+      "extracted": "20000"
     },
     "BuildingOccupancy_OperationsDescription_D": {
-      "status": "partial",
+      "status": "matched",
       "expected": "Manufacturing and fabrication",
-      "extracted": "Commercial Machine Shop Operations, Machine Shop Operations, Manufacturing and fabrication"
+      "extracted": "Manufacturing and fabrication"
     },
     "BusinessInformation_FullTimeEmployeeCount_D": {
       "status": "wrong",
       "expected": "30",
-      "extracted": "#FULL TIME EMPL"
+      "extracted": "25"
     },
     "BusinessInformation_PartTimeEmployeeCount_D": {
       "status": "wrong",
       "expected": "10",
-      "extracted": "#PART TIME EMPL"
+      "extracted": "25"
     },
     "CommercialStructure_AnnualRevenueAmount_D": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "2500000",
-      "extracted": "$ ANNUAL REVENUES: S"
+      "extracted": 2500000
     },
     "CommercialStructure_InsuredInterest_OtherIndicator_D": {
       "status": "matched",
@@ -1976,19 +1976,19 @@
       "extracted": "Off"
     },
     "CommercialStructure_PhysicalAddress_CityName_D": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "Arlington",
-      "extracted": "Washington"
+      "extracted": "Arlington"
     },
     "CommercialStructure_PhysicalAddress_CountyName_D": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "Fairfax",
-      "extracted": "Washington D.C."
+      "extracted": "Fairfax"
     },
     "CommercialStructure_PhysicalAddress_LineOne_D": {
-      "status": "matched",
+      "status": "partial",
       "expected": "1234 16th St NW",
-      "extracted": "1234 16th St NW"
+      "extracted": "1234 16th St NW, Washington D.C. 20016"
     },
     "CommercialStructure_PhysicalAddress_PostalCode_D": {
       "status": "matched",
@@ -2001,14 +2001,14 @@
       "extracted": "DC"
     },
     "BusinessInformation_DateEstablished_D": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "07/24/2018",
-      "extracted": null
+      "extracted": "1993-2015"
     },
     "BusinessInformation_PrimaryOperationsDescription_D": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Full-Service Machine Shop and Fabrication Services",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "BusinessInformation_Sex_Gender_C": {
       "status": "missing",
@@ -2021,39 +2021,39 @@
       "extracted": null
     },
     "CommercialStructure_PhysicalAddress_Address_CityName_D": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Arlington",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "CommercialStructure_PhysicalAddress_Address_CountyName_D": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Fairfax",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "CommercialStructure_PhysicalAddress_Address_LineOne_D": {
-      "status": "missing",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "CommercialStructure_PhysicalAddress_Address_PostalCode_D": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "CommercialStructure_PhysicalAddress_Address_StateOrProvinceCode_D": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "BusinessInformation_FederalIDNumber_D": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "59-1793294",
-      "extracted": null
+      "extracted": "FEIN OR SOC SEC #"
     },
     "BusinessInformation_BusinessPhoneNumber_D": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "CommercialStructure_PhysicalAddress_GeoLocationID_C": {
       "status": "missing",
@@ -2076,14 +2076,14 @@
       "extracted": null
     },
     "BusinessInformation_PaymentPlan_D": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "CommercialStructure_Question_ABBCode_D": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "M",
-      "extracted": "COUNTY"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D": {
       "status": "matched",
@@ -2091,14 +2091,14 @@
       "extracted": "1"
     },
     "CommercialStructure_RiskLocation_OtherDescription_D": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Industrial Park",
-      "extracted": "Machine Shops, Manufacturing and fabrication"
+      "extracted": null
     },
     "CommercialStructure_RiskLocation_OtherIndicator_D": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D": {
       "status": "wrong",
@@ -2111,9 +2111,9 @@
       "extracted": null
     },
     "BusinessInformation_BusinessType_CondominiumsIndicator_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "BusinessInformation_BusinessType_ContractorIndicator_A": {
       "status": "wrong",
@@ -2121,9 +2121,9 @@
       "extracted": "Off"
     },
     "BusinessInformation_BusinessType_InstitutionalIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "1"
+      "extracted": null
     },
     "BusinessInformation_BusinessType_ManufacturingIndicator_A": {
       "status": "matched",
@@ -2131,19 +2131,19 @@
       "extracted": "1"
     },
     "BusinessInformation_BusinessType_OfficeIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": true,
-      "extracted": "Off"
+      "extracted": null
     },
     "BusinessInformation_BusinessType_OtherDescription_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Machine Shops",
-      "extracted": "SUBCHAPTER \"S\" CORPORATION"
+      "extracted": null
     },
     "BusinessInformation_BusinessType_OtherIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "1"
+      "extracted": null
     },
     "BusinessInformation_BusinessType_RestaurantIndicator_A": {
       "status": "matched",
@@ -2151,14 +2151,14 @@
       "extracted": "Off"
     },
     "BusinessInformation_BusinessType_RetailIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "BusinessInformation_BusinessType_ServiceIndicator_A": {
       "status": "matched",
       "expected": false,
       "extracted": "Off"
-    },
-    "BusinessInformation_BusinessType_ServiceIndicator_A": {
-      "status": "wrong",
-      "expected": false,
-      "extracted": "1"
     },
     "BusinessInformation_BusinessType_WholesaleIndicator_A": {
       "status": "missing",
@@ -2168,17 +2168,17 @@
     "CommercialPolicy_OperationsDescription_A": {
       "status": "wrong",
       "expected": "Manufacturing and fabrication of machinery and equipment",
-      "extracted": "Machine Shop Operations, Commercial Machine Shop Operations, Manufacturing and fabrication"
+      "extracted": "Machine Shop Operations"
     },
     "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 0.5,
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "CommercialStructure_InstallationRepairWorkPercent_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 10,
-      "extracted": "0.5%"
+      "extracted": null
     },
     "NamedInsured_BusinessStartDate_A": {
       "status": "missing",
@@ -2226,9 +2226,9 @@
       "extracted": null
     },
     "BusinessTaxIdentifier_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "36-6324503",
-      "extracted": null
+      "extracted": "FEIN OR SOC SEC #"
     },
     "BusinessVehicle_UsePercent_A": {
       "status": "missing",
@@ -2236,14 +2236,14 @@
       "extracted": null
     },
     "BusinessEmployerIdentificationNumber_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "59-1793294",
-      "extracted": null
+      "extracted": "FEIN OR SOC SEC #"
     },
     "BusinessFederalTaxIDNumber_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "36-6324503",
-      "extracted": null
+      "extracted": "FEIN OR SOC SEC #"
     },
     "BusinessStateTaxIDNumber_A": {
       "status": "missing",
@@ -2251,34 +2251,34 @@
       "extracted": null
     },
     "BusinessPhoneNumber_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "BusinessWebsite_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "https://downsbruceandtorres.com",
-      "extracted": null
+      "extracted": "downsbruceandtorres.com"
     },
     "BusinessAddress_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "1234 16th St NW"
     },
     "BusinessCity_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Washington",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "BusinessState_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "BusinessZip_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "BusinessInsideCityLimits_A": {
       "status": "missing",
@@ -2291,9 +2291,9 @@
       "extracted": null
     },
     "BusinessDescriptionOfOccupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "BusinessEmployees_A": {
       "status": "missing",
@@ -2301,14 +2301,14 @@
       "extracted": null
     },
     "BusinessAnnualRevenue_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 1000000,
-      "extracted": null
+      "extracted": "2500000"
     },
     "BusinessOccupiedArea_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": 50000,
-      "extracted": null
+      "extracted": "50,000"
     },
     "BusinessAreaOpenToPublic_A": {
       "status": "missing",
@@ -2316,14 +2316,14 @@
       "extracted": null
     },
     "BusinessTotalBuildingArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": 200000,
-      "extracted": null
+      "extracted": "100,000"
     },
     "BusinessLeasedToOthers_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "BusinessDateBusinessStarted_A": {
       "status": "missing",
@@ -2331,9 +2331,9 @@
       "extracted": null
     },
     "BusinessPrimaryOperationsDescription_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Full-Service Restaurant",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "BusinessCurrentInsurance_A": {
       "status": "missing",
@@ -2341,9 +2341,9 @@
       "extracted": null
     },
     "BusinessCurrentPremium_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": 50000,
-      "extracted": null
+      "extracted": 150000
     },
     "BusinessSafetyManuals_A": {
       "status": "missing",
@@ -2351,9 +2351,9 @@
       "extracted": null
     },
     "BusinessCurrentCarrier_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Nationwide Insurance",
-      "extracted": null
+      "extracted": "Nationwide Insurance Corporation"
     },
     "BusinessNoPriorInsurance_A": {
       "status": "missing",
@@ -2361,9 +2361,9 @@
       "extracted": null
     },
     "BusinessCurrentPremium_B": {
-      "status": "missing",
+      "status": "partial",
       "expected": 50000,
-      "extracted": null
+      "extracted": 150000
     },
     "AdditionalInterest_CertificateRequiredIndicator_A": {
       "status": "missing",
@@ -2371,9 +2371,9 @@
       "extracted": null
     },
     "AdditionalInterest_InterestEndDate_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "12/31/2025",
-      "extracted": "03/02/2024"
+      "extracted": null
     },
     "AdditionalInterest_Interest_AdditionalInsuredIndicator_A": {
       "status": "matched",
@@ -2381,19 +2381,19 @@
       "extracted": "Off"
     },
     "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A": {
+      "status": "matched",
+      "expected": false,
+      "extracted": "Off"
+    },
+    "AdditionalInterest_Interest_CoOwnerIndicator_A": {
+      "status": "wrong",
+      "expected": false,
+      "extracted": "1"
+    },
+    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
       "status": "missing",
       "expected": false,
       "extracted": null
-    },
-    "AdditionalInterest_Interest_CoOwnerIndicator_A": {
-      "status": "matched",
-      "expected": false,
-      "extracted": "Off"
-    },
-    "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A": {
-      "status": "matched",
-      "expected": false,
-      "extracted": "Off"
     },
     "AdditionalInterest_Interest_LeasebackOwnerIndicator_A": {
       "status": "missing",
@@ -2411,9 +2411,9 @@
       "extracted": null
     },
     "AdditionalInterest_Interest_LossPayeeIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "AdditionalInterest_Interest_MortgageeIndicator_A": {
       "status": "missing",
@@ -2426,14 +2426,14 @@
       "extracted": "Off"
     },
     "AdditionalInterest_Interest_OwnerIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "AdditionalInterest_Interest_RegistrantIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "AdditionalInterest_Interest_TrusteeIndicator_A": {
       "status": "missing",
@@ -2441,19 +2441,19 @@
       "extracted": null
     },
     "AdditionalInterest_MailingAddress_CityName_A": {
-      "status": "partial",
+      "status": "matched",
       "expected": "Washington",
-      "extracted": "Washington D.C."
+      "extracted": "Washington"
     },
     "AdditionalInterest_MailingAddress_CountryCode_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "US",
-      "extracted": "US"
+      "extracted": null
     },
     "AdditionalInterest_MailingAddress_LineOne_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "1234 16th St NW",
-      "extracted": "1234 16th St NW"
+      "extracted": null
     },
     "AdditionalInterest_MailingAddress_PostalCode_A": {
       "status": "matched",
@@ -2461,24 +2461,24 @@
       "extracted": "20016"
     },
     "AdditionalInterest_MailingAddress_StateOrProvinceCode_A": {
-      "status": "matched",
-      "expected": "DC",
-      "extracted": "DC"
-    },
-    "AdditionalInterest_PolicyRequiredIndicator_A": {
-      "status": "matched",
-      "expected": false,
-      "extracted": "Off"
-    },
-    "AdditionalInterest_Primary_EmailAddress_A": {
       "status": "wrong",
-      "expected": "adam.aguilar@downsbruceandtorres.com",
+      "expected": "DC",
       "extracted": "adam aguilar@downsbruceandtorrescom"
     },
+    "AdditionalInterest_PolicyRequiredIndicator_A": {
+      "status": "missing",
+      "expected": false,
+      "extracted": null
+    },
+    "AdditionalInterest_Primary_EmailAddress_A": {
+      "status": "missing",
+      "expected": "adam.aguilar@downsbruceandtorres.com",
+      "extracted": null
+    },
     "AdditionalInterest_Primary_PhoneNumber_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": "202-123-4567"
+      "extracted": "(202) 456-7890"
     },
     "AdditionalInterest_SendBillIndicator_A": {
       "status": "wrong",
@@ -2486,9 +2486,9 @@
       "extracted": "Off"
     },
     "BusinessInformation_ParentOrganizationName_A": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": "Adam Aguilar"
+      "extracted": "Downs Bruce and Torres"
     },
     "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A": {
       "status": "matched",
@@ -2506,9 +2506,9 @@
       "extracted": "Off"
     },
     "CancelNonRenew_OtherIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "CancelNonRenew_UnderwritingConditionCorrectedDescription_A": {
       "status": "wrong",
@@ -2521,9 +2521,9 @@
       "extracted": "Off"
     },
     "CancelNonRenew_UnderwritingIndicator_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": true,
-      "extracted": "Off"
+      "extracted": "1"
     },
     "CommercialPolicy_AnyExposureToFlammableExplosivesChemicalsExplanation_A": {
       "status": "missing",
@@ -2546,9 +2546,9 @@
       "extracted": null
     },
     "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "1"
+      "extracted": null
     },
     "CommercialPolicy_JudgementOrLienExplanation_A": {
       "status": "missing",
@@ -2561,14 +2561,14 @@
       "extracted": null
     },
     "CommercialPolicy_PastFiveYearsAnyApplicantIndictedOrConvictedFraudBriberyArsonExplanation_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "No convictions or indictments in the past 5 years",
-      "extracted": null
+      "extracted": "3599"
     },
     "CommercialPolicy_PastLossesClaimsRelatingSexualAbuseDiscriminationNegligentHiringExplanation_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "F",
-      "extracted": null
+      "extracted": "S"
     },
     "CommercialPolicy_Question_AACCode_A": {
       "status": "missing",
@@ -2601,14 +2601,14 @@
       "extracted": null
     },
     "BillingPlan": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Direct",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "PaymentPlan": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "Audit": {
       "status": "missing",
@@ -2621,9 +2621,9 @@
       "extracted": null
     },
     "NamedInsured": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "Downs Bruce & Torres"
     },
     "FederalIDNumber": {
       "status": "missing",
@@ -2631,19 +2631,19 @@
       "extracted": null
     },
     "BusinessPhoneNumber": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "Website": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com",
-      "extracted": null
+      "extracted": "adam aguilar@downsbruceandtorrescom"
     },
     "LocationNumber": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "3599"
     },
     "BuildingNumber": {
       "status": "missing",
@@ -2651,49 +2651,49 @@
       "extracted": null
     },
     "InsideCityLimits_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Occupancy_OccupancyType_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "owned",
-      "extracted": null
+      "extracted": "Inside Owner"
     },
     "DescriptionOfOccupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Commercial building construction",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "Employees_EmployeesCount_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "30+",
-      "extracted": null
+      "extracted": "50000"
     },
     "AnnualRevenue_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "$1,000,000",
-      "extracted": null
+      "extracted": "$2,500,000"
     },
     "OccupiedArea_SqFt_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "10,000",
-      "extracted": null
+      "extracted": "1000"
     },
     "AreaOpenToPublic_SqFt_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "8,000",
-      "extracted": null
+      "extracted": "20000"
     },
     "TotalBuildingArea_SqFt_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "20,000",
-      "extracted": null
+      "extracted": "100000"
     },
     "LeasedToOthers_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "DateBusinessStarted_A": {
       "status": "missing",
@@ -2701,9 +2701,9 @@
       "extracted": null
     },
     "DescriptionOfPrimaryOperations_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "We provide full-service machine shop services.",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "YesNoQuestion_Yes_A": {
       "status": "missing",
@@ -2711,14 +2711,14 @@
       "extracted": null
     },
     "CurrentInsurance_CurrentCarrier_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Nationwide Insurance",
-      "extracted": null
+      "extracted": "Nationwide Insurance Corporation"
     },
     "LossHistory_Losses_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "None",
-      "extracted": null
+      "extracted": "TOTAL LOSSES: $ 35000.0"
     },
     "CommercialPolicy_Question_ABBCode_A": {
       "status": "missing",
@@ -2726,14 +2726,14 @@
       "extracted": null
     },
     "CommercialPolicy_Question_ABCCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "N"
     },
     "CommercialPolicy_Question_KAACode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "S"
     },
     "CommercialPolicy_Question_KABCode_A": {
       "status": "missing",
@@ -2743,7 +2743,7 @@
     "CommercialPolicy_Question_KACCode_A": {
       "status": "wrong",
       "expected": false,
-      "extracted": "COMMERCIAL GENERAL LIABILITY"
+      "extracted": "\""
     },
     "CommercialPolicy_Question_KAKCode_A": {
       "status": "missing",
@@ -2751,9 +2751,9 @@
       "extracted": null
     },
     "CommercialPolicy_Question_KALCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "3599"
     },
     "CommercialPolicy_Question_KAMCode_A": {
       "status": "missing",
@@ -2766,9 +2766,9 @@
       "extracted": null
     },
     "CommercialPolicy_Question_KAOCode_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "Property"
+      "extracted": null
     },
     "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A": {
       "status": "missing",
@@ -2776,34 +2776,34 @@
       "extracted": null
     },
     "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A": {
-      "status": "wrong",
-      "expected": "03/17/2020",
-      "extracted": "02/15/2024"
-    },
-    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
       "status": "missing",
-      "expected": false,
+      "expected": "03/17/2020",
       "extracted": null
     },
-    "OtherPolicy_LineOfBusinessCode_A": {
+    "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
       "status": "wrong",
+      "expected": false,
+      "extracted": "NATIONWIDE-001"
+    },
+    "OtherPolicy_LineOfBusinessCode_A": {
+      "status": "missing",
       "expected": true,
-      "extracted": "COMMERCIAL GENERAL LIABILITY"
+      "extracted": null
     },
     "Subsidiary_OrganizationName_A": {
       "status": "wrong",
       "expected": "Downs, Bruce and Torres LLC",
-      "extracted": "Adam Aguilar"
+      "extracted": "Downs Bruce and Torres"
     },
     "Subsidiary_ParentOwnershipPercent_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": false,
-      "extracted": "% OWNED"
+      "extracted": null
     },
     "Subsidiary_ParentSubsidiaryRelationshipDescription_A": {
       "status": "wrong",
       "expected": "Parent-Child",
-      "extracted": "Indus"
+      "extracted": "% OWNED"
     },
     "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B": {
       "status": "missing",
@@ -2816,9 +2816,9 @@
       "extracted": null
     },
     "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B": {
       "status": "wrong",
@@ -2826,24 +2826,24 @@
       "extracted": "Off"
     },
     "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": false,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_ABBCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_ABCCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KAACode_A": {
       "status": "missing",
@@ -2851,54 +2851,54 @@
       "extracted": null
     },
     "CommercialPolicy_Carrier_KABCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KACCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KAKCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KALCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KAMCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KANCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_Carrier_KAOCode_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CommercialPolicy_EffectiveDate_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "04/16/2020",
-      "extracted": null
+      "extracted": "01/02/2024"
     },
     "CommercialPolicy_BillingPlan_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Direct",
-      "extracted": null
+      "extracted": "DIRECT"
     },
     "CommercialPolicy_PaymentPlan_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "CommercialPolicy_Audit_A": {
       "status": "missing",
@@ -2906,49 +2906,49 @@
       "extracted": null
     },
     "CommercialPolicy_NamedInsured_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Downs, Bruce and Torres LLC",
-      "extracted": null
+      "extracted": "Adam Aguilar"
     },
     "CommercialPolicy_FederalIDNumber_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "59-1793294",
-      "extracted": null
+      "extracted": "59-1793294"
     },
     "CommercialPolicy_BusinessPhone_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "CommercialPolicy_Website_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com",
-      "extracted": null
+      "extracted": "downsbruceandtorrescom"
     },
     "Location/Building_City_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "Washington",
-      "extracted": null
+      "extracted": "Washington D.C."
     },
     "Location/Building_State_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "DC",
-      "extracted": null
+      "extracted": "DC"
     },
     "Location/Building_Zip_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "20016",
-      "extracted": null
+      "extracted": "20016"
     },
     "Location/Building_InsideCityLimits_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "Location/Building_AnualRevenue_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "5000000",
-      "extracted": null
+      "extracted": "S"
     },
     "Location/Building_LeasedToOthers_A": {
       "status": "missing",
@@ -2966,14 +2966,14 @@
       "extracted": null
     },
     "OtherPolicy_LineOfBusinessCode_B": {
-      "status": "partial",
+      "status": "wrong",
       "expected": "A",
-      "extracted": "LIQUOR LIABILITY"
+      "extracted": "S"
     },
     "Subsidiary_ParentOwnershipPercent_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "100%",
-      "extracted": "50%"
+      "extracted": null
     },
     "Subsidiary_ParentSubsidiaryRelationshipDescription_B": {
       "status": "wrong",
@@ -2981,39 +2981,39 @@
       "extracted": "% OWNED"
     },
     "OtherPolicy_LineOfBusinessCode_C": {
-      "status": "partial",
+      "status": "wrong",
       "expected": "B",
-      "extracted": "BUSINESS OWNERS"
+      "extracted": "C"
     },
     "OtherPolicy_LineOfBusinessCode_D": {
-      "status": "partial",
+      "status": "missing",
       "expected": "C",
-      "extracted": "COMMERCIAL INLAND MARINE"
+      "extracted": null
     },
     "BusinessTypeIndicator": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "BusinessAutoIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CGLIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "PropertyIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "WorkersCompensationIndicator": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "ProfessionalLiabilityIndicator": {
       "status": "missing",
@@ -3021,24 +3021,24 @@
       "extracted": null
     },
     "DirectPremiumPaymentIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "MonthlyPaymentPlanIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "AuditIndicator": {
-      "status": "missing",
+      "status": "partial",
       "expected": "A",
-      "extracted": null
+      "extracted": "Off"
     },
     "NatureOfBusinessType_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "332710",
-      "extracted": null
+      "extracted": "Machine Shop Operations"
     },
     "NatureOfBusinessDate_B": {
       "status": "missing",
@@ -3046,24 +3046,24 @@
       "extracted": null
     },
     "NatureOfBusinessDescription_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "LocationNumber_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "1234 16th St NW",
-      "extracted": null
+      "extracted": "LOC #"
     },
     "Occupancy_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "owned",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL"
     },
     "DescriptionOfOccupancy_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "bar",
-      "extracted": null
+      "extracted": "Commercial Machine Shop Operations"
     },
     "Employees_A": {
       "status": "missing",
@@ -3071,24 +3071,24 @@
       "extracted": null
     },
     "OccupiedArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "500 sq ft",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL"
     },
     "AreaOpenToPublic_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "200 sq ft",
-      "extracted": null
+      "extracted": "20016"
     },
     "TotalBuildingArea_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "10,000 sq ft",
-      "extracted": null
+      "extracted": "200000"
     },
     "YesLossHistoryIndicator": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "NoPriorInsuranceIndicator": {
       "status": "missing",
@@ -3096,14 +3096,14 @@
       "extracted": null
     },
     "CurrentPremium_A": {
-      "status": "missing",
+      "status": "partial",
       "expected": "$50,000",
-      "extracted": null
+      "extracted": 150000
     },
     "BusinessType_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "NAICS Code: 332710",
-      "extracted": null
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
     },
     "PriorCoverage_Automobile_EffectiveDate_A": {
       "status": "missing",
@@ -3131,14 +3131,14 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_EffectiveDate_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "01/02/2024",
-      "extracted": "01/02/2024"
+      "extracted": "03/01/2019"
     },
     "PriorCoverage_GeneralLiability_ExpirationDate_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "03/02/2024",
-      "extracted": "03/02/2024"
+      "extracted": "04/30/2021"
     },
     "PriorCoverage_GeneralLiability_InsurerFullName_A": {
       "status": "matched",
@@ -3146,34 +3146,34 @@
       "extracted": "Nationwide Insurance Corporation"
     },
     "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "BA-44346598",
-      "extracted": null
+      "extracted": "BA-44346598"
     },
     "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
       "status": "wrong",
       "expected": "$150,000.00",
-      "extracted": "500.00"
+      "extracted": 100000
     },
     "PriorCoverage_OtherLine_EffectiveDate_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "01/02/2024",
-      "extracted": "03/01/2019"
+      "extracted": null
     },
     "PriorCoverage_OtherLine_ExpirationDate_A": {
-      "status": "missing",
+      "status": "matched",
       "expected": "03/02/2024",
-      "extracted": null
+      "extracted": "03/02/2024"
     },
     "PriorCoverage_OtherLine_InsurerFullName_A": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": "NATIONWIDE-001"
+      "extracted": "Nationwide Insurance Corporation"
     },
     "PriorCoverage_OtherLine_LineOfBusinessCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "3599",
-      "extracted": null
+      "extracted": "S"
     },
     "PriorCoverage_OtherLine_PolicyNumberIdentifier_A": {
       "status": "matched",
@@ -3183,17 +3183,17 @@
     "PriorCoverage_OtherLine_TotalPremiumAmount_A": {
       "status": "wrong",
       "expected": "$200,000.00",
-      "extracted": "500.00"
+      "extracted": 591793294
     },
     "PriorCoverage_PolicyYear_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "2023",
-      "extracted": "2023"
+      "extracted": null
     },
     "PriorCoverage_Property_EffectiveDate_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "01/02/2024",
-      "extracted": "01/02/2024"
+      "extracted": null
     },
     "PriorCoverage_Property_ExpirationDate_A": {
       "status": "missing",
@@ -3213,12 +3213,12 @@
     "PriorCoverage_Property_TotalPremiumAmount_A": {
       "status": "wrong",
       "expected": "$250,000.00",
-      "extracted": "3000.00"
+      "extracted": 150000
     },
     "LossHistory_NoPriorLossesIndicator_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": false,
-      "extracted": "Off"
+      "extracted": null
     },
     "PriorCoverage_Automobile_EffectiveDate_B": {
       "status": "missing",
@@ -3246,19 +3246,19 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_EffectiveDate_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "03/01/2019",
-      "extracted": "01/02/2024"
+      "extracted": "03/01/2019"
     },
     "PriorCoverage_GeneralLiability_ExpirationDate_B": {
-      "status": "wrong",
+      "status": "matched",
       "expected": "04/30/2021",
-      "extracted": "03/02/2024"
+      "extracted": "04/30/2021"
     },
     "PriorCoverage_GeneralLiability_InsurerFullName_B": {
-      "status": "matched",
+      "status": "wrong",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": "Nationwide Insurance Corporation"
+      "extracted": "NATIONWIDE-001"
     },
     "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_B": {
       "status": "missing",
@@ -3266,39 +3266,39 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_TotalPremiumAmount_B": {
-      "status": "wrong",
+      "status": "partial",
       "expected": 20000,
-      "extracted": "1000.00"
+      "extracted": 200000
     },
     "PriorCoverage_OtherLine_EffectiveDate_B": {
       "status": "wrong",
       "expected": "05/01/2017",
-      "extracted": "03/01/2019"
+      "extracted": "01/02/2024"
     },
     "PriorCoverage_OtherLine_ExpirationDate_B": {
-      "status": "wrong",
-      "expected": "06/30/2018",
-      "extracted": "04/30/2021"
-    },
-    "PriorCoverage_OtherLine_InsurerFullName_B": {
       "status": "missing",
-      "expected": "Nationwide Insurance Corporation",
+      "expected": "06/30/2018",
       "extracted": null
     },
-    "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
+    "PriorCoverage_OtherLine_InsurerFullName_B": {
       "status": "wrong",
+      "expected": "Nationwide Insurance Corporation",
+      "extracted": "NATIONWIDE-001"
+    },
+    "PriorCoverage_OtherLine_PolicyNumberIdentifier_B": {
+      "status": "missing",
       "expected": "BA-44346598",
-      "extracted": "C"
+      "extracted": null
     },
     "PriorCoverage_OtherLine_TotalPremiumAmount_B": {
       "status": "wrong",
       "expected": 10000,
-      "extracted": "500.00"
+      "extracted": "Off"
     },
     "PriorCoverage_PolicyYear_B": {
       "status": "wrong",
       "expected": 2018,
-      "extracted": "2024"
+      "extracted": "2019"
     },
     "PriorCoverage_Property_EffectiveDate_B": {
       "status": "missing",
@@ -3308,7 +3308,7 @@
     "PriorCoverage_Property_ExpirationDate_B": {
       "status": "wrong",
       "expected": "08/31/2017",
-      "extracted": "04/30/2021"
+      "extracted": "03/02/2024"
     },
     "PriorCoverage_Property_InsurerFullName_B": {
       "status": "missing",
@@ -3316,19 +3316,19 @@
       "extracted": null
     },
     "PriorCoverage_Property_PolicyNumberIdentifier_B": {
-      "status": "matched",
+      "status": "missing",
       "expected": "BA-44346598",
-      "extracted": "BA-44346598"
+      "extracted": null
     },
     "PriorCoverage_Property_TotalPremiumAmount_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 25000,
-      "extracted": "3000.00"
+      "extracted": null
     },
     "PriorCoverage_Automobile_EffectiveDate_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "01/03/2018",
-      "extracted": "03/01/2019"
+      "extracted": null
     },
     "PriorCoverage_Automobile_ExpirationDate_C": {
       "status": "missing",
@@ -3351,29 +3351,29 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_EffectiveDate_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "03/01/2019",
-      "extracted": "03/02/2024"
+      "extracted": null
     },
     "PriorCoverage_GeneralLiability_ExpirationDate_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "04/30/2021",
-      "extracted": "03/02/2024"
+      "extracted": null
     },
     "PriorCoverage_GeneralLiability_InsurerFullName_C": {
       "status": "wrong",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": "NATIONWIDE-001"
+      "extracted": "SUBCHAPTER \"S\" CORPORATION"
     },
     "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_C": {
       "status": "wrong",
       "expected": "BA-44346598",
-      "extracted": "LOA"
+      "extracted": "S"
     },
     "PriorCoverage_GeneralLiability_TotalPremiumAmount_C": {
       "status": "wrong",
       "expected": "$150,000.00",
-      "extracted": "500.00"
+      "extracted": 100000
     },
     "PriorCoverage_OtherLine_EffectiveDate_C": {
       "status": "missing",
@@ -3381,14 +3381,14 @@
       "extracted": null
     },
     "PriorCoverage_OtherLine_ExpirationDate_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "12/31/2023",
-      "extracted": null
+      "extracted": "04/30/2021"
     },
     "PriorCoverage_OtherLine_TotalPremiumAmount_C": {
       "status": "wrong",
       "expected": "$0.00",
-      "extracted": "S150,000.00"
+      "extracted": "Off"
     },
     "PriorCoverage_PolicyYear_C": {
       "status": "missing",
@@ -3396,19 +3396,19 @@
       "extracted": null
     },
     "PriorCoverage_Property_EffectiveDate_C": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "01/09/2022",
-      "extracted": "03/01/2019"
+      "extracted": null
     },
     "PriorCoverage_Property_ExpirationDate_C": {
       "status": "wrong",
       "expected": "12/31/2023",
-      "extracted": "04/30/2021"
+      "extracted": "03/02/2024"
     },
     "PriorCoverage_Property_TotalPremiumAmount_C": {
-      "status": "wrong",
+      "status": "partial",
       "expected": "$0.00",
-      "extracted": "20000"
+      "extracted": 20000
     },
     "BrokerName_C": {
       "status": "missing",
@@ -3441,14 +3441,14 @@
       "extracted": null
     },
     "PriorCoverage_GeneralLiability_CheckBox_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": true,
-      "extracted": null
+      "extracted": "1"
     },
     "PriorCoverage_OtherLine_CheckBox_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "PolicyYear_C": {
       "status": "missing",
@@ -3456,24 +3456,24 @@
       "extracted": null
     },
     "EffectiveDate_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "02/01/2022",
-      "extracted": null
+      "extracted": "03/01/2019"
     },
     "BillingPlan_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Direct",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "PaymentPlan_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Monthly",
-      "extracted": null
+      "extracted": "Monthly"
     },
     "Audit_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "A",
-      "extracted": null
+      "extracted": "Off"
     },
     "NamedInsured_C": {
       "status": "missing",
@@ -3486,24 +3486,24 @@
       "extracted": null
     },
     "BusinessPhoneNumber_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 456-7890"
     },
     "Website_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "https://downsbruceandtorres.com",
-      "extracted": null
+      "extracted": "http://downsbruceandtorres.com/"
     },
     "ContactPhoneNumber_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "(202) 456-7890",
-      "extracted": null
+      "extracted": "(202) 901-2345"
     },
     "InsideCityLimits_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Off"
     },
     "Occupancy_C": {
       "status": "missing",
@@ -3511,44 +3511,44 @@
       "extracted": null
     },
     "DescriptionOfOccupancy_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": "Machine Shops",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "Employees_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Full-time: 10+ hrs/week; Part-time: 5+ hrs/week",
-      "extracted": null
+      "extracted": "#FULL TIME EMPL"
     },
     "AnnualRevenue_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "$1,000,000.00",
-      "extracted": null
+      "extracted": "1500000"
     },
     "OccupiedArea_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "500 sq ft",
-      "extracted": null
+      "extracted": "50,000"
     },
     "AreaOpenToPublic_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "300 sq ft",
-      "extracted": null
+      "extracted": "20,000"
     },
     "TotalBuildingArea_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "2,000 sq ft",
-      "extracted": null
+      "extracted": "100000"
     },
     "LeasedToOthers_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "NatureOfBusinessType_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Commercial Building Construction",
-      "extracted": null
+      "extracted": "Machine Shops"
     },
     "DateBusinessStarted_C": {
       "status": "missing",
@@ -3556,9 +3556,9 @@
       "extracted": null
     },
     "DescriptionOfPrimaryOperations_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Full-Service Restaurant",
-      "extracted": null
+      "extracted": "Machine Shop Operations"
     },
     "YesNoQuestion1_C": {
       "status": "missing",
@@ -3566,9 +3566,9 @@
       "extracted": null
     },
     "YesNoQuestion2_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "1"
     },
     "YesNoQuestion3_C": {
       "status": "missing",
@@ -3581,9 +3581,9 @@
       "extracted": null
     },
     "YesNoQuestion5_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "YesNoQuestion6_C": {
       "status": "missing",
@@ -3591,19 +3591,19 @@
       "extracted": null
     },
     "YesNoQuestion7_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": false,
-      "extracted": null
+      "extracted": "Off"
     },
     "CurrentInsurance_C": {
-      "status": "missing",
+      "status": "wrong",
       "expected": "Nationwide Insurance Corporation",
-      "extracted": null
+      "extracted": "Commercial General Liability, Liquor Liability"
     },
     "CurrentPremium_C": {
-      "status": "missing",
+      "status": "matched",
       "expected": "$150,000.00",
-      "extracted": null
+      "extracted": 150000
     },
     "LossHistory_ClaimDate_A": {
       "status": "missing",
@@ -3611,14 +3611,14 @@
       "extracted": null
     },
     "LossHistory_ClaimStatus_OpenCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": false,
-      "extracted": null
+      "extracted": "Y"
     },
     "LossHistory_ClaimStatus_SubrogationCode_A": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "Y"
     },
     "LossHistory_InformationYearCount_A": {
       "status": "missing",
@@ -3626,9 +3626,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Property",
-      "extracted": "COMMERCIAL GENERAL LIABILITY"
+      "extracted": null
     },
     "LossHistory_OccurrenceDate_A": {
       "status": "missing",
@@ -3636,9 +3636,9 @@
       "extracted": null
     },
     "LossHistory_OccurrenceDescription_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Water Damage from Sewer Backup",
-      "extracted": "Machine Shop Operations"
+      "extracted": null
     },
     "LossHistory_PaidAmount_A": {
       "status": "missing",
@@ -3651,14 +3651,14 @@
       "extracted": null
     },
     "LossHistory_TotalAmount_A": {
-      "status": "wrong",
+      "status": "missing",
       "expected": 35000.0,
-      "extracted": "3599"
+      "extracted": null
     },
     "LossHistory_ClaimStatus_OpenCode_B": {
-      "status": "missing",
+      "status": "wrong",
       "expected": true,
-      "extracted": null
+      "extracted": "N"
     },
     "LossHistory_ClaimStatus_SubrogationCode_B": {
       "status": "missing",
@@ -3666,9 +3666,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_B": {
-      "status": "wrong",
+      "status": "missing",
       "expected": "Commercial Auto",
-      "extracted": "S"
+      "extracted": null
     },
     "LossHistory_ClaimStatus_OpenCode_C": {
       "status": "missing",
@@ -3681,9 +3681,9 @@
       "extracted": null
     },
     "LossHistory_LineOfBusiness_C": {
-      "status": "partial",
+      "status": "missing",
       "expected": "Workers Compensation",
-      "extracted": "S"
+      "extracted": null
     },
     "NamedInsured_Initials_A": {
       "status": "missing",
@@ -3696,14 +3696,14 @@
       "extracted": null
     },
     "Policy_InformationPracticesNoticeIndicator_A": {
-      "status": "matched",
+      "status": "wrong",
       "expected": true,
-      "extracted": "1"
+      "extracted": "Off"
     },
     "Producer_AuthorizedRepresentative_FullName_A": {
-      "status": "matched",
+      "status": "missing",
       "expected": "Adam Aguilar",
-      "extracted": "Adam Aguilar"
+      "extracted": null
     },
     "Producer_NationalIdentifier_A": {
       "status": "wrong",
@@ -3716,7 +3716,7 @@
       "extracted": null
     }
   },
-  "accuracy": 25.0,
-  "exact_match_rate": 23.32,
-  "coverage": 46.77
+  "accuracy": 33.63,
+  "exact_match_rate": 31.13,
+  "coverage": 67.39
 }

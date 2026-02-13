@@ -1,0 +1,63 @@
+y≈155: [x=460]PRIOR CARRIER INFORMATION (continued) | [x=1514]AGENCY CUSTOMER ID:
+y≈208: [x=127]YEAR | [x=264]CATEGORY | [x=726]GENERAL LIABILITY | [x=1223]AUTOMOBILE | [x=1717]PROPERTY | [x=2077]OTHER: 5812
+y≈248: [x=251]CARRIER | [x=726]Zurich North America Insurance Company LLC | [x=1221]Zurich North America Insurance Company LLC | [x=1716]Zurich North America Insurance Company LLC | [x=2218]Zurich North America Insurance Company LLC
+y≈298: [x=297]POLICY NUMBER | [x=621]BA-37810023 | [x=1116]BA-37810023 | [x=1608]BA-37810023 | [x=2103]BA-37810023
+y≈348: [x=126]2021 | [x=254]PREMIUM | [x=2026]0
+y≈398: [x=301]EFFECTIVE DATE | [x=725]08/27/2021 | [x=1220]08/27/2021 | [x=1715]08/27/2021 | [x=2217]08/27/2021
+y≈448: [x=307]EXPIRATION DATE | [x=726]08/27/2024 | [x=1223]08/27/2024 | [x=1716]08/27/2024 | [x=2219]08/27/2024
+y≈497: [x=251]CARRIER | [x=681]Zurich North America | [x=1221]Zurich North America Insurance Company LLC
+y≈547: [x=297]POLICY NUMBER | [x=1117]BA-37810023
+y≈598: [x=126]2021 | [x=254]PREMIUM | [x=638]S150,000.00 | [x=997]S | [x=1492]S | [x=1619]S75,000.00 | [x=1987]S | [x=2109]S50,000.00
+y≈648: [x=301]EFFECTIVE DATE | [x=724]08/27/2021 | [x=1220]08/27/2021 | [x=1716]01/01/2018 | [x=2219]01/01/2020
+y≈698: [x=307]EXPIRATION DATE | [x=726]08/27/2024 | [x=1223]08/27/2024 | [x=1718]12/31/2020 | [x=2219]12/31/2022
+y≈752: [x=221]LOSS HISTORY | [x=715]Check if none | [x=1330](Attach Loss Summary for Additional Loss Information)
+y≈826: [x=179]FOR THE LAST | [x=417]YEARS | [x=979]ENTER ALL CLAIMS OR LOSSES (REGARDLESS OF FAULT AND WHETHER OR NOT INSURED) OR OCCURRENCES THAT MAY GIVE RISE TO CLAIMS | [x=2019]TOTAL LOSSES: | [x=2235]15000.0
+y≈925: [x=194]OCCURRENCE | [x=195]DATE OF | [x=412]LINE | [x=646]TYPE | [x=956]DESCRIPTION OF OCCURRENCE OR CLAIM | [x=1439]DATE OF CLAIM | [x=1733]AMOUNT PAID | [x=2069]AMOUNT RESERVED | [x=2293]SUBRO- | [x=2294]GATION | [x=2295]YIN | [x=2395]Y
+y≈974: [x=198]12/15/2018 | [x=409]Property | [x=800]Slip and Fall Accident at Restaurant | [x=1440]01/03/2018 | [x=1653]10000.0 | [x=1986]5000.0
+y≈1023: [x=413]General L | [x=1609]0.0 | [x=1955]0.0 | [x=2295]N | [x=2415]Y
+y≈1075: [x=409]Workers | [x=1608]0.0 | [x=1955]0.0
+y≈1129: [x=193]SIGNATURE
+y≈1176: [x=1233]Copy of the Notice of Information Practices (Privacy) has been given to the applicant: (Not required in all states, contact your agent or broker for your state's requirements )
+y≈1235: [x=637]PERSONAL INFORMATION ABOUT YOU, INCLUDING INFORMATION FROM | [x=1026]OTHER THAN YOU IN CONNECTION WITH THIS APPLICATION FOR INSURANCE AND SUBSEQUENT AMENDMENTS AND RENEWALS | [x=1256]A CREDIT | [x=1358]OR | [x=1630]OTHER INVESTIGATIVE REPORT , | [x=2168]MAY BE COLLECTED FROM PERSONS | [x=2206]SUCH INFORMATION AS WELL AS
+y≈1336: [x=172]WITHOUT | [x=425]YOUR AUTHORIZATION_ | [x=790]OTHER PERSONAL AND PRIVILEGED INFORMATION COLLECTED BY US OR OUR AGENTS MAY | [x=864]CREDIT SCORING INFORMATION | [x=1175]MAY BE | [x=1845]USED TO HELP DETERMINE EITHER YOUR ELIGIBILITY FOR INSURANCE OR THE | [x=1968]IN CERTAIN CIRCUMSTANCES BE DISCLOSED TO THIRD PARTIES
+y≈1371: [x=355]PREMIUM YOU WILL BE CHARGED_ | [x=732]WE MAY USE | [x=748]REVIEW YOUR PERSONAL INFORMATION IN OUR FILES AND REQUEST CORRECTION OF | [x=1403]A THIRD PARTY IN CONNECTION WITH THE DEVELOPMENT OF YOUR SCORE. | [x=1550]ANY INACCURACIES_ | [x=2079]YOU MAY ALSO HAVE THE RIGHT TO REQUEST IN | [x=2220]YOU MAY HAVE THE RIGHT TO
+y≈1439: [x=1122]WRITING THAT WE CONSIDER EXTRAORDINARY LIFE CIRCUMSTANCES IN CONNECTION WITH THE DEVELOPMENT OF YOUR CREDIT SCORE | [x=1275]BE LIMITED IN SOME STATES. PLEASE CONTACT YOUR AGENT OR BROKER TO LEARN HOW THESE RIGHTS MAY APPLY IN YOUR STATE OR FOR INSTRUCTIONS ON | [x=2299]THESE RIGHTS MAY
+y≈1506: [x=312]HOW TO SUBMIT A REQUEST | [x=544]TO | [x=1437]US FOR A MORE DETAILED DESCRIPTION OF YOUR RIGHTS AND OUR PRACTICES REGARDING PERSONAL INFORMATION:
+y≈1544: [x=353](Not applicable in AZ, CA, DE, KS, MA, | [x=1229]MN; ND, NY, OR, VA, or WV. Specific ACORD 38s are available for applicants in these states:) | [x=2111](Applicant's Initials):
+y≈1601: [x=211]Applicable in | [x=353]AL, | [x=656]AR; DC; LA, MD, NM; Rl and WV: | [x=969]Any _ | [x=1727]person who knowingly (or willfully) * presents a false or fraudulent claim for payment of a loss or
+y≈1638: [x=176]benefit or | [x=1349]knowingly (or willfully) * presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in
+y≈1677: [x=155]prison: | [x=374]Applies in MD Only:
+y≈1721: [x=251]Applicable in CO: | [x=1433]It is unlawful to knowingly provide false, incomplete , or misleading facts or information to an insurance company for the purpose of
+y≈1761: [x=184]defrauding | [x=293]or | [x=598]attempting to defraud the company: | [x=1550]Penalties may include imprisonment; fines, denial of insurance and civil damages: | [x=2256]Any | [x=2371]insurance
+y≈1799: [x=1274]company or agent of an insurance company who knowingly provides false, incomplete , or misleading facts or information to a policyholder or claimant for the
+y≈1838: [x=1275]purpose of defrauding or attempting to defraud the policyholder or claimant with regard to a settlement or award payable from insurance proceeds shall be
+y≈1876: [x=792]reported to the Colorado Division of Insurance within the Department of Regulatory Agencies.
+y≈1920: [x=309]Applicable in FL and OK: | [x=565]Any | [x=1438]person who knowingly and with intent to injure, defraud, or deceive any insurer files a statement of claim or an | [x=2366]application
+y≈1958: [x=836]containing any false, incomplete, or misleading information is guilty of a felony (of the third degree)* | [x=1749]Applies in FL Only:
+y≈2002: [x=1275]Applicable in KS: Any person who, knowingly and with intent to defraud, presents, causes to be presented or prepares with knowledge or belief that it will be
+y≈2043: [x=1274]presented to or by an insurer; purported insurer, broker or any agent thereof, any written statement as part of,or in support of, an application for the issuance
+y≈2080: [x=690]of, or the rating of an insurance policy for personal or commercial insurance_ | [x=1314]or | [x=1714]a claim for payment or other benefit pursuant to | [x=2271]an insurance policy for
+y≈2118: [x=1274]commercial or personal insurance which such person knows to contain materially false information concerning any fact material thereto; or conceals, for the
+y≈2157: [x=901]purpose of misleading, information concerning any fact material thereto commits a fraudulent insurance act.
+y≈2202: [x=211]Applicable in | [x=358]KY, | [x=528]NY, OH and PA: | [x=709]Any | [x=1597]person who knowingly and with intent to defraud any insurance company or other person files an application for
+y≈2239: [x=1275]insurance or statement of claim containing any materially false information or conceals for the purpose of misleading, information concerning any fact material
+y≈2277: [x=1275]thereto commits a fraudulent insurance act, which is a crime and subjects such person to criminal and civil penalties (not to exceed five thousand dollars and
+y≈2315: [x=493]the stated value of the claim for each such violation)* | [x=1066]Applies in NY Only.
+y≈2365: [x=381]Applicable in ME; TN; VA and WA: | [x=1560]It is a crime to knowingly provide false, incomplete or misleading information to an insurance company for the purpose
+y≈2402: [x=304]of defrauding the company_ | [x=1105]Penalties (may) * include imprisonment; fines and denial of insurance benetits. | [x=1851]Applies in ME Only.
+y≈2451: [x=247]Applicable in NJ: | [x=441]Any | [x=1464]person who includes any false or misleading information on an application for an insurance policy is subject to criminal and civil
+y≈2490: [x=172]penalties
+y≈2533: [x=248]Applicable in OR: | [x=443]Any | [x=1463]person who knowingly and with intent to defraud or solicit another to defraud the insurer by submitting an application containing a
+y≈2572: [x=588]false statement as to any material fact may be violating state law.
+y≈2615: [x=245]Applicable in PR: | [x=433]Any | [x=1458]person who knowingly and with the intention of defrauding presents false information in an insurance application; or presents, helps,
+y≈2653: [x=1275]or causes the presentation of a fraudulent claim for the payment of a loss or any other benefit; or presents more than one claim for the same damage or loss,
+y≈2691: [x=1274]shall incur a felony and, upon conviction; shall be sanctioned for each violation by a fine of not less than five thousand dollars (85,000) and not more than ten
+y≈2728: [x=823]thousand dollars (810,000) , or a fixed term of imprisonment for three (3) years, or both penalties. | [x=2004]Should aggravating circumstances [be] present, the penalty
+y≈2768: [x=839]thus established may be increased to a maximum of five (5) years, if extenuating circumstances | [x=2018]are present; it may be reduced to a minimum of two (2)
+y≈2806: [x=149]years:
+y≈2887: [x=467]ANSWERS TO QUESTIONS ON THIS APPLICATION: | [x=1274]THE UNDERSIGNED IS AN AUTHORIZED REPRESENTATIVE OF THE APPLICANT AND REPRESENTS THAT REASONABLE INQUIRY HAS BEEN MADE TO OBTAIN THE | [x=1649]HEISHE REPRESENTS THAT THE ANSWERS ARE TRUE, CORRECT AND COMPLETE TO THE BEST OF HISIHER
+y≈2920: [x=202]KNOWLEDGE.
+y≈2973: [x=247]PRODUCER'S SIGNATURE | [x=1282]PRODUCER'S NAME (Please Print) | [x=2190](Required in Florida) | [x=2260]STATE PRODUCER LICENSE NO
+y≈3022: [x=2098]IN
+y≈3073: [x=246]APPLICANT'S SIGNATURE | [x=1803]DATE | [x=2265]NATIONAL PRODUCER NUMBER
+y≈3175: [x=270]ACORD 125 (2016/03) | [x=1273]Page 4 of 4

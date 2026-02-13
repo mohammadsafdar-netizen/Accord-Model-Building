@@ -40,6 +40,11 @@ from prompts import (
 )
 from spatial_extract import spatial_preextract
 from section_config import get_section_ids_for_category
+
+try:
+    from rag_examples import ExampleRAGStore
+except ImportError:
+    ExampleRAGStore = None  # type: ignore
 from form_sections import (
     get_sections_for_form,
     get_section_scoped_bbox_text,
@@ -91,6 +96,7 @@ class ACORDExtractor:
         vision_batch_size: Optional[int] = None,
         vision_max_tokens: int = 16384,
         strict_verify: bool = False,
+        rag_store: Optional[Any] = None,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -106,6 +112,8 @@ class ACORDExtractor:
         self.vision_max_tokens = vision_max_tokens
         # When True, drop extracted values that do not appear in BBox OCR text (reduces hallucinations, may drop some valid paraphrases).
         self.strict_verify = strict_verify
+        # Optional RAG: few-shot examples from ground truth (ExampleRAGStore). Improves accuracy.
+        self.rag_store = rag_store
 
     # ==================================================================
     # Main entry point
@@ -622,6 +630,9 @@ class ACORDExtractor:
             batch = field_names[i:i + BATCH_SIZE]
             batch_tooltips = {k: v for k, v in tooltips.items() if k in batch}
 
+            few_shot = ""
+            if self.rag_store is not None:
+                few_shot = self.rag_store.retrieve(form_type, category, batch, k=3)
             prompt = build_extraction_prompt(
                 form_type=form_type,
                 category=category,
@@ -631,6 +642,7 @@ class ACORDExtractor:
                 bbox_text=bbox_text,
                 label_value_text=lv_text,
                 section_scoped=section_scoped,
+                few_shot_examples=few_shot,
             )
             response = self.llm.generate(prompt)
             batch_result = self.llm.parse_json(response)
@@ -649,12 +661,16 @@ class ACORDExtractor:
             for i in range(0, len(missing), BATCH_SIZE):
                 gap_batch = missing[i:i + BATCH_SIZE]
                 gap_tooltips = {k: v for k, v in tooltips.items() if k in gap_batch}
+                gap_few_shot = ""
+                if self.rag_store is not None:
+                    gap_few_shot = self.rag_store.retrieve_for_fields(form_type, gap_batch, k=2)
                 gap_prompt = build_gap_fill_prompt(
                     form_type=form_type,
                     missing_fields=gap_batch,
                     tooltips=gap_tooltips,
                     bbox_text=bbox_text,
                     label_value_text=lv_text,
+                    few_shot_examples=gap_few_shot,
                 )
                 gap_response = self.llm.generate(gap_prompt)
                 gap_result = self.llm.parse_json(gap_response)
@@ -1037,6 +1053,9 @@ class ACORDExtractor:
             # Get pre-extracted row data for this driver
             row_data = driver_rows.get(driver_num, "")
 
+            driver_few_shot = ""
+            if self.rag_store is not None:
+                driver_few_shot = self.rag_store.retrieve(form_type, "driver", field_names, k=3)
             print(f"    Driver {suffix} (#{driver_num}) - {len(field_names)} fields ...")
             prompt = build_driver_row_prompt(
                 driver_num=driver_num,
@@ -1047,6 +1066,7 @@ class ACORDExtractor:
                 bbox_text=bbox_text,
                 column_map=column_map,
                 row_data=row_data,
+                few_shot_examples=driver_few_shot,
             )
             response = self.llm.generate(prompt)
             result = self.llm.parse_json(response)
@@ -1166,6 +1186,9 @@ class ACORDExtractor:
             field_names = suffix_groups[suffix_key]
             tooltips = self.registry.get_tooltips(form_type, field_names)
 
+            vehicle_few_shot = ""
+            if self.rag_store is not None:
+                vehicle_few_shot = self.rag_store.retrieve(form_type, "vehicle", field_names, k=3)
             print(f"    Vehicle {suffix} - {len(field_names)} fields ...")
             prompt = build_vehicle_prompt(
                 form_type=form_type,
@@ -1174,6 +1197,7 @@ class ACORDExtractor:
                 tooltips=tooltips,
                 docling_text=docling_text,
                 bbox_text=bbox_text,
+                few_shot_examples=vehicle_few_shot,
             )
             response = self.llm.generate(prompt)
             result = self.llm.parse_json(response)
@@ -1204,12 +1228,16 @@ class ACORDExtractor:
         for i in range(0, len(missing_fields), batch_size):
             batch = missing_fields[i:i + batch_size]
             batch_tooltips = {k: v for k, v in tooltips.items() if k in batch}
+            gap_few_shot = ""
+            if self.rag_store is not None:
+                gap_few_shot = self.rag_store.retrieve_for_fields(form_type, batch, k=2)
             prompt = build_gap_fill_prompt(
                 form_type=form_type,
                 missing_fields=batch,
                 tooltips=batch_tooltips,
                 bbox_text=bbox_text,
                 label_value_text=lv_text,
+                few_shot_examples=gap_few_shot,
             )
             response = self.llm.generate(prompt)
             result = self.llm.parse_json(response)

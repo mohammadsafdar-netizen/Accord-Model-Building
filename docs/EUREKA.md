@@ -13,11 +13,52 @@ This guide covers setting up and running the best_project pipeline on the **Eure
 3. **Run:**
    ```bash
    cd best_project
-   python test_pipeline.py --gpu --docling --text-llm
+   python test_pipeline.py --gpu
    ```
-   That runs the full pipeline on all discovered forms in `test_data/`, compares to ground truth, and writes results to `test_output/`.
+   That runs the full pipeline (Docling + bbox OCR + text LLM) on all discovered forms in `test_data/`, compares to ground truth, and writes results to `test_output/`.  
+   **Note:** `test_pipeline.py` has no `--text-llm` or `--docling` flags; it always uses Docling and the text LLM.
 
 No extra download of test docs is needed **if** `test_data/` and `schemas/` are committed in your repo (they are not in `.gitignore`). If your repo omits `test_data/` (e.g. large files not pushed), copy it onto Eureka or set `BEST_PROJECT_TEST_DATA` to its path.
+
+### Including the VLM (vision pass)
+
+The command above uses **only the text LLM**. To run the **full pipeline with the VLM** (vision on form images for missing fields):
+
+1. **Pull a vision model in Ollama** (once):
+   ```bash
+   ollama pull llava:7b
+   # or a larger model if you have VRAM, e.g.:
+   # ollama pull qwen2.5-vl:7b
+   # ollama pull qwen2.5-vl:30b
+   ```
+
+2. **Run with `--vision`:**
+   ```bash
+   python test_pipeline.py --gpu --vision --vision-model llava:7b
+   ```
+   For a 30B vision model (e.g. on Eureka):
+   ```bash
+   ollama pull qwen3-vl:30b
+   python test_pipeline.py --gpu --vision --vision-model qwen3-vl:30b
+   ```
+
+   Optional flags:
+   - `--vision-model llava:7b` (default) or `qwen2.5-vl:7b`, `qwen3-vl:30b`, etc.
+   - `--vision-checkboxes-only` — VLM only for checkboxes (faster); text LLM fills the rest.
+   - `--vision-fast` — larger batches, 1 page; faster but more risk of truncation.
+   - `--vision-max-tokens 16384` — reduce truncation (default 16384).
+
+So: **text-only** = `python test_pipeline.py --gpu`. **With VLM** = add `--vision --vision-model <name>` (after `ollama pull <name>`). Do **not** pass `--text-llm` or `--docling`; the test script does not accept those.
+
+### RAG (few-shot examples)
+
+To improve extraction accuracy using few-shot examples from ground truth in `test_data/`:
+
+```bash
+python test_pipeline.py --gpu --use-rag
+```
+
+This builds an in-memory store from all GT JSONs under `test_data/` and injects example field→value pairs into each category prompt. See `docs/RAG_DESIGN.md` for details.
 
 ---
 
@@ -87,7 +128,7 @@ pytest tests/ -m e2e -v
 ```bash
 ./scripts/run_eureka.sh pipeline
 # or directly:
-python test_pipeline.py --gpu --docling --text-llm
+python test_pipeline.py --gpu
 ```
 
 **Single PDF extraction:**
@@ -117,4 +158,4 @@ python main.py /path/to/form125.pdf --form-type 125 --docling --gpu --text-llm
 - [ ] `test_data/` populated with PDFs and matching `.json` ground truth (see README)
 - [ ] Optional: set `BEST_PROJECT_*` and `USE_GPU=1` in env
 - [ ] Run unit tests: `pytest tests/ -v`
-- [ ] Run full pipeline: `./scripts/run_eureka.sh pipeline` or `python test_pipeline.py --gpu --docling --text-llm`
+- [ ] Run full pipeline: `./scripts/run_eureka.sh pipeline` or `python test_pipeline.py --gpu`

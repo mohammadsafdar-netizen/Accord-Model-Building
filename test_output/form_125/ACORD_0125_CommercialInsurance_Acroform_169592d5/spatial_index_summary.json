@@ -5,7 +5,7 @@
     "rows": 61,
     "columns": 38,
     "tables": 1,
-    "label_value_pairs": 28
+    "label_value_pairs": 18
   },
   {
     "page": 2,
@@ -13,7 +13,7 @@
     "rows": 47,
     "columns": 41,
     "tables": 1,
-    "label_value_pairs": 51
+    "label_value_pairs": 45
   },
   {
     "page": 3,
@@ -29,6 +29,6 @@
     "rows": 72,
     "columns": 41,
     "tables": 1,
-    "label_value_pairs": 28
+    "label_value_pairs": 20
   }
 ]

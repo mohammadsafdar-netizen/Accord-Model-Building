@@ -1,0 +1,182 @@
+[
+  {
+    "section_id": "header_date",
+    "page": 0,
+    "title": "DATE (MMIDDIYYYY)",
+    "crop_bbox": [
+      84,
+      90,
+      2435,
+      234
+    ],
+    "block_count": 5
+  },
+  {
+    "section_id": "agency_carrier",
+    "page": 0,
+    "title": "NAIC CODE",
+    "crop_bbox": [
+      73,
+      212,
+      2435,
+      344
+    ],
+    "block_count": 6
+  },
+  {
+    "section_id": "policy_underwriter",
+    "page": 0,
+    "title": "COMPANY POLICY OR PROGRAM NAME",
+    "crop_bbox": [
+      68,
+      312,
+      2449,
+      685
+    ],
+    "block_count": 21
+  },
+  {
+    "section_id": "status_transaction",
+    "page": 0,
+    "title": "QUOTE",
+    "crop_bbox": [
+      70,
+      619,
+      2406,
+      839
+    ],
+    "block_count": 22
+  },
+  {
+    "section_id": "lines_of_business",
+    "page": 0,
+    "title": "LINES OF BUSINESS",
+    "crop_bbox": [
+      68,
+      819,
+      2370,
+      1283
+    ],
+    "block_count": 45
+  },
+  {
+    "section_id": "attachments",
+    "page": 0,
+    "title": "ATTACHMENTS",
+    "crop_bbox": [
+      72,
+      1268,
+      2467,
+      1829
+    ],
+    "block_count": 41
+  },
+  {
+    "section_id": "policy_info",
+    "page": 0,
+    "title": "POLICY INFORMATION",
+    "crop_bbox": [
+      68,
+      1817,
+      2471,
+      2105
+    ],
+    "block_count": 22
+  },
+  {
+    "section_id": "applicant_info",
+    "page": 0,
+    "title": "NAME (First Named Insured) AND MAILING ADDRESS (including ZI",
+    "crop_bbox": [
+      72,
+      2042,
+      2475,
+      3221
+    ],
+    "block_count": 80
+  },
+  {
+    "section_id": "status_transaction",
+    "page": 1,
+    "title": "AGENCY CUSTOMER ID:",
+    "crop_bbox": [
+      70,
+      95,
+      2476,
+      3220
+    ],
+    "block_count": 264
+  },
+  {
+    "section_id": "status_transaction",
+    "page": 2,
+    "title": "AGENCY CUSTOMER ID:",
+    "crop_bbox": [
+      70,
+      92,
+      2473,
+      829
+    ],
+    "block_count": 31
+  },
+  {
+    "section_id": "policy_underwriter",
+    "page": 2,
+    "title": "ANY OTHER INSURANCE WITH THIS COMPANY? (List policy numbers)",
+    "crop_bbox": [
+      70,
+      764,
+      2477,
+      3011
+    ],
+    "block_count": 100
+  },
+  {
+    "section_id": "lines_of_business",
+    "page": 2,
+    "title": "PREMIUM",
+    "crop_bbox": [
+      67,
+      2988,
+      2333,
+      3220
+    ],
+    "block_count": 21
+  },
+  {
+    "section_id": "status_transaction",
+    "page": 3,
+    "title": "AGENCY CUSTOMER ID:",
+    "crop_bbox": [
+      72,
+      92,
+      2469,
+      282
+    ],
+    "block_count": 13
+  },
+  {
+    "section_id": "policy_underwriter",
+    "page": 3,
+    "title": "POLICY NUMBER",
+    "crop_bbox": [
+      176,
+      263,
+      2237,
+      335
+    ],
+    "block_count": 5
+  },
+  {
+    "section_id": "lines_of_business",
+    "page": 3,
+    "title": "PREMIUM",
+    "crop_bbox": [
+      67,
+      312,
+      2476,
+      3220
+    ],
+    "block_count": 185
+  }
+]

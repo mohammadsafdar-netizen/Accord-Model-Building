@@ -22,10 +22,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
-from config import get_schemas_dir, OLLAMA_URL_DEFAULT, USE_GPU_DEFAULT
+# Avoid long Paddle connectivity check on import when paddleocr is installed (helps 6GB / low-VRAM)
+os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
+
+from config import get_schemas_dir, get_test_data_dir, get_rag_gt_dir, OLLAMA_URL_DEFAULT, USE_GPU_DEFAULT
 from ocr_engine import OCREngine, SURYA_AVAILABLE, PADDLEOCR_AVAILABLE
 from llm_engine import LLMEngine
 from schema_registry import SchemaRegistry
@@ -99,6 +103,14 @@ Examples:
         help="Run text LLM for category/driver/vehicle/gap-fill. Off by default.",
     )
     parser.add_argument(
+        "--use-rag", action="store_true",
+        help="Use few-shot RAG from ground truth (improves accuracy). Needs --rag-gt-dir or test_data with GT JSONs.",
+    )
+    parser.add_argument(
+        "--rag-gt-dir", type=Path, default=None,
+        help="Directory of ground-truth JSONs for RAG (default: TEST_DATA_DIR from config).",
+    )
+    parser.add_argument(
         "--vision-model", type=str, default="llava:7b",
         help="Ollama vision model for --vision (default: llava:7b)",
     )
@@ -156,11 +168,19 @@ Examples:
     schemas_dir = args.schemas_dir or get_schemas_dir()
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
+    rag_store = None
+    if args.use_rag:
+        from rag_examples import build_example_store
+        gt_dir = args.rag_gt_dir or get_rag_gt_dir()
+        rag_store = build_example_store(gt_dir, schemas_dir)
+        print("  [RAG] Few-shot examples enabled (loaded from ground truth).")
+
     extractor = ACORDExtractor(
         ocr, llm, registry,
         use_vision=args.vision,
         use_text_llm=args.text_llm,
         use_vision_descriptions=args.vision_descriptions,
+        rag_store=rag_store,
     )
 
     # --- Run extraction ---

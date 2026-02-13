@@ -204,6 +204,7 @@ def build_extraction_prompt(
     max_docling: int = 8000,
     max_bbox: int = 5000,
     section_scoped: bool = False,
+    few_shot_examples: str = "",
 ) -> str:
     """
     Build a category-specific extraction prompt.
@@ -243,7 +244,7 @@ def build_extraction_prompt(
 
 === FIELDS TO EXTRACT ===
 {field_block}
-
+{f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === DOCLING OCR TEXT (structured markdown) ===
 {docling_text[:max_docling]}
 
@@ -285,6 +286,7 @@ def build_driver_row_prompt(
     bbox_text: str,
     column_map: Optional[Dict[str, int]] = None,
     row_data: str = "",
+    few_shot_examples: str = "",
 ) -> str:
     """
     Build a prompt for extracting a single driver row.
@@ -341,7 +343,7 @@ CRITICAL DISAMBIGUATION:
 
 FIELDS (suffix _{suffix}):
 {field_block}
-
+{f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === BBOX OCR (use X positions to identify columns) ===
 {bbox_text[:5000]}
 
@@ -364,6 +366,7 @@ def build_vehicle_prompt(
     tooltips: Dict[str, str],
     docling_text: str,
     bbox_text: str,
+    few_shot_examples: str = "",
 ) -> str:
     """Build a prompt for extracting vehicle fields for a specific suffix."""
     field_block = _format_fields_with_tooltips(field_names, tooltips)
@@ -391,7 +394,7 @@ def build_vehicle_prompt(
 
 FIELDS (suffix _{suffix}):
 {field_block}
-
+{f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === DOCLING OCR ===
 {docling_text[:6000]}
 
@@ -416,6 +419,7 @@ def build_gap_fill_prompt(
     tooltips: Dict[str, str],
     bbox_text: str,
     label_value_text: str = "",
+    few_shot_examples: str = "",
 ) -> str:
     """
     Second-pass prompt to fill fields missed in the first extraction.
@@ -433,7 +437,7 @@ def build_gap_fill_prompt(
 
 === MISSING FIELDS ===
 {field_block}
-
+{f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === BBOX OCR TEXT (positional text - search carefully) ===
 {bbox_text[:8000]}
 

@@ -27,11 +27,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 # Reduce PyTorch CUDA memory fragmentation on limited GPUs
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+# Avoid long Paddle connectivity check on import when paddleocr is installed (helps 6GB / low-VRAM)
+os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
 
 # VRAM reserve (GB) for OCR process - leave this much for Ollama / other processes
 VRAM_RESERVE_GB_DEFAULT = 2
 
-from config import TEST_DATA_DIR, OUTPUT_DIR, get_schemas_dir
+from config import TEST_DATA_DIR, OUTPUT_DIR, get_schemas_dir, get_rag_gt_dir
 from ocr_engine import OCREngine
 from llm_engine import LLMEngine
 from schema_registry import SchemaRegistry
@@ -192,6 +194,7 @@ def run_single_form(
     use_graph: bool = False,
     vision_batch_size: Optional[int] = None,
     vision_max_tokens: int = 16384,
+    rag_store: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -218,6 +221,7 @@ def run_single_form(
         vision_fast=vision_fast,
         vision_batch_size=vision_batch_size,
         vision_max_tokens=vision_max_tokens,
+        rag_store=rag_store,
     )
 
     start = time.time()
@@ -438,6 +442,10 @@ def main():
         "--vision-max-tokens", type=int, default=16384, metavar="N",
         help="Max tokens per VLM response (default: 16384). Reduces truncation/empty batches; allows larger --vision-batch-size.",
     )
+    parser.add_argument(
+        "--use-rag", action="store_true",
+        help="Use few-shot RAG from test_data ground truth to improve extraction accuracy.",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -536,6 +544,12 @@ def main():
     schemas_dir = get_schemas_dir()
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
+    rag_store = None
+    if args.use_rag:
+        from rag_examples import build_example_store
+        rag_store = build_example_store(get_rag_gt_dir(), schemas_dir)
+        print("  [RAG] Few-shot examples enabled (loaded from ground truth).")
+
     # ---- Run tests per form type ----
     all_results: Dict[str, Any] = {}
     form_counter = 0
@@ -569,6 +583,7 @@ def main():
                 use_graph=args.use_graph,
                 vision_batch_size=args.vision_batch_size,
                 vision_max_tokens=args.vision_max_tokens,
+                rag_store=rag_store,
             )
             type_results.append(result)
 

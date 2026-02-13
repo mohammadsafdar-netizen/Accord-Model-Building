@@ -1,0 +1,482 @@
+{
+  "Form_CompletionDate_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Insurer_FullName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Insurer_NAICCode_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_FullName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_PolicyNumberIdentifier_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Insurer_Underwriter_OfficeIdentifier_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_ContactPerson_PhoneNumber_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_FaxNumber_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_ContactPerson_FullName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_MailingAddress_LineOne_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Producer_MailingAddress_CityName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_EffectiveDate_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_ExpirationDate_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "BillingPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialPolicy_BillingPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "GeneralInformation_BillingPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "PaymentPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialPolicy_PaymentPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "GeneralInformation_PaymentPlan_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "NamedInsured_FullName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "NamedInsured_MailingAddress_CityName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "NamedInsured_TaxIdentifier_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "FederalIDNumber_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialPolicy_FederalIDNumber_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "BoilerAndMachineryLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CyberAndPrivacyLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialVehicleLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "FiduciaryLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "BusinessOwnersLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "GarageAndDealersLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_LineOfBusiness_LiquorLiabilityIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "LiquorLiabilityLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialInlandMarineLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "MotorCarrierLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialPropertyLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_LineOfBusiness_CrimeIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CrimeLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_LineOfBusiness_UmbrellaIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialUmbrellaLineOfBusiness_PremiumAmount_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_QuoteIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_BoundIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_IssueIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_CancelIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_RenewIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_ChangeIndicator_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_EffectiveDate_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Policy_Status_EffectiveTime_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "Insurer_Underwriter_FullName_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialStructure_PhysicalAddress_LineOne_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialStructure_PhysicalAddress_StateOrProvinceCode_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "LocationBuilding_Address_A": {
+    "source": "spatial",
+    "basis": "Layout: label text located in bbox region, value from adjacent region (below/right) per form template.",
+    "confidence": null
+  },
+  "CommercialPolicy_ApplicantOtherBusinessVenturesCoverageNotRequestedExplanation_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"BUSINESS PHONE #:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.71
+  },
+  "AdditionalInterest_Primary_FaxNumber_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"FAX\" \u2192 value matched to field by field_name.",
+    "confidence": 0.73
+  },
+  "CommercialStructure_PhysicalAddress_Address_StateOrProvinceCode_D": {
+    "source": "label_value",
+    "basis": "OCR pair \"ADDRESS:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.82
+  },
+  "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"CODE:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.92
+  },
+  "CancelNonRenew_UnderwritingConditionCorrectedDescription_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"CANCEL\" \u2192 value matched to field by field_name.",
+    "confidence": 0.99
+  },
+  "Policy_Nature_of_Business_Description_Primary_Operations_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"BUSINESS OWNERS\" \u2192 value matched to field by field_name.",
+    "confidence": 0.95
+  },
+  "CommercialPolicy_PastLossesClaimsRelatingSexualAbuseDiscriminationNegligentHiringExplanation_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"COMMERCIAL GENERAL LIABILITY\" \u2192 value matched to field by field_name.",
+    "confidence": 0.71
+  },
+  "CommercialPolicy_PastLossesClaimsRelatingSexualAbuseDiscriminationNegligentHiringExplanation": {
+    "source": "label_value",
+    "basis": "OCR pair \"COMMERCIAL INLAND MARINE\" \u2192 value matched to field by field_name.",
+    "confidence": 0.74
+  },
+  "CommercialPolicy_PastFiveYearsAnyApplicantIndictedOrConvictedFraudBriberyArsonExplanation_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"COMMERCIAL PROPERTY\" \u2192 value matched to field by field_name.",
+    "confidence": 0.82
+  },
+  "CommercialPolicy_Question_KAKCode_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"Our company has\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.68
+  },
+  "NamedInsured_NAICSCode_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"NAICS\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.84
+  },
+  "NamedInsured_NAICSCode_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"NAICS\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.6
+  },
+  "NamedInsured_NAICSCode_C": {
+    "source": "label_value",
+    "basis": "OCR pair \"NAICS\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.99
+  },
+  "PriorCoverage_GeneralLiability_TotalPremiumAmount_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"TOTAL BUILDING AREA:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.68
+  },
+  "Producer_MailingAddress_StreetAddress_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"STREET\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.64
+  },
+  "CommercialStructure_PhysicalAddress_Address_CountyName_D": {
+    "source": "label_value",
+    "basis": "OCR pair \"COUNTY:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.88
+  },
+  "Producer_MailingAddress_DescriptionOfPrimaryOperations_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"DESCRIPTION OF OPERATIONS:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.82
+  },
+  "Producer_MailingAddress_StreetName_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"STREET\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.92
+  },
+  "CommercialStructure_PhysicalAddress_CountyName_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"COUNTY:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.83
+  },
+  "PriorCoverage_GeneralLiability_TotalPremiumAmount_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"TOTAL BUILDING AREA:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.86
+  },
+  "Policy_LineOfBusiness_OtherLineOfBusinessDescription_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"DESCRIPTION OF OPERATIONS:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.86
+  },
+  "Producer_MailingAddress_StreetName_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"STREET\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.92
+  },
+  "Producer_MailingAddress_OccUPIEDArea_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"OCCUPIED AREA:\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.95
+  },
+  "CommercialStructure_PhysicalAddress_CountyName_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"COUNTY:\" \u2192 value matched to field by tooltip.",
+    "confidence": 1.0
+  },
+  "PriorCoverage_GeneralLiability_TotalPremiumAmount_C": {
+    "source": "label_value",
+    "basis": "OCR pair \"TOTAL BUILDING AREA:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.76
+  },
+  "Policy_LineOfBusiness_OtherLineOfBusinessDescription_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"DESCRIPTION OF OPERATIONS:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.6
+  },
+  "Producer_MailingAddress_StreetName_C": {
+    "source": "label_value",
+    "basis": "OCR pair \"STREET\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.89
+  },
+  "Producer_MailingAddress_OccupiedArea_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"OCCUPIED AREA:\" \u2192 value matched to field by tooltip.",
+    "confidence": 1.0
+  },
+  "CommercialStructure_PhysicalAddress_CountyName_C": {
+    "source": "label_value",
+    "basis": "OCR pair \"COUNTY:\" \u2192 value matched to field by tooltip.",
+    "confidence": 1.0
+  },
+  "Policy_LineOfBusiness_OtherLineOfBusinessDescription_C": {
+    "source": "label_value",
+    "basis": "OCR pair \"DESCRIPTION OF OPERATIONS:\" \u2192 value matched to field by field_name.",
+    "confidence": 0.8
+  },
+  "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"SERVICE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.71
+  },
+  "AdditionalInterest_Item_ScheduledItemProducerIdentifier_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"ITEM\" \u2192 value matched to field by tooltip.",
+    "confidence": 1.0
+  },
+  "Subsidiary_ParentSubsidiaryRelationshipDescription_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"RELATIONSHIP DESCRIPTION\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.92
+  },
+  "Subsidiary_ParentSubsidiaryRelationshipDescription_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"RELATIONSHIP DESCRIPTION\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.77
+  },
+  "CommercialPolicy_PastFiveYearsAnyApplicantIndictedOrConvictedFraudBriberyArsonExplanation": {
+    "source": "label_value",
+    "basis": "OCR pair \"HAS APPLICANT HAD A FORECLOSURE, REPOSSESSION, BANKRUPTCY OR FILED FOR BANKRUPTCY DURING THE LAST FIVE (5) YEARS?\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.75
+  },
+  "CommercialPolicy_RemarkText_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"REMARKS\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.45
+  },
+  "CurrentCoverage_GeneralLiability_EffectiveDate_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"EFFECTIVE DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.82
+  },
+  "CurrentCoverage_GeneralLiability_ExpirationDate_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"EXPIRATION DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.76
+  },
+  "PriorCoverage_GeneralLiability_EffectiveDate_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"EFFECTIVE DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.99
+  },
+  "PriorCoverage_GeneralLiability_ExpirationDate_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"EXPIRATION DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.95
+  },
+  "PriorCoverage_GeneralLiability_EffectiveDate_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"EFFECTIVE DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.99
+  },
+  "PriorCoverage_GeneralLiability_ExpirationDate_B": {
+    "source": "label_value",
+    "basis": "OCR pair \"EXPIRATION DATE\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.95
+  },
+  "LossHistory_ClaimStatus_SubrogationCode_A": {
+    "source": "label_value",
+    "basis": "OCR pair \"GATION\" \u2192 value matched to field by tooltip.",
+    "confidence": 0.96
+  },
+  "Policy_LineOfBusiness_OtherLineOfBusinessDescription_D": {
+    "source": "label_value",
+    "basis": "OCR pair \"of defrauding the company.\" \u2192 value matched to field by field_name.",
+    "confidence": 0.66
+  }
+}

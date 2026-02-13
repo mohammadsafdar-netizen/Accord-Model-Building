@@ -29,7 +29,8 @@ case "${1:-tests}" in
     pytest tests/ -v -m e2e
     ;;
   pipeline)
-    python test_pipeline.py --gpu --docling --text-llm "${@:2}"
+    # Pass extra flags after pipeline, e.g. pipeline --use-rag or pipeline --vision --vision-model llava:7b
+    python test_pipeline.py --gpu "${@:2}"
     ;;
   extract)
     if [ -z "${2:-}" ]; then

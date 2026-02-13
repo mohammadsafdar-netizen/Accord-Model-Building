@@ -61,6 +61,7 @@ Scanned PDF
 | `prompts.py` | Prompt builders: form-specific, category-specific |
 | `schema_registry.py` | Schema loading: fields, tooltips, categories |
 | `compare.py` | Accuracy comparison against ground truth |
+| `rag_examples.py` | RAG store: few-shot examples from ground truth (used when `--use-rag`) |
 | `utils.py` | JSON cleanup, logging helpers |
 | `test_pipeline.py` | End-to-end test for all 3 forms |
 | `tests/` | Unit tests (`tests/unit/`) and E2E (`tests/integration/`, `-m e2e`); run with `pytest tests/` |
@@ -153,6 +154,10 @@ python main.py path/to/form.pdf --gpu
 ollama pull llava:7b
 python main.py path/to/form.pdf --vision
 python main.py path/to/form.pdf --vision --vision-model llava:13b
+
+# Enable RAG (few-shot examples from ground truth for better accuracy)
+python main.py path/to/form.pdf --use-rag
+python main.py path/to/form.pdf --docling --text-llm --use-rag --rag-gt-dir ./test_data
 ```
 
 ### Configuration (Eureka / other machines)
@@ -163,6 +168,7 @@ Paths and defaults can be set via **environment variables** so the same code run
 - `BEST_PROJECT_TEST_DATA` — Test data dir (default: `<root>/test_data`)
 - `BEST_PROJECT_OUTPUT` — Output dir (default: `<root>/test_output`)
 - `BEST_PROJECT_SCHEMAS` — Schema JSON dir (default: `<root>/schemas`)
+- `BEST_PROJECT_RAG_GT` — Ground-truth dir for RAG when `--use-rag` (default: same as TEST_DATA)
 - `OLLAMA_URL` — Ollama API URL
 - `USE_GPU=1` — Use GPU for OCR by default
 
@@ -182,7 +188,7 @@ pytest tests/ -v
 
 ```bash
 pytest tests/ -m e2e -v
-# or: python test_pipeline.py --gpu --docling --text-llm
+# or: python test_pipeline.py --gpu
 # or: ./scripts/run_eureka.sh pipeline
 ```
 
@@ -227,6 +233,7 @@ The pipeline uses the GPU for **one stage at a time** (OCR → text LLM → visi
 | **20 GB** (safer) | `qwen2.5:7b` (~5 GB) | `qwen3-vl:30b` or `llava:13b` | Use 7b text if you want to run 30B vision on 20 GB (tight; close other GPU apps). |
 | **12 GB** | `qwen2.5:7b` | `llava:7b` or `qwen2-vl:7b` | Avoid 30B vision. |
 | **8 GB** | `qwen2.5:7b` | `llava:7b` | Or run without `--vision`. |
+| **6 GB** | `qwen2.5:7b` | No vision (or `llava:7b` if Ollama not loaded) | Use **CPU OCR**: `--ocr-backend easyocr` and do **not** pass `--gpu`, so only Ollama uses the GPU. Surya/Paddle will OOM. |
 
 **Example for 24 GB (recommended):**
 ```bash
@@ -246,6 +253,39 @@ python test_pipeline.py --forms 125 127 137 --gpu --one-per-form --vision --mode
 ```bash
 python test_pipeline.py ... --model qwen2.5:7b --vision --vision-model "qwen3-vl:30b"
 ```
+
+**Example for 6 GB (CPU OCR, GPU only for Ollama):**
+```bash
+# main.py: EasyOCR on CPU, Ollama 7b on GPU. Omit --gpu so Surya/Paddle are not used.
+python main.py path/to/form125.pdf --form-type 125 --text-llm --ocr-backend easyocr
+
+# test_pipeline: same idea; first run can be slow (CPU OCR). Use --one-per-form to limit PDFs.
+python test_pipeline.py --forms 125 --one-per-form --ocr-backend easyocr
+```
+If you have cached OCR from a previous run, re-running with the same output dir skips heavy OCR and only runs the LLM. The pipeline sets `PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True` by default so Paddle (if installed) does not block startup.
+
+## RAG (few-shot) feature
+
+When enabled with **`--use-rag`**, the pipeline injects few-shot (field → value) examples from ground-truth JSONs into every extraction step that uses the text LLM:
+
+- **Category extraction** (header, insurer, producer, named_insured, policy, etc.)
+- **Driver rows** (Form 127)
+- **Vehicle rows** (Forms 127 / 137)
+- **Gap-fill** (second pass for missed fields)
+
+Examples are loaded from a directory of ground-truth JSONs (by default `test_data/` or `BEST_PROJECT_RAG_GT`). The store is built once at startup; retrieval is in-memory and adds only a small number of lines per prompt. This improves accuracy (format and convention alignment) with minimal speed impact.
+
+**Activate:**
+
+```bash
+# Single PDF
+python main.py path/to/form.pdf --docling --text-llm --use-rag
+
+# Full test pipeline
+python test_pipeline.py --gpu --use-rag
+```
+
+**Custom RAG ground-truth path:** `--rag-gt-dir <path>` (main.py) or set `BEST_PROJECT_RAG_GT`. Directory layout: form subfolders (e.g. `ACORD_0125_*/`, `127/`, `137/`) containing `*.json` files with flat field → value. See `docs/RAG_DESIGN.md` for design details.
 
 ## Improving accuracy
 

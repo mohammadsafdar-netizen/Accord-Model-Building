@@ -5,32 +5,32 @@
       "forms_successful": 1,
       "forms_errored": 0,
       "total_gt_fields": 742,
-      "total_matched": 173,
-      "total_partial": 25,
-      "total_wrong": 149,
-      "total_missing": 395,
-      "aggregate_accuracy": 25.0,
-      "aggregate_exact_match_rate": 23.32,
-      "aggregate_coverage": 46.77,
-      "total_time_seconds": 710.63,
+      "total_matched": 231,
+      "total_partial": 37,
+      "total_wrong": 232,
+      "total_missing": 242,
+      "aggregate_accuracy": 33.63,
+      "aggregate_exact_match_rate": 31.13,
+      "aggregate_coverage": 67.39,
+      "total_time_seconds": 1269.31,
       "per_form_accuracy": {
-        "ACORD_0125_CommercialInsurance_Acroform_169592d5": 25.0
+        "ACORD_0125_CommercialInsurance_Acroform_169592d5": 33.63
       }
     },
     "per_form": [
       {
         "stem": "ACORD_0125_CommercialInsurance_Acroform_169592d5",
         "form_type": "125",
-        "fields_extracted": 402,
-        "extraction_time_seconds": 710.63,
+        "fields_extracted": 1028,
+        "extraction_time_seconds": 1269.31,
         "output_dir": "/home/safdar/Desktop/projects/inevo/docling-vllm2/best_project/test_output/form_125/ACORD_0125_CommercialInsurance_Acroform_169592d5",
-        "accuracy": 25.0,
-        "exact_match_rate": 23.32,
-        "coverage": 46.77,
-        "matched": 173,
-        "partial_match": 25,
-        "wrong": 149,
-        "missing": 395,
+        "accuracy": 33.63,
+        "exact_match_rate": 31.13,
+        "coverage": 67.39,
+        "matched": 231,
+        "partial_match": 37,
+        "wrong": 232,
+        "missing": 242,
         "total_gt_fields": 742
       }
     ]

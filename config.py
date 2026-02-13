@@ -9,6 +9,7 @@ Environment variables:
   BEST_PROJECT_TEST_DATA — Test data directory (default: <root>/test_data)
   BEST_PROJECT_OUTPUT   — Default output directory (default: <root>/test_output)
   BEST_PROJECT_SCHEMAS  — Schema JSON directory (default: <root>/schemas)
+  BEST_PROJECT_RAG_GT   — Directory of ground-truth JSONs for RAG (default: same as TEST_DATA)
   OLLAMA_URL            — Ollama API base URL (default: http://localhost:11434)
   USE_GPU               — Set to 1 to use GPU for OCR when not passing --gpu
 """
@@ -37,6 +38,11 @@ SCHEMAS_DIR = Path(
     os.environ.get("BEST_PROJECT_SCHEMAS", str(PROJECT_ROOT / "schemas"))
 ).resolve()
 
+# RAG few-shot examples: directory of ground-truth JSONs (form subdirs with *.json)
+RAG_GT_DIR = Path(
+    os.environ.get("BEST_PROJECT_RAG_GT", str(TEST_DATA_DIR))
+).resolve()
+
 OLLAMA_URL_DEFAULT = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 # When set to "1" or "true", CLI defaults to GPU for OCR (same as --gpu)
@@ -62,3 +68,10 @@ def get_output_dir(override: Path | None = None) -> Path:
     if override is not None:
         return Path(override)
     return OUTPUT_DIR
+
+
+def get_rag_gt_dir(override: Path | None = None) -> Path:
+    """Return directory of ground-truth JSONs for RAG (override or config)."""
+    if override is not None:
+        return Path(override)
+    return RAG_GT_DIR

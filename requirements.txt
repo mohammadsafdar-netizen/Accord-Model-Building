@@ -1,18 +1,23 @@
-# Best Project: OCR Fusion + Text LLM Pipeline
-# ==============================================
+# Best Project: OCR Fusion + Text LLM Pipeline (best FOSS tools per step)
+# =========================================================================
 
-# PDF processing
-docling
-pdf2image
+# PDF → images (primary: fast, no poppler)
 pymupdf
+# Fallback when pymupdf not used
+pdf2image
 
-# OCR
+# Document structure OCR
+docling
+
+# Bbox OCR (default: best accuracy)
+surya-ocr
+# Alternatives
 easyocr
+# paddleocr  # optional: pip install paddleocr paddlepaddle
+
+# Image processing
 opencv-python
 Pillow
-
-# Surya (Marker's OCR) - use --ocr-backend surya; often better accuracy than EasyOCR
-surya-ocr
 
 # Image processing (Pillow already above)
 

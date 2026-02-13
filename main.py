@@ -25,7 +25,8 @@ import json
 import sys
 from pathlib import Path
 
-from ocr_engine import OCREngine
+from config import get_schemas_dir, OLLAMA_URL_DEFAULT, USE_GPU_DEFAULT
+from ocr_engine import OCREngine, SURYA_AVAILABLE, PADDLEOCR_AVAILABLE
 from llm_engine import LLMEngine
 from schema_registry import SchemaRegistry
 from extractor import ACORDExtractor
@@ -54,8 +55,8 @@ Examples:
         help="Ollama model name (default: qwen2.5:7b)",
     )
     parser.add_argument(
-        "--ollama-url", default="http://localhost:11434",
-        help="Ollama API base URL",
+        "--ollama-url", default=None,
+        help="Ollama API base URL (default: from OLLAMA_URL env or http://localhost:11434)",
     )
     parser.add_argument(
         "--output-dir", type=Path, default=None,
@@ -75,15 +76,15 @@ Examples:
     )
     parser.add_argument(
         "--gpu", action="store_true",
-        help="Use GPU for OCR (default: CPU-only)",
+        help="Use GPU for OCR (default: CPU unless USE_GPU=1)",
     )
     parser.add_argument(
         "--docling", action="store_true",
         help="Run Docling OCR (structure/markdown). Off by default.",
     )
     parser.add_argument(
-        "--ocr-backend", choices=("none", "easyocr", "surya"), default="none",
-        help="Bbox OCR: none (default), easyocr, or surya.",
+        "--ocr-backend", choices=("none", "easyocr", "surya", "paddle"), default="surya",
+        help="Bbox OCR backend (default: surya — best FOSS accuracy). Use 'none' to skip bbox OCR.",
     )
     parser.add_argument(
         "--timeout", type=int, default=300,
@@ -112,6 +113,11 @@ Examples:
 
     args = parser.parse_args()
 
+    if args.ollama_url is None:
+        args.ollama_url = OLLAMA_URL_DEFAULT
+    if not args.gpu and USE_GPU_DEFAULT:
+        args.gpu = True
+
     if not args.pdf_path.exists():
         print(f"Error: PDF not found: {args.pdf_path}")
         sys.exit(1)
@@ -124,6 +130,12 @@ Examples:
     print("\nInitialising pipeline components ...")
 
     bbox_backend = None if args.ocr_backend == "none" else args.ocr_backend
+    if bbox_backend == "surya" and not SURYA_AVAILABLE:
+        print("  [OCR] surya-ocr not installed; using easyocr. pip install surya-ocr for best accuracy.")
+        bbox_backend = "easyocr"
+    if bbox_backend == "paddle" and not PADDLEOCR_AVAILABLE:
+        print("  [OCR] PaddleOCR not installed; using easyocr. pip install paddleocr for PaddleOCR.")
+        bbox_backend = "easyocr"
     ocr = OCREngine(
         dpi=args.dpi,
         easyocr_gpu=args.gpu,
@@ -141,7 +153,7 @@ Examples:
         vision_describer_model=args.vision_describer_model if args.vision else None,
     )
 
-    schemas_dir = args.schemas_dir or Path(__file__).parent / "schemas"
+    schemas_dir = args.schemas_dir or get_schemas_dir()
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
     extractor = ACORDExtractor(

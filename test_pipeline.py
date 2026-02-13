@@ -31,6 +31,7 @@ os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 # VRAM reserve (GB) for OCR process - leave this much for Ollama / other processes
 VRAM_RESERVE_GB_DEFAULT = 2
 
+from config import TEST_DATA_DIR, OUTPUT_DIR, get_schemas_dir
 from ocr_engine import OCREngine
 from llm_engine import LLMEngine
 from schema_registry import SchemaRegistry
@@ -41,11 +42,8 @@ from utils import save_json
 
 
 # ===========================================================================
-# Test data discovery
+# Test data discovery (paths from config; override with BEST_PROJECT_TEST_DATA / BEST_PROJECT_OUTPUT)
 # ===========================================================================
-
-TEST_DATA_DIR = Path(__file__).parent / "test_data"
-OUTPUT_DIR = Path(__file__).parent / "test_output"
 
 # Map folder-name patterns to form types
 FOLDER_TYPE_MAP = {
@@ -535,7 +533,7 @@ def main():
         vision_describer_model=args.vision_describer_model if args.vision else None,
         unload_wait_seconds=args.unload_wait,
     )
-    schemas_dir = Path(__file__).parent / "schemas"
+    schemas_dir = get_schemas_dir()
     registry = SchemaRegistry(schemas_dir=schemas_dir)
 
     # ---- Run tests per form type ----

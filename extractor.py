@@ -25,7 +25,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
-from ocr_engine import OCREngine, OCRResult
+from ocr_engine import OCREngine, OCRResult, cleanup_gpu_memory
 from llm_engine import LLMEngine, VisionModelNotFoundError
 from schema_registry import SchemaRegistry, EXTRACTION_ORDER, detect_form_type
 from prompts import (
@@ -149,6 +149,8 @@ class ACORDExtractor:
         if ocr_result is None:
             self.llm.unload_model()
             ocr_result = self.ocr.process(pdf_path, output_dir)
+            # VRAM cleanup after OCR so LLM/VLM can use GPU
+            cleanup_gpu_memory()
         else:
             # Use pre-computed OCR from e.g. LangGraph OCR node
             pass
@@ -298,7 +300,8 @@ class ACORDExtractor:
         step = 0
         vision_skipped_404 = False  # set True if VLM model not found
 
-        # ---- Step 4a: Vision pass (unified: image + Docling + spatial/OCR) ----
+        # ---- Step 4a: Vision-first pass (VLM before text LLM for best accuracy) ----
+        # When vision runs, text LLM is used only for gap-fill; when vision is off, category-by-category text runs.
         missing_after_spatial = [n for n in all_field_names if n not in extracted]
         if self.use_vision and missing_after_spatial and ocr_result.clean_image_paths:
             self.llm.unload_text_model()
@@ -330,6 +333,8 @@ class ACORDExtractor:
                         new_count += 1
                 print(f"    -> {new_count} fields from VLM (unified)")
             self.llm.unload_vision_model()
+            # VRAM cleanup after vision pass
+            cleanup_gpu_memory()
 
         # When VLM was used for extraction, skip text-LLM category/driver/vehicle (VLM got all data)
         vision_actually_ran = bool(
@@ -445,6 +450,8 @@ class ACORDExtractor:
             step += 1
         missing = [n for n in all_field_names if n not in extracted]
         if self.use_text_llm and missing:
+            # VRAM cleanup before gap-fill so text LLM has a clear GPU
+            cleanup_gpu_memory()
             print(f"\n  [{step}/{total_steps}] Gap-fill pass ({len(missing)} missing fields) ...")
             gap_bbox_text = bbox_text
             if sections:
@@ -467,13 +474,12 @@ class ACORDExtractor:
                     new_count += 1
             print(f"    -> {new_count} additional fields recovered")
 
-        # ---- Verification ------------------------------------------------
+        # ---- Verification (consensus: cross-check LLM/VLM vs BBox OCR) ----
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
-        verified = self._verify_with_bbox(extracted, bbox_plain)
+        verified, field_confidence = self._verify_with_bbox_consensus(extracted, bbox_plain, spatial_fields)
         field_verified = {k: (k in verified) for k in extracted}
         print(f"    {len(verified)}/{len(extracted)} values found in OCR text")
         if self.strict_verify:
-            # Drop values not found in BBox to reduce hallucinations (keep spatial pre-extraction)
             spatial_key_set = set(spatial_fields.keys())
             before = len(extracted)
             extracted = {k: v for k, v in extracted.items() if k in spatial_key_set or k in verified}
@@ -481,8 +487,15 @@ class ACORDExtractor:
             if dropped:
                 print(f"    [STRICT] Dropped {dropped} values not found in OCR text")
 
-        # ---- Normalise ---------------------------------------------------
+        # ---- Normalise (dedicated normalizer for accuracy + in-extractor rules) ----
         extracted = self._normalise(extracted, form_type)
+        from normalizer import normalize_all as normalizer_all
+        field_types = {}
+        if schema:
+            for fname, finfo in schema.fields.items():
+                field_types[fname] = getattr(finfo, "field_type", "text") or "text"
+        if field_types:
+            extracted = normalizer_all(extracted, field_types)
 
         # ---- Validate field names ----------------------------------------
         # Spatial fields are protected from schema validation (they use GT-matching names)
@@ -520,6 +533,7 @@ class ACORDExtractor:
                 "fields_verified": len(verified),
                 "field_sources": field_sources,
                 "field_verified": field_verified,
+                "field_confidence": field_confidence,
                 "total_schema_fields": schema.total_fields,
                 "pages": ocr_result.num_pages,
                 "extraction_time_seconds": round(elapsed, 2),
@@ -1216,24 +1230,50 @@ class ACORDExtractor:
         bbox_plain: str,
     ) -> Dict[str, Any]:
         """Cross-check extracted values against BBox OCR text."""
+        verified, _ = self._verify_with_bbox_consensus(extracted, bbox_plain, {})
+        return verified
+
+    def _verify_with_bbox_consensus(
+        self,
+        extracted: Dict[str, Any],
+        bbox_plain: str,
+        spatial_fields: Dict[str, Any],
+    ) -> tuple:
+        """
+        Consensus verification: cross-check extracted values against BBox OCR.
+        Returns (verified_dict, field_confidence_dict).
+        High-impact: reduces hallucinations by scoring agreement with OCR.
+        """
         bbox_lower = bbox_plain.lower()
         verified: Dict[str, Any] = {}
+        field_confidence: Dict[str, float] = {}
+        spatial_key_set = set(spatial_fields.keys())
 
         for key, value in extracted.items():
             if value is None or str(value).strip() == "":
+                field_confidence[key] = 0.0
                 continue
             str_val = str(value).lower().strip()
+            if key in spatial_key_set:
+                verified[key] = value
+                field_confidence[key] = 1.0
+                continue
             if str_val in bbox_lower:
                 verified[key] = value
+                field_confidence[key] = 1.0
             elif len(str_val) > 3:
-                words = str_val.split()
-                if any(w in bbox_lower for w in words if len(w) > 2):
+                words = [w for w in str_val.split() if len(w) > 2]
+                matches = sum(1 for w in words if w in bbox_lower)
+                if matches:
                     verified[key] = value
+                    field_confidence[key] = 0.7 if matches < len(words) else 0.9
+                else:
+                    field_confidence[key] = 0.5
             else:
-                # Keep short values (e.g., "M", "F", "1", "Off")
                 verified[key] = value
+                field_confidence[key] = 0.8
 
-        return verified
+        return verified, field_confidence
 
     # ==================================================================
     # Normalisation

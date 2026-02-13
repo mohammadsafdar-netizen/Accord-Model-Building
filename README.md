@@ -53,8 +53,9 @@ Scanned PDF
 
 | File | Purpose |
 |------|---------|
+| `config.py` | Central paths and env (Eureka-friendly; see `docs/EUREKA.md`) |
 | `main.py` | CLI entry point |
-| `ocr_engine.py` | Dual OCR: Docling + EasyOCR + spatial analysis |
+| `ocr_engine.py` | Dual OCR: Docling + EasyOCR + Surya/Paddle + spatial analysis |
 | `llm_engine.py` | LLM interface: text now, vision hook for later |
 | `extractor.py` | Core pipeline: category-by-category extraction |
 | `prompts.py` | Prompt builders: form-specific, category-specific |
@@ -62,6 +63,8 @@ Scanned PDF
 | `compare.py` | Accuracy comparison against ground truth |
 | `utils.py` | JSON cleanup, logging helpers |
 | `test_pipeline.py` | End-to-end test for all 3 forms |
+| `tests/` | Unit tests (`tests/unit/`) and E2E (`tests/integration/`, `-m e2e`); run with `pytest tests/` |
+| `scripts/run_eureka.sh` | One-command run: tests, e2e, pipeline, or extract (see `docs/EUREKA.md`) |
 | `schemas/125.json` | ACORD 125 field schema (548 fields) |
 | `schemas/127.json` | ACORD 127 field schema (634 fields) |
 | `schemas/137.json` | ACORD 137 field schema (102 fields) |
@@ -152,7 +155,38 @@ python main.py path/to/form.pdf --vision
 python main.py path/to/form.pdf --vision --vision-model llava:13b
 ```
 
+### Configuration (Eureka / other machines)
+
+Paths and defaults can be set via **environment variables** so the same code runs without changes:
+
+- `BEST_PROJECT_ROOT` — Project root (default: auto)
+- `BEST_PROJECT_TEST_DATA` — Test data dir (default: `<root>/test_data`)
+- `BEST_PROJECT_OUTPUT` — Output dir (default: `<root>/test_output`)
+- `BEST_PROJECT_SCHEMAS` — Schema JSON dir (default: `<root>/schemas`)
+- `OLLAMA_URL` — Ollama API URL
+- `USE_GPU=1` — Use GPU for OCR by default
+
+See **`docs/EUREKA.md`** for full setup and **`scripts/run_eureka.sh`** for one-command test/run.
+
 ### Run Tests
+
+**Unit tests (no GPU):**
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/ -v
+# or: ./scripts/run_eureka.sh tests
+```
+
+**E2E / full pipeline (GPU + test_data):**
+
+```bash
+pytest tests/ -m e2e -v
+# or: python test_pipeline.py --gpu --docling --text-llm
+# or: ./scripts/run_eureka.sh pipeline
+```
+
+**Legacy single script:**
 
 ```bash
 # Test all 3 forms

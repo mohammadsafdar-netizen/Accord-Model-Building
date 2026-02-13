@@ -16,9 +16,14 @@ Pipeline:
 from __future__ import annotations
 
 import gc
+import json
 import os
+import pickle
 import re
 import statistics
+import subprocess
+import sys
+import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -46,6 +51,12 @@ except ImportError:
     CV2_AVAILABLE = False
 
 try:
+    import fitz  # PyMuPDF - fast, FOSS; no poppler required
+    PYMUPDF_AVAILABLE = True
+except ImportError:
+    PYMUPDF_AVAILABLE = False
+
+try:
     from pdf2image import convert_from_path
     PDF2IMAGE_AVAILABLE = True
 except ImportError:
@@ -63,7 +74,15 @@ try:
 except ImportError:
     PIL_AVAILABLE = False
 
-# Surya (Marker's OCR engine) - optional alternative to EasyOCR for bbox + text
+# PaddleOCR - FOSS, high accuracy (~96%), good for documents
+PADDLEOCR_AVAILABLE = False
+try:
+    from paddleocr import PaddleOCR as _PaddleOCR
+    PADDLEOCR_AVAILABLE = True
+except ImportError:
+    pass
+
+# Surya (Marker's OCR engine) - best FOSS accuracy (~97%), document-focused
 SURYA_AVAILABLE = False
 SURYA_TASK_OCR_BOXES = None
 if PIL_AVAILABLE:
@@ -458,16 +477,17 @@ class OCREngine:
         self.OCR_UNLOAD_WAIT_SECONDS = ocr_unload_wait_seconds if ocr_unload_wait_seconds is not None else 5
         # When True and Docling=CPU + EasyOCR=GPU, run both in parallel to cut OCR wall time
         self.parallel_ocr = parallel_ocr
-        # None = no bbox OCR; "easyocr" or "surya" to enable (all off by default when called with flags)
+        # None = no bbox OCR; "easyocr", "surya", or "paddle" to enable
         self.use_docling = use_docling
         raw = (bbox_backend or "").lower().strip()
-        self.bbox_backend = raw if raw in ("easyocr", "surya") else None
+        self.bbox_backend = raw if raw in ("easyocr", "surya", "paddle") else None
 
         self._docling_converter = None
         self._easyocr_reader = None
         self._surya_det = None
         self._surya_rec = None
         self._surya_foundation = None
+        self._paddle_ocr = None
 
     # ------------------------------------------------------------------
     # GPU memory cleanup
@@ -502,11 +522,21 @@ class OCREngine:
             print("  [OCR] Surya unloaded from GPU")
             time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
 
+    def cleanup_paddle(self):
+        """Free PaddleOCR from GPU memory."""
+        had = self._paddle_ocr is not None
+        self._paddle_ocr = None
+        cleanup_gpu_memory()
+        if had:
+            print("  [OCR] PaddleOCR unloaded from GPU")
+            time.sleep(self.OCR_UNLOAD_WAIT_SECONDS)
+
     def cleanup(self):
         """Free ALL GPU memory from OCR models."""
         self.cleanup_docling()
         self.cleanup_easyocr()
         self.cleanup_surya()
+        self.cleanup_paddle()
         print("  [OCR] All OCR GPU memory released")
 
     # ------------------------------------------------------------------
@@ -562,12 +592,31 @@ class OCREngine:
     # ------------------------------------------------------------------
 
     def pdf_to_images(self, pdf_path: Path, output_dir: Path) -> List[Path]:
-        """Convert PDF to page images at configured DPI."""
-        if not PDF2IMAGE_AVAILABLE:
-            raise RuntimeError("pdf2image is not installed. pip install pdf2image")
+        """Convert PDF to page images at configured DPI.
+        Uses PyMuPDF (fitz) when available (faster, no poppler); else pdf2image.
+        """
         output_dir.mkdir(parents=True, exist_ok=True)
-        images = convert_from_path(str(pdf_path), dpi=self.dpi)
         paths: List[Path] = []
+
+        if PYMUPDF_AVAILABLE:
+            # PyMuPDF: best FOSS choice — fast, single dependency, no system poppler
+            doc = fitz.open(pdf_path)
+            zoom = self.dpi / 72.0
+            matrix = fitz.Matrix(zoom, zoom)
+            for i in range(len(doc)):
+                page = doc[i]
+                pix = page.get_pixmap(matrix=matrix, alpha=False)
+                out = output_dir / f"{pdf_path.stem}_page_{i + 1}.png"
+                pix.save(str(out))
+                paths.append(out)
+            doc.close()
+            return paths
+
+        if not PDF2IMAGE_AVAILABLE:
+            raise RuntimeError(
+                "No PDF renderer available. Install PyMuPDF (pip install pymupdf) or pdf2image (pip install pdf2image; needs poppler)."
+            )
+        images = convert_from_path(str(pdf_path), dpi=self.dpi)
         for i, img in enumerate(images, 1):
             out = output_dir / f"{pdf_path.stem}_page_{i}.png"
             img.save(str(out), "PNG")
@@ -659,7 +708,11 @@ class OCREngine:
         return out
 
     def run_docling(self, image_paths: List[Path], use_gpu: bool = False) -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
-        """Run Docling OCR on each page. Returns (markdown per page, regions per page, native pairs per page)."""
+        """Run Docling OCR on each page. Returns (markdown per page, regions per page, native pairs per page).
+        When use_gpu=False, runs in a subprocess with no GPU to avoid OOM when another process holds VRAM
+        (e.g. Ollama); Docling's internal EasyOCR would otherwise try to use GPU and fail."""
+        if not use_gpu and image_paths:
+            return self._run_docling_cpu_subprocess(image_paths)
         converter = self._get_docling(use_gpu=use_gpu)
         pages: List[str] = []
         docling_regions_per_page: List[List[Dict]] = []
@@ -673,6 +726,56 @@ class OCREngine:
                 pages.append(md)
                 regions = self._extract_docling_regions(doc)
                 docling_regions_per_page.append(regions)
+                native_pairs_per_page.append(extract_docling_native_pairs(doc))
+            except Exception as e:
+                pages.append(f"[Docling OCR error: {e}]")
+                docling_regions_per_page.append([])
+                native_pairs_per_page.append([])
+            cleanup_gpu_memory()
+        return pages, docling_regions_per_page, native_pairs_per_page
+
+    def _run_docling_cpu_subprocess(self, image_paths: List[Path]) -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
+        """Run Docling in a subprocess with CUDA_VISIBLE_DEVICES='' so it uses CPU only (avoids OOM)."""
+        worker_script = Path(__file__).resolve().parent / "run_docling_cpu_worker.py"
+        if not worker_script.exists():
+            # Fallback to in-process (may OOM if GPU is busy)
+            return self._run_docling_inprocess(image_paths)
+        with tempfile.NamedTemporaryFile(suffix=".pkl", delete=False) as f:
+            result_path = f.name
+        try:
+            env = {**os.environ, "CUDA_VISIBLE_DEVICES": ""}
+            cmd = [
+                sys.executable,
+                str(worker_script),
+                "--images", *[str(p) for p in image_paths],
+                "--out", result_path,
+            ]
+            proc = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=600)
+            if proc.returncode != 0:
+                print(f"  [OCR] Docling CPU worker stderr: {proc.stderr or 'none'}")
+                raise RuntimeError(f"Docling CPU worker failed with code {proc.returncode}")
+            with open(result_path, "rb") as f:
+                pages, docling_regions_per_page, native_pairs_per_page = pickle.load(f)
+            return pages, docling_regions_per_page, native_pairs_per_page
+        finally:
+            try:
+                os.unlink(result_path)
+            except OSError:
+                pass
+
+    def _run_docling_inprocess(self, image_paths: List[Path]) -> Tuple[List[str], List[List[Dict]], List[List[Tuple[str, str]]]]:
+        """In-process Docling with CPU (may OOM if Docling's EasyOCR still touches GPU)."""
+        converter = self._get_docling(use_gpu=False)
+        pages = []
+        docling_regions_per_page = []
+        native_pairs_per_page = []
+        for img_path in image_paths:
+            cleanup_gpu_memory()
+            try:
+                result = converter.convert(img_path)
+                doc = result.document
+                pages.append(doc.export_to_markdown())
+                docling_regions_per_page.append(self._extract_docling_regions(doc))
                 native_pairs_per_page.append(extract_docling_native_pairs(doc))
             except Exception as e:
                 pages.append(f"[Docling OCR error: {e}]")
@@ -837,6 +940,63 @@ class OCREngine:
                 all_pages.extend(pages)
             idx += len(batch_paths)
             cleanup_gpu_memory()
+        return all_pages
+
+    # ------------------------------------------------------------------
+    # PaddleOCR (FOSS, ~96% accuracy; good alternative to Surya)
+    # ------------------------------------------------------------------
+
+    def _get_paddle_ocr(self):
+        if self._paddle_ocr is not None:
+            return self._paddle_ocr
+        if not PADDLEOCR_AVAILABLE:
+            raise RuntimeError("PaddleOCR is not installed. pip install paddleocr paddlepaddle")
+        use_gpu = self.easyocr_gpu
+        self._paddle_ocr = _PaddleOCR(use_gpu=use_gpu, show_log=False, use_angle_cls=False)
+        return self._paddle_ocr
+
+    def _paddle_result_to_page_data(self, result: Optional[List]) -> List[Dict]:
+        """Convert PaddleOCR result for one page to our bbox list format."""
+        page_data: List[Dict] = []
+        if not result or not isinstance(result, (list, tuple)):
+            return page_data
+        for line in result:
+            if not line or len(line) < 2:
+                continue
+            box = line[0]  # 4 points [[x1,y1],[x2,y2],[x3,y3],[x4,y4]]
+            text_conf = line[1]  # (text, confidence)
+            text = text_conf[0] if isinstance(text_conf, (list, tuple)) else str(text_conf)
+            conf = float(text_conf[1]) if isinstance(text_conf, (list, tuple)) and len(text_conf) > 1 else 1.0
+            xs = [p[0] for p in box]
+            ys = [p[1] for p in box]
+            x_min, x_max = int(min(xs)), int(max(xs))
+            y_min, y_max = int(min(ys)), int(max(ys))
+            page_data.append({
+                "text": re.sub(r"\s+", " ", str(text)).strip(),
+                "x": (x_min + x_max) // 2,
+                "y": (y_min + y_max) // 2,
+                "x_min": x_min, "y_min": y_min,
+                "x_max": x_max, "y_max": y_max,
+                "width": x_max - x_min,
+                "height": y_max - y_min,
+                "confidence": round(conf, 2),
+            })
+        page_data.sort(key=lambda d: (d["y"], d["x"]))
+        return page_data
+
+    def run_paddleocr(self, image_paths: List[Path]) -> List[List[Dict]]:
+        """Run PaddleOCR on each image; returns same shape as run_easyocr/run_surya."""
+        ocr = self._get_paddle_ocr()
+        all_pages: List[List[Dict]] = []
+        for img_path in image_paths:
+            cleanup_gpu_memory()
+            try:
+                result = ocr.ocr(str(img_path), cls=False)
+                page = self._paddle_result_to_page_data(result[0] if result and len(result) > 0 else None)
+                all_pages.append(page)
+            except Exception as e:
+                print(f"  PaddleOCR error on {img_path.name}: {e}")
+                all_pages.append([])
         return all_pages
 
     # ------------------------------------------------------------------
@@ -1144,9 +1304,50 @@ class OCREngine:
         clean_paths = self.create_clean_images(image_paths)
 
         n_pages = len(image_paths)
+
+        # ---- OCR disk cache: skip Docling + bbox if we have cached results (saves ~5-10 min) ----
+        docling_path = output_dir / "docling_pages.json"
+        bbox_path = output_dir / "bbox_pages.json"
+        if docling_path.exists() and bbox_path.exists():
+            try:
+                with open(docling_path, "r", encoding="utf-8") as f:
+                    docling_pages = json.load(f)
+                with open(bbox_path, "r", encoding="utf-8") as f:
+                    bbox_pages = json.load(f)
+                if docling_pages and bbox_pages and len(docling_pages) == n_pages and len(bbox_pages) == n_pages:
+                    print("  [OCR] Loading cached Docling + bbox results (skipping heavy OCR)")
+                    spatial_indices = []
+                    for page_num, page_bbox in enumerate(bbox_pages, 1):
+                        pw, ph = 0, 0
+                        if CV2_AVAILABLE and page_num <= len(image_paths):
+                            img = cv2.imread(str(image_paths[page_num - 1]))
+                            if img is not None:
+                                ph, pw = img.shape[:2]
+                        docling_md = docling_pages[page_num - 1] if page_num <= len(docling_pages) else None
+                        si = self.build_spatial_index(
+                            page_bbox, pw, ph, page=page_num,
+                            docling_markdown=docling_md,
+                            docling_native_pairs=None,
+                        )
+                        spatial_indices.append(si)
+                    total_blocks = sum(len(p) for p in bbox_pages)
+                    print(f"  [OCR] Rebuilt spatial indices: {total_blocks} blocks from cache")
+                    return OCRResult(
+                        docling_pages=docling_pages,
+                        bbox_pages=bbox_pages,
+                        spatial_indices=spatial_indices,
+                        image_paths=image_paths,
+                        clean_image_paths=clean_paths,
+                        num_pages=len(image_paths),
+                        docling_regions_per_page=None,
+                        docling_native_pairs_per_page=None,
+                    )
+            except Exception as e:
+                print(f"  [OCR] Cache load failed ({e}), running full OCR")
+
         # Docling: run only when enabled (use_docling=True)
         if self.use_docling:
-            bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+            bbox_backend_name = {"surya": "Surya", "paddle": "PaddleOCR"}.get(self.bbox_backend, "EasyOCR")
             run_parallel = (
                 self.bbox_backend is not None
                 and self.parallel_ocr
@@ -1168,6 +1369,8 @@ class OCREngine:
                 def _run_bbox() -> List[List[Dict]]:
                     if self.bbox_backend == "surya":
                         return self.run_surya(clean_paths)
+                    if self.bbox_backend == "paddle":
+                        return self.run_paddleocr(clean_paths)
                     return self.run_easyocr(clean_paths)
 
                 with ThreadPoolExecutor(max_workers=2) as executor:
@@ -1182,6 +1385,8 @@ class OCREngine:
                 self.cleanup_docling()
                 if self.bbox_backend == "surya":
                     self.cleanup_surya()
+                elif self.bbox_backend == "paddle":
+                    self.cleanup_paddle()
                 else:
                     self.cleanup_easyocr()
             else:
@@ -1195,12 +1400,15 @@ class OCREngine:
                 self.cleanup_docling()
 
                 if self.bbox_backend is not None:
-                    bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+                    bbox_backend_name = {"surya": "Surya", "paddle": "PaddleOCR"}.get(self.bbox_backend, "EasyOCR")
                     bbox_mode = "GPU" if use_gpu else "CPU"
                     print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
                     if self.bbox_backend == "surya":
                         bbox_pages = self.run_surya(clean_paths)
                         self.cleanup_surya()
+                    elif self.bbox_backend == "paddle":
+                        bbox_pages = self.run_paddleocr(clean_paths)
+                        self.cleanup_paddle()
                     else:
                         bbox_pages = self.run_easyocr(clean_paths)
                         self.cleanup_easyocr()
@@ -1215,12 +1423,15 @@ class OCREngine:
             docling_regions_per_page = [[] for _ in range(n_pages)]
             native_pairs_per_page = [[] for _ in range(n_pages)]
             if self.bbox_backend is not None:
-                bbox_backend_name = "Surya" if self.bbox_backend == "surya" else "EasyOCR"
+                bbox_backend_name = {"surya": "Surya", "paddle": "PaddleOCR"}.get(self.bbox_backend, "EasyOCR")
                 bbox_mode = "GPU" if use_gpu else "CPU"
                 print(f"  [OCR] Running {bbox_backend_name} with bounding boxes ({bbox_mode}) ...")
                 if self.bbox_backend == "surya":
                     bbox_pages = self.run_surya(clean_paths)
                     self.cleanup_surya()
+                elif self.bbox_backend == "paddle":
+                    bbox_pages = self.run_paddleocr(clean_paths)
+                    self.cleanup_paddle()
                 else:
                     bbox_pages = self.run_easyocr(clean_paths)
                     self.cleanup_easyocr()

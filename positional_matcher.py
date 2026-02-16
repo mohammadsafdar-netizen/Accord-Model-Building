@@ -184,13 +184,14 @@ class PositionalMatcher:
                 if fi.field_type in ("checkbox", "radio"):
                     value = None
                     method = "positional_checkbox"
+                    pixel_ratio = None
 
                     # Try pixel-based detection first (crop image, count dark pixels)
                     if has_images:
-                        ratio = self._get_checkbox_pixel_ratio(
+                        pixel_ratio = self._get_checkbox_pixel_ratio(
                             fx0, fy0, fx1, fy1, image_paths[page_idx]
                         )
-                        if ratio is not None and ratio >= PIXEL_THRESHOLD:
+                        if pixel_ratio is not None and pixel_ratio >= PIXEL_THRESHOLD:
                             value = "1"
                             method = "positional_checkbox_pixel"
 
@@ -201,11 +202,14 @@ class PositionalMatcher:
                     if value is not None:
                         conf = self.BASE_CONFIDENCE * alignment_quality
                         fields[fi.name] = value
-                        metadata[fi.name] = {
+                        meta_entry = {
                             "confidence": round(min(self.MAX_CONFIDENCE, conf), 3),
                             "method": method,
                             "page": page_idx,
                         }
+                        if pixel_ratio is not None:
+                            meta_entry["pixel_ratio"] = round(pixel_ratio, 4)
+                        metadata[fi.name] = meta_entry
                 else:
                     value, method = self._match_text_field(
                         fx0, fy0, fx1, fy1, page_blocks
@@ -444,17 +448,24 @@ class PositionalMatcher:
             # Column headers
             "premium", "deductible", "limit", "amount", "coverage",
             "symbol", "description", "veh #", "yr", "make", "model",
-            "vin", "% use", "% owned", "rank",
+            "vin", "% use", "% owned", "rank", "radius",
+            "collision", "comprehensive", "cost new", "ded",
             # Form labels
             "fein or soc sec #", "zip", "state", "city", "address",
             "phone", "fax", "email", "signature", "total",
             "street", "county", "sic", "naics", "naic code",
             "sub code", "issue policy", "mailing address",
+            "inspection contact", "full name", "policy #",
+            "named insured and mailing address", "business phone #",
+            "loc #", "bldg #",
             # Section titles
             "applicant information", "general information",
             "prior carrier information", "loss history", "remarks",
             "processing instructions", "additional remarks schedule",
             "subsidiary information", "contact information",
+            "nature of business", "description of operations",
+            "additional interest", "vehicle information",
+            "driver information", "coverages", "schedule",
         }
 
         value_blocks = []

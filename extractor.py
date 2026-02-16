@@ -734,6 +734,7 @@ class ACORDExtractor:
             print(f"    -> {new_count} additional fields recovered")
 
         # ---- VLM checkbox pass (after text LLM, before ensemble) ----
+        # Only for truly missing checkboxes — do NOT override existing positional results
         vlm_loaded = False
         if self.vision_checkboxes_only and ocr_result.clean_image_paths and self.llm.vision_model:
             missing_cb = [
@@ -768,7 +769,7 @@ class ACORDExtractor:
                 except Exception as e:
                     print(f"    [VLM-CB] Error: {e}")
 
-        # ---- VLM driver/narrow-column field rescue ----
+        # ---- VLM driver narrow-column field rescue ----
         _NARROW_COLUMN_PATTERNS = (
             "UsePercent", "BroadenedNoFaultCode", "DriverOtherCarCode",
             "ProducerIdentifier", "SR22FR44",
@@ -1846,6 +1847,33 @@ class ACORDExtractor:
                 normalised[key] = str_val
                 continue
 
+            # --- OCR post-processing for specific field types ---
+            # VIN: common OCR substitutions (I→1, O→0, S→5, Z→2 in digit positions)
+            if "vinidentifier" in key_lower and len(str_val) >= 15:
+                vin_fixed = self._fix_vin_ocr(str_val)
+                normalised[key] = vin_fixed
+                continue
+
+            # Email: fix common OCR errors (space before @, missing dots)
+            if "email" in key_lower and "@" in str_val:
+                str_val = re.sub(r"\s+@", "@", str_val)  # "adam @foo" -> "adam@foo"
+                str_val = re.sub(r"@\s+", "@", str_val)  # "adam@ foo" -> "adam@foo"
+                normalised[key] = str_val
+                continue
+
+            # Website URL: fix https:II → https://
+            if "website" in key_lower and "https" in str_val.lower():
+                str_val = re.sub(r"https?:II", "https://", str_val, flags=re.IGNORECASE)
+                str_val = str_val.replace(" com", ".com").replace(" org", ".org").replace(" net", ".net")
+                normalised[key] = str_val
+                continue
+
+            # FullName: fix semicolons from OCR (Downs; Bruce → Downs, Bruce)
+            if "fullname" in key_lower:
+                str_val = str_val.replace(";", ",")
+                normalised[key] = str_val
+                continue
+
             normalised[key] = str_val
 
         # Post-pass: split State+ZIP merged values (e.g. "DC 20016" in StateOrProvinceCode)
@@ -1864,6 +1892,26 @@ class ACORDExtractor:
             normalised.update(state_zip_splits)
 
         return normalised
+
+    @staticmethod
+    def _fix_vin_ocr(vin: str) -> str:
+        """Fix common OCR character substitutions in VINs.
+        VINs use digits + uppercase letters but never I, O, Q.
+        """
+        vin = vin.upper().strip()
+        # VIN positions 1-3: WMI (letters+digits), 4-8: VDS, 9: check digit, 10-17: VIS
+        # Common OCR confusions in VINs:
+        result = []
+        for i, c in enumerate(vin):
+            if c == 'I':
+                result.append('1')  # I→1 (VINs never use I)
+            elif c == 'O':
+                result.append('0')  # O→0 (VINs never use O)
+            elif c == 'Q':
+                result.append('0')  # Q→0 (VINs never use Q)
+            else:
+                result.append(c)
+        return "".join(result)
 
     @staticmethod
     def _normalise_date_str(s: str) -> Optional[str]:

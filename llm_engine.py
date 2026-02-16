@@ -84,6 +84,7 @@ class LLMEngine:
         system: Optional[str] = None,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
+        timeout_override: Optional[int] = None,
     ) -> str:
         """
         Generate text using Ollama.
@@ -93,12 +94,14 @@ class LLMEngine:
             system: Optional system prompt.
             temperature: Override default temperature.
             max_tokens: Override default max_tokens.
+            timeout_override: Override default timeout (seconds) for this call.
 
         Returns:
             Model response text.
         """
         temp = temperature if temperature is not None else self.temperature
         tokens = max_tokens if max_tokens is not None else self.max_tokens
+        effective_timeout = timeout_override if timeout_override is not None else self.timeout
 
         # Merge system + user into a single prompt for Ollama /api/generate
         full_prompt = f"{system}\n\n{prompt}" if system else prompt
@@ -119,15 +122,15 @@ class LLMEngine:
                 resp = requests.post(
                     f"{self.base_url}/api/generate",
                     json=payload,
-                    timeout=self.timeout,
+                    timeout=effective_timeout,
                 )
                 if resp.status_code == 404:
                     # Ollama 0.15+ or some setups: try /api/chat, then /v1/chat/completions
                     try:
-                        return self._generate_via_chat(full_prompt, temp, tokens)
+                        return self._generate_via_chat(full_prompt, temp, tokens, effective_timeout)
                     except requests.HTTPError as e:
                         if e.response is not None and e.response.status_code == 404:
-                            return self._generate_via_openai_compat(full_prompt, temp, tokens)
+                            return self._generate_via_openai_compat(full_prompt, temp, tokens, effective_timeout)
                         raise
                 resp.raise_for_status()
                 return resp.json().get("response", "")
@@ -150,9 +153,11 @@ class LLMEngine:
         )
 
     def _generate_via_chat(
-        self, prompt: str, temperature: float, max_tokens: int
+        self, prompt: str, temperature: float, max_tokens: int,
+        timeout: Optional[int] = None,
     ) -> str:
         """Fallback: Ollama /api/chat when /api/generate returns 404."""
+        effective_timeout = timeout if timeout is not None else self.timeout
         payload = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
@@ -162,7 +167,7 @@ class LLMEngine:
         resp = requests.post(
             f"{self.base_url}/api/chat",
             json=payload,
-            timeout=self.timeout,
+            timeout=effective_timeout,
         )
         resp.raise_for_status()
         data = resp.json()
@@ -175,9 +180,11 @@ class LLMEngine:
         return (content or "").strip()
 
     def _generate_via_openai_compat(
-        self, prompt: str, temperature: float, max_tokens: int
+        self, prompt: str, temperature: float, max_tokens: int,
+        timeout: Optional[int] = None,
     ) -> str:
         """Fallback: OpenAI-compatible /v1/chat/completions (Ollama 0.15.x)."""
+        effective_timeout = timeout if timeout is not None else self.timeout
         payload = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
@@ -188,7 +195,7 @@ class LLMEngine:
         resp = requests.post(
             f"{self.base_url}/v1/chat/completions",
             json=payload,
-            timeout=self.timeout,
+            timeout=effective_timeout,
         )
         resp.raise_for_status()
         data = resp.json()

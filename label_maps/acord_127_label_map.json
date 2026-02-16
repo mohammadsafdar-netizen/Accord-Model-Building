@@ -1,0 +1,753 @@
+{
+  "form_type": "127",
+  "total_mappings": 56,
+  "total_labels": 31,
+  "mappings": {
+    "body": [
+      {
+        "field_name": "Vehicle_Body_Type_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "address": [
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "vehicle": [
+      {
+        "field_name": "AdditionalInterest_Item_VehicleProducerIdentifier_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "model": [
+      {
+        "field_name": "Vehicle_ModelName_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "agency customer id": [
+      {
+        "field_name": "Producer_CustomerIdentifier_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "coll": [
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.76,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.76,
+        "seen_count": 1
+      }
+    ],
+    "ca": [
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_C",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_B",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_HiredDate_F",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_HiredDate_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_H",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_I",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_RatingTerritoryCode_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "AdditionalInterest_MailingAddress_PostalCode_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "if \"yes\" , what percentage of vehicles in your overall fleet are monitored (1": [
+      {
+        "field_name": "CommercialVehicleLineOfBusiness_MaximumExposureAllVehiclesAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.56,
+        "seen_count": 1
+      }
+    ],
+    "n n": [
+      {
+        "field_name": "% Use",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_Vehicle_Use_Percent_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "5": [
+      {
+        "field_name": "City",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_RadiusOfUse_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.08,
+        "seen_count": 1
+      }
+    ],
+    "65 5174528": [
+      {
+        "field_name": "State",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "year": [
+      {
+        "field_name": "Vehicle_Make_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Make_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "bope": [
+      {
+        "field_name": "Vehicle_Size_Usage_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "15 30": [
+      {
+        "field_name": "Driver_LicensedStateOrProvinceCode_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "lienholder": [
+      {
+        "field_name": "Driver_MailingAddress_CityName_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "AdditionalInterest_MailingAddress_CityName_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "2015": [
+      {
+        "field_name": "Driver_TaxIdentifier_B",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ca 91109": [
+      {
+        "field_name": "Driver_BirthDate_C",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "f m": [
+      {
+        "field_name": "Driver_BirthDate_E",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "f s": [
+      {
+        "field_name": "Driver_BirthDate_F",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ca 95355": [
+      {
+        "field_name": "Driver_BirthDate_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_BirthDate_I",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "2017": [
+      {
+        "field_name": "Driver_TaxIdentifier_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "m m": [
+      {
+        "field_name": "Driver_BirthDate_H",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "b": [
+      {
+        "field_name": "Driver_Surname_H",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "19 2005": [
+      {
+        "field_name": "Driver_LicenseNumberIdentifier_I",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "2": [
+      {
+        "field_name": "Driver_LicenseNumberIdentifier_J",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_LicensedYear_J",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "oh": [
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_K",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_L",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "aa": [
+      {
+        "field_name": "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "owner": [
+      {
+        "field_name": "AdditionalInterest_MailingAddress_LineOne_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "md": [
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "vjn": [
+      {
+        "field_name": "Vehicle_VINIdentifier_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "n": [
+      {
+        "field_name": "Driver_Vehicle_ProducerIdentifier_K",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.08,
+        "seen_count": 1
+      }
+    ]
+  },
+  "ambiguous": {
+    "address": [
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_LineOne_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "agency customer id": [
+      {
+        "field_name": "Producer_CustomerIdentifier_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "NamedInsured_FullName_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "coll": [
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.76,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.76,
+        "seen_count": 1
+      }
+    ],
+    "ca": [
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_C",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PhysicalAddress_PostalCode_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.75,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_B",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_HiredDate_F",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_HiredDate_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_H",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_I",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_RatingTerritoryCode_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "AdditionalInterest_MailingAddress_PostalCode_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "n n": [
+      {
+        "field_name": "% Use",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_Vehicle_Use_Percent_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "5": [
+      {
+        "field_name": "City",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_RadiusOfUse_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.08,
+        "seen_count": 1
+      }
+    ],
+    "year": [
+      {
+        "field_name": "Vehicle_Make_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Make_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "lienholder": [
+      {
+        "field_name": "Driver_MailingAddress_CityName_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "AdditionalInterest_MailingAddress_CityName_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ca 95355": [
+      {
+        "field_name": "Driver_BirthDate_G",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_BirthDate_I",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "2": [
+      {
+        "field_name": "Driver_LicenseNumberIdentifier_J",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_LicensedYear_J",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "oh": [
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_K",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Driver_MailingAddress_PostalCode_L",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "aa": [
+      {
+        "field_name": "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_Coverage_ComprehensiveOrSpecifiedCauseOfLossDeductibleAmount_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ]
+  }
+}

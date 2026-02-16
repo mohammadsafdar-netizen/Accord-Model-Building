@@ -538,15 +538,23 @@ def build_gap_fill_prompt(
     bbox_text: str,
     label_value_text: str = "",
     few_shot_examples: str = "",
+    docling_text: str = "",
 ) -> str:
     """
     Second-pass prompt to fill fields missed in the first extraction.
-    Uses BBox text (spatial) for targeted extraction.
+    Uses BBox text (spatial) for targeted extraction, plus Docling if available.
     """
     field_block = _format_fields_with_tooltips(missing_fields, tooltips)
     layout = _layout_hint(form_type)
 
     json_tmpl = _json_template(missing_fields)
+
+    docling_section = ""
+    if docling_text and docling_text.strip():
+        docling_section = f"""
+=== DOCLING OCR TEXT (structured markdown) ===
+{docling_text[:5000]}
+"""
 
     prompt = f"""Some fields were not extracted in the first pass. Try to find them.
 
@@ -558,7 +566,7 @@ def build_gap_fill_prompt(
 {f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
 === BBOX OCR TEXT (positional text - search carefully) ===
 {bbox_text[:8000]}
-
+{docling_section}
 {f"=== LABEL-VALUE PAIRS ==={chr(10)}{label_value_text[:3000]}" if label_value_text else ""}
 
 CRITICAL RULES:
@@ -756,6 +764,52 @@ RULES:
 - Use ONLY these exact field names: {keys_list}
 - Value must be exactly "1" (checked) or "Off" (not checked). No other text.
 - Output ONLY valid JSON. No markdown, no explanation.
+
+JSON:
+{json_tmpl}
+"""
+    return prompt
+
+
+def build_vision_driver_fields_prompt(
+    form_type: str,
+    missing_fields: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    VLM prompt for narrow driver/vehicle table columns that OCR can't read.
+    Focuses on small cells: UsePercent, BroadenedNoFaultCode, DriverOtherCarCode,
+    ProducerIdentifier, etc.
+    """
+    field_block = _format_fields_with_tooltips(missing_fields, tooltips)
+    keys_list = ", ".join(f'"{f}"' for f in missing_fields[:30])
+    if len(missing_fields) > 30:
+        keys_list += f", ... ({len(missing_fields)} total)"
+    lines = ["{"]
+    for i, name in enumerate(missing_fields):
+        comma = "," if i < len(missing_fields) - 1 else ""
+        lines.append(f'  "{name}": null{comma}')
+    lines.append("}")
+    json_tmpl = "\n".join(lines)
+    prompt = f"""Look at this ACORD {form_type} form image. Focus on the DRIVER INFORMATION table and VEHICLE INFORMATION table.
+
+Read the values in the NARROW COLUMNS of these tables. These columns often contain small numbers, single-letter codes, or short text that OCR misses.
+
+=== FIELDS TO READ (use these EXACT key names) ===
+{field_block}
+
+COLUMN HINTS:
+- Fields ending with "_A" through "_F" are row identifiers (driver/vehicle rows A-F)
+- "UsePercent" columns contain percentages (e.g., "100", "50", "75")
+- "ProducerIdentifier" columns contain small integers (1-13)
+- "BroadenedNoFaultCode" and "DriverOtherCarCode" contain single-letter codes or short values
+- "SR22FR44" fields are checkboxes: "1" if marked, "Off" if not
+
+RULES:
+- Use ONLY these exact field names: {keys_list}
+- Read the actual value from the form image. Do NOT guess.
+- Output ONLY valid JSON. No markdown, no explanation.
+- If a cell is empty or unreadable, use null.
 
 JSON:
 {json_tmpl}

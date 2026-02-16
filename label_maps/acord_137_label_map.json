@@ -1,0 +1,426 @@
+{
+  "form_type": "137",
+  "total_mappings": 26,
+  "total_labels": 14,
+  "mappings": {
+    "coll": [
+      {
+        "field_name": "Vehicle_Collision_DeductibleAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "comp": [
+      {
+        "field_name": "Vehicle_Comprehensive_DeductibleAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "csl": [
+      {
+        "field_name": "box_LiabilityLimits CSL_P",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.95,
+        "seen_count": 1
+      }
+    ],
+    "property damage": [
+      {
+        "field_name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "trailer value": [
+      {
+        "field_name": "Vehicle_TrailerInterchange_TrailerValueAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "other cover": [
+      {
+        "field_name": "Vehicle_OtherCoverage_SymbolDescription_N",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_OtherCoverage_SymbolDescription_O",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "agency customer id": [
+      {
+        "field_name": "Producer_CustomerIdentifier_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.7,
+        "seen_count": 1
+      }
+    ],
+    "nc": [
+      {
+        "field_name": "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_PropertyDamageLimit_B",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.6,
+        "seen_count": 1
+      }
+    ],
+    "bi each accident": [
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ba per": [
+      {
+        "field_name": "Vehicle_BodilyInjury_PerPersonLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerPersonLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ftw": [
+      {
+        "field_name": "Vehicle_HiredBorrowed_HiredCostAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TowingAndLabour_LimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "each person": [
+      {
+        "field_name": "Vehicle_MedicalPayments_PerPersonLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_MedicalPayments_PerPersonLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ny": [
+      {
+        "field_name": "Vehicle_Comprehensive_DeductibleAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "no": [
+      {
+        "field_name": "Vehicle_TowingAndLabour_LimitAmount_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ]
+  },
+  "ambiguous": {
+    "property damage": [
+      {
+        "field_name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "trailer value": [
+      {
+        "field_name": "Vehicle_TrailerInterchange_TrailerValueAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TrailerInterchange_TrailerValueAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.7,
+        "seen_count": 1
+      }
+    ],
+    "other cover": [
+      {
+        "field_name": "Vehicle_OtherCoverage_SymbolDescription_N",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_OtherCoverage_SymbolDescription_O",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.9,
+        "seen_count": 1
+      }
+    ],
+    "agency customer id": [
+      {
+        "field_name": "Producer_CustomerIdentifier_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.7,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Producer_NationalIdentifier_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "nc": [
+      {
+        "field_name": "Vehicle_MotorCarrier_LiabilityLimitPerOccurrence_PropertyDamageLimit_B",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.6,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TrailerInterchange_Radius_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_B",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TrailerInterchange_Radius_D",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "bi each accident": [
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ba per": [
+      {
+        "field_name": "Vehicle_BodilyInjury_PerPersonLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_B",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_BodilyInjury_PerPersonLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "ftw": [
+      {
+        "field_name": "Vehicle_HiredBorrowed_HiredCostAmount_A",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_TowingAndLabour_LimitAmount_A",
+        "page": 2,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ],
+    "each person": [
+      {
+        "field_name": "Vehicle_MedicalPayments_PerPersonLimitAmount_A",
+        "page": 1,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      },
+      {
+        "field_name": "Vehicle_MedicalPayments_PerPersonLimitAmount_C",
+        "page": 3,
+        "y_region": "top",
+        "match_confidence": 0.1,
+        "seen_count": 1
+      }
+    ]
+  }
+}

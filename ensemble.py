@@ -28,7 +28,12 @@ from typing import Any, Dict, List, Optional, Tuple
 SOURCE_CONFIDENCE = {
     "acroform": 0.99,   # Direct PDF form field data (highest confidence)
     "spatial": 0.95,
+    "label_map": 0.92,  # Pre-built label→field mapping from GT cross-reference
+    "positional_checkbox": 0.91, # Pixel-based checkbox detection on exact coordinates
     "template": 0.90,
+    "vision_checkbox": 0.85,  # VLM visual inspection of checkbox regions
+    "vision_driver": 0.82,    # VLM reading narrow driver table columns
+    "positional": 0.88, # Geometric atlas matching (widget positions from schema)
     "semantic": 0.80,
     "label_value": 0.75,
     "vision": 0.70,

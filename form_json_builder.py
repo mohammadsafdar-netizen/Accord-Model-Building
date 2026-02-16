@@ -139,6 +139,7 @@ def prefill_form_json_from_ocr(
     spatial_fields: Dict[str, Any],
     label_value_pairs: List[Dict[str, Any]],
     semantic_matcher: Optional[Any] = None,
+    label_map: Optional[Any] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, str], Dict[str, Dict[str, Any]]]:
     """
     Pre-fill empty form JSON with OCR-derived data. Spatial fields (exact schema keys)
@@ -151,10 +152,11 @@ def prefill_form_json_from_ocr(
         spatial_fields: Dict of schema_key -> value from spatial pre-extraction.
         label_value_pairs: List of {"label": str, "value": str, "page"?: int, "confidence"?: float}.
         semantic_matcher: Optional SemanticFieldMatcher for embedding-based matching.
+        label_map: Optional LabelFieldMap for pre-built label→field lookup.
 
     Returns:
         (prefilled_json, source_map, details_map) where:
-        - source_map is field_name -> "spatial" | "label_value" | "semantic".
+        - source_map is field_name -> "spatial" | "label_map" | "label_value" | "semantic".
         - details_map is field_name -> {source, basis, confidence}. basis explains how the
           value was chosen; confidence is OCR pair confidence for label_value, None for spatial.
     """
@@ -172,7 +174,30 @@ def prefill_form_json_from_ocr(
             source_map[k] = "spatial"
             details_map[k] = {"source": "spatial", "basis": spatial_basis, "confidence": None}
 
-    # 2. Match label-value pairs to schema fields (don't overwrite spatial)
+    # 1.5. Label map lookup (pre-built deterministic mapping, don't overwrite spatial)
+    if label_map is not None and getattr(label_map, "is_loaded", False):
+        lm_results = label_map.batch_lookup(label_value_pairs)
+        for field_name, (value, confidence) in lm_results.items():
+            if field_name in source_map:
+                continue
+            if field_name not in prefilled:
+                continue
+            if prefilled.get(field_name) is not None and str(prefilled.get(field_name)).strip():
+                continue
+            fi = schema.fields.get(field_name)
+            if fi is not None:
+                label_norm_lm = _normalize_label(value)  # for allow check we pass the label
+                if not _allow_label_value_prefill(field_name, fi, "", value):
+                    continue
+            prefilled[field_name] = value
+            source_map[field_name] = "label_map"
+            details_map[field_name] = {
+                "source": "label_map",
+                "basis": f"Pre-built label→field mapping (confidence={confidence:.3f})",
+                "confidence": confidence,
+            }
+
+    # 2. Match label-value pairs to schema fields (don't overwrite spatial or label_map)
     unmatched_pairs: List[Dict[str, Any]] = []  # For semantic matching fallback
     for item in label_value_pairs:
         label = (item.get("label") or "").strip()
@@ -317,8 +342,10 @@ def build_empty_form_json_from_schema(schema: FormSchema, use_defaults: bool = F
 def label_value_pairs_to_json_list(spatial_indices: list) -> list:
     """
     Convert spatial indices (from OCRResult.spatial_indices) to a list of
-    {label, value, page, confidence?} dicts for saving as label_value_pairs.json.
+    {label, value, page, confidence?, label_y?, value_y?, label_x?} dicts
+    for saving as label_value_pairs.json.
     confidence is min(label block confidence, value block confidence) from EasyOCR.
+    label_y/value_y/label_x are centre coordinates from the TextBlock.
     """
     out = []
     for page_num, si in enumerate(spatial_indices, 1):
@@ -331,5 +358,12 @@ def label_value_pairs_to_json_list(spatial_indices: list) -> list:
             conf = getattr(pair, "confidence", None)
             if conf is not None:
                 entry["confidence"] = conf
+            # Include spatial positions for label-map disambiguation
+            if hasattr(pair.label, "y"):
+                entry["label_y"] = pair.label.y
+            if hasattr(pair.value, "y"):
+                entry["value_y"] = pair.value.y
+            if hasattr(pair.label, "x"):
+                entry["label_x"] = pair.label.x
             out.append(entry)
     return out

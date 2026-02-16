@@ -201,6 +201,7 @@ def run_single_form(
     use_ensemble: bool = False,
     use_batch_categories: bool = True,
     use_acroform: bool = False,
+    use_positional: bool = False,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -234,6 +235,7 @@ def run_single_form(
         use_ensemble=use_ensemble,
         use_batch_categories=use_batch_categories,
         use_acroform=use_acroform,
+        use_positional=use_positional,
     )
 
     start = time.time()
@@ -411,8 +413,8 @@ def main():
         help="Run vision pass (VLM) on form images for missing fields",
     )
     parser.add_argument(
-        "--vision-model", type=str, default="llava:7b",
-        help="Ollama vision model for --vision (e.g. llava:7b, qwen2.5-vl:7b, qwen2.5-vl:30b, qwen3-vl:30b). Default: llava:7b",
+        "--vision-model", type=str, default="qwen2.5vl:7b",
+        help="Ollama vision model for --vision or --vision-checkboxes-only (e.g. qwen2.5vl:7b, llava:7b). Default: qwen2.5vl:7b",
     )
     parser.add_argument(
         "--vision-descriptions", action="store_true",
@@ -482,6 +484,10 @@ def main():
     parser.add_argument(
         "--use-acroform", action="store_true",
         help="Enable AcroForm as extraction source (default: off, scanned-image mode)",
+    )
+    parser.add_argument(
+        "--use-positional", action="store_true",
+        help="Enable positional atlas matching (geometric field mapping from enriched schemas)",
     )
     parser.add_argument(
         "--docling", action="store_true",
@@ -579,16 +585,19 @@ def main():
         bbox_backend=bbox_backend,
         use_docling=True,
     )
-    # Larger models need longer timeouts (32B ~4x slower than 7B)
+    # Larger models need longer timeouts and more output tokens
     llm_timeout = 300
+    llm_max_tokens = 4096
     model_lower = args.model.lower()
     if "32b" in model_lower or "30b" in model_lower or "70b" in model_lower:
         llm_timeout = 600
+        llm_max_tokens = 8192
     llm = LLMEngine(
         model=args.model,
         base_url=args.ollama_url,
         timeout=llm_timeout,
-        vision_model=args.vision_model if args.vision else None,
+        max_tokens=llm_max_tokens,
+        vision_model=args.vision_model if (args.vision or args.vision_checkboxes_only) else None,
         vision_describer_model=args.vision_describer_model if args.vision else None,
         unload_wait_seconds=args.unload_wait,
     )
@@ -641,6 +650,7 @@ def main():
                 use_ensemble=args.ensemble,
                 use_batch_categories=not args.no_batch_categories,
                 use_acroform=args.use_acroform,
+                use_positional=args.use_positional,
             )
             type_results.append(result)
 

@@ -72,9 +72,15 @@ class FieldInfo:
     default_value: Optional[str] = None
     category: Optional[str] = None
     suffix: Optional[str] = None
+    # Positional data (from build_field_atlas.py)
+    page: Optional[int] = None
+    x_min: Optional[float] = None
+    y_min: Optional[float] = None
+    x_max: Optional[float] = None
+    y_max: Optional[float] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        d = {
             "name": self.name,
             "type": self.field_type,
             "tooltip": self.tooltip,
@@ -82,6 +88,13 @@ class FieldInfo:
             "category": self.category,
             "suffix": self.suffix,
         }
+        if self.page is not None:
+            d["page"] = self.page
+            d["x_min"] = self.x_min
+            d["y_min"] = self.y_min
+            d["x_max"] = self.x_max
+            d["y_max"] = self.y_max
+        return d
 
 
 @dataclass
@@ -92,16 +105,20 @@ class FormSchema:
     total_fields: int
     fields: Dict[str, FieldInfo] = field(default_factory=dict)
     categories: Dict[str, List[str]] = field(default_factory=dict)
+    anchors: List[Dict[str, Any]] = field(default_factory=list)
 
     # ----- Serialisation -----
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        d = {
             "form_number": self.form_number,
             "form_name": self.form_name,
             "total_fields": self.total_fields,
             "fields": {k: v.to_dict() for k, v in self.fields.items()},
             "categories": self.categories,
         }
+        if self.anchors:
+            d["anchors"] = self.anchors
+        return d
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "FormSchema":
@@ -119,12 +136,27 @@ class FormSchema:
                 default_value=fd.get("default_value"),
                 category=fd.get("category"),
                 suffix=fd.get("suffix"),
+                page=fd.get("page"),
+                x_min=fd.get("x_min"),
+                y_min=fd.get("y_min"),
+                x_max=fd.get("x_max"),
+                y_max=fd.get("y_max"),
             )
             schema.fields[name] = fi
             cat = fi.category or "general"
             cats[cat].append(name)
         schema.categories = dict(cats)
+        schema.anchors = data.get("anchors", [])
         return schema
+
+    def get_positioned_fields(self, page: Optional[int] = None) -> List[FieldInfo]:
+        """Return fields that have positional data. Optionally filter by page."""
+        result = []
+        for fi in self.fields.values():
+            if fi.x_min is not None:
+                if page is None or fi.page == page:
+                    result.append(fi)
+        return result
 
 
 # ===========================================================================

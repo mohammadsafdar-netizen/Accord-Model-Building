@@ -111,8 +111,8 @@ Examples:
         help="Directory of ground-truth JSONs for RAG (default: TEST_DATA_DIR from config).",
     )
     parser.add_argument(
-        "--vision-model", type=str, default="llava:7b",
-        help="Ollama vision model for --vision (default: llava:7b)",
+        "--vision-model", type=str, default="qwen2.5vl:7b",
+        help="Ollama vision model for --vision or --vision-checkboxes-only (default: qwen2.5vl:7b)",
     )
     parser.add_argument(
         "--vision-descriptions", action="store_true",
@@ -146,6 +146,14 @@ Examples:
     parser.add_argument(
         "--use-acroform", action="store_true",
         help="Use AcroForm (PDF form fields) as extraction source. Off by default (scanned-image mode).",
+    )
+    parser.add_argument(
+        "--use-positional", action="store_true",
+        help="Enable positional atlas matching (geometric field mapping from enriched schemas)",
+    )
+    parser.add_argument(
+        "--vision-checkboxes-only", action="store_true",
+        help="Use VLM only for missing checkbox fields (after text LLM pass). Needs --vision-model.",
     )
 
     args = parser.parse_args()
@@ -186,7 +194,7 @@ Examples:
         model=args.model,
         base_url=args.ollama_url,
         timeout=args.timeout,
-        vision_model=args.vision_model if args.vision else None,
+        vision_model=args.vision_model if (args.vision or args.vision_checkboxes_only) else None,
         vision_describer_model=args.vision_describer_model if args.vision else None,
     )
 
@@ -205,6 +213,7 @@ Examples:
         use_vision=args.vision,
         use_text_llm=args.text_llm,
         use_vision_descriptions=args.vision_descriptions,
+        vision_checkboxes_only=args.vision_checkboxes_only,
         rag_store=rag_store,
         use_semantic_matching=not args.no_semantic_matching,
         use_templates=args.use_templates,
@@ -212,6 +221,7 @@ Examples:
         use_ensemble=args.ensemble,
         use_batch_categories=not args.no_batch_categories,
         use_acroform=args.use_acroform,
+        use_positional=args.use_positional,
     )
 
     # --- Run extraction ---

@@ -41,6 +41,7 @@ from prompts import (
     build_vision_extraction_prompt_with_region_descriptions,
     build_vision_checkbox_prompt,
     build_vision_unified_prompt,
+    build_vision_driver_fields_prompt,
 )
 from spatial_extract import spatial_preextract
 from section_config import get_section_ids_for_category
@@ -75,6 +76,18 @@ try:
     from ensemble import EnsembleFusion
 except ImportError:
     EnsembleFusion = None  # type: ignore
+
+# Optional: Positional atlas matching
+try:
+    from positional_matcher import PositionalMatcher
+except ImportError:
+    PositionalMatcher = None  # type: ignore
+
+# Optional: Label field map (pre-built label→field lookup)
+try:
+    from label_field_map import LabelFieldMap
+except ImportError:
+    LabelFieldMap = None  # type: ignore
 from form_sections import (
     get_sections_for_form,
     get_section_scoped_bbox_text,
@@ -133,6 +146,7 @@ class ACORDExtractor:
         use_ensemble: bool = False,
         use_batch_categories: bool = True,
         use_acroform: bool = False,
+        use_positional: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -157,6 +171,7 @@ class ACORDExtractor:
         self.use_ensemble = use_ensemble and EnsembleFusion is not None
         self.use_batch_categories = use_batch_categories
         self.use_acroform = use_acroform
+        self.use_positional = use_positional and PositionalMatcher is not None
         # Lazy-initialized components
         self._semantic_matcher_cache: Dict[str, Any] = {}
         self._template_registry: Optional[Any] = None
@@ -338,6 +353,19 @@ class ACORDExtractor:
         if self.use_templates:
             template_fields = self._run_template_extraction(form_type, page_bbox, output_dir)
 
+        # ---- Step 3b'-pos: Positional atlas matching (opt-in) ------
+        positional_fields: Dict[str, Any] = {}
+        positional_metadata: Dict[str, Dict[str, Any]] = {}
+        if self.use_positional and schema.get_positioned_fields():
+            print("\n  [POSITIONAL] Matching OCR blocks to schema field atlas ...")
+            matcher = PositionalMatcher()
+            checkbox_images = getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
+            positional_fields, positional_metadata = matcher.match(schema, page_bbox, image_paths=checkbox_images)
+            print(f"    -> {len(positional_fields)} fields matched positionally")
+            from utils import save_json as _save_pos
+            _save_pos(positional_fields, output_dir / "positional_fields.json")
+            _save_pos(positional_metadata, output_dir / "positional_metadata.json")
+
         # ---- Step 3b'': Table Transformer (opt-in) ------
         if self.use_table_transformer and ocr_result.image_paths:
             self._run_table_transformer(ocr_result, page_bbox, output_dir)
@@ -374,11 +402,24 @@ class ACORDExtractor:
                     print(f"  [SEMANTIC] Failed to initialize: {e}")
             semantic_matcher = self._semantic_matcher_cache.get(cache_key)
 
+        # Initialize label field map (pre-built label→field lookup)
+        label_map_obj = None
+        if LabelFieldMap is not None:
+            try:
+                label_map_obj = LabelFieldMap(form_type)
+                if label_map_obj.is_loaded:
+                    print(f"  [LABEL-MAP] Loaded {label_map_obj.total_labels} label mappings for form {form_type}")
+                else:
+                    label_map_obj = None
+            except Exception as e:
+                print(f"  [LABEL-MAP] Failed to load: {e}")
+
         empty_json = build_empty_form_json_from_schema(schema, use_defaults=False)
         lv_list = label_value_pairs_to_json_list(ocr_result.spatial_indices)
         prefilled_json, prefill_sources, prefill_details = prefill_form_json_from_ocr(
             empty_json, schema, spatial_fields, lv_list,
             semantic_matcher=semantic_matcher,
+            label_map=label_map_obj,
         )
         save_empty_form_json(empty_json, output_dir / "empty_form.json")
         _save_json(prefilled_json, output_dir / "prefilled_form.json")
@@ -387,7 +428,10 @@ class ACORDExtractor:
         _save_json(prefill_details, output_dir / "prefill_details.json")
         prefill_count = len([v for v in prefilled_json.values() if v is not None and str(v).strip()])
         semantic_count = sum(1 for v in prefill_sources.values() if v == "semantic")
+        label_map_count = sum(1 for v in prefill_sources.values() if v == "label_map")
         prefill_msg = f"  [PREFILL] Empty form JSON pre-filled from OCR: {prefill_count} fields (spatial + label-value"
+        if label_map_count:
+            prefill_msg += f" + {label_map_count} label-map"
         if semantic_count:
             prefill_msg += f" + {semantic_count} semantic"
         prefill_msg += ")"
@@ -395,7 +439,7 @@ class ACORDExtractor:
 
         # ---- Step 4: Extracted dict = prefilled JSON (VLM/LLM will fill remaining nulls) ------
         extracted: Dict[str, Any] = {}
-        field_sources: Dict[str, str] = {}  # "acroform" | "spatial" | "label_value" | "semantic" | "template" | "vision" | "text_llm" | "gap_fill"
+        field_sources: Dict[str, str] = {}  # "acroform" | "spatial" | "label_map" | "label_value" | "semantic" | "template" | "positional" | "vision" | "text_llm" | "gap_fill"
 
         # AcroForm fields first (only when --use-acroform is enabled)
         if self.use_acroform and acroform_fields:
@@ -423,6 +467,16 @@ class ACORDExtractor:
                     field_sources[k] = "template"
             print(f"  [TEMPLATE] {sum(1 for k in template_fields if k in extracted and field_sources.get(k) == 'template')} fields from template anchoring")
 
+        # Merge positional fields (don't overwrite acroform, spatial, or template)
+        if positional_fields:
+            pos_new = 0
+            for k, v in positional_fields.items():
+                if k not in extracted and v is not None and str(v).strip():
+                    extracted[k] = v
+                    field_sources[k] = "positional"
+                    pos_new += 1
+            print(f"  [POSITIONAL] {pos_new} new fields from positional atlas matching")
+
         # Initialize ensemble if enabled
         ensemble: Optional[Any] = None
         if self.use_ensemble and EnsembleFusion is not None:
@@ -435,6 +489,24 @@ class ACORDExtractor:
             # Add template results
             if template_fields:
                 ensemble.add_results("template", template_fields, confidence=0.90)
+            # Add positional results — split checkbox (pixel) vs text
+            if positional_fields:
+                pos_checkbox = {}
+                pos_text = {}
+                for k, v in positional_fields.items():
+                    meta = positional_metadata.get(k, {})
+                    if meta.get("method", "").startswith("positional_checkbox"):
+                        pos_checkbox[k] = v
+                    else:
+                        pos_text[k] = v
+                if pos_checkbox:
+                    ensemble.add_results("positional_checkbox", pos_checkbox, confidence=0.91)
+                if pos_text:
+                    ensemble.add_results("positional", pos_text, confidence=0.88)
+            # Add label_map results
+            lm_fields = {k: v for k, v in extracted.items() if field_sources.get(k) == "label_map"}
+            if lm_fields:
+                ensemble.add_results("label_map", lm_fields, confidence=0.92)
             # Add label_value results
             lv_fields = {k: v for k, v in extracted.items() if field_sources.get(k) == "label_value"}
             if lv_fields:
@@ -647,7 +719,7 @@ class ACORDExtractor:
                         gap_section_ids.update(get_section_ids_for_category(form_type, fi.category))
                 if gap_section_ids:
                     gap_bbox_text = get_section_scoped_bbox_text(page_bbox, sections, list(gap_section_ids))
-            gap_result = self._gap_fill(form_type, missing, gap_bbox_text, lv_text)
+            gap_result = self._gap_fill(form_type, missing, gap_bbox_text, lv_text, docling_text=docling_text)
             # Only add fields that weren't already extracted; never overwrite spatial
             new_count = 0
             for k, v in gap_result.items():
@@ -660,6 +732,88 @@ class ACORDExtractor:
             if ensemble:
                 ensemble.add_results("gap_fill", gap_result, confidence=0.50)
             print(f"    -> {new_count} additional fields recovered")
+
+        # ---- VLM checkbox pass (after text LLM, before ensemble) ----
+        vlm_loaded = False
+        if self.vision_checkboxes_only and ocr_result.clean_image_paths and self.llm.vision_model:
+            missing_cb = [
+                n for n in all_field_names
+                if n not in extracted
+                and schema.fields.get(n)
+                and getattr(schema.fields[n], "field_type", "") in ("checkbox", "radio")
+            ]
+            if missing_cb:
+                self.llm.unload_text_model()
+                vlm_loaded = True
+                print(f"\n  [VLM-CB] Vision checkbox pass ({len(missing_cb)} missing checkboxes) ...")
+                try:
+                    vlm_cb_result = self._vision_pass_checkboxes(
+                        form_type=form_type,
+                        missing_fields=missing_cb,
+                        image_paths=ocr_result.clean_image_paths,
+                        schema=schema,
+                    )
+                    new_cb = 0
+                    for k, v in vlm_cb_result.items():
+                        norm_v = self._normalise_checkbox_value(v)
+                        if k not in extracted:
+                            extracted[k] = norm_v
+                            field_sources[k] = "vision_checkbox"
+                            new_cb += 1
+                    if ensemble:
+                        ensemble.add_results("vision_checkbox", vlm_cb_result, confidence=0.85)
+                    print(f"    -> {new_cb} checkbox fields from VLM")
+                except VisionModelNotFoundError as e:
+                    print(f"    [VLM-CB] Skipping: {e}")
+                except Exception as e:
+                    print(f"    [VLM-CB] Error: {e}")
+
+        # ---- VLM driver/narrow-column field rescue ----
+        _NARROW_COLUMN_PATTERNS = (
+            "UsePercent", "BroadenedNoFaultCode", "DriverOtherCarCode",
+            "ProducerIdentifier", "SR22FR44",
+        )
+        if self.vision_checkboxes_only and ocr_result.clean_image_paths and self.llm.vision_model:
+            missing_driver = [
+                n for n in all_field_names
+                if n not in extracted
+                and any(pat in n for pat in _NARROW_COLUMN_PATTERNS)
+            ]
+            if missing_driver:
+                if not vlm_loaded:
+                    self.llm.unload_text_model()
+                    vlm_loaded = True
+                print(f"\n  [VLM-DRV] Vision driver field rescue ({len(missing_driver)} fields) ...")
+                try:
+                    vlm_drv_result = self._vision_pass_driver_fields(
+                        form_type=form_type,
+                        missing_fields=missing_driver,
+                        image_paths=ocr_result.clean_image_paths,
+                        schema=schema,
+                    )
+                    new_drv = 0
+                    for k, v in vlm_drv_result.items():
+                        if v is None or (isinstance(v, str) and not v.strip()):
+                            continue
+                        if k not in extracted:
+                            # Normalize checkbox-type fields
+                            fi = schema.fields.get(k)
+                            if fi and getattr(fi, "field_type", "") in ("checkbox", "radio"):
+                                v = self._normalise_checkbox_value(v)
+                            extracted[k] = v
+                            field_sources[k] = "vision_driver"
+                            new_drv += 1
+                    if ensemble:
+                        ensemble.add_results("vision_driver", vlm_drv_result, confidence=0.82)
+                    print(f"    -> {new_drv} driver fields from VLM")
+                except VisionModelNotFoundError as e:
+                    print(f"    [VLM-DRV] Skipping: {e}")
+                except Exception as e:
+                    print(f"    [VLM-DRV] Error: {e}")
+
+        if vlm_loaded:
+            self.llm.unload_vision_model()
+            cleanup_gpu_memory()
 
         # ---- Ensemble fusion (when enabled) ----
         ensemble_metadata: Optional[Dict[str, Any]] = None
@@ -701,9 +855,36 @@ class ACORDExtractor:
         if field_types:
             extracted = normalizer_all(extracted, field_types)
 
-        # NOTE: Default unchecked checkboxes to "Off" was REMOVED.
-        # It converted "missing" fields (neutral for accuracy) into "wrong" fields
-        # (hurts accuracy) when GT has checked=True for boxes the extractor didn't find.
+        # Smart checkbox default: only set "Off" for checkboxes where pixel analysis
+        # confirms the box is definitely empty (ratio < 0.05). This avoids the old
+        # problem of blindly defaulting ALL missing checkboxes to "Off".
+        if self.use_positional and schema.get_positioned_fields():
+            checkbox_images = getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
+            if checkbox_images:
+                from positional_matcher import PositionalMatcher as _PM
+                _pm = _PM()
+                offsets = _pm.compute_alignment(schema, page_bbox)
+                defaulted_off = 0
+                for fi in schema.get_positioned_fields():
+                    if fi.name in extracted:
+                        continue
+                    if fi.field_type not in ("checkbox", "radio"):
+                        continue
+                    page_idx = fi.page
+                    if page_idx >= len(checkbox_images):
+                        continue
+                    dx, dy = offsets[page_idx] if page_idx < len(offsets) else (0.0, 0.0)
+                    ratio = _pm._get_checkbox_pixel_ratio(
+                        fi.x_min + dx, fi.y_min + dy,
+                        fi.x_max + dx, fi.y_max + dy,
+                        checkbox_images[page_idx],
+                    )
+                    if ratio is not None and ratio < 0.05:
+                        extracted[fi.name] = "Off"
+                        field_sources[fi.name] = "pixel_empty"
+                        defaulted_off += 1
+                if defaulted_off:
+                    print(f"  [PIXEL-OFF] Defaulted {defaulted_off} empty checkboxes to 'Off' (pixel ratio < 0.05)")
 
         # ---- Validate field names ----------------------------------------
         # Spatial fields are protected from schema validation (they use GT-matching names)
@@ -873,6 +1054,7 @@ class ACORDExtractor:
                     bbox_text=bbox_text,
                     label_value_text=lv_text,
                     few_shot_examples=gap_few_shot,
+                    docling_text=docling_text,
                 )
                 gap_response = self.llm.generate(gap_prompt)
                 gap_result = self.llm.parse_json(gap_response)
@@ -1206,6 +1388,70 @@ class ACORDExtractor:
                 print(f"    [VLM] Checkbox batch error: {e}")
         return result
 
+    def _vision_pass_driver_fields(
+        self,
+        form_type: str,
+        missing_fields: List[str],
+        image_paths: List[Path],
+        schema,
+    ) -> Dict[str, Any]:
+        """
+        Vision pass for missing narrow-column driver/vehicle fields.
+        These fields (UsePercent, BroadenedNoFaultCode, etc.) live in tiny table cells
+        that OCR can't reliably read. The VLM reads directly from the form image.
+        """
+        drv_batch = 15
+        MAX_PAGES = 2
+        result: Dict[str, Any] = {}
+        paths = [Path(p) for p in image_paths[:MAX_PAGES] if Path(p).exists()]
+        if not paths:
+            return result
+        tooltips_all = self.registry.get_tooltips(form_type, missing_fields)
+
+        def _match_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
+            if vlm_key in batch_keys:
+                return vlm_key
+            vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            vlm_norm = re.sub(r"_+", "_", vlm_norm).strip("_")
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+                if b_norm == vlm_norm:
+                    return b
+            for b in batch_keys:
+                b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+                b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+                if len(b_norm) < 5:
+                    continue
+                if vlm_norm in b_norm or b_norm in vlm_norm:
+                    if min(len(vlm_norm), len(b_norm)) / max(len(vlm_norm), len(b_norm)) >= 0.6:
+                        return b
+            return None
+
+        for i in range(0, len(missing_fields), drv_batch):
+            batch = missing_fields[i : i + drv_batch]
+            batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
+            prompt = build_vision_driver_fields_prompt(
+                form_type=form_type,
+                missing_fields=batch,
+                tooltips=batch_tooltips,
+            )
+            try:
+                if len(paths) == 1:
+                    response = self.llm.generate_with_image(prompt, paths[0], max_tokens=self.vision_max_tokens)
+                else:
+                    response = self.llm.generate_with_images(prompt, paths, max_tokens=self.vision_max_tokens)
+                batch_result = self.llm.parse_json(response)
+                for k, v in batch_result.items():
+                    if v is None or (isinstance(v, str) and not v.strip()):
+                        continue
+                    canonical = _match_key(k, batch)
+                    if canonical:
+                        result[canonical] = v
+            except Exception as e:
+                print(f"    [VLM] Driver field batch error: {e}")
+        return result
+
     @staticmethod
     def _normalise_checkbox_value(value: Any) -> str:
         """Normalise a single checkbox value from LLM/VLM to '1' or 'Off'."""
@@ -1417,6 +1663,7 @@ class ACORDExtractor:
         missing_fields: List[str],
         bbox_text: str,
         lv_text: str = "",
+        docling_text: str = "",
     ) -> Dict[str, Any]:
         """Second-pass extraction for fields missed in the first pass."""
         if not missing_fields:
@@ -1440,8 +1687,11 @@ class ACORDExtractor:
                 bbox_text=bbox_text,
                 label_value_text=lv_text,
                 few_shot_examples=gap_few_shot,
+                docling_text=docling_text,
             )
-            response = self.llm.generate(prompt)
+            # Dynamic timeout: base + extra per 100 fields
+            field_timeout = self.llm.timeout + (len(batch) // 100) * 60
+            response = self.llm.generate(prompt, timeout_override=field_timeout)
             result = self.llm.parse_json(response)
             # Only keep fields matching requested batch
             for k, v in result.items():
@@ -1598,6 +1848,21 @@ class ACORDExtractor:
 
             normalised[key] = str_val
 
+        # Post-pass: split State+ZIP merged values (e.g. "DC 20016" in StateOrProvinceCode)
+        state_zip_splits: Dict[str, str] = {}
+        for key, value in list(normalised.items()):
+            if "stateorprovincecode" in key.lower():
+                m = re.match(r"^([A-Z]{2})\s+(\d{5}(?:-\d{4})?)$", str(value).strip())
+                if m:
+                    state_part, zip_part = m.group(1), m.group(2)
+                    normalised[key] = state_part
+                    # Find the corresponding PostalCode field (same suffix)
+                    zip_key = key.replace("StateOrProvinceCode", "PostalCode")
+                    if zip_key not in normalised:
+                        state_zip_splits[zip_key] = zip_part
+        if state_zip_splits:
+            normalised.update(state_zip_splits)
+
         return normalised
 
     @staticmethod
@@ -1697,40 +1962,60 @@ class ACORDExtractor:
             else:
                 cat_doc, cat_bb, cat_lv = docling_text, bbox_text, lv_text
 
-            print(f"\n  [{step}/{total_steps}] Extracting {cats_label} ({len(remaining)}/{len(all_batch_fields)} fields, batched) ...")
+            # Chunk large batches to prevent timeouts on slower models
+            MAX_FIELDS_PER_BATCH = 150
 
-            tooltips = self.registry.get_tooltips(form_type, remaining)
-            few_shot = ""
-            if self.rag_store is not None:
-                few_shot = self.rag_store.retrieve(form_type, batch_cats[0], remaining, k=3)
+            if len(remaining) <= MAX_FIELDS_PER_BATCH:
+                chunks = [remaining]
+            else:
+                chunks = [remaining[i:i + MAX_FIELDS_PER_BATCH]
+                          for i in range(0, len(remaining), MAX_FIELDS_PER_BATCH)]
 
-            prompt = build_batched_extraction_prompt(
-                form_type=form_type,
-                categories=batch_cats,
-                field_names=remaining,
-                tooltips=tooltips,
-                docling_text=cat_doc,
-                bbox_text=cat_bb,
-                label_value_text=cat_lv,
-                section_scoped=bool(sections and batch_section_ids),
-                few_shot_examples=few_shot,
-                table_markdown=table_markdown,
-            )
-            response = self.llm.generate(prompt)
-            batch_result = self.llm.parse_json(response)
+            print(f"\n  [{step}/{total_steps}] Extracting {cats_label} ({len(remaining)}/{len(all_batch_fields)} fields, batched{f', {len(chunks)} chunks' if len(chunks) > 1 else ''}) ...")
 
-            # Only add LLM results; never overwrite spatial pre-extraction
-            new_count = 0
-            for k, v in batch_result.items():
-                if field_sources.get(k) == "spatial":
-                    continue
-                if k not in extracted and k in remaining and v is not None:
-                    extracted[k] = v
-                    field_sources[k] = "text_llm"
-                    new_count += 1
-            if ensemble:
-                ensemble.add_results("text_llm", batch_result, confidence=0.65)
-            print(f"    -> {new_count} fields extracted")
+            total_new = 0
+            for chunk_idx, chunk_fields in enumerate(chunks):
+                if len(chunks) > 1:
+                    print(f"      chunk {chunk_idx + 1}/{len(chunks)} ({len(chunk_fields)} fields) ...")
+
+                tooltips = self.registry.get_tooltips(form_type, chunk_fields)
+                few_shot = ""
+                if self.rag_store is not None:
+                    few_shot = self.rag_store.retrieve(form_type, batch_cats[0], chunk_fields, k=3)
+
+                prompt = build_batched_extraction_prompt(
+                    form_type=form_type,
+                    categories=batch_cats,
+                    field_names=chunk_fields,
+                    tooltips=tooltips,
+                    docling_text=cat_doc,
+                    bbox_text=cat_bb,
+                    label_value_text=cat_lv,
+                    section_scoped=bool(sections and batch_section_ids),
+                    few_shot_examples=few_shot,
+                    table_markdown=table_markdown,
+                )
+                # Scale timeout: base + extra per 100 fields
+                field_timeout = self.llm.timeout + (len(chunk_fields) // 100) * 60
+                response = self.llm.generate(prompt, timeout_override=field_timeout)
+                batch_result = self.llm.parse_json(response)
+
+                # Only add LLM results; never overwrite spatial pre-extraction
+                new_count = 0
+                for k, v in batch_result.items():
+                    if field_sources.get(k) == "spatial":
+                        continue
+                    if k not in extracted and k in chunk_fields and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "text_llm"
+                        new_count += 1
+                if ensemble:
+                    ensemble.add_results("text_llm", batch_result, confidence=0.65)
+                total_new += new_count
+                if len(chunks) > 1:
+                    print(f"        -> {new_count} fields extracted")
+
+            print(f"    -> {total_new} fields extracted (total)")
 
         # Handle special categories that were in CATEGORY_BATCHES but also special
         # (coverage is a special-ish category that can be batched on its own)

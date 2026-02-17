@@ -60,7 +60,12 @@ class LLMEngine:
         max_tokens: int = 4096,
         vision_model: Optional[str] = None,
         vision_describer_model: Optional[str] = None,
+        vlm_extract_model: Optional[str] = None,
+        vlm_ocr_model: Optional[str] = None,
+        stage2_model: Optional[str] = None,
         unload_wait_seconds: Optional[int] = None,
+        keep_models_loaded: bool = True,
+        structured_json: bool = True,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
@@ -71,8 +76,19 @@ class LLMEngine:
         self.vision_model = vision_model  # e.g. "llava:7b" for Ollama VLM
         # Small VLM for describing image regions (crops); if None, use vision_model
         self.vision_describer_model = vision_describer_model
+        # VLM for direct extraction from page images (--vlm-extract); e.g. "qwen3-vl:8b"
+        self.vlm_extract_model = vlm_extract_model
+        # VLM-OCR model for two-stage extraction (--glm-ocr / --nanonets-ocr)
+        self.vlm_ocr_model = vlm_ocr_model
+        # Text LLM for stage 2 of VLM-OCR pipeline (default: same as self.model)
+        self.stage2_model = stage2_model
         # Wait after stopping Ollama model so GPU releases VRAM (default 8s; use 5 on 24GB+)
         self._unload_wait_seconds = unload_wait_seconds if unload_wait_seconds is not None else 8
+        # When True, individual unload_text/vision/vlm/describer methods become no-ops
+        # (the full unload_model() before OCR always runs regardless)
+        self.keep_models_loaded = keep_models_loaded
+        # When True, add "format": "json" to Ollama API payloads for constrained JSON output
+        self.structured_json = structured_json
 
     # ------------------------------------------------------------------
     # Text generation
@@ -115,6 +131,8 @@ class LLMEngine:
                 "num_predict": tokens,
             },
         }
+        if self.structured_json:
+            payload["format"] = "json"
 
         last_error: Optional[Exception] = None
         for attempt in range(1, self.max_retries + 1):
@@ -164,6 +182,8 @@ class LLMEngine:
             "stream": False,
             "options": {"temperature": temperature, "num_predict": max_tokens},
         }
+        if self.structured_json:
+            payload["format"] = "json"
         resp = requests.post(
             f"{self.base_url}/api/chat",
             json=payload,
@@ -192,6 +212,8 @@ class LLMEngine:
             "temperature": temperature,
             "max_tokens": max_tokens,
         }
+        if self.structured_json:
+            payload["response_format"] = {"type": "json_object"}
         resp = requests.post(
             f"{self.base_url}/v1/chat/completions",
             json=payload,
@@ -232,21 +254,27 @@ class LLMEngine:
             pass
 
     def unload_model(self) -> None:
-        """Unload text and vision models from Ollama to free GPU memory.
+        """Unload text, vision, and vlm_extract models from Ollama to free GPU memory.
 
-        Stops both models (if vision_model set), waits UNLOAD_WAIT_SECONDS,
+        Stops all loaded models, waits UNLOAD_WAIT_SECONDS,
         then polls nvidia-smi until no process uses >1 GiB or max polls reached.
         Gives the GPU time to actually release VRAM before OCR/LLM load.
         """
         import subprocess
 
-        # Stop both text and vision models so OCR has full GPU
+        # Stop text, vision, and vlm_extract models so OCR has full GPU
         self._stop_ollama_model(self.model)
+        stopped = [self.model]
         if self.vision_model:
             self._stop_ollama_model(self.vision_model)
-            print(f"  [LLM] Stopped {self.model} and {self.vision_model}, waiting {self._unload_wait_seconds}s for GPU...")
-        else:
-            print(f"  [LLM] Stopped {self.model}, waiting {self._unload_wait_seconds}s for GPU...")
+            stopped.append(self.vision_model)
+        if self.vlm_extract_model and self.vlm_extract_model not in stopped:
+            self._stop_ollama_model(self.vlm_extract_model)
+            stopped.append(self.vlm_extract_model)
+        if self.vlm_ocr_model and self.vlm_ocr_model not in stopped:
+            self._stop_ollama_model(self.vlm_ocr_model)
+            stopped.append(self.vlm_ocr_model)
+        print(f"  [LLM] Stopped {', '.join(stopped)}, waiting {self._unload_wait_seconds}s for GPU...")
 
         time.sleep(self._unload_wait_seconds)
 
@@ -277,6 +305,8 @@ class LLMEngine:
                     self._stop_ollama_model(self.model)
                     if self.vision_model:
                         self._stop_ollama_model(self.vision_model)
+                    if self.vlm_extract_model:
+                        self._stop_ollama_model(self.vlm_extract_model)
             except Exception:
                 pass
 
@@ -284,6 +314,9 @@ class LLMEngine:
 
     def unload_text_model(self) -> None:
         """Unload only the text model (e.g. before loading VLM for vision pass)."""
+        if self.keep_models_loaded:
+            print(f"  [LLM] Skipping unload of {self.model} (keep_models_loaded=True)")
+            return
         self._stop_ollama_model(self.model)
         print(f"  [LLM] Stopped {self.model}, waiting {self._unload_wait_seconds}s for GPU...")
         time.sleep(self._unload_wait_seconds)
@@ -291,6 +324,9 @@ class LLMEngine:
     def unload_vision_model(self) -> None:
         """Unload only the vision model (e.g. after vision pass so text LLM can load again)."""
         if not self.vision_model:
+            return
+        if self.keep_models_loaded:
+            print(f"  [VLM] Skipping unload of {self.vision_model} (keep_models_loaded=True)")
             return
         self._stop_ollama_model(self.vision_model)
         print(f"  [VLM] Stopped {self.vision_model}, waiting {self._unload_wait_seconds}s...")
@@ -301,9 +337,118 @@ class LLMEngine:
         describer = self.vision_describer_model or self.vision_model
         if not describer:
             return
+        if self.keep_models_loaded:
+            print(f"  [VLM] Skipping unload of describer {describer} (keep_models_loaded=True)")
+            return
         self._stop_ollama_model(describer)
         print(f"  [VLM] Stopped describer {describer}, waiting {self._unload_wait_seconds}s...")
         time.sleep(self._unload_wait_seconds)
+
+    def unload_vlm_extract_model(self) -> None:
+        """Unload the VLM extract model (after --vlm-extract pass, before text LLM)."""
+        if not self.vlm_extract_model:
+            return
+        if self.keep_models_loaded:
+            print(f"  [VLM-EXT] Skipping unload of {self.vlm_extract_model} (keep_models_loaded=True)")
+            return
+        self._stop_ollama_model(self.vlm_extract_model)
+        print(f"  [VLM-EXT] Stopped {self.vlm_extract_model}, waiting {self._unload_wait_seconds}s...")
+        time.sleep(self._unload_wait_seconds)
+
+    def unload_vlm_ocr_model(self) -> None:
+        """Unload the VLM-OCR model (after stage 1, before stage 2 text LLM)."""
+        if not self.vlm_ocr_model:
+            return
+        if self.keep_models_loaded:
+            print(f"  [VLM-OCR] Skipping unload of {self.vlm_ocr_model} (keep_models_loaded=True)")
+            return
+        self._stop_ollama_model(self.vlm_ocr_model)
+        print(f"  [VLM-OCR] Stopped {self.vlm_ocr_model}, waiting {self._unload_wait_seconds}s...")
+        time.sleep(self._unload_wait_seconds)
+
+    # ------------------------------------------------------------------
+    # VLM Direct Extract (--vlm-extract: page image → structured JSON)
+    # ------------------------------------------------------------------
+
+    def generate_vlm_extract(
+        self,
+        prompt: str,
+        image_path: Union[str, Path],
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+    ) -> str:
+        """
+        Generate structured JSON from a page image using the vlm_extract_model.
+
+        Used by --vlm-extract: sends a page image + field list prompt to a VLM
+        (e.g. qwen3-vl:8b) and gets back JSON with extracted field values.
+        """
+        if not self.vlm_extract_model:
+            raise ValueError(
+                "No vlm_extract_model configured. Pass --vlm-extract-model (default: qwen3-vl:8b)."
+            )
+        b64 = self._image_to_base64(image_path)
+        return self._chat_with_images(
+            prompt=prompt,
+            images=[b64],
+            temperature=temperature,
+            max_tokens=max_tokens,
+            model=self.vlm_extract_model,
+        )
+
+    # ------------------------------------------------------------------
+    # VLM-OCR (--glm-ocr / --nanonets-ocr: page image → structured text)
+    # ------------------------------------------------------------------
+
+    def generate_vlm_ocr(
+        self,
+        prompt: str,
+        image_path: Union[str, Path],
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+    ) -> str:
+        """
+        Send a page image to the VLM-OCR model and get structured text output
+        (markdown/HTML, NOT JSON).  Unlike generate_vlm_extract, this does NOT
+        use format:json — the output is free-form OCR text.
+        """
+        if not self.vlm_ocr_model:
+            raise ValueError(
+                "No vlm_ocr_model configured. Pass --glm-ocr or --nanonets-ocr."
+            )
+        b64 = self._image_to_base64(image_path)
+        # Temporarily disable structured_json so the OCR output is free-form text
+        saved = self.structured_json
+        self.structured_json = False
+        try:
+            return self._chat_with_images(
+                prompt=prompt,
+                images=[b64],
+                temperature=temperature or 0.0,
+                max_tokens=max_tokens or 8192,
+                model=self.vlm_ocr_model,
+            )
+        finally:
+            self.structured_json = saved
+
+    def generate_stage2(
+        self,
+        prompt: str,
+        system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+    ) -> str:
+        """
+        Generate text using the stage-2 text LLM (for VLM-OCR two-stage pipeline).
+        Uses self.stage2_model if set, else falls back to self.model.
+        """
+        original_model = self.model
+        if self.stage2_model:
+            self.model = self.stage2_model
+        try:
+            return self.generate(prompt, system=system, temperature=temperature, max_tokens=max_tokens)
+        finally:
+            self.model = original_model
 
     # ------------------------------------------------------------------
     # Vision (Ollama VLM: llava, llama3.2-vision, etc.)
@@ -439,6 +584,8 @@ class LLMEngine:
             "stream": False,
             "options": {"temperature": temp, "num_predict": tokens},
         }
+        if self.structured_json:
+            payload["format"] = "json"
         last_error: Optional[Exception] = None
         for attempt in range(1, self.max_retries + 1):
             try:
@@ -506,6 +653,8 @@ class LLMEngine:
                 "num_predict": _tokens,
             },
         }
+        if self.structured_json:
+            payload["format"] = "json"
         parts: List[str] = []
         try:
             resp = requests.post(

@@ -155,6 +155,93 @@ Examples:
         "--vision-checkboxes-only", action="store_true",
         help="Use VLM only for missing checkbox fields (after text LLM pass). Needs --vision-model.",
     )
+    parser.add_argument(
+        "--vlm-extract", action="store_true",
+        help="Direct VLM extraction from page images (can combine with --text-llm --ensemble)",
+    )
+    parser.add_argument(
+        "--vlm-extract-model", type=str, default="qwen3-vl:8b",
+        help="Ollama VLM for --vlm-extract (default: qwen3-vl:8b)",
+    )
+    parser.add_argument(
+        "--preprocess", action="store_true",
+        help="Preprocess images (deskew + denoise + binarize + CLAHE) before OCR",
+    )
+    parser.add_argument(
+        "--align-to-template", action="store_true",
+        help="Align scanned images to canonical template via SIFT feature matching",
+    )
+    parser.add_argument(
+        "--smart-ensemble", action="store_true",
+        help="Enable field-type-aware ensemble weighting (implies --ensemble)",
+    )
+    parser.add_argument(
+        "--validate-fields", action="store_true",
+        help="Enable cross-field validation (state/ZIP, date ordering, VIN, phone, NAIC)",
+    )
+    parser.add_argument(
+        "--vlm-crop-extract", action="store_true",
+        help="Cropped VLM extraction: crops page regions by field clusters for higher detail",
+    )
+    parser.add_argument(
+        "--dual-llm-validate", action="store_true",
+        help="Second LLM pass to verify and correct extracted values against OCR text",
+    )
+    # --- Speed + accuracy optimizations ---
+    parser.add_argument(
+        "--no-keep-models-loaded", action="store_true",
+        help="Disable keep-models-loaded (unload models between passes). Default: keep loaded.",
+    )
+    parser.add_argument(
+        "--no-parallel-vlm", action="store_true",
+        help="Disable parallel VLM calls (run sequentially). Default: parallel.",
+    )
+    parser.add_argument(
+        "--vlm-workers", type=int, default=3, metavar="N",
+        help="Max concurrent VLM API calls when parallel VLM is enabled (default: 3)",
+    )
+    parser.add_argument(
+        "--multimodal", action="store_true",
+        help="Enable multimodal extraction (send image + OCR text to VLM together)",
+    )
+    parser.add_argument(
+        "--no-confidence-routing", action="store_true",
+        help="Disable confidence-based routing (extract all fields in every pass). Default: routing enabled.",
+    )
+    parser.add_argument(
+        "--confidence-threshold", type=float, default=0.90, metavar="F",
+        help="Confidence threshold for routing (default: 0.90). Fields above this skip VLM/LLM passes.",
+    )
+    parser.add_argument(
+        "--no-structured-json", action="store_true",
+        help="Disable structured JSON output (Ollama format:json constraint). Default: enabled.",
+    )
+    parser.add_argument(
+        "--checkbox-crops", action="store_true",
+        help="Enable checkbox crop extraction (tight VLM crops for checkbox fields)",
+    )
+    # --- VLM-OCR two-stage models ---
+    vlm_ocr_group = parser.add_mutually_exclusive_group()
+    vlm_ocr_group.add_argument(
+        "--glm-ocr", action="store_true",
+        help="Enable GLM-OCR two-stage extraction (VLM OCR → text LLM). Mutually exclusive with --nanonets-ocr.",
+    )
+    vlm_ocr_group.add_argument(
+        "--nanonets-ocr", action="store_true",
+        help="Enable Nanonets-OCR two-stage extraction (VLM OCR → text LLM). Mutually exclusive with --glm-ocr.",
+    )
+    parser.add_argument(
+        "--glm-ocr-model", type=str, default="glm-ocr",
+        help="Ollama model name for GLM-OCR (default: glm-ocr)",
+    )
+    parser.add_argument(
+        "--nanonets-ocr-model", type=str, default="yasserrmd/Nanonets-OCR-s",
+        help="Ollama model name for Nanonets-OCR (default: yasserrmd/Nanonets-OCR-s)",
+    )
+    parser.add_argument(
+        "--stage2-model", type=str, default=None,
+        help="Text LLM for stage 2 extraction in VLM-OCR pipeline (default: same as --model)",
+    )
 
     args = parser.parse_args()
 
@@ -188,7 +275,15 @@ Examples:
         docling_cpu_when_gpu=True,  # CPU offload for Docling so GPU is free for bbox OCR + LLM
         bbox_backend=bbox_backend,
         use_docling=args.docling,
+        use_preprocess=args.preprocess,
     )
+
+    # Determine VLM-OCR model
+    vlm_ocr_model = None
+    if args.glm_ocr:
+        vlm_ocr_model = args.glm_ocr_model
+    elif args.nanonets_ocr:
+        vlm_ocr_model = args.nanonets_ocr_model
 
     llm = LLMEngine(
         model=args.model,
@@ -196,6 +291,11 @@ Examples:
         timeout=args.timeout,
         vision_model=args.vision_model if (args.vision or args.vision_checkboxes_only) else None,
         vision_describer_model=args.vision_describer_model if args.vision else None,
+        vlm_extract_model=args.vlm_extract_model if (args.vlm_extract or args.vlm_crop_extract or args.multimodal or args.checkbox_crops) else None,
+        vlm_ocr_model=vlm_ocr_model,
+        stage2_model=args.stage2_model,
+        keep_models_loaded=not args.no_keep_models_loaded,
+        structured_json=not args.no_structured_json,
     )
 
     schemas_dir = args.schemas_dir or get_schemas_dir()
@@ -218,10 +318,25 @@ Examples:
         use_semantic_matching=not args.no_semantic_matching,
         use_templates=args.use_templates,
         use_table_transformer=args.table_transformer,
-        use_ensemble=args.ensemble,
+        use_ensemble=args.ensemble or args.smart_ensemble,
         use_batch_categories=not args.no_batch_categories,
         use_acroform=args.use_acroform,
         use_positional=args.use_positional,
+        use_vlm_extract=args.vlm_extract,
+        use_preprocess=args.preprocess,
+        use_align_to_template=args.align_to_template,
+        use_smart_ensemble=args.smart_ensemble,
+        use_field_validation=args.validate_fields,
+        use_vlm_crop_extract=args.vlm_crop_extract,
+        use_dual_llm_validate=args.dual_llm_validate,
+        parallel_vlm=not args.no_parallel_vlm,
+        vlm_max_workers=args.vlm_workers,
+        use_multimodal=args.multimodal,
+        confidence_routing=not args.no_confidence_routing,
+        confidence_threshold=args.confidence_threshold,
+        use_checkbox_crops=args.checkbox_crops,
+        use_glm_ocr=args.glm_ocr,
+        use_nanonets_ocr=args.nanonets_ocr,
     )
 
     # --- Run extraction ---

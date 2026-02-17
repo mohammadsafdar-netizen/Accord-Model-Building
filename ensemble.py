@@ -28,9 +28,13 @@ from typing import Any, Dict, List, Optional, Tuple
 SOURCE_CONFIDENCE = {
     "acroform": 0.99,   # Direct PDF form field data (highest confidence)
     "spatial": 0.95,
+    "vlm_checkbox_crop": 0.93,  # Focused checkbox crop + enhanced VLM (--checkbox-crops)
     "label_map": 0.92,  # Pre-built label→field mapping from GT cross-reference
+    "multimodal": 0.92,  # Combined image + OCR text VLM extraction (--multimodal)
     "positional_checkbox": 0.91, # Pixel-based checkbox detection on exact coordinates
     "template": 0.90,
+    "vlm_ocr": 0.87,       # Two-stage VLM-OCR extraction (--glm-ocr / --nanonets-ocr)
+    "vlm_extract": 0.88,  # Direct VLM extraction from page images (--vlm-extract)
     "vision_checkbox": 0.85,  # VLM visual inspection of checkbox regions
     "vision_driver": 0.82,    # VLM reading narrow driver table columns
     "positional": 0.88, # Geometric atlas matching (widget positions from schema)
@@ -43,6 +47,35 @@ SOURCE_CONFIDENCE = {
 
 # Boost when 2+ sources agree on the same value
 AGREEMENT_BOOST = 0.10
+
+# Field-type-aware confidence overrides (--smart-ensemble)
+FIELD_TYPE_WEIGHTS = {
+    "checkbox": {
+        "vlm_checkbox_crop": 0.99, "vlm_extract": 0.95, "positional_checkbox": 0.93,
+        "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
+        "positional": 0.88, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
+    },
+    "radio": {  # Same as checkbox
+        "vlm_checkbox_crop": 0.99, "vlm_extract": 0.95, "positional_checkbox": 0.93,
+        "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
+        "positional": 0.88, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
+    },
+    "text": {
+        "spatial": 0.95, "text_llm": 0.75, "vlm_ocr": 0.85, "vlm_extract": 0.82,
+        "positional": 0.80, "label_value": 0.78, "semantic": 0.82,
+        "gap_fill": 0.55, "template": 0.90, "label_map": 0.92,
+    },
+    "numeric": {
+        "positional": 0.92, "template": 0.92, "spatial": 0.90,
+        "vlm_extract": 0.85, "vlm_ocr": 0.83, "text_llm": 0.70, "label_value": 0.75,
+        "semantic": 0.78, "gap_fill": 0.50,
+    },
+    "date": {
+        "spatial": 0.93, "text_llm": 0.80, "vlm_extract": 0.85, "vlm_ocr": 0.83,
+        "positional": 0.88, "label_value": 0.78, "semantic": 0.80,
+        "gap_fill": 0.55, "template": 0.90,
+    },
+}
 
 
 @dataclass
@@ -83,17 +116,44 @@ class EnsembleFusion:
     them using confidence scoring and agreement voting.
     """
 
-    def __init__(self, source_confidence: Optional[Dict[str, float]] = None):
+    def __init__(
+        self,
+        source_confidence: Optional[Dict[str, float]] = None,
+        smart_ensemble: bool = False,
+    ):
         """
         Args:
             source_confidence: Override default confidence weights per source.
+            smart_ensemble: When True, use field-type-aware weights from FIELD_TYPE_WEIGHTS.
         """
         self.weights = dict(SOURCE_CONFIDENCE)
         if source_confidence:
             self.weights.update(source_confidence)
 
+        self.smart_ensemble = smart_ensemble
+        # Mapping of field_name -> field_type (set via set_field_types)
+        self._field_types: Dict[str, str] = {}
         # field_name -> list of SourceResult
         self._results: Dict[str, List[SourceResult]] = {}
+
+    def set_field_types(self, field_types: Dict[str, str]) -> None:
+        """Set field type mapping for smart ensemble weighting.
+
+        Args:
+            field_types: {field_name: field_type} where field_type is
+                         "checkbox", "radio", "text", "numeric", "date", etc.
+        """
+        self._field_types = dict(field_types)
+
+    def _get_smart_confidence(self, field_name: str, source: str, base_confidence: float) -> float:
+        """Get confidence adjusted for field type when smart_ensemble is enabled."""
+        if not self.smart_ensemble:
+            return base_confidence
+        field_type = self._field_types.get(field_name, "text")
+        type_weights = FIELD_TYPE_WEIGHTS.get(field_type)
+        if type_weights and source in type_weights:
+            return type_weights[source]
+        return base_confidence
 
     def add_results(
         self,
@@ -115,7 +175,9 @@ class EnsembleFusion:
             if value is None or (isinstance(value, str) and not value.strip()):
                 continue
 
-            sr = SourceResult(value=value, confidence=conf, source=source)
+            # Apply smart ensemble field-type-aware confidence override
+            field_conf = self._get_smart_confidence(field_name, source, conf)
+            sr = SourceResult(value=value, confidence=field_conf, source=source)
 
             if field_name not in self._results:
                 self._results[field_name] = []
@@ -165,6 +227,20 @@ class EnsembleFusion:
                 all_sources=source_results,
             )
 
+        # Checkbox crop override: for checkbox/radio fields, vlm_checkbox_crop
+        # always wins — it's a focused visual inspection of the exact region.
+        field_type = self._field_types.get(field_name, "text")
+        if field_type in ("checkbox", "radio"):
+            for sr in source_results:
+                if sr.source == "vlm_checkbox_crop":
+                    return FieldFusion(
+                        final_value=sr.value,
+                        confidence=0.99,
+                        winning_source="vlm_checkbox_crop",
+                        agreement_count=1,
+                        all_sources=source_results,
+                    )
+
         # Group by normalized value to find agreements
         value_groups: Dict[str, List[SourceResult]] = {}
         for sr in source_results:
@@ -197,6 +273,35 @@ class EnsembleFusion:
             agreement_count=agreement_count,
             all_sources=source_results,
         )
+
+    def get_high_confidence_fields(
+        self,
+        threshold: float = 0.90,
+        trusted_sources: Optional[tuple] = None,
+    ) -> set:
+        """
+        Get field names with confidence >= threshold from trusted sources.
+
+        Used by confidence-based routing to skip fields that don't need
+        re-extraction by VLM/LLM.
+
+        Args:
+            threshold: Minimum confidence to consider high-confidence.
+            trusted_sources: If set, only count fields from these sources.
+                Defaults to ("acroform", "spatial", "positional", "positional_checkbox", "template", "label_map").
+
+        Returns:
+            Set of field names with high confidence.
+        """
+        if trusted_sources is None:
+            trusted_sources = ("acroform", "spatial", "positional", "positional_checkbox", "template", "label_map")
+        high: set = set()
+        for field_name, source_results in self._results.items():
+            for sr in source_results:
+                if sr.confidence >= threshold and sr.source in trusted_sources:
+                    high.add(field_name)
+                    break
+        return high
 
     def get_low_confidence_fields(
         self, threshold: float = 0.60

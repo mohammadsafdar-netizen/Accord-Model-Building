@@ -870,3 +870,425 @@ JSON to fill:
 {json_tmpl}
 """
     return prompt
+
+
+# ===========================================================================
+# VLM Direct Extract prompts (--vlm-extract: image → JSON, no OCR text)
+# ===========================================================================
+
+def build_vlm_extract_prompt(
+    form_type: str,
+    categories: List[str],
+    field_names: List[str],
+    tooltips: Dict[str, str],
+    page_number: int,
+    total_pages: int,
+) -> str:
+    """
+    Prompt for direct VLM extraction from a single page image.
+
+    The VLM reads the form image directly (no OCR text provided) and returns
+    structured JSON with extracted field values. Used by --vlm-extract.
+    """
+    layout = _layout_hint(form_type)
+    cat_hints = []
+    for cat in categories:
+        hint = _category_hint(cat)
+        if hint:
+            cat_hints.append(f"[{cat.upper()}] {hint}")
+    combined_hints = "\n".join(cat_hints) if cat_hints else ""
+
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+
+    has_indicators = "checkbox" in categories or any(
+        "indicator" in k.lower() or k.lower().startswith("chk") for k in field_names
+    )
+    checkbox_rule = ""
+    if has_indicators:
+        checkbox_rule = (
+            'CHECKBOX/INDICATOR RULE: Any field containing "Indicator" in its name is a CHECKBOX. '
+            'Return ONLY "1" (checked/marked/X) or "Off" (empty/unchecked). '
+            'NEVER return text, dollar amounts, or descriptions for Indicator fields.'
+        )
+
+    json_tmpl = _json_template(field_names)
+    cats_label = " + ".join(c.upper() for c in categories)
+
+    prompt = f"""Look at this scanned ACORD {form_type} form image (page {page_number} of {total_pages}) and extract the {cats_label} fields listed below.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== SECTION CONTEXT ===
+{combined_hints}
+
+=== FIELDS TO EXTRACT (use these EXACT key names) ===
+{field_block}
+
+CRITICAL RULES:
+1. READ the form image directly. Extract values you can see on this page.
+2. Use EXACTLY the field key names listed above. Do NOT rename or invent keys.
+3. Replace null with the extracted value (as a string). Omit fields not visible on this page.
+4. Dates: MM/DD/YYYY. Numbers: as strings. ZIP codes: 5 digits.
+5. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not.'}
+6. Do NOT guess or hallucinate values. Only extract what you can clearly read.
+
+ENTITY DISAMBIGUATION:
+- Producer/Agent = LEFT side of header (the broker selling the policy)
+- Insurer/Carrier = CENTER/RIGHT of header (the company providing coverage)
+- Named Insured = BELOW header (the customer buying insurance)
+- "ACORD" or "ACORD CORPORATION" is the FORM PUBLISHER, not an entity on the form
+
+JSON TEMPLATE (use these EXACT keys):
+{json_tmpl}
+
+Return ONLY a valid JSON object. No explanation, no markdown fences, just JSON.
+"""
+    return prompt
+
+
+def build_vlm_extract_driver_prompt(
+    driver_num: int,
+    suffix: str,
+    field_names: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    VLM direct extract prompt for a single driver row from the driver table.
+
+    The VLM reads the form image directly and extracts fields for one driver.
+    """
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+    json_tmpl = _json_template(field_names)
+
+    prompt = f"""Look at this ACORD 127 form image. Find the DRIVER INFORMATION TABLE and extract data for DRIVER #{driver_num} (suffix _{suffix}).
+
+DRIVER TABLE COLUMN ORDER (left to right):
+  1. Driver # (row number)
+  2. First Name (GivenName)
+  3. City
+  4. Last Name (Surname)
+  5. State (2-letter code: IN, CA, TX...)
+  6. Zip (5-digit postal code)
+  7. Sex (M or F)
+  8. Marital Status
+  9. DOB (MM/DD/YYYY)
+  10. % Use / Use Veh #
+  11. DOC (Driver Other Car) - Y/N
+  12. Broadened No-Fault - Y/N
+  13. License #
+  14. License State (2-letter code)
+
+ROW IDENTIFICATION: Driver #{driver_num} is the {_ordinal(driver_num)} data row in the table (row {driver_num} from top).
+
+CRITICAL DISAMBIGUATION:
+- City names (Indianapolis, Greenfield, Columbus) go in the CITY field, NOT name fields
+- "IN", "MD", "VA" are STATE CODES, not names
+- First names are PERSON names: Thomas, Lisa, Bruce
+- Last names are PERSON surnames: Mooney, Green, Spence
+- ZIP codes are 5-digit numbers: 46140, 46250
+
+FIELDS (suffix _{suffix}):
+{field_block}
+
+RULES:
+- Use EXACTLY these field key names. Do NOT rename.
+- Read values directly from the image for row #{driver_num}.
+- Dates: MM/DD/YYYY. Output ONLY valid JSON.
+
+JSON TEMPLATE:
+{json_tmpl}
+
+Return ONLY valid JSON. No explanation, no markdown fences:
+"""
+    return prompt
+
+
+def build_vlm_extract_vehicle_prompt(
+    form_type: str,
+    suffix: str,
+    field_names: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    VLM direct extract prompt for vehicle/coverage fields with a specific suffix.
+
+    The VLM reads the form image directly.
+    """
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+    json_tmpl = _json_template(field_names)
+
+    if form_type == "137":
+        context = (
+            "ACORD 137 - Commercial Auto Section (Vehicle Schedule).\n"
+            "Vehicle rows use suffixes _A through _F.\n"
+            "Fields include Business Auto Symbols (1-9 are CHECKBOXES: '1' or 'Off'),\n"
+            "coverage descriptions, limit amounts, deductibles.\n"
+            "Look for the row/section labeled with suffix _{suffix} or vehicle #{_suffix_to_num(suffix)}."
+        )
+    else:
+        context = (
+            "ACORD 127 - Business Auto Section.\n"
+            "Vehicle rows use suffixes _A through _E.\n"
+            "Fields include Year, Make, Model, VIN, body type, GVW, cost new,\n"
+            "radius of use, garaging location.\n"
+            "Look for the row/section labeled with suffix _{suffix} or vehicle #{_suffix_to_num(suffix)}."
+        )
+
+    prompt = f"""Look at this ACORD {form_type} form image and extract VEHICLE/COVERAGE fields for suffix _{suffix}.
+
+{context}
+
+FIELDS (suffix _{suffix}):
+{field_block}
+
+RULES:
+- Use EXACTLY these field key names. Do NOT rename or invent keys.
+- Business Auto Symbol and Indicator fields are CHECKBOXES: "1" or "Off" only.
+- Limits and deductibles are numeric dollar amounts.
+- Read values directly from the image. Output ONLY valid JSON.
+
+JSON TEMPLATE:
+{json_tmpl}
+
+Return ONLY valid JSON. No explanation, no markdown fences:
+"""
+    return prompt
+
+
+def _ordinal(n: int) -> str:
+    """Return ordinal string for a number (1st, 2nd, 3rd, etc.)."""
+    if 11 <= (n % 100) <= 13:
+        suffix = "th"
+    else:
+        suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
+def _suffix_to_num(suffix: str) -> int:
+    """Convert suffix letter to 1-based number (A=1, B=2, ...)."""
+    return ord(suffix.upper()) - ord('A') + 1
+
+
+# ===========================================================================
+# Multimodal extraction prompt (--multimodal: image + OCR text → JSON)
+# ===========================================================================
+
+def build_multimodal_extract_prompt(
+    form_type: str,
+    categories: List[str],
+    field_names: List[str],
+    tooltips: Dict[str, str],
+    ocr_text: str,
+    table_markdown: str = "",
+    page_number: int = 1,
+    total_pages: int = 1,
+    max_ocr: int = 6000,
+) -> str:
+    """
+    Prompt for multimodal extraction: VLM receives BOTH the page image AND OCR text.
+
+    The VLM can cross-reference what it sees in the image with the OCR text,
+    catching errors in both sources.
+    """
+    layout = _layout_hint(form_type)
+    cat_hints = []
+    for cat in categories:
+        hint = _category_hint(cat)
+        if hint:
+            cat_hints.append(f"[{cat.upper()}] {hint}")
+    combined_hints = "\n".join(cat_hints) if cat_hints else ""
+
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+
+    has_indicators = "checkbox" in categories or any(
+        "indicator" in k.lower() or k.lower().startswith("chk") for k in field_names
+    )
+    checkbox_rule = ""
+    if has_indicators:
+        checkbox_rule = (
+            'CHECKBOX/INDICATOR RULE: Any field containing "Indicator" in its name is a CHECKBOX. '
+            'Return ONLY "1" (checked/marked/X) or "Off" (empty/unchecked). '
+            'NEVER return text, dollar amounts, or descriptions for Indicator fields.'
+        )
+
+    json_tmpl = _json_template(field_names)
+    cats_label = " + ".join(c.upper() for c in categories)
+
+    table_section = ""
+    if table_markdown and table_markdown.strip():
+        table_section = f"""
+=== STRUCTURED TABLE DATA ===
+{table_markdown[:2000]}
+"""
+
+    prompt = f"""Look at this scanned ACORD {form_type} form image (page {page_number} of {total_pages}) AND read the OCR text below. Extract the {cats_label} fields using BOTH sources.
+
+When the OCR text and image disagree, prefer what you see in the image. Use the OCR text to confirm or clarify values that are hard to read in the image.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== SECTION CONTEXT ===
+{combined_hints}
+
+=== OCR TEXT (from document analysis — may contain errors) ===
+{ocr_text[:max_ocr]}
+{table_section}
+=== FIELDS TO EXTRACT (use these EXACT key names) ===
+{field_block}
+
+CRITICAL RULES:
+1. READ the form image AND the OCR text. Cross-reference both sources.
+2. Use EXACTLY the field key names listed above. Do NOT rename or invent keys.
+3. Replace null with the extracted value (as a string). Omit fields not found.
+4. Dates: MM/DD/YYYY. Numbers: as strings. ZIP codes: 5 digits.
+5. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not.'}
+6. Do NOT guess or hallucinate. Only extract what you can verify from image + OCR text.
+
+ENTITY DISAMBIGUATION:
+- Producer/Agent = LEFT side of header (broker)
+- Insurer/Carrier = CENTER/RIGHT of header (insurance company)
+- Named Insured = BELOW header (customer)
+- "ACORD" or "ACORD CORPORATION" is the FORM PUBLISHER
+
+JSON TEMPLATE (use these EXACT keys):
+{json_tmpl}
+
+Return ONLY a valid JSON object. No explanation, no markdown fences, just JSON.
+"""
+    return prompt
+
+
+# ===========================================================================
+# Checkbox crop prompt (--checkbox-crops: focused region → checked/unchecked)
+# ===========================================================================
+
+def build_vlm_ocr_stage2_prompt(
+    form_type: str,
+    categories: List[str],
+    field_names: List[str],
+    tooltips: Dict[str, str],
+    vlm_ocr_text: str,
+    max_ocr: int = 8000,
+) -> str:
+    """
+    Stage 2 prompt for the VLM-OCR two-stage pipeline.
+
+    The vlm_ocr_text is structured markdown (possibly with HTML tables,
+    [CHECKED]/[UNCHECKED] markers, <signature> tags, etc.) produced by
+    GLM-OCR or Nanonets-OCR in Stage 1.
+    """
+    layout = _layout_hint(form_type)
+    cat_hints = []
+    for cat in categories:
+        hint = _category_hint(cat)
+        if hint:
+            cat_hints.append(f"[{cat.upper()}] {hint}")
+    combined_hints = "\n".join(cat_hints) if cat_hints else ""
+
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+
+    has_indicators = "checkbox" in categories or any(
+        "indicator" in k.lower() or k.lower().startswith("chk") for k in field_names
+    )
+    checkbox_rule = ""
+    if has_indicators:
+        checkbox_rule = (
+            'CHECKBOX/INDICATOR RULE: Any field containing "Indicator" in its name is a CHECKBOX. '
+            'Return ONLY "1" (checked/marked/X/[CHECKED]) or "Off" (empty/unchecked/[UNCHECKED]). '
+            '[CHECKED] in the OCR text means the checkbox is marked -> return "1". '
+            '[UNCHECKED] means the checkbox is empty -> return "Off". '
+            'NEVER return text, dollar amounts, or descriptions for Indicator fields.'
+        )
+
+    json_tmpl = _json_template(field_names)
+    cats_label = " + ".join(c.upper() for c in categories)
+
+    prompt = f"""You are extracting {cats_label} fields from an ACORD {form_type} form.
+The text below was produced by an advanced OCR model that read the scanned form image.
+
+=== FORM LAYOUT ===
+{layout}
+
+=== SECTION CONTEXT ===
+{combined_hints}
+
+=== FIELDS TO EXTRACT (use these EXACT key names) ===
+{field_block}
+
+=== OCR TEXT (from VLM-OCR scan of the form) ===
+{vlm_ocr_text[:max_ocr]}
+
+CRITICAL RULES:
+1. Use EXACTLY the field key names above. Do NOT rename or invent keys.
+2. Replace null with the extracted value (as a string). Omit missing fields.
+3. Dates: MM/DD/YYYY. Numbers: as strings. ZIP codes: 5 digits.
+4. {checkbox_rule or 'For checkboxes/indicators: "1" if checked, "Off" if not.'}
+5. Do NOT guess or hallucinate. Only extract what appears in the OCR text.
+6. [CHECKED] = checkbox is marked, return "1". [UNCHECKED] = empty, return "Off".
+
+ENTITY DISAMBIGUATION:
+- Producer/Agent = the broker selling the policy
+- Insurer/Carrier = the company providing coverage
+- Named Insured = the customer buying insurance
+- "ACORD" is the form publisher, not an entity
+
+JSON TEMPLATE:
+{json_tmpl}
+
+Return ONLY valid JSON. No explanation, no markdown fences:
+"""
+    return prompt
+
+
+def build_checkbox_crop_prompt(
+    field_name: str,
+    tooltip: str = "",
+) -> str:
+    """
+    Prompt for a single cropped checkbox region sent to VLM.
+
+    The VLM receives a tight crop around the checkbox and determines if it's
+    checked or unchecked.
+    """
+    tip_hint = f" ({tooltip})" if tooltip else ""
+    prompt = f"""Look at this cropped checkbox region from an ACORD insurance form.
+
+The field is: {field_name}{tip_hint}
+
+Is this checkbox checked/marked (X, checkmark, filled) or empty/unchecked?
+
+Return ONLY a JSON object: {{"{field_name}": true}} if checked, or {{"{field_name}": false}} if unchecked.
+No explanation, no markdown, just JSON.
+"""
+    return prompt
+
+
+def build_checkbox_grid_prompt(
+    field_map: dict,
+) -> str:
+    """
+    Prompt for a grid montage of multiple checkbox crops.
+
+    Each cell in the grid is numbered. The VLM must classify each checkbox
+    as checked (true) or unchecked (false).
+
+    Args:
+        field_map: {number: field_name} mapping grid positions to field names.
+    """
+    listing = "\n".join(f"  {num} = {name}" for num, name in sorted(field_map.items()))
+    keys_json = ", ".join(f'"{name}": true/false' for _, name in sorted(field_map.items()))
+    prompt = f"""This image shows a numbered grid of cropped checkbox regions from an ACORD insurance form.
+
+Each numbered cell contains one checkbox. Determine if each is checked (X, checkmark, filled) or empty/unchecked.
+
+Checkbox positions:
+{listing}
+
+Return ONLY a JSON object with true for checked, false for unchecked:
+{{{keys_json}}}
+
+No explanation, no markdown, just the JSON object.
+"""
+    return prompt

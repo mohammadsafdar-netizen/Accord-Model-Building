@@ -22,8 +22,9 @@ from __future__ import annotations
 
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from ocr_engine import OCREngine, OCRResult, cleanup_gpu_memory
 from llm_engine import LLMEngine, VisionModelNotFoundError
@@ -42,6 +43,13 @@ from prompts import (
     build_vision_checkbox_prompt,
     build_vision_unified_prompt,
     build_vision_driver_fields_prompt,
+    build_vlm_extract_prompt,
+    build_vlm_extract_driver_prompt,
+    build_vlm_extract_vehicle_prompt,
+    build_multimodal_extract_prompt,
+    build_checkbox_crop_prompt,
+    build_checkbox_grid_prompt,
+    build_vlm_ocr_stage2_prompt,
 )
 from spatial_extract import spatial_preextract
 from section_config import get_section_ids_for_category
@@ -88,6 +96,20 @@ try:
     from label_field_map import LabelFieldMap
 except ImportError:
     LabelFieldMap = None  # type: ignore
+
+# Optional: Image alignment
+try:
+    from image_aligner import align_to_template, get_template_image
+    IMAGE_ALIGNER_AVAILABLE = True
+except ImportError:
+    IMAGE_ALIGNER_AVAILABLE = False
+
+# Optional: Field validator
+try:
+    from field_validator import validate_and_fix
+    FIELD_VALIDATOR_AVAILABLE = True
+except ImportError:
+    FIELD_VALIDATOR_AVAILABLE = False
 from form_sections import (
     get_sections_for_form,
     get_section_scoped_bbox_text,
@@ -147,11 +169,27 @@ class ACORDExtractor:
         use_batch_categories: bool = True,
         use_acroform: bool = False,
         use_positional: bool = False,
+        use_vlm_extract: bool = False,
+        use_preprocess: bool = False,
+        use_align_to_template: bool = False,
+        use_smart_ensemble: bool = False,
+        use_field_validation: bool = False,
+        use_vlm_crop_extract: bool = False,
+        use_dual_llm_validate: bool = False,
+        parallel_vlm: bool = True,
+        vlm_max_workers: int = 3,
+        use_multimodal: bool = False,
+        confidence_routing: bool = True,
+        confidence_threshold: float = 0.90,
+        use_checkbox_crops: bool = False,
+        use_glm_ocr: bool = False,
+        use_nanonets_ocr: bool = False,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
         self.registry = schema_registry
         self.use_vision = use_vision and bool(getattr(llm_engine, "vision_model", None))
+        self.use_vlm_extract = use_vlm_extract and bool(getattr(llm_engine, "vlm_extract_model", None))
         self.use_text_llm = use_text_llm
         self.use_vision_descriptions = use_vision_descriptions and self.use_vision
         self.vision_checkboxes_only = vision_checkboxes_only
@@ -172,6 +210,25 @@ class ACORDExtractor:
         self.use_batch_categories = use_batch_categories
         self.use_acroform = use_acroform
         self.use_positional = use_positional and PositionalMatcher is not None
+        self.use_preprocess = use_preprocess
+        self.use_align_to_template = use_align_to_template
+        self.use_smart_ensemble = use_smart_ensemble
+        self.use_field_validation = use_field_validation
+        self.use_vlm_crop_extract = use_vlm_crop_extract and bool(getattr(llm_engine, "vlm_extract_model", None))
+        self.use_dual_llm_validate = use_dual_llm_validate
+        # Parallel VLM: use ThreadPoolExecutor for concurrent VLM API calls
+        self.parallel_vlm = parallel_vlm
+        self.vlm_max_workers = vlm_max_workers
+        # Multimodal extraction: send both image + OCR text to VLM in single call
+        self.use_multimodal = use_multimodal and bool(getattr(llm_engine, "vlm_extract_model", None))
+        # Confidence routing: skip high-confidence fields in VLM/LLM passes
+        self.confidence_routing = confidence_routing
+        self.confidence_threshold = confidence_threshold
+        # Checkbox crop extraction: tight crops + enhanced contrast + focused VLM
+        self.use_checkbox_crops = use_checkbox_crops and bool(getattr(llm_engine, "vlm_extract_model", None))
+        # VLM-OCR two-stage extraction (--glm-ocr / --nanonets-ocr)
+        self.use_glm_ocr = use_glm_ocr and bool(getattr(llm_engine, "vlm_ocr_model", None))
+        self.use_nanonets_ocr = use_nanonets_ocr and bool(getattr(llm_engine, "vlm_ocr_model", None))
         # Lazy-initialized components
         self._semantic_matcher_cache: Dict[str, Any] = {}
         self._template_registry: Optional[Any] = None
@@ -240,6 +297,31 @@ class ACORDExtractor:
         schema = self.registry.get_schema(form_type)
         if schema is None:
             raise ValueError(f"No schema loaded for ACORD {form_type}")
+
+        # ---- Step 2b: Image alignment to canonical template (opt-in) -----
+        aligned_image_paths = None
+        if self.use_align_to_template and IMAGE_ALIGNER_AVAILABLE and ocr_result.image_paths:
+            print("\n  [ALIGN] Aligning scanned images to canonical template ...")
+            aligned_dir = output_dir / "aligned"
+            aligned_dir.mkdir(parents=True, exist_ok=True)
+            aligned_image_paths = []
+            for page_idx, img_path in enumerate(ocr_result.image_paths):
+                template_path = get_template_image(form_type, page_idx)
+                if template_path:
+                    out_path = aligned_dir / f"{img_path.stem}_aligned.png"
+                    try:
+                        aligned_path, H = align_to_template(img_path, template_path, out_path)
+                        aligned_image_paths.append(aligned_path)
+                    except Exception as e:
+                        print(f"    [ALIGN] Page {page_idx} failed: {e}")
+                        aligned_image_paths.append(img_path)
+                else:
+                    aligned_image_paths.append(img_path)
+            if any(p != orig for p, orig in zip(aligned_image_paths, ocr_result.image_paths)):
+                print(f"    [ALIGN] {sum(1 for p, o in zip(aligned_image_paths, ocr_result.image_paths) if p != o)} pages aligned")
+            else:
+                print("    [ALIGN] No template images found, using original images")
+                aligned_image_paths = None
 
         # ---- Step 3: Prepare OCR text ------------------------------------
         docling_text = ocr_result.full_docling_text
@@ -359,7 +441,8 @@ class ACORDExtractor:
         if self.use_positional and schema.get_positioned_fields():
             print("\n  [POSITIONAL] Matching OCR blocks to schema field atlas ...")
             matcher = PositionalMatcher()
-            checkbox_images = getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
+            # Use aligned images for checkbox detection if available
+            checkbox_images = aligned_image_paths or getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
             positional_fields, positional_metadata = matcher.match(schema, page_bbox, image_paths=checkbox_images)
             print(f"    -> {len(positional_fields)} fields matched positionally")
             from utils import save_json as _save_pos
@@ -477,10 +560,16 @@ class ACORDExtractor:
                     pos_new += 1
             print(f"  [POSITIONAL] {pos_new} new fields from positional atlas matching")
 
-        # Initialize ensemble if enabled
+        # Initialize ensemble if enabled (--smart-ensemble implies --ensemble)
         ensemble: Optional[Any] = None
-        if self.use_ensemble and EnsembleFusion is not None:
-            ensemble = EnsembleFusion()
+        if (self.use_ensemble or self.use_smart_ensemble) and EnsembleFusion is not None:
+            ensemble = EnsembleFusion(smart_ensemble=self.use_smart_ensemble)
+            # Set field types for smart ensemble weighting and checkbox crop override
+            if (self.use_smart_ensemble or self.use_checkbox_crops) and schema:
+                field_type_map = {}
+                for fname, finfo in schema.fields.items():
+                    field_type_map[fname] = getattr(finfo, "field_type", "text") or "text"
+                ensemble.set_field_types(field_type_map)
             # Add AcroForm results (highest confidence) — only when enabled
             if self.use_acroform and acroform_fields:
                 ensemble.add_results("acroform", acroform_fields, confidence=0.99)
@@ -526,8 +615,20 @@ class ACORDExtractor:
 
         category_steps = len([c for c in categories if c not in special])
         total_steps = 0
+        if self.use_vlm_extract and ocr_result.clean_image_paths:
+            total_steps += 1  # vlm-extract: direct VLM extraction from page images
+        if self.use_vlm_crop_extract and ocr_result.clean_image_paths:
+            total_steps += 1  # vlm-crop-extract: cropped VLM extraction
+        if self.use_multimodal and ocr_result.clean_image_paths:
+            total_steps += 1  # multimodal: combined image + OCR text VLM
+        if self.use_checkbox_crops and ocr_result.clean_image_paths:
+            total_steps += 1  # checkbox-crops: focused checkbox region VLM
+        if (self.use_glm_ocr or self.use_nanonets_ocr) and ocr_result.image_paths:
+            total_steps += 1  # vlm-ocr: two-stage VLM-OCR extraction
         if self.use_vision and ocr_result.clean_image_paths:
             total_steps += 1  # vision: single unified pass (image + docling + spatial)
+        if self.use_dual_llm_validate:
+            total_steps += 1  # dual-llm-validate: second LLM pass for verification
         if self.use_text_llm:
             total_steps += category_steps
             if "driver" in schema.categories and form_type == "127":
@@ -538,6 +639,204 @@ class ACORDExtractor:
 
         step = 0
         vision_skipped_404 = False  # set True if VLM model not found
+        vlm_extract_skipped_404 = False  # set True if VLM extract model not found
+
+        # ---- Confidence routing: determine which fields to skip in VLM/LLM ----
+        high_conf_fields: Set[str] = set()
+        if self.confidence_routing and ensemble:
+            high_conf_fields = ensemble.get_high_confidence_fields(
+                threshold=self.confidence_threshold,
+            )
+            if high_conf_fields:
+                print(f"  [ROUTING] {len(high_conf_fields)} high-confidence fields (>={self.confidence_threshold}) will be skipped in VLM/LLM passes")
+
+        # ---- Step 4-vlm: Direct VLM extraction (--vlm-extract) ----
+        # Runs AFTER spatial/positional/template/semantic prefill, BEFORE text LLM.
+        # VLM reads page images directly and extracts structured JSON per category batch.
+        if self.use_vlm_extract and ocr_result.clean_image_paths:
+            self.llm.unload_text_model()
+            step += 1
+            missing_for_vlm = [n for n in all_field_names if n not in extracted]
+            # Confidence routing: skip fields already extracted with high confidence
+            if high_conf_fields:
+                before_routing = len(missing_for_vlm)
+                missing_for_vlm = [n for n in missing_for_vlm if n not in high_conf_fields]
+                skipped = before_routing - len(missing_for_vlm)
+                if skipped:
+                    print(f"    [ROUTING] Skipped {skipped} high-confidence fields from VLM extract")
+            print(f"\n  [{step}/{total_steps}] VLM Direct Extract ({len(missing_for_vlm)} remaining fields) ...")
+            try:
+                vlm_extract_result = self._vlm_extract_pass(
+                    form_type=form_type,
+                    schema=schema,
+                    image_paths=ocr_result.clean_image_paths,
+                    extracted=extracted,
+                    field_sources=field_sources,
+                    CAT_PAGES=CAT_PAGES,
+                )
+                # Merge: skip fields from spatial/acroform (priority sources)
+                vlm_new = 0
+                for k, v in vlm_extract_result.items():
+                    if field_sources.get(k) in ("spatial", "acroform"):
+                        continue
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "vlm_extract"
+                        vlm_new += 1
+                if ensemble:
+                    ensemble.add_results("vlm_extract", vlm_extract_result, confidence=0.88)
+                print(f"    -> {vlm_new} new fields from VLM direct extract")
+            except VisionModelNotFoundError as e:
+                print(f"    [VLM-EXT] Skipping: {e}")
+                vlm_extract_skipped_404 = True
+            self.llm.unload_vlm_extract_model()
+            cleanup_gpu_memory()
+
+        # ---- Step 4-vlm-crop: Cropped VLM extraction (--vlm-crop-extract) ----
+        vlm_crop_skipped_404 = False
+        if self.use_vlm_crop_extract and ocr_result.clean_image_paths:
+            self.llm.unload_text_model()
+            step += 1
+            missing_for_crop = [n for n in all_field_names if n not in extracted]
+            print(f"\n  [{step}/{total_steps}] VLM Cropped Extract ({len(missing_for_crop)} remaining fields) ...")
+            try:
+                crop_result = self._vlm_crop_extract_pass(
+                    form_type=form_type,
+                    schema=schema,
+                    image_paths=aligned_image_paths or ocr_result.image_paths,
+                    extracted=extracted,
+                    field_sources=field_sources,
+                )
+                crop_new = 0
+                for k, v in crop_result.items():
+                    if field_sources.get(k) in ("spatial", "acroform"):
+                        continue
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "vlm_crop_extract"
+                        crop_new += 1
+                if ensemble:
+                    ensemble.add_results("vlm_crop_extract", crop_result, confidence=0.90)
+                print(f"    -> {crop_new} new fields from cropped VLM extract")
+            except VisionModelNotFoundError as e:
+                print(f"    [VLM-CROP] Skipping: {e}")
+                vlm_crop_skipped_404 = True
+            self.llm.unload_vlm_extract_model()
+            cleanup_gpu_memory()
+
+        # ---- Step 4-vlm-ocr: Two-stage VLM-OCR extraction (--glm-ocr / --nanonets-ocr) ----
+        vlm_ocr_skipped_404 = False
+        if (self.use_glm_ocr or self.use_nanonets_ocr) and ocr_result.image_paths:
+            self.llm.unload_text_model()
+            step += 1
+            backend_name = "GLM-OCR" if self.use_glm_ocr else "Nanonets-OCR"
+            missing_for_vlm_ocr = [n for n in all_field_names if n not in extracted]
+            # Confidence routing
+            if high_conf_fields:
+                before_routing = len(missing_for_vlm_ocr)
+                missing_for_vlm_ocr = [n for n in missing_for_vlm_ocr if n not in high_conf_fields]
+                skipped = before_routing - len(missing_for_vlm_ocr)
+                if skipped:
+                    print(f"    [ROUTING] Skipped {skipped} high-confidence fields from {backend_name}")
+            print(f"\n  [{step}/{total_steps}] {backend_name} Two-Stage Extract ({len(missing_for_vlm_ocr)} remaining fields) ...")
+            try:
+                vlm_ocr_result = self._vlm_ocr_two_stage_pass(
+                    form_type=form_type,
+                    schema=schema,
+                    image_paths=ocr_result.image_paths,
+                    extracted=extracted,
+                    field_sources=field_sources,
+                    CAT_PAGES=CAT_PAGES,
+                    table_markdown=table_markdown,
+                )
+                vlm_ocr_new = 0
+                for k, v in vlm_ocr_result.items():
+                    if field_sources.get(k) in ("spatial", "acroform"):
+                        continue
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "vlm_ocr"
+                        vlm_ocr_new += 1
+                if ensemble:
+                    ensemble.add_results("vlm_ocr", vlm_ocr_result, confidence=0.87)
+                print(f"    -> {vlm_ocr_new} new fields from {backend_name} two-stage extract")
+            except VisionModelNotFoundError as e:
+                print(f"    [VLM-OCR] Skipping: {e}")
+                vlm_ocr_skipped_404 = True
+            self.llm.unload_vlm_ocr_model()
+            cleanup_gpu_memory()
+
+        # ---- Step 4-multimodal: Multimodal extraction (--multimodal) ----
+        multimodal_skipped_404 = False
+        if self.use_multimodal and ocr_result.clean_image_paths:
+            self.llm.unload_text_model()
+            step += 1
+            missing_for_mm = [n for n in all_field_names if n not in extracted]
+            # Confidence routing: skip high-confidence fields
+            if self.confidence_routing and ensemble:
+                high_conf = ensemble.get_high_confidence_fields(self.confidence_threshold)
+                before_len = len(missing_for_mm)
+                missing_for_mm = [n for n in missing_for_mm if n not in high_conf]
+                if before_len != len(missing_for_mm):
+                    print(f"    [CONF-ROUTE] Skipping {before_len - len(missing_for_mm)} high-confidence fields")
+            print(f"\n  [{step}/{total_steps}] Multimodal Extract ({len(missing_for_mm)} fields) ...")
+            try:
+                mm_result = self._multimodal_extract_pass(
+                    form_type=form_type,
+                    schema=schema,
+                    image_paths=ocr_result.clean_image_paths,
+                    extracted=extracted,
+                    field_sources=field_sources,
+                    CAT_PAGES=CAT_PAGES,
+                    page_bbox_text=page_bbox_text,
+                    page_docling=page_docling,
+                    table_markdown=table_markdown,
+                )
+                mm_new = 0
+                for k, v in mm_result.items():
+                    if field_sources.get(k) in ("spatial", "acroform"):
+                        continue
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "multimodal"
+                        mm_new += 1
+                if ensemble:
+                    ensemble.add_results("multimodal", mm_result, confidence=0.92)
+                print(f"    -> {mm_new} new fields from multimodal extract")
+            except VisionModelNotFoundError as e:
+                print(f"    [MULTIMODAL] Skipping: {e}")
+                multimodal_skipped_404 = True
+            self.llm.unload_vlm_extract_model()
+            cleanup_gpu_memory()
+
+        # ---- Step 4-checkbox-crops: Checkbox crop extraction (--checkbox-crops) ----
+        checkbox_crop_skipped_404 = False
+        if self.use_checkbox_crops and ocr_result.clean_image_paths:
+            self.llm.unload_text_model()
+            step += 1
+            print(f"\n  [{step}/{total_steps}] Checkbox Crop Extract ...")
+            try:
+                cb_crop_result = self._checkbox_crop_pass(
+                    form_type=form_type,
+                    schema=schema,
+                    image_paths=aligned_image_paths or ocr_result.image_paths,
+                )
+                cb_new = 0
+                for k, v in cb_crop_result.items():
+                    if field_sources.get(k) in ("spatial", "acroform", "positional_checkbox"):
+                        continue
+                    if k not in extracted and v is not None:
+                        extracted[k] = v
+                        field_sources[k] = "vlm_checkbox_crop"
+                        cb_new += 1
+                if ensemble:
+                    ensemble.add_results("vlm_checkbox_crop", cb_crop_result, confidence=0.93)
+                print(f"    -> {cb_new} new checkbox fields from crop VLM")
+            except VisionModelNotFoundError as e:
+                print(f"    [CB-CROP] Skipping: {e}")
+                checkbox_crop_skipped_404 = True
+            self.llm.unload_vlm_extract_model()
+            cleanup_gpu_memory()
 
         # ---- Step 4a: Vision-first pass (VLM before text LLM for best accuracy) ----
         # When vision runs, text LLM is used only for gap-fill; when vision is off, category-by-category text runs.
@@ -820,17 +1119,48 @@ class ACORDExtractor:
         ensemble_metadata: Optional[Dict[str, Any]] = None
         if ensemble:
             fused_fields, ensemble_metadata = ensemble.fuse()
-            # Use ensemble results as the primary extracted dict
+            # Use ensemble results — override extracted with fused winners
             pre_ensemble_count = len(extracted)
+            overrides = 0
             for k, v in fused_fields.items():
-                if k not in extracted and v is not None:
-                    extracted[k] = v
-                    field_sources[k] = ensemble_metadata[k]["source"]
+                if v is None:
+                    continue
+                old_source = field_sources.get(k)
+                new_source = ensemble_metadata[k]["source"]
+                if k in extracted and old_source != new_source:
+                    overrides += 1
+                extracted[k] = v
+                field_sources[k] = new_source
             disagreements = ensemble.get_disagreements()
             print(f"  [ENSEMBLE] Fused {len(fused_fields)} fields from {len(ensemble._results)} field entries")
+            if overrides:
+                print(f"    {overrides} field(s) overridden by ensemble winner")
             if disagreements:
                 print(f"    {len(disagreements)} field(s) with source disagreements")
             _save_json(ensemble_metadata, output_dir / "ensemble_metadata.json")
+
+        # ---- Dual-LLM validation (second LLM pass to verify extracted values) ----
+        if self.use_dual_llm_validate and extracted:
+            step += 1
+            print(f"\n  [{step}/{total_steps}] Dual-LLM validation ({len(extracted)} fields) ...")
+            cleanup_gpu_memory()
+            dual_result, dual_warnings = self._dual_llm_validate(
+                extracted, bbox_text, docling_text, schema,
+            )
+            # Apply corrections from second LLM pass
+            corrections = 0
+            for k, info in dual_result.items():
+                if not info.get("correct", True) and info.get("suggested"):
+                    suggested = info["suggested"]
+                    if k in extracted and suggested and str(suggested).strip():
+                        extracted[k] = suggested
+                        corrections += 1
+            if corrections:
+                print(f"    -> {corrections} fields corrected by dual-LLM validation")
+            if dual_warnings:
+                print(f"    -> {len(dual_warnings)} validation warnings")
+                from utils import save_json as _sv
+                _sv(dual_warnings, output_dir / "dual_llm_warnings.json")
 
         # ---- Verification (consensus: cross-check LLM/VLM vs BBox OCR) ----
         print("\n  [VERIFY] Cross-checking against BBox OCR text ...")
@@ -855,6 +1185,21 @@ class ACORDExtractor:
                 field_types[fname] = getattr(finfo, "field_type", "text") or "text"
         if field_types:
             extracted = normalizer_all(extracted, field_types)
+
+        # ---- Cross-field validation (opt-in) ----
+        if self.use_field_validation and FIELD_VALIDATOR_AVAILABLE:
+            print("\n  [VALIDATE] Running cross-field validation ...")
+            extracted, validation_warnings = validate_and_fix(extracted, form_type, schema)
+            if validation_warnings:
+                print(f"    -> {len(validation_warnings)} validation warnings:")
+                for w in validation_warnings[:5]:
+                    print(f"      - {w}")
+                if len(validation_warnings) > 5:
+                    print(f"      ... and {len(validation_warnings) - 5} more")
+                from utils import save_json as _sv2
+                _sv2(validation_warnings, output_dir / "validation_warnings.json")
+            else:
+                print("    -> All cross-field checks passed")
 
         # Smart checkbox default: only set "Off" for checkboxes where pixel analysis
         # confirms the box is definitely empty (ratio < 0.05). This avoids the old
@@ -1064,6 +1409,441 @@ class ACORDExtractor:
                         result[k] = v
 
         return result
+
+    # ==================================================================
+    # VLM Direct Extract (--vlm-extract: page image → structured JSON)
+    # ==================================================================
+
+    @staticmethod
+    def _match_vlm_key(vlm_key: str, batch_keys: List[str]) -> Optional[str]:
+        """Fuzzy-match a VLM-returned key to the expected schema keys.
+
+        Handles normalisation (underscores, case) and substring overlap.
+        Shared by _vlm_extract_pass and existing vision passes.
+        """
+        if vlm_key in batch_keys:
+            return vlm_key
+        vlm_norm = vlm_key.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+        vlm_norm = re.sub(r"_+", "_", vlm_norm).strip("_")
+        for b in batch_keys:
+            b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+            if b_norm == vlm_norm:
+                return b
+        # Fuzzy: one key contains the other
+        for b in batch_keys:
+            b_norm = b.strip().replace(" ", "_").replace("-", "_").replace("/", "_").lower()
+            b_norm = re.sub(r"_+", "_", b_norm).strip("_")
+            if len(b_norm) < 5:
+                continue
+            if vlm_norm in b_norm or b_norm in vlm_norm:
+                if min(len(vlm_norm), len(b_norm)) / max(len(vlm_norm), len(b_norm)) >= 0.6:
+                    return b
+        return None
+
+    def _exec_vlm_task(
+        self,
+        prompt: str,
+        image_path: Path,
+        field_names: List[str],
+        checkbox_field_set: set,
+        label: str = "",
+    ) -> Tuple[Dict[str, Any], bool]:
+        """Execute a single VLM extraction call. Thread-safe.
+
+        Returns:
+            (result_dict, is_404) — result_dict maps field_name→value,
+            is_404 is True if VisionModelNotFoundError was raised.
+        """
+        result: Dict[str, Any] = {}
+        try:
+            response = self.llm.generate_vlm_extract(
+                prompt, image_path, max_tokens=4096,
+            )
+            batch_result = self.llm.parse_json(response)
+            for k, v in batch_result.items():
+                if v is None or (isinstance(v, str) and not v.strip()):
+                    continue
+                canonical = self._match_vlm_key(k, field_names)
+                if canonical:
+                    if canonical in checkbox_field_set:
+                        result[canonical] = self._normalise_checkbox_value(v)
+                    else:
+                        result[canonical] = v
+            return result, False
+        except VisionModelNotFoundError:
+            return {}, True
+        except Exception as e:
+            print(f"    [VLM-EXT] {label} error: {e}")
+            return {}, False
+
+    def _vlm_extract_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        CAT_PAGES: Dict[str, List[int]],
+    ) -> Dict[str, Any]:
+        """
+        Direct VLM extraction from page images (--vlm-extract).
+
+        Strategy:
+        1. Group remaining (not yet extracted) fields by page using FieldInfo.page
+        2. Collect all (prompt, image_path, field_names) tuples
+        3. Execute all VLM calls — parallel (ThreadPoolExecutor) or sequential
+        4. Merge all results
+        """
+        VLM_BATCH_SIZE = 25  # max fields per VLM call for category batches
+        result: Dict[str, Any] = {}
+        all_field_names = set(schema.fields.keys())
+        remaining = [n for n in all_field_names if n not in extracted]
+        if not remaining:
+            return result
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        num_pages = len(paths)
+        tooltips_all = self.registry.get_tooltips(form_type, list(all_field_names))
+
+        # Build checkbox set for normalisation
+        checkbox_field_set = set()
+        for fname, finfo in schema.fields.items():
+            if finfo.field_type in ("checkbox", "radio"):
+                checkbox_field_set.add(fname)
+
+        # Group remaining fields by page
+        fields_by_page: Dict[int, List[str]] = {}
+        for fname in remaining:
+            fi = schema.fields.get(fname)
+            if fi and fi.page is not None and fi.page < num_pages:
+                page_idx = fi.page
+            else:
+                cat = fi.category if fi else None
+                if cat and cat in CAT_PAGES:
+                    page_idx = CAT_PAGES[cat][0]
+                else:
+                    page_idx = 0
+            if page_idx not in fields_by_page:
+                fields_by_page[page_idx] = []
+            fields_by_page[page_idx].append(fname)
+
+        # Collect all VLM tasks: (prompt, image_path, field_names, label)
+        vlm_tasks: List[Tuple[str, Path, List[str], str]] = []
+
+        for page_idx in sorted(fields_by_page.keys()):
+            page_fields = fields_by_page[page_idx]
+            if not page_fields:
+                continue
+
+            image_path = paths[page_idx] if page_idx < len(paths) else paths[0]
+
+            driver_fields = []
+            vehicle_fields = []
+            regular_fields = []
+
+            for fname in page_fields:
+                fi = schema.fields.get(fname)
+                cat = fi.category if fi else None
+                if cat == "driver" and form_type == "127":
+                    driver_fields.append(fname)
+                elif cat in ("vehicle", "coverage"):
+                    vehicle_fields.append(fname)
+                else:
+                    regular_fields.append(fname)
+
+            # --- Regular category fields: batch by CATEGORY_BATCHES ---
+            if regular_fields:
+                from schema_registry import CATEGORY_BATCHES
+                batch_groups: Dict[int, List[str]] = {}
+                unbatched: List[str] = []
+                for fname in regular_fields:
+                    fi = schema.fields.get(fname)
+                    cat = fi.category if fi else None
+                    placed = False
+                    if cat:
+                        for bi, batch_cats in enumerate(CATEGORY_BATCHES):
+                            if cat in batch_cats:
+                                if bi not in batch_groups:
+                                    batch_groups[bi] = []
+                                batch_groups[bi].append(fname)
+                                placed = True
+                                break
+                    if not placed:
+                        unbatched.append(fname)
+
+                if unbatched:
+                    max_bi = max(batch_groups.keys()) if batch_groups else 0
+                    if max_bi not in batch_groups:
+                        batch_groups[max_bi] = []
+                    batch_groups[max_bi].extend(unbatched)
+
+                for bi in sorted(batch_groups.keys()):
+                    group_fields = batch_groups[bi]
+                    cats_in_group = set()
+                    for fname in group_fields:
+                        fi = schema.fields.get(fname)
+                        if fi and fi.category:
+                            cats_in_group.add(fi.category)
+                    cats_list = sorted(cats_in_group)
+
+                    for ci in range(0, len(group_fields), VLM_BATCH_SIZE):
+                        chunk = group_fields[ci:ci + VLM_BATCH_SIZE]
+                        chunk_tooltips = {k: v for k, v in tooltips_all.items() if k in chunk}
+                        prompt = build_vlm_extract_prompt(
+                            form_type=form_type,
+                            categories=cats_list,
+                            field_names=chunk,
+                            tooltips=chunk_tooltips,
+                            page_number=page_idx + 1,
+                            total_pages=num_pages,
+                        )
+                        vlm_tasks.append((prompt, image_path, chunk, f"Batch p{page_idx+1}"))
+
+            # --- Driver fields: one VLM call per driver row ---
+            if driver_fields and form_type == "127":
+                driver_by_suffix: Dict[str, List[str]] = {}
+                for fname in driver_fields:
+                    fi = schema.fields.get(fname)
+                    sfx = fi.suffix if fi else None
+                    if sfx:
+                        if sfx not in driver_by_suffix:
+                            driver_by_suffix[sfx] = []
+                        driver_by_suffix[sfx].append(fname)
+
+                for sfx in sorted(driver_by_suffix.keys()):
+                    sfx_fields = driver_by_suffix[sfx]
+                    driver_num = ord(sfx[0].upper()) - ord('A') + 1 if sfx else 1
+                    sfx_tooltips = {k: v for k, v in tooltips_all.items() if k in sfx_fields}
+                    prompt = build_vlm_extract_driver_prompt(
+                        driver_num=driver_num,
+                        suffix=sfx,
+                        field_names=sfx_fields,
+                        tooltips=sfx_tooltips,
+                    )
+                    vlm_tasks.append((prompt, image_path, sfx_fields, f"Driver _{sfx}"))
+
+            # --- Vehicle/coverage fields: one VLM call per suffix ---
+            if vehicle_fields:
+                vehicle_by_suffix: Dict[str, List[str]] = {}
+                for fname in vehicle_fields:
+                    fi = schema.fields.get(fname)
+                    sfx = fi.suffix if fi else None
+                    if sfx:
+                        if sfx not in vehicle_by_suffix:
+                            vehicle_by_suffix[sfx] = []
+                        vehicle_by_suffix[sfx].append(fname)
+
+                for sfx in sorted(vehicle_by_suffix.keys()):
+                    sfx_fields = vehicle_by_suffix[sfx]
+                    sfx_tooltips = {k: v for k, v in tooltips_all.items() if k in sfx_fields}
+                    prompt = build_vlm_extract_vehicle_prompt(
+                        form_type=form_type,
+                        suffix=sfx,
+                        field_names=sfx_fields,
+                        tooltips=sfx_tooltips,
+                    )
+                    vlm_tasks.append((prompt, image_path, sfx_fields, f"Vehicle _{sfx}"))
+
+        # Execute VLM tasks — parallel or sequential
+        if not vlm_tasks:
+            return result
+
+        mode = "parallel" if self.parallel_vlm and len(vlm_tasks) > 1 else "sequential"
+        print(f"    [VLM-EXT] {len(vlm_tasks)} VLM tasks ({mode}, workers={self.vlm_max_workers})")
+
+        if self.parallel_vlm and len(vlm_tasks) > 1:
+            workers = min(self.vlm_max_workers, len(vlm_tasks))
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = {
+                    pool.submit(
+                        self._exec_vlm_task, prompt, img_path, fields, checkbox_field_set, label
+                    ): label
+                    for prompt, img_path, fields, label in vlm_tasks
+                }
+                for future in as_completed(futures):
+                    task_result, is_404 = future.result()
+                    if is_404:
+                        # Cancel remaining futures and propagate
+                        for f in futures:
+                            f.cancel()
+                        raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                    result.update(task_result)
+        else:
+            for prompt, img_path, fields, label in vlm_tasks:
+                task_result, is_404 = self._exec_vlm_task(
+                    prompt, img_path, fields, checkbox_field_set, label
+                )
+                if is_404:
+                    raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                result.update(task_result)
+
+        print(f"    [VLM-EXT] {len(vlm_tasks)} VLM calls, {len(result)} fields extracted")
+        return result
+
+    # ==================================================================
+    # Multimodal extraction (--multimodal: image + OCR text → JSON)
+    # ==================================================================
+
+    def _multimodal_extract_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        CAT_PAGES: Dict[str, List[int]],
+        page_bbox_text: List[str],
+        page_docling: List[str],
+        table_markdown: str = "",
+    ) -> Dict[str, Any]:
+        """
+        Multimodal extraction: sends BOTH the page image AND OCR text to the VLM.
+
+        The VLM can cross-reference what it sees in the image with the OCR text,
+        catching errors in both. Uses the same task collection + parallel execution
+        as _vlm_extract_pass.
+        """
+        VLM_BATCH_SIZE = 25
+        result: Dict[str, Any] = {}
+        all_field_names = set(schema.fields.keys())
+        remaining = [n for n in all_field_names if n not in extracted]
+        if not remaining:
+            return result
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        num_pages = len(paths)
+        tooltips_all = self.registry.get_tooltips(form_type, list(all_field_names))
+
+        checkbox_field_set = set()
+        for fname, finfo in schema.fields.items():
+            if finfo.field_type in ("checkbox", "radio"):
+                checkbox_field_set.add(fname)
+
+        # Group remaining fields by page
+        fields_by_page: Dict[int, List[str]] = {}
+        for fname in remaining:
+            fi = schema.fields.get(fname)
+            if fi and fi.page is not None and fi.page < num_pages:
+                page_idx = fi.page
+            else:
+                cat = fi.category if fi else None
+                if cat and cat in CAT_PAGES:
+                    page_idx = CAT_PAGES[cat][0]
+                else:
+                    page_idx = 0
+            if page_idx not in fields_by_page:
+                fields_by_page[page_idx] = []
+            fields_by_page[page_idx].append(fname)
+
+        # Collect VLM tasks with OCR text context
+        vlm_tasks: List[Tuple[str, Path, List[str], str]] = []
+
+        for page_idx in sorted(fields_by_page.keys()):
+            page_fields = fields_by_page[page_idx]
+            if not page_fields:
+                continue
+
+            image_path = paths[page_idx] if page_idx < len(paths) else paths[0]
+
+            # Build OCR context for this page
+            ocr_context_parts = []
+            if page_idx < len(page_docling) and page_docling[page_idx]:
+                ocr_context_parts.append(page_docling[page_idx])
+            if page_idx < len(page_bbox_text) and page_bbox_text[page_idx]:
+                ocr_context_parts.append(page_bbox_text[page_idx])
+            ocr_text = "\n\n".join(ocr_context_parts)
+
+            # Group fields into categories for batching
+            from schema_registry import CATEGORY_BATCHES
+            batch_groups: Dict[int, List[str]] = {}
+            unbatched: List[str] = []
+            for fname in page_fields:
+                fi = schema.fields.get(fname)
+                cat = fi.category if fi else None
+                placed = False
+                if cat:
+                    for bi, batch_cats in enumerate(CATEGORY_BATCHES):
+                        if cat in batch_cats:
+                            if bi not in batch_groups:
+                                batch_groups[bi] = []
+                            batch_groups[bi].append(fname)
+                            placed = True
+                            break
+                if not placed:
+                    unbatched.append(fname)
+
+            if unbatched:
+                max_bi = max(batch_groups.keys()) if batch_groups else 0
+                if max_bi not in batch_groups:
+                    batch_groups[max_bi] = []
+                batch_groups[max_bi].extend(unbatched)
+
+            for bi in sorted(batch_groups.keys()):
+                group_fields = batch_groups[bi]
+                cats_in_group = set()
+                for fname in group_fields:
+                    fi = schema.fields.get(fname)
+                    if fi and fi.category:
+                        cats_in_group.add(fi.category)
+                cats_list = sorted(cats_in_group)
+
+                for ci in range(0, len(group_fields), VLM_BATCH_SIZE):
+                    chunk = group_fields[ci:ci + VLM_BATCH_SIZE]
+                    chunk_tooltips = {k: v for k, v in tooltips_all.items() if k in chunk}
+                    prompt = build_multimodal_extract_prompt(
+                        form_type=form_type,
+                        categories=cats_list,
+                        field_names=chunk,
+                        tooltips=chunk_tooltips,
+                        ocr_text=ocr_text,
+                        table_markdown=table_markdown,
+                        page_number=page_idx + 1,
+                        total_pages=num_pages,
+                    )
+                    vlm_tasks.append((prompt, image_path, chunk, f"MM p{page_idx+1}"))
+
+        if not vlm_tasks:
+            return result
+
+        mode = "parallel" if self.parallel_vlm and len(vlm_tasks) > 1 else "sequential"
+        print(f"    [MULTIMODAL] {len(vlm_tasks)} tasks ({mode})")
+
+        if self.parallel_vlm and len(vlm_tasks) > 1:
+            workers = min(self.vlm_max_workers, len(vlm_tasks))
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = {
+                    pool.submit(
+                        self._exec_vlm_task, prompt, img_path, fields, checkbox_field_set, label
+                    ): label
+                    for prompt, img_path, fields, label in vlm_tasks
+                }
+                for future in as_completed(futures):
+                    task_result, is_404 = future.result()
+                    if is_404:
+                        for f in futures:
+                            f.cancel()
+                        raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                    result.update(task_result)
+        else:
+            for prompt, img_path, fields, label in vlm_tasks:
+                task_result, is_404 = self._exec_vlm_task(
+                    prompt, img_path, fields, checkbox_field_set, label
+                )
+                if is_404:
+                    raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                result.update(task_result)
+
+        print(f"    [MULTIMODAL] {len(vlm_tasks)} VLM calls, {len(result)} fields extracted")
+        return result
+
+    # (Old _checkbox_crop_pass removed — replaced by grid montage version below)
 
     def _vision_pass_unified(
         self,
@@ -2179,3 +2959,866 @@ class ACORDExtractor:
         self._table_transformer.cleanup()
         self._table_transformer = None
         cleanup_gpu_memory()
+
+    # ==================================================================
+    # VLM Cropped Extract (--vlm-crop-extract)
+    # ==================================================================
+
+    def _vlm_crop_extract_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+    ) -> Dict[str, Any]:
+        """
+        Multi-stage cropped VLM extraction.
+
+        Groups remaining fields by spatial proximity using schema positions,
+        crops image regions, and sends focused crops + field lists to VLM
+        for higher-detail extraction.
+        """
+        result: Dict[str, Any] = {}
+        all_field_names = set(schema.fields.keys())
+        remaining = [n for n in all_field_names if n not in extracted]
+        if not remaining:
+            return result
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        try:
+            import cv2
+            import numpy as np
+        except ImportError:
+            print("    [VLM-CROP] cv2/numpy not available, skipping")
+            return result
+
+        num_pages = len(paths)
+        tooltips_all = self.registry.get_tooltips(form_type, list(all_field_names))
+
+        # Build checkbox set for normalisation
+        checkbox_field_set = set()
+        for fname, finfo in schema.fields.items():
+            if finfo.field_type in ("checkbox", "radio"):
+                checkbox_field_set.add(fname)
+
+        # Group remaining fields by page, using schema positions
+        positioned_by_page: Dict[int, List] = {}
+        unpositioned: List[str] = []
+
+        for fname in remaining:
+            fi = schema.fields.get(fname)
+            if fi and fi.page is not None and fi.x_min is not None:
+                page_idx = fi.page
+                if page_idx not in positioned_by_page:
+                    positioned_by_page[page_idx] = []
+                positioned_by_page[page_idx].append(fi)
+            else:
+                unpositioned.append(fname)
+
+        vlm_calls = 0
+        CROP_PADDING = 50  # pixels padding around crop region
+        MAX_FIELDS_PER_CROP = 20
+
+        for page_idx in sorted(positioned_by_page.keys()):
+            page_fields = positioned_by_page[page_idx]
+            if not page_fields or page_idx >= len(paths):
+                continue
+
+            image_path = paths[page_idx]
+            img = cv2.imread(str(image_path))
+            if img is None:
+                continue
+            img_h, img_w = img.shape[:2]
+
+            # Simple grid-based clustering: divide page into horizontal bands
+            # Sort fields by Y position and group into clusters
+            page_fields.sort(key=lambda fi: (fi.y_min or 0))
+
+            clusters: List[List] = []
+            current_cluster: List = []
+            last_y_max = 0
+
+            for fi in page_fields:
+                y_min = fi.y_min or 0
+                if current_cluster and y_min - last_y_max > 100:
+                    clusters.append(current_cluster)
+                    current_cluster = []
+                current_cluster.append(fi)
+                last_y_max = max(last_y_max, fi.y_max or y_min + 30)
+
+            if current_cluster:
+                clusters.append(current_cluster)
+
+            # Sub-divide large clusters
+            final_clusters = []
+            for cluster in clusters:
+                if len(cluster) <= MAX_FIELDS_PER_CROP:
+                    final_clusters.append(cluster)
+                else:
+                    for i in range(0, len(cluster), MAX_FIELDS_PER_CROP):
+                        final_clusters.append(cluster[i:i + MAX_FIELDS_PER_CROP])
+
+            for cluster in final_clusters:
+                field_names = [fi.name for fi in cluster]
+
+                # Compute crop region (union of field bboxes + padding)
+                x_min = max(0, min(fi.x_min for fi in cluster) - CROP_PADDING)
+                y_min = max(0, min(fi.y_min for fi in cluster) - CROP_PADDING)
+                x_max = min(img_w, max(fi.x_max for fi in cluster) + CROP_PADDING)
+                y_max = min(img_h, max(fi.y_max for fi in cluster) + CROP_PADDING)
+
+                # Crop image
+                crop = img[int(y_min):int(y_max), int(x_min):int(x_max)]
+                if crop.size == 0:
+                    continue
+
+                # Save crop temporarily
+                crop_path = paths[page_idx].parent / f"crop_p{page_idx}_{vlm_calls}.png"
+                cv2.imwrite(str(crop_path), crop)
+
+                # Build prompt for this crop
+                chunk_tooltips = {k: v for k, v in tooltips_all.items() if k in field_names}
+                prompt = build_vlm_extract_prompt(
+                    form_type=form_type,
+                    categories=list(set(fi.category for fi in cluster if fi.category)),
+                    field_names=field_names,
+                    tooltips=chunk_tooltips,
+                    page_number=page_idx + 1,
+                    total_pages=num_pages,
+                )
+
+                try:
+                    response = self.llm.generate_vlm_extract(
+                        prompt, crop_path, max_tokens=4096,
+                    )
+                    vlm_calls += 1
+                    batch_result = self.llm.parse_json(response)
+                    for k, v in batch_result.items():
+                        if v is None or (isinstance(v, str) and not v.strip()):
+                            continue
+                        canonical = self._match_vlm_key(k, field_names)
+                        if canonical:
+                            if canonical in checkbox_field_set:
+                                result[canonical] = self._normalise_checkbox_value(v)
+                            else:
+                                result[canonical] = v
+                except VisionModelNotFoundError:
+                    raise
+                except Exception as e:
+                    print(f"    [VLM-CROP] Crop error (page {page_idx + 1}): {e}")
+
+                # Clean up temp crop
+                try:
+                    crop_path.unlink(missing_ok=True)
+                except Exception:
+                    pass
+
+        print(f"    [VLM-CROP] {vlm_calls} VLM calls, {len(result)} fields extracted")
+        return result
+
+    # ==================================================================
+    # Multimodal Extraction (--multimodal: image + OCR text → VLM)
+    # ==================================================================
+
+    def _multimodal_extract_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        CAT_PAGES: Dict[str, List[int]],
+        page_bbox_text: List[str],
+        page_docling: List[str],
+        table_markdown: str = "",
+    ) -> Dict[str, Any]:
+        """
+        Multimodal extraction: sends BOTH page image AND OCR text to VLM.
+
+        The VLM can cross-reference what it sees in the image with the OCR text,
+        catching errors in both. Higher accuracy than VLM-only or text-only.
+
+        Uses same batching and parallelism as _vlm_extract_pass.
+        """
+        VLM_BATCH_SIZE = 25
+        result: Dict[str, Any] = {}
+        all_field_names = set(schema.fields.keys())
+        remaining = [n for n in all_field_names if n not in extracted]
+        if not remaining:
+            return result
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        num_pages = len(paths)
+        tooltips_all = self.registry.get_tooltips(form_type, list(all_field_names))
+
+        checkbox_field_set = set()
+        for fname, finfo in schema.fields.items():
+            if finfo.field_type in ("checkbox", "radio"):
+                checkbox_field_set.add(fname)
+
+        # Group remaining fields by page
+        fields_by_page: Dict[int, List[str]] = {}
+        for fname in remaining:
+            fi = schema.fields.get(fname)
+            if fi and fi.page is not None and fi.page < num_pages:
+                page_idx = fi.page
+            else:
+                cat = fi.category if fi else None
+                if cat and cat in CAT_PAGES:
+                    page_idx = CAT_PAGES[cat][0]
+                else:
+                    page_idx = 0
+            if page_idx not in fields_by_page:
+                fields_by_page[page_idx] = []
+            fields_by_page[page_idx].append(fname)
+
+        # Collect all VLM tasks (prompt, image_path, field_names, label)
+        vlm_tasks: List[tuple] = []
+
+        for page_idx in sorted(fields_by_page.keys()):
+            page_fields = fields_by_page[page_idx]
+            if not page_fields:
+                continue
+
+            image_path = paths[page_idx] if page_idx < len(paths) else paths[0]
+
+            # Build OCR context for this page
+            ocr_text_parts = []
+            if page_idx < len(page_docling) and page_docling[page_idx]:
+                ocr_text_parts.append(page_docling[page_idx])
+            if page_idx < len(page_bbox_text) and page_bbox_text[page_idx]:
+                ocr_text_parts.append(page_bbox_text[page_idx])
+            ocr_text = "\n\n".join(ocr_text_parts)
+
+            # Group by category batch, then chunk
+            from schema_registry import CATEGORY_BATCHES
+            batch_groups: Dict[int, List[str]] = {}
+            unbatched: List[str] = []
+            for fname in page_fields:
+                fi = schema.fields.get(fname)
+                cat = fi.category if fi else None
+                placed = False
+                if cat:
+                    for bi, batch_cats in enumerate(CATEGORY_BATCHES):
+                        if cat in batch_cats:
+                            if bi not in batch_groups:
+                                batch_groups[bi] = []
+                            batch_groups[bi].append(fname)
+                            placed = True
+                            break
+                if not placed:
+                    unbatched.append(fname)
+
+            if unbatched:
+                max_bi = max(batch_groups.keys()) if batch_groups else 0
+                if max_bi not in batch_groups:
+                    batch_groups[max_bi] = []
+                batch_groups[max_bi].extend(unbatched)
+
+            for bi in sorted(batch_groups.keys()):
+                group_fields = batch_groups[bi]
+                cats_in_group = set()
+                for fname in group_fields:
+                    fi = schema.fields.get(fname)
+                    if fi and fi.category:
+                        cats_in_group.add(fi.category)
+                cats_list = sorted(cats_in_group)
+
+                for ci in range(0, len(group_fields), VLM_BATCH_SIZE):
+                    chunk = group_fields[ci:ci + VLM_BATCH_SIZE]
+                    chunk_tooltips = {k: v for k, v in tooltips_all.items() if k in chunk}
+                    prompt = build_multimodal_extract_prompt(
+                        form_type=form_type,
+                        categories=cats_list,
+                        field_names=chunk,
+                        tooltips=chunk_tooltips,
+                        ocr_text=ocr_text,
+                        table_markdown=table_markdown,
+                        page_number=page_idx + 1,
+                        total_pages=num_pages,
+                    )
+                    vlm_tasks.append((prompt, image_path, chunk, f"MM p{page_idx+1}"))
+
+        if not vlm_tasks:
+            return result
+
+        # Execute — parallel or sequential (reuse _exec_vlm_task)
+        mode = "parallel" if self.parallel_vlm and len(vlm_tasks) > 1 else "sequential"
+        print(f"    [MULTIMODAL] {len(vlm_tasks)} VLM tasks ({mode})")
+
+        if self.parallel_vlm and len(vlm_tasks) > 1:
+            workers = min(self.vlm_max_workers, len(vlm_tasks))
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = {
+                    pool.submit(
+                        self._exec_vlm_task, prompt, img_path, fields, checkbox_field_set, label
+                    ): label
+                    for prompt, img_path, fields, label in vlm_tasks
+                }
+                for future in as_completed(futures):
+                    task_result, is_404 = future.result()
+                    if is_404:
+                        for f in futures:
+                            f.cancel()
+                        raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                    result.update(task_result)
+        else:
+            for prompt, img_path, fields, label in vlm_tasks:
+                task_result, is_404 = self._exec_vlm_task(
+                    prompt, img_path, fields, checkbox_field_set, label
+                )
+                if is_404:
+                    raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                result.update(task_result)
+
+        print(f"    [MULTIMODAL] {len(vlm_tasks)} VLM calls, {len(result)} fields extracted")
+        return result
+
+    # ==================================================================
+    # Checkbox Crop Extraction (--checkbox-crops) — Grid Montage Batched
+    # ==================================================================
+
+    def _checkbox_crop_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+    ) -> Dict[str, Any]:
+        """
+        Crop tight regions around checkbox fields, enhance contrast, assemble
+        into numbered grid montages, and send batched VLM calls.
+
+        Instead of 1 VLM call per checkbox (slow), this creates NxN grids of
+        checkbox crops with numbered labels and classifies all at once.
+        164 checkboxes → ~11 grid VLM calls (16 per grid).
+
+        Requires positional atlas data (fields with known page coordinates).
+        Uses parallel VLM calls when enabled.
+        """
+        import tempfile
+        try:
+            import cv2
+            import numpy as np
+        except ImportError:
+            print("    [CB-CROP] cv2 not available, skipping checkbox crops")
+            return {}
+
+        result: Dict[str, Any] = {}
+        positioned = schema.get_positioned_fields()
+        if not positioned:
+            print("    [CB-CROP] No positioned fields in schema, skipping")
+            return result
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        # Collect checkbox fields with positions
+        checkbox_fields = []
+        for fi in positioned:
+            if fi.field_type not in ("checkbox", "radio"):
+                continue
+            if fi.page >= len(paths):
+                continue
+            checkbox_fields.append(fi)
+
+        if not checkbox_fields:
+            print("    [CB-CROP] No positioned checkbox fields found")
+            return result
+
+        # Grid montage parameters
+        GRID_COLS = 4
+        GRID_BATCH = 8   # checkboxes per grid (2x4) — smaller for reliable VLM parsing
+        PADDING = 20     # pixels around checkbox crop
+        CROP_SIZE = 160  # each crop cell size
+        LABEL_H = 24     # height for number label above crop
+        CELL_W = CROP_SIZE + 4   # cell width (crop + 2px border each side)
+        CELL_H = CROP_SIZE + LABEL_H + 4  # cell height (label + crop + border)
+
+        # Crop and enhance all checkboxes
+        crops_data: List[tuple] = []  # (fi.name, enhanced_crop_array)
+        page_images = {}  # cache loaded page images
+
+        for fi in checkbox_fields:
+            if fi.page not in page_images:
+                img = cv2.imread(str(paths[fi.page]))
+                if img is None:
+                    continue
+                page_images[fi.page] = img
+            img = page_images[fi.page]
+            img_h, img_w = img.shape[:2]
+
+            x1 = max(0, int(fi.x_min) - PADDING)
+            y1 = max(0, int(fi.y_min) - PADDING)
+            x2 = min(img_w, int(fi.x_max) + PADDING)
+            y2 = min(img_h, int(fi.y_max) + PADDING)
+            if x2 <= x1 or y2 <= y1:
+                continue
+
+            crop = img[y1:y2, x1:x2]
+            gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+            clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(4, 4))
+            enhanced = clahe.apply(gray)
+            resized = cv2.resize(enhanced, (CROP_SIZE, CROP_SIZE), interpolation=cv2.INTER_CUBIC)
+            crops_data.append((fi.name, resized))
+
+        if not crops_data:
+            return result
+
+        # Build grid montages in batches of GRID_BATCH
+        import math
+        temp_files: List[Path] = []
+        vlm_tasks: List[tuple] = []  # (prompt, grid_path, field_map)
+
+        for batch_start in range(0, len(crops_data), GRID_BATCH):
+            batch = crops_data[batch_start:batch_start + GRID_BATCH]
+            n_rows = math.ceil(len(batch) / GRID_COLS)
+            grid_w = GRID_COLS * CELL_W
+            grid_h = n_rows * CELL_H
+
+            # White background
+            grid = np.ones((grid_h, grid_w), dtype=np.uint8) * 255
+            field_map = {}  # {number: field_name}
+            batch_field_names = []
+
+            for i, (field_name, crop_img) in enumerate(batch):
+                num = i + 1
+                row = i // GRID_COLS
+                col = i % GRID_COLS
+                x_off = col * CELL_W + 2
+                y_off = row * CELL_H
+
+                # Draw number label
+                cv2.putText(
+                    grid, str(num),
+                    (x_off + 4, y_off + LABEL_H - 6),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, 0, 2,
+                )
+                # Place crop below label
+                cy = y_off + LABEL_H + 2
+                grid[cy:cy + CROP_SIZE, x_off:x_off + CROP_SIZE] = crop_img
+
+                field_map[num] = field_name
+                batch_field_names.append(field_name)
+
+            # Save grid to temp file
+            tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+            cv2.imwrite(tmp.name, grid)
+            grid_path = Path(tmp.name)
+            temp_files.append(grid_path)
+
+            prompt = build_checkbox_grid_prompt(field_map)
+            vlm_tasks.append((prompt, grid_path, field_map, batch_field_names))
+
+        n_grids = len(vlm_tasks)
+        mode = "parallel" if self.parallel_vlm and n_grids > 1 else "sequential"
+        print(f"    [CB-CROP] {len(crops_data)} checkboxes in {n_grids} grid montages ({mode})")
+
+        checkbox_field_set = {name for name, _ in crops_data}
+
+        def _exec_grid_vlm(prompt, grid_path, field_map, batch_fields, label=""):
+            """Execute one grid VLM call. Thread-safe."""
+            try:
+                response = self.llm.generate_vlm_extract(
+                    prompt, grid_path, max_tokens=4096,
+                )
+                batch_result = self.llm.parse_json(response)
+                parsed = {}
+                for k, v in batch_result.items():
+                    if v is None:
+                        continue
+                    # Match key to field name (VLM may return number or field name)
+                    canonical = None
+                    if k in checkbox_field_set:
+                        canonical = k
+                    else:
+                        # Try matching by number
+                        try:
+                            num = int(k)
+                            canonical = field_map.get(num)
+                        except (ValueError, TypeError):
+                            canonical = self._match_vlm_key(k, batch_fields)
+                    if canonical:
+                        parsed[canonical] = self._normalise_checkbox_value(v)
+                return parsed, False
+            except VisionModelNotFoundError:
+                return {}, True
+            except Exception as e:
+                print(f"    [CB-CROP] Grid {label} error: {e}")
+                return {}, False
+
+        # Execute grids with retry + individual fallback for failed grids
+        failed_grids: List[tuple] = []  # (field_map, batch_fields) for grids that returned empty
+
+        if self.parallel_vlm and n_grids > 1:
+            workers = min(self.vlm_max_workers, n_grids)
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = {
+                    pool.submit(
+                        _exec_grid_vlm, prompt, gpath, fmap, bfields, f"grid-{idx+1}"
+                    ): (idx, fmap, bfields)
+                    for idx, (prompt, gpath, fmap, bfields) in enumerate(vlm_tasks)
+                }
+                for future in as_completed(futures):
+                    idx, fmap, bfields = futures[future]
+                    grid_result, is_404 = future.result()
+                    if is_404:
+                        for f in futures:
+                            f.cancel()
+                        for tf in temp_files:
+                            try:
+                                tf.unlink(missing_ok=True)
+                            except Exception:
+                                pass
+                        raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                    if grid_result:
+                        result.update(grid_result)
+                    else:
+                        failed_grids.append((fmap, bfields))
+        else:
+            for idx, (prompt, gpath, fmap, bfields) in enumerate(vlm_tasks):
+                grid_result, is_404 = _exec_grid_vlm(
+                    prompt, gpath, fmap, bfields, f"grid-{idx+1}"
+                )
+                if is_404:
+                    for tf in temp_files:
+                        try:
+                            tf.unlink(missing_ok=True)
+                        except Exception:
+                            pass
+                    raise VisionModelNotFoundError(self.llm.vlm_extract_model or "?")
+                if grid_result:
+                    result.update(grid_result)
+                else:
+                    failed_grids.append((fmap, bfields))
+
+        # Fallback: individually classify checkboxes from failed grids
+        if failed_grids:
+            n_fallback = sum(len(fmap) for fmap, _ in failed_grids)
+            print(f"    [CB-CROP] {len(failed_grids)} grids failed, falling back to individual crops for {n_fallback} checkboxes")
+
+            # Build name→crop lookup from crops_data
+            crop_lookup = {name: crop_img for name, crop_img in crops_data}
+            fallback_tasks = []
+            fallback_temps = []
+
+            for fmap, bfields in failed_grids:
+                for num, fname in fmap.items():
+                    if fname in crop_lookup:
+                        tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+                        cv2.imwrite(tmp.name, crop_lookup[fname])
+                        crop_path = Path(tmp.name)
+                        fallback_temps.append(crop_path)
+                        tooltip = self.registry.get_tooltips(form_type, [fname]).get(fname, "")
+                        prompt = build_checkbox_crop_prompt(fname, tooltip)
+                        fallback_tasks.append((prompt, crop_path, [fname], f"FB {fname}"))
+
+            if fallback_tasks:
+                if self.parallel_vlm and len(fallback_tasks) > 1:
+                    workers = min(self.vlm_max_workers, len(fallback_tasks))
+                    with ThreadPoolExecutor(max_workers=workers) as pool:
+                        fb_futures = {
+                            pool.submit(
+                                self._exec_vlm_task, prompt, img_path, fields, checkbox_field_set, label
+                            ): label
+                            for prompt, img_path, fields, label in fallback_tasks
+                        }
+                        for future in as_completed(fb_futures):
+                            task_result, is_404 = future.result()
+                            if not is_404:
+                                for k, v in task_result.items():
+                                    result[k] = self._normalise_checkbox_value(v)
+                else:
+                    for prompt, img_path, fields, label in fallback_tasks:
+                        task_result, is_404 = self._exec_vlm_task(
+                            prompt, img_path, fields, checkbox_field_set, label
+                        )
+                        if not is_404:
+                            for k, v in task_result.items():
+                                result[k] = self._normalise_checkbox_value(v)
+
+                for tf in fallback_temps:
+                    try:
+                        tf.unlink(missing_ok=True)
+                    except Exception:
+                        pass
+
+            print(f"    [CB-CROP] Fallback recovered {n_fallback} → {len(result)} total checkboxes")
+
+        # Clean up grid temp files
+        for tf in temp_files:
+            try:
+                tf.unlink(missing_ok=True)
+            except Exception:
+                pass
+
+        print(f"    [CB-CROP] {n_grids} grids + fallback, {len(result)} checkboxes classified")
+        return result
+
+    # ==================================================================
+    # VLM-OCR Two-Stage Extraction (--glm-ocr / --nanonets-ocr)
+    # ==================================================================
+
+    def _vlm_ocr_two_stage_pass(
+        self,
+        form_type: str,
+        schema,
+        image_paths: List[Path],
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        CAT_PAGES: Dict[str, List[int]],
+        table_markdown: str = "",
+    ) -> Dict[str, Any]:
+        """
+        Two-stage VLM-OCR extraction:
+          Stage 1: Send page images to VLM-OCR (GLM-OCR or Nanonets-OCR) → structured text
+          Stage 2: Feed structured text to text LLM with ACORD schema prompts → JSON
+
+        Returns dict of {field_name: value}.
+        """
+        from vlm_ocr_engine import VLMOCREngine, NanonetsOutputParser
+
+        result: Dict[str, Any] = {}
+
+        # Determine backend
+        if self.use_glm_ocr:
+            backend = "glm-ocr"
+        elif self.use_nanonets_ocr:
+            backend = "nanonets-ocr"
+        else:
+            return result
+
+        vlm_ocr = VLMOCREngine(
+            llm_engine=self.llm,
+            backend=backend,
+            model=self.llm.vlm_ocr_model,
+        )
+
+        paths = [Path(p) for p in image_paths if Path(p).exists()]
+        if not paths:
+            return result
+
+        # ---- Stage 1: VLM-OCR → structured text per page ----
+        print(f"    [VLM-OCR] Stage 1: {backend} OCR on {len(paths)} pages ...")
+        vlm_ocr_pages = vlm_ocr.ocr_pages(
+            paths,
+            parallel=self.parallel_vlm,
+            max_workers=self.vlm_max_workers,
+        )
+
+        total_chars = sum(len(p) for p in vlm_ocr_pages)
+        print(f"    [VLM-OCR] Stage 1 complete: {total_chars} chars across {len(vlm_ocr_pages)} pages")
+
+        # If Nanonets, extract checkbox states directly from Unicode symbols
+        nanonets_checkboxes: Dict[str, str] = {}
+        if self.use_nanonets_ocr:
+            for page_text in vlm_ocr_pages:
+                cb_states = NanonetsOutputParser.extract_checkbox_states(page_text)
+                nanonets_checkboxes.update(cb_states)
+            # Convert checkbox symbols to text markers for the LLM
+            vlm_ocr_pages = [
+                NanonetsOutputParser.convert_checkboxes_to_text(p) for p in vlm_ocr_pages
+            ]
+            if nanonets_checkboxes:
+                print(f"    [VLM-OCR] Nanonets found {len(nanonets_checkboxes)} checkbox states directly")
+
+        # Unload VLM-OCR model before loading stage-2 text LLM
+        self.llm.unload_vlm_ocr_model()
+        cleanup_gpu_memory()
+
+        # ---- Stage 2: Text LLM extraction from structured text ----
+        print(f"    [VLM-OCR] Stage 2: Text LLM extraction from VLM-OCR text ...")
+
+        all_field_names = set(schema.fields.keys())
+        remaining = [n for n in all_field_names if n not in extracted]
+        if not remaining:
+            return result
+
+        num_pages = len(paths)
+        tooltips_all = self.registry.get_tooltips(form_type, list(all_field_names))
+
+        # Group remaining fields by page
+        fields_by_page: Dict[int, List[str]] = {}
+        for fname in remaining:
+            fi = schema.fields.get(fname)
+            if fi and hasattr(fi, "page") and fi.page is not None and fi.page < num_pages:
+                page_idx = fi.page
+            else:
+                cat = getattr(fi, "category", None) if fi else None
+                if cat and cat in CAT_PAGES:
+                    page_idx = CAT_PAGES[cat][0]
+                else:
+                    page_idx = 0
+            if page_idx not in fields_by_page:
+                fields_by_page[page_idx] = []
+            fields_by_page[page_idx].append(fname)
+
+        BATCH_SIZE = 50
+        for page_idx in sorted(fields_by_page.keys()):
+            page_fields = fields_by_page[page_idx]
+            if not page_fields:
+                continue
+
+            ocr_text = vlm_ocr_pages[page_idx] if page_idx < len(vlm_ocr_pages) else ""
+            if not ocr_text.strip():
+                continue
+
+            for i in range(0, len(page_fields), BATCH_SIZE):
+                batch = page_fields[i:i + BATCH_SIZE]
+                batch_tooltips = {k: v for k, v in tooltips_all.items() if k in batch}
+
+                # Determine categories in this batch
+                cats_in_batch: set = set()
+                for fname in batch:
+                    fi = schema.fields.get(fname)
+                    cat = getattr(fi, "category", None) if fi else None
+                    if cat:
+                        cats_in_batch.add(cat)
+
+                prompt = build_vlm_ocr_stage2_prompt(
+                    form_type=form_type,
+                    categories=sorted(cats_in_batch) if cats_in_batch else ["general"],
+                    field_names=batch,
+                    tooltips=batch_tooltips,
+                    vlm_ocr_text=ocr_text,
+                )
+
+                # Use stage2_model if configured, else default model
+                response = self.llm.generate_stage2(prompt)
+                batch_result = self.llm.parse_json(response)
+
+                for k, v in batch_result.items():
+                    matched = self._match_vlm_key(k, batch)
+                    if matched and v is not None and str(v).strip():
+                        result[matched] = v
+
+        # Merge Nanonets checkbox states (high confidence, from direct Unicode parsing)
+        if nanonets_checkboxes:
+            checkbox_field_set: set = set()
+            for fname, finfo in schema.fields.items():
+                ft = getattr(finfo, "field_type", None) or ""
+                if ft in ("checkbox", "radio") or "indicator" in fname.lower():
+                    checkbox_field_set.add(fname)
+
+            for label, state in nanonets_checkboxes.items():
+                matched_field = self._match_nanonets_checkbox(label, checkbox_field_set, schema)
+                if matched_field and matched_field not in result:
+                    result[matched_field] = state
+
+        print(f"    [VLM-OCR] Stage 2 complete: {len(result)} fields extracted")
+        return result
+
+    def _match_nanonets_checkbox(
+        self, label: str, checkbox_fields: set, schema
+    ) -> Optional[str]:
+        """Match a Nanonets checkbox label (e.g. 'Commercial General Liability')
+        to a schema field name using tooltip and fuzzy matching."""
+        label_norm = label.strip().lower()
+        if not label_norm:
+            return None
+
+        # Try tooltip-based matching first
+        for fname in checkbox_fields:
+            fi = schema.fields.get(fname)
+            tooltip = (getattr(fi, "tooltip", "") or "").lower() if fi else ""
+            if tooltip and (label_norm in tooltip or tooltip in label_norm):
+                return fname
+
+        # Fuzzy field name matching
+        import re as _re
+        label_words = set(_re.findall(r'\w+', label_norm))
+        if not label_words:
+            return None
+        for fname in checkbox_fields:
+            fname_words = set(fname.lower().replace("_", " ").split())
+            overlap = label_words & fname_words
+            if len(overlap) >= 2 or (len(overlap) >= 1 and len(label_words) <= 2):
+                return fname
+        return None
+
+    # ==================================================================
+    # Dual-LLM Validation (--dual-llm-validate)
+    # ==================================================================
+
+    def _dual_llm_validate(
+        self,
+        extracted: Dict[str, Any],
+        bbox_text: str,
+        docling_text: str,
+        schema,
+    ) -> tuple:
+        """
+        Send extracted values + OCR context to a second LLM call for verification.
+
+        Returns:
+            (results, warnings) where:
+            - results: {field: {"correct": bool, "suggested": value}}
+            - warnings: list of warning strings for flagged fields
+        """
+        results: Dict[str, Dict[str, Any]] = {}
+        warnings: List[str] = []
+
+        if not extracted:
+            return results, warnings
+
+        # Batch fields for verification (50 at a time to stay within context)
+        VERIFY_BATCH = 50
+        field_items = list(extracted.items())
+
+        # Limit OCR context for verification prompt
+        ocr_context = bbox_text[:5000] if bbox_text else ""
+        doc_context = docling_text[:5000] if docling_text else ""
+
+        for i in range(0, len(field_items), VERIFY_BATCH):
+            batch = field_items[i:i + VERIFY_BATCH]
+            batch_dict = {k: v for k, v in batch}
+
+            # Build verification prompt
+            fields_json = "\n".join(f'  "{k}": "{v}"' for k, v in batch)
+
+            prompt = f"""You are verifying extracted field values from an ACORD insurance form.
+
+Given the OCR text below, check if each extracted value appears in or is consistent with the OCR text.
+For each field, respond with:
+- "correct": true if the value matches the OCR text
+- "correct": false if the value seems wrong, with "suggested" containing the correct value from the OCR text
+- If you cannot find the field in the OCR text, mark it as "correct": true (don't guess)
+
+OCR TEXT (bbox rows):
+{ocr_context}
+
+DOCUMENT TEXT (docling):
+{doc_context}
+
+EXTRACTED VALUES TO VERIFY:
+{{
+{fields_json}
+}}
+
+Respond with ONLY a JSON object where keys are field names and values are objects with "correct" (boolean) and optionally "suggested" (string).
+Example: {{"FieldName": {{"correct": false, "suggested": "correct value"}}}}"""
+
+            try:
+                response = self.llm.generate(prompt)
+                verify_result = self.llm.parse_json(response)
+
+                for k, info in verify_result.items():
+                    if isinstance(info, dict):
+                        results[k] = info
+                        if not info.get("correct", True):
+                            suggested = info.get("suggested", "")
+                            warnings.append(
+                                f"{k}: extracted='{extracted.get(k, '')}' -> "
+                                f"suggested='{suggested}'"
+                            )
+            except Exception as e:
+                print(f"    [DUAL-LLM] Batch verification error: {e}")
+
+        return results, warnings

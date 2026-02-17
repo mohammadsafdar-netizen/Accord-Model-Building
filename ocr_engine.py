@@ -620,6 +620,7 @@ class OCREngine:
         parallel_ocr: bool = True,
         bbox_backend: Optional[str] = None,
         use_docling: bool = False,
+        use_preprocess: bool = False,
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -634,6 +635,7 @@ class OCREngine:
         self.parallel_ocr = parallel_ocr
         # None = no bbox OCR; "easyocr", "surya", or "paddle" to enable
         self.use_docling = use_docling
+        self.use_preprocess = use_preprocess
         raw = (bbox_backend or "").lower().strip()
         self.bbox_backend = raw if raw in ("easyocr", "surya", "paddle") else None
 
@@ -1160,7 +1162,19 @@ class OCREngine:
         if not PADDLEOCR_AVAILABLE:
             raise RuntimeError("PaddleOCR is not installed. pip install paddleocr paddlepaddle")
         use_gpu = self.easyocr_gpu
-        self._paddle_ocr = _PaddleOCR(use_gpu=use_gpu, show_log=False, use_angle_cls=False)
+        # Try PP-OCRv5 config (best accuracy); fall back to default
+        paddle_kwargs = {
+            "use_gpu": use_gpu,
+            "show_log": False,
+            "use_angle_cls": True,  # Enable angle classification for rotated text
+            "lang": "en",
+        }
+        try:
+            self._paddle_ocr = _PaddleOCR(ocr_version="PP-OCRv5", **paddle_kwargs)
+            print("  [OCR] PaddleOCR PP-OCRv5 initialized")
+        except Exception:
+            self._paddle_ocr = _PaddleOCR(**paddle_kwargs)
+            print("  [OCR] PaddleOCR initialized (default version)")
         return self._paddle_ocr
 
     def _paddle_result_to_page_data(self, result: Optional[List]) -> List[Dict]:
@@ -1515,8 +1529,26 @@ class OCREngine:
             acro_text = len(acroform_fields) - acro_checkboxes
             print(f"  [ACROFORM] Extracted {len(acroform_fields)} fields ({acro_text} text, {acro_checkboxes} checkboxes)")
 
+        # ---- Image preprocessing: deskew + denoise + binarize + CLAHE (opt-in) ----
+        preprocessed_paths: Optional[List[Path]] = None
+        if self.use_preprocess:
+            try:
+                from image_preprocessor import preprocess_for_ocr
+                preprocess_dir = output_dir / "preprocessed"
+                preprocessed_paths = []
+                for img_path in image_paths:
+                    pp = preprocess_for_ocr(img_path, preprocess_dir)
+                    preprocessed_paths.append(pp)
+                print(f"  [PREPROCESS] {len(preprocessed_paths)} images preprocessed (deskew+denoise+binarize+CLAHE)")
+            except Exception as e:
+                print(f"  [PREPROCESS] Failed: {e}, using original images")
+                preprocessed_paths = None
+
+        # Use preprocessed images for bbox OCR (but keep originals for VLM — it needs color)
+        bbox_source_paths = preprocessed_paths if preprocessed_paths else image_paths
+
         print("  [OCR] Removing table lines ...")
-        clean_paths = self.create_clean_images(image_paths)
+        clean_paths = self.create_clean_images(bbox_source_paths)
 
         n_pages = len(image_paths)
 

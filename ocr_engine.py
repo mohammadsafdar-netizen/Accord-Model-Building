@@ -598,6 +598,65 @@ def parse_docling_markdown_pairs(md: str) -> List[Tuple[str, str]]:
     return pairs
 
 
+def parse_docling_html_pairs(html: str) -> List[Tuple[str, str]]:
+    """
+    Parse Docling-exported HTML to extract (label, value) string pairs.
+    HTML counterpart of parse_docling_markdown_pairs.
+    Uses: 1) HTML tables (<table>...) — header cells as labels, data cells as values
+          2) Consecutive <p> tags where one looks like a label (ends with ":", short, ALL CAPS)
+          3) "LABEL: value" within <p> tags
+    Returns list of (label_text, value_text) for use in matching to EasyOCR blocks.
+    """
+    from html.parser import HTMLParser
+
+    pairs: List[Tuple[str, str]] = []
+    if not html or not html.strip():
+        return pairs
+
+    # --- Tables: parse <table> elements ---
+    table_pat = re.compile(r'<table>(.*?)</table>', re.DOTALL | re.IGNORECASE)
+    row_pat = re.compile(r'<tr>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+    cell_pat = re.compile(r'<t[dh][^>]*>(.*?)</t[dh]>', re.DOTALL | re.IGNORECASE)
+    tag_strip = re.compile(r'<[^>]+>')
+
+    for table_match in table_pat.finditer(html):
+        rows = row_pat.findall(table_match.group(1))
+        if len(rows) < 2:
+            continue
+        headers = [tag_strip.sub('', c).strip() for c in cell_pat.findall(rows[0])]
+        for row_html in rows[1:]:
+            cells = [tag_strip.sub('', c).strip() for c in cell_pat.findall(row_html)]
+            for col, header in enumerate(headers):
+                if col < len(cells) and header and cells[col]:
+                    val = cells[col]
+                    if val and _normalize_for_match(val) != _normalize_for_match(header):
+                        pairs.append((header, val))
+
+    # --- <p> tag extraction ---
+    p_pat = re.compile(r'<p>(.*?)</p>', re.DOTALL | re.IGNORECASE)
+    p_texts = [tag_strip.sub('', m.group(1)).strip() for m in p_pat.finditer(html)]
+
+    # "LABEL: value" within a single <p>
+    for text in p_texts:
+        if ":" in text and len(text) < 200:
+            before, _, after = text.partition(":")
+            before = before.strip()
+            after = after.strip()
+            if before and after and len(before) < 80:
+                pairs.append((before, after))
+
+    # "LABEL:" in one <p>, value in next <p>
+    for j in range(len(p_texts) - 1):
+        text = p_texts[j]
+        if text.endswith(":") and 2 <= len(text) <= 100:
+            label = text[:-1].strip()
+            value = p_texts[j + 1]
+            if value and not value.startswith("<"):
+                pairs.append((label, value))
+
+    return pairs
+
+
 # ===========================================================================
 # OCR Engine
 # ===========================================================================
@@ -621,6 +680,7 @@ class OCREngine:
         bbox_backend: Optional[str] = None,
         use_docling: bool = False,
         use_preprocess: bool = False,
+        docling_html: bool = False,
     ):
         self.dpi = dpi
         self.easyocr_gpu = easyocr_gpu
@@ -636,6 +696,8 @@ class OCREngine:
         # None = no bbox OCR; "easyocr", "surya", or "paddle" to enable
         self.use_docling = use_docling
         self.use_preprocess = use_preprocess
+        # When True, export Docling results as HTML instead of markdown
+        self.docling_html = docling_html
         raw = (bbox_backend or "").lower().strip()
         self.bbox_backend = raw if raw in ("easyocr", "surya", "paddle") else None
 
@@ -695,6 +757,109 @@ class OCREngine:
         self.cleanup_surya()
         self.cleanup_paddle()
         print("  [OCR] All OCR GPU memory released")
+
+    @staticmethod
+    def _strip_html_boilerplate(html: str) -> str:
+        """Strip CSS/head/html/body tags, keep only the content."""
+        body = re.search(r'<body>(.*?)</body>', html, re.DOTALL)
+        return body.group(1).strip() if body else html
+
+    @staticmethod
+    def _compact_html(html_body: str) -> str:
+        """Convert verbose HTML to compact format: plain text + HTML tables.
+
+        Keeps <table>/<tr>/<td> intact (the structural benefit of HTML)
+        but converts <p>, <h2>, <div> to plain text with newlines.
+        This reduces token count by ~40% while preserving table structure.
+        """
+        # Remove <div> wrappers
+        out = re.sub(r"</?div[^>]*>", "", html_body)
+        # Convert headings to markdown-style (LLM-friendly)
+        out = re.sub(r"<h([1-6])>(.*?)</h\1>", r"\n## \2\n", out)
+        # Convert <p> to plain text lines
+        out = re.sub(r"<p>(.*?)</p>", r"\1\n", out, flags=re.DOTALL)
+        # Clean up excess whitespace but preserve table blocks
+        lines = []
+        for line in out.split("\n"):
+            stripped = line.strip()
+            if stripped:
+                lines.append(stripped)
+        return "\n".join(lines)
+
+    @staticmethod
+    def _clean_doctags(doctags: str) -> str:
+        """Convert doctags XML to compact structured text.
+
+        Strips <loc_N> coordinates (redundant with bbox OCR),
+        converts checkbox/section/table tags to LLM-friendly format.
+        Result is ~same size as markdown but with explicit checkbox states.
+        """
+        # Strip coordinate tags
+        out = re.sub(r'<loc_\d+>', '', doctags)
+        # Strip wrapper
+        out = out.replace('<doctag>', '').replace('</doctag>', '')
+        # Pictures → skip
+        out = re.sub(r'<picture>.*?</picture>', '', out, flags=re.DOTALL)
+        # Section headers → ## heading
+        out = re.sub(r'<section_header[^>]*>(.*?)</section_header[^>]*>', r'\n## \1\n', out)
+        # Checkboxes → ☑/☐ Unicode markers
+        out = re.sub(r'<checkbox_selected>(.*?)</checkbox_selected>', r'☑ \1', out)
+        out = re.sub(r'<checkbox_unselected>(.*?)</checkbox_unselected>', r'☐ \1', out)
+        # Tables: <otsl>...<fcel>text<fcel>text<nl>...</otsl> → markdown pipes
+        def _otsl_to_markdown(m: re.Match) -> str:
+            content = m.group(1)
+            # Strip remaining loc tags inside table
+            content = re.sub(r'<loc_\d+>', '', content)
+            rows_raw = content.split('<nl>')
+            md_rows = []
+            for row_raw in rows_raw:
+                if not row_raw.strip():
+                    continue
+                # Split on <fcel> and <ecel> markers
+                cells = re.split(r'<[fe]cel>', row_raw)
+                cells = [c.strip() for c in cells if c.strip() or '<ecel>' in row_raw]
+                # Handle empty cells from <ecel>
+                all_cells = []
+                parts = re.findall(r'<(fcel|ecel)>([^<]*)', '<fcel>' + row_raw if not row_raw.startswith('<') else row_raw)
+                if not parts:
+                    # Fallback: split by <fcel>/<ecel> tags
+                    raw_parts = re.split(r'(?=<[fe]cel>)', row_raw)
+                    for p in raw_parts:
+                        p = p.strip()
+                        if p.startswith('<ecel>'):
+                            all_cells.append('')
+                        elif p.startswith('<fcel>'):
+                            all_cells.append(re.sub(r'<[^>]+>', '', p).strip())
+                else:
+                    for tag, text in parts:
+                        all_cells.append(text.strip() if tag == 'fcel' else '')
+                if all_cells:
+                    md_rows.append('| ' + ' | '.join(all_cells) + ' |')
+            if md_rows:
+                ncols = md_rows[0].count('|') - 1
+                sep = '| ' + ' | '.join(['---'] * max(ncols, 1)) + ' |'
+                return md_rows[0] + '\n' + sep + '\n' + '\n'.join(md_rows[1:])
+            return ''
+        out = re.sub(r'<otsl>(.*?)</otsl>', _otsl_to_markdown, out, flags=re.DOTALL)
+        # Plain text → strip tags
+        out = re.sub(r'<text>(.*?)</text>', r'\1', out)
+        # Strip any remaining XML tags
+        out = re.sub(r'<[^>]+>', '', out)
+        # Clean up whitespace
+        lines = [l.strip() for l in out.split('\n') if l.strip()]
+        return '\n'.join(lines)
+
+    def _docling_export(self, doc) -> str:
+        """Export Docling document based on self.docling_html setting.
+
+        Modes:
+        - False (default): Docling markdown (proven best baseline)
+        - True: Cleaned doctags format (explicit checkbox states, markdown tables)
+        """
+        if self.docling_html:
+            raw = doc.export_to_doctags()
+            return self._clean_doctags(raw)
+        return doc.export_to_markdown()
 
     # ------------------------------------------------------------------
     # Lazy init (avoids heavy imports if unused)
@@ -932,8 +1097,7 @@ class OCREngine:
             try:
                 result = converter.convert(img_path)
                 doc = result.document
-                md = doc.export_to_markdown()
-                pages.append(md)
+                pages.append(self._docling_export(doc))
                 regions = self._extract_docling_regions(doc)
                 docling_regions_per_page.append(regions)
                 native_pairs_per_page.append(extract_docling_native_pairs(doc))
@@ -960,6 +1124,8 @@ class OCREngine:
                 "--images", *[str(p) for p in image_paths],
                 "--out", result_path,
             ]
+            if self.docling_html:
+                cmd.append("--html")
             proc = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=600)
             if proc.returncode != 0:
                 print(f"  [OCR] Docling CPU worker stderr: {proc.stderr or 'none'}")
@@ -984,7 +1150,7 @@ class OCREngine:
             try:
                 result = converter.convert(img_path)
                 doc = result.document
-                pages.append(doc.export_to_markdown())
+                pages.append(self._docling_export(doc))
                 docling_regions_per_page.append(self._extract_docling_regions(doc))
                 native_pairs_per_page.append(extract_docling_native_pairs(doc))
             except Exception as e:
@@ -1256,7 +1422,10 @@ class OCREngine:
         if (docling_native_pairs or (docling_markdown and docling_markdown.strip())):
             docling_pairs: List[Tuple[str, str]] = list(docling_native_pairs) if docling_native_pairs else []
             if docling_markdown and docling_markdown.strip():
-                docling_pairs += parse_docling_markdown_pairs(docling_markdown)
+                if self.docling_html:
+                    docling_pairs += parse_docling_html_pairs(docling_markdown)
+                else:
+                    docling_pairs += parse_docling_markdown_pairs(docling_markdown)
             docling_guided = self._find_label_value_pairs_docling_guided(
                 idx.blocks, docling_pairs, max_gap=300
             )
@@ -1553,7 +1722,8 @@ class OCREngine:
         n_pages = len(image_paths)
 
         # ---- OCR disk cache: skip Docling + bbox if we have cached results (saves ~5-10 min) ----
-        docling_path = output_dir / "docling_pages.json"
+        docling_cache_name = "docling_html_pages.json" if self.docling_html else "docling_pages.json"
+        docling_path = output_dir / docling_cache_name
         bbox_path = output_dir / "bbox_pages.json"
         if docling_path.exists() and bbox_path.exists():
             try:

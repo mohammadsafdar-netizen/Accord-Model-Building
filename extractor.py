@@ -1292,8 +1292,9 @@ class ACORDExtractor:
         """Save all intermediate OCR outputs for full monitoring."""
         from utils import save_json
 
-        # 1. Docling markdown per page
-        save_json(ocr_result.docling_pages, output_dir / "docling_pages.json")
+        # 1. Docling text per page (markdown or HTML depending on config)
+        docling_cache_name = "docling_html_pages.json" if getattr(self.ocr, 'docling_html', False) else "docling_pages.json"
+        save_json(ocr_result.docling_pages, output_dir / docling_cache_name)
 
         # 2. EasyOCR bounding box data per page
         save_json(ocr_result.bbox_pages, output_dir / "bbox_pages.json")

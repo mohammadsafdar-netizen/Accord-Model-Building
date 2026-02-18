@@ -255,7 +255,7 @@ def build_extraction_prompt(
 === FIELDS TO EXTRACT ===
 {field_block}
 {f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
-=== DOCLING OCR TEXT (structured markdown) ===
+=== DOCLING OCR TEXT (structured document text) ===
 {docling_text[:max_docling]}
 {table_section}
 === BBOX OCR TEXT (with X,Y positions for spatial disambiguation) ===
@@ -359,7 +359,7 @@ def build_batched_extraction_prompt(
 === FIELDS TO EXTRACT ===
 {field_block}
 {f"{chr(10)}{few_shot_examples}{chr(10)}" if few_shot_examples else ""}
-=== DOCLING OCR TEXT (structured markdown) ===
+=== DOCLING OCR TEXT (structured document text) ===
 {docling_text[:max_docling]}
 {table_section}
 === BBOX OCR TEXT (with X,Y positions for spatial disambiguation) ===
@@ -552,7 +552,7 @@ def build_gap_fill_prompt(
     docling_section = ""
     if docling_text and docling_text.strip():
         docling_section = f"""
-=== DOCLING OCR TEXT (structured markdown) ===
+=== DOCLING OCR TEXT (structured document text) ===
 {docling_text[:5000]}
 """
 

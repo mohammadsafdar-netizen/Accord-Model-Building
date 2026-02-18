@@ -168,6 +168,10 @@ Examples:
         help="Preprocess images (deskew + denoise + binarize + CLAHE) before OCR",
     )
     parser.add_argument(
+        "--docling-html", action="store_true",
+        help="Export Docling OCR as HTML instead of markdown (preserves table structure better)",
+    )
+    parser.add_argument(
         "--align-to-template", action="store_true",
         help="Align scanned images to canonical template via SIFT feature matching",
     )
@@ -276,6 +280,7 @@ Examples:
         bbox_backend=bbox_backend,
         use_docling=args.docling,
         use_preprocess=args.preprocess,
+        docling_html=getattr(args, 'docling_html', False),
     )
 
     # Determine VLM-OCR model

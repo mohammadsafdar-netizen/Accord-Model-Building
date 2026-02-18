@@ -97,6 +97,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--images", nargs="+", required=True, help="Page image paths")
     ap.add_argument("--out", required=True, help="Output pickle path (pages, regions, native_pairs)")
+    ap.add_argument("--html", action="store_true", help="Export as HTML instead of markdown")
     args = ap.parse_args()
 
     acc_opts = AcceleratorOptions(num_threads=4, device=AcceleratorDevice.CPU)
@@ -114,7 +115,48 @@ def main():
         try:
             result = converter.convert(img_path)
             doc = result.document
-            pages.append(doc.export_to_markdown())
+            if args.html:
+                import re as _re
+                raw = doc.export_to_doctags()
+                # Strip coordinates (redundant with bbox OCR)
+                out = _re.sub(r'<loc_\d+>', '', raw)
+                out = out.replace('<doctag>', '').replace('</doctag>', '')
+                out = _re.sub(r'<picture>.*?</picture>', '', out, flags=_re.DOTALL)
+                out = _re.sub(r'<section_header[^>]*>(.*?)</section_header[^>]*>', r'\n## \1\n', out)
+                out = _re.sub(r'<checkbox_selected>(.*?)</checkbox_selected>', r'☑ \1', out)
+                out = _re.sub(r'<checkbox_unselected>(.*?)</checkbox_unselected>', r'☐ \1', out)
+                # Tables: <otsl>...<fcel>text<nl>...</otsl> → markdown pipes
+                def _otsl(m):
+                    content = _re.sub(r'<loc_\d+>', '', m.group(1))
+                    md = []
+                    for row in content.split('<nl>'):
+                        if not row.strip():
+                            continue
+                        parts = _re.findall(r'<(fcel|ecel)>([^<]*)', row if row.lstrip().startswith('<') else '<fcel>' + row)
+                        if not parts:
+                            raw_parts = _re.split(r'(?=<[fe]cel>)', row)
+                            cells = []
+                            for p in raw_parts:
+                                p = p.strip()
+                                if p.startswith('<ecel>'):
+                                    cells.append('')
+                                elif p.startswith('<fcel>'):
+                                    cells.append(_re.sub(r'<[^>]+>', '', p).strip())
+                        else:
+                            cells = [t.strip() if tag == 'fcel' else '' for tag, t in parts]
+                        if cells:
+                            md.append('| ' + ' | '.join(cells) + ' |')
+                    if md:
+                        sep = '| ' + ' | '.join(['---'] * max(md[0].count('|') - 1, 1)) + ' |'
+                        return md[0] + '\n' + sep + '\n' + '\n'.join(md[1:])
+                    return ''
+                out = _re.sub(r'<otsl>(.*?)</otsl>', _otsl, out, flags=_re.DOTALL)
+                out = _re.sub(r'<text>(.*?)</text>', r'\1', out)
+                out = _re.sub(r'<[^>]+>', '', out)
+                lines = [l.strip() for l in out.split('\n') if l.strip()]
+                pages.append('\n'.join(lines))
+            else:
+                pages.append(doc.export_to_markdown())
             regions_per_page.append(_extract_regions(doc))
             native_pairs_per_page.append(_extract_native_pairs(doc))
         except Exception as e:

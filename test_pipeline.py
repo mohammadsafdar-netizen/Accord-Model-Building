@@ -541,6 +541,10 @@ def main():
         help="Preprocess images (deskew + denoise + binarize + CLAHE) before OCR",
     )
     parser.add_argument(
+        "--docling-html", action="store_true",
+        help="Export Docling OCR as HTML instead of markdown (preserves table structure better)",
+    )
+    parser.add_argument(
         "--align-to-template", action="store_true",
         help="Align scanned images to canonical template via SIFT feature matching",
     )
@@ -711,6 +715,7 @@ def main():
         bbox_backend=bbox_backend,
         use_docling=True,
         use_preprocess=args.preprocess,
+        docling_html=getattr(args, 'docling_html', False),
     )
     # Larger models need longer timeouts and more output tokens
     llm_timeout = 300

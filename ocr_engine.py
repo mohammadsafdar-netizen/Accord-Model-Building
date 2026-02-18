@@ -667,6 +667,11 @@ class OCREngine:
     Also performs table-line removal and spatial indexing.
     """
 
+    @staticmethod
+    def _strip_html(text: str) -> str:
+        """Strip HTML/XML tags from OCR text (e.g. <b>EFFECTIVE DATE</b> → EFFECTIVE DATE)."""
+        return re.sub(r"<[^>]+>", "", text)
+
     def __init__(
         self,
         dpi: int = 300,
@@ -1183,7 +1188,7 @@ class OCREngine:
                 x_min, x_max = int(min(x_coords)), int(max(x_coords))
                 y_min, y_max = int(min(y_coords)), int(max(y_coords))
                 page_data.append({
-                    "text": re.sub(r"\s+", " ", text).strip(),
+                    "text": OCREngine._strip_html(re.sub(r"\s+", " ", text).strip()),
                     "x": int((x_min + x_max) / 2),
                     "y": int((y_min + y_max) / 2),
                     "x_min": x_min, "y_min": y_min,
@@ -1240,7 +1245,7 @@ class OCREngine:
                 if conf is None:
                     conf = 1.0
                 page_data.append({
-                    "text": re.sub(r"\s+", " ", str(text)).strip(),
+                    "text": OCREngine._strip_html(re.sub(r"\s+", " ", str(text)).strip()),
                     "x": (x_min + x_max) // 2,
                     "y": (y_min + y_max) // 2,
                     "x_min": x_min, "y_min": y_min,
@@ -1360,7 +1365,7 @@ class OCREngine:
             x_min, x_max = int(min(xs)), int(max(xs))
             y_min, y_max = int(min(ys)), int(max(ys))
             page_data.append({
-                "text": re.sub(r"\s+", " ", str(text)).strip(),
+                "text": OCREngine._strip_html(re.sub(r"\s+", " ", str(text)).strip()),
                 "x": (x_min + x_max) // 2,
                 "y": (y_min + y_max) // 2,
                 "x_min": x_min, "y_min": y_min,

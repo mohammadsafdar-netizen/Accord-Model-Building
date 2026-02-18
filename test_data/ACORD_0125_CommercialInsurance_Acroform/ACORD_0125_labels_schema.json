@@ -1,0 +1,4657 @@
+[
+  {
+    "name": "Form_CompletionDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_NAICCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_ProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_ProductCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_ProductDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_SubProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_Underwriter_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Insurer_Underwriter_OfficeIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_BoundIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_CancelIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_ChangeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_EffectiveTime_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_EffectiveTimeAMIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_EffectiveTimePMIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_IssueIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_QuoteIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Status_RenewIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_ContactPerson_EmailAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_ContactPerson_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_ContactPerson_PhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_CustomerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_FaxNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_CityName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_LineOne_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_LineTwo_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_PostalCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Nature_of_Business_Type_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Nature_of_Business_Date_Business_Started_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Nature_of_Business_Description_Primary_Operations_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Box_GeneralInformation_Safety_Manuals_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PriorInsurance_Current_Carrier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PriorInsurance_Current_Premium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_StateOrProvinceCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_City",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_StateOrProvinceCode",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_Zip",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_InsideCityLimits_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_Occupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_DescriptionOfOccupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_Employees_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_AnualRevenue_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_OccupiedArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_AreaOpenToPublic_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_TotalBuildingArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_MailingAddress_LeasedToOthers_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessPhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Note_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BillingPlan_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PaymentPlan_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Audit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "QuoteRequest_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LinesOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "FederalIDNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Website_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_ContactType_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_ContactName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_PhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_EmailAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_Address_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_City_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_StateOrProvinceCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_Zip_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_InsideCityLimits_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_Occupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_DescriptionOfOccupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_Employees_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_AnualRevenue_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_OccupiedArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_AreaOpenToPublic_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_TotalBuildingArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationBuilding_LeasedToOthers_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_TypeOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DateBusinessStarted_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfPrimaryOperations_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BoilerAndMachineryLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessOwnersLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialInlandMarineLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPropertyLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialUmbrellaLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialVehicleLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CrimeLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CyberAndPrivacyLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "FiduciaryLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GarageAndDealersLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LiquorLiabilityLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "MotorCarrierLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_BoilerAndMachineryIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_BusinessAutoIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_BusinessOwnersIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_CommercialGeneralLiability_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_CommercialInlandMarineIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_CommercialProperty_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_CrimeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_CyberAndPrivacy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_FiduciaryLiabilityIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_GarageAndDealersIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_LiquorLiabilityIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_MotorCarrierIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_TruckersIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_UmbrellaIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_YachtIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TruckersLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YachtLineOfBusiness_PremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherIndicator_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_LineOfBusiness_OtherLineOfBusinessDescription_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OtherPremiumAmount_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_AdditionalPremisesScheduleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_ApartmentBuildingSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_CondominiumAssociationByLawsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_ContractorsSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_CoveragesScheduleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_HotelMotelSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_InternationalPropertyExposureSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_LossSummaryIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_PremiumPaymentSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_ProfessionalLiabilitySupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_RestaurantTavernSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_StateSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_StatementOfValuesIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_VacantBuildingSupplementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_AccountsReceivableValuablePapersIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_DealerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_DriverInformationScheduleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_ElectronicDataProcessingIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_GlassAndSignIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_InstallationBuildersRiskIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_OpenCargoIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_SectionAttached_VehicleScheduleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "EffectiveDate",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BillingPlan",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PaymentPlan",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Audit",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer'sNote",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "FederalIDNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessPhoneNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Website",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalNamedInsureds",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location/Building",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureofBusiness",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DateOfBusinessStartup",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfPrimaryOperations",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherDescription_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Attachment_OtherIndicator_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Audit_FrequencyCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_ExpirationDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_PaymentMethod_MethodDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_DepositAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_DirectBillIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_EstimatedTotalAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_MinimumPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_PaymentScheduleCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Policy_Payment_ProducerBillIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Form_EditionIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_GeneralLiabilityCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_CorporationIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_IndividualIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_JointVentureIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_MemberManagerCount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_NotForProfitIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_PartnershipIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_TrustIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_CityName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineOne_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineTwo_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_PostalCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_StateOrProvinceCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_NAICSCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_PhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_WebsiteAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_SICCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_TaxIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_FullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_GeneralLiabilityCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_CorporationIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_IndividualIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_JointVentureIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_MemberManagerCount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_NotForProfitIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_PartnershipIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_TrustIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_CityName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineOne_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineTwo_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_PostalCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_StateOrProvinceCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_NAICSCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_PhoneNumber_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_WebsiteAddress_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_SICCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_TaxIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_CustomerIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_FullName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_GeneralLiabilityCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_CorporationIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_IndividualIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_JointVentureIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_LimitedLiabilityCorporationIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_MemberManagerCount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_NotForProfitIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_OtherIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_PartnershipIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_SubchapterSCorporationIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_LegalEntity_TrustIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BillingPlan_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PaymentPlan_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Audit_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerNote_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "FederalIDNumber_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessPhone_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Website_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalNamedInsureds_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_Building_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionPrimaryOperations_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesNoQuestions_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentInsurance_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_CityName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineOne_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineTwo_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_PostalCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_MailingAddress_StateOrProvinceCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_NAICSCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_PhoneNumber_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Primary_WebsiteAddress_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_SICCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_TaxIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_ContactDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryCellPhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryEmailAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryHomePhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryPhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryCellPhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryEmailAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryHomePhoneIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryPhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_ContactDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_FullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryBusinessPhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryCellPhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryEmailAddress_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryHomePhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_PrimaryPhoneNumber_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryBusinessPhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryCellPhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryEmailAddress_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryHomePhoneIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_Contact_SecondaryPhoneNumber_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessEntityType",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "FoundedDate",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentCarrier",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CarrierNAIC",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PolicyNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AuditCycle",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerNote",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactType",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactName",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactPhoneNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactEmail",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingNumber",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Address",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "City",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "State",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Zip",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "InsideCityLimits",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Occupancy",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfOccupancy",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Employees",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AnnualRevenue",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupiedArea",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AreaOpenToPublic",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TotalBuildingArea",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LeasedToOthers",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DateBusinessStarted",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesNoQuestions",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentInsurance",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NoPriorInsurance",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentPremium",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OccupiedArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OpenToPublicArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OperationsDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_FullTimeEmployeeCount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_PartTimeEmployeeCount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_AnnualRevenueAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Building_ProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OwnerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_TenantIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Location_ProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CityName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CountyName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineOne_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineTwo_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_PostalCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_StateOrProvinceCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Question_ABBCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Construction_BuildingArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OccupiedArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OpenToPublicArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OperationsDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_FullTimeEmployeeCount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_PartTimeEmployeeCount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_AnnualRevenueAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Building_ProducerIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OwnerIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_TenantIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Location_ProducerIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CityName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CountyName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineOne_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineTwo_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_PostalCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_StateOrProvinceCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Question_ABBCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Construction_BuildingArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OccupiedArea_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OpenToPublicArea_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OperationsDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_FullTimeEmployeeCount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_PartTimeEmployeeCount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_AnnualRevenueAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Building_ProducerIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OwnerIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_TenantIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Location_ProducerIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_AbbreviatedBuildingAddressIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_BusinessAutoInsuranceRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_CGLInsuranceRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_DirectBillingIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_EmployeesIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_FullTimeEmployeeCountIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_GeneralLiabilityInsuranceRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_HazardousMaterialsHandlingRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_IncidentReportingRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_LiabilityInsuranceRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_MonthlyBillingIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_OccupancyInspectionRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PayrollTaxRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PaymentPlanIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PriorLossesIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_WorkCompInsuranceRequiredIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_YearsInBusinessIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_ZurichNorthAmericaCarrierIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CityName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CountyName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineOne_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineTwo_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_PostalCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_StateOrProvinceCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Question_ABBCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Construction_BuildingArea_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OccupiedArea_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OpenToPublicArea_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingOccupancy_OperationsDescription_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_FullTimeEmployeeCount_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_PartTimeEmployeeCount_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_AnnualRevenueAmount_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Building_ProducerIdentifier_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherDescription_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OtherIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_OwnerIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InsuredInterest_TenantIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Location_ProducerIdentifier_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CityName_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_CountyName_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineOne_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_LineTwo_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_PostalCode_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_PhysicalAddress_StateOrProvinceCode_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessPhoneNumber_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_Website_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalNamedInsureds_Any_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_ContactType_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_ContactName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_PhoneNumber_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_EmailAddress_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_BuildingNumber_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_Address_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_City_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_StateOrProvinceCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_ZIPCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_InsideCityLimitsIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_Occupancy_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_DescriptionOfOccupancy_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_Employees_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_AnnualRevenueAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_OccupiedArea_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_AreaOpenToPublic_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_TotalBuildingArea_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Location_LeasedToOthersIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_Type_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_DateBusinessStarted_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_DescriptionOfPrimaryOperations_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesNoQuestions_HaveSafetyManuals_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentInsurance_CurrentCarrier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentInsurance_NoPriorInsuranceIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentInsurance_CurrentPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_NoLossesIndicated_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LossHistory_AccurateDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LossHistory_Type_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LossHistory_Amount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_Question_ABBCode_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_InsideCityLimitsIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherDescription_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OtherIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_RiskLocation_OutsideCityLimitsIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Construction_BuildingArea_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_ApartmentsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_CondominiumsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_ContractorIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_InstitutionalIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_ManufacturingIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_OfficeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_RestaurantIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_RetailIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_ServiceIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessType_WholesaleIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_OperationsDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InstallationRepairWorkOffPremisesPercent_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialStructure_InstallationRepairWorkPercent_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsured_BusinessStartDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_OperationsDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_AccountNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_CertificateRequiredIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_InterestEndDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_InterestRank_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_InterestReasonDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_AdditionalInsuredIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_BreachOfWarrantyIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_CoOwnerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_EmployeeAsLessorIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_LeasebackOwnerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_LendersLossPayableIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_LienholderIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_LossPayeeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_MortgageeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_OwnerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_RegistrantIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Interest_TrusteeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_ItemDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_AircraftProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_AirportIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_BoatProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_BuildingProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_LocationProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_ScheduledItemClassCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_ScheduledItemProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Item_VehicleProducerIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_LoanAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_CityName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_CountryCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_LineOne_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_LineTwo_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_PostalCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_MailingAddress_StateOrProvinceCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_PolicyRequiredIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Primary_EmailAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Primary_FaxNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_Primary_PhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_SendBillIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_ParentOrganizationName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_AgentNoLongerWritesForInsurerIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_NonPaymentIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_NonRenewalIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_OtherDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_OtherIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_UnderwritingConditionCorrectedDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_UnderwritingConditionCorrectedIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CancelNonRenew_UnderwritingIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_AnyExposureToFlammableExplosivesChemicalsExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ApplicantHireOthersOperateDronesExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ApplicantOtherBusinessVenturesCoverageNotRequestedExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ApplicantOwnLeaseOperateDronesExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcyExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_SafetyManualIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLienExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_OccurrenceDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_ResolutionDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_ResolutionDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_PastFiveYearsAnyApplicantIndictedOrConvictedFraudBriberyArsonExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_PastLossesClaimsRelatingSexualAbuseDiscriminationNegligentHiringExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AACCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AADCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AAFCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AAHCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AAICode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_AAJCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_BusinessName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_GivenName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_Hometown_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_MaritalStatus_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_SexCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_StateCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessInformation_ZipCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_LocationAddress_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_LocationCity_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_LocationStateCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_LocationZipCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_InsideCityLimits_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_Occupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_DescriptionOfOccupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_Employees_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_AnnualRevenue_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_OccupiedArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_AreaOpenToPublic_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_TotalBuildingArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_LeasedToOthers_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_DateBusinessStarted_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_DescriptionOfPrimaryOperations_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_ProducerNote_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_NamedInsuredName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_FederalIDNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_BusinessPhoneNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_Website_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_AdditionalNamedInsureds_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_Audit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_PaymentPlan_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_BillingPlan_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_ABBCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_ABCCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KAACode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KABCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KACCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KAKCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KALCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KAMCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KANCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_Question_KAOCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolationExplanation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_LineOfBusinessCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Subsidiary_OrganizationName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Subsidiary_ParentOwnershipPercent_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Subsidiary_ParentSubsidiaryRelationshipDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalInterest_FullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcyExplanation_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_OccurrenceDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_ForeclosureRepossessionBankruptcy_ResolutionDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_MonthlyMeetingsIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_OSHAIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_OtherDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_OtherIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_FormalSafetyProgram_SafetyPositionIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLienExplanation_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer'sNote_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessPhone_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactInformation_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingNumber_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Address_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "City_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "State_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Zip_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "InsideCityLimits_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Occupancy_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfOccupancy_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Employees_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AnnualRevenue_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupiedArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AreaOpenToPublic_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TotalBuildingArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LeasedToOthers_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DateBusinessStarted_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfPrimaryOperations_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_OccurrenceDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_ResolutionDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_JudgementOrLien_ResolutionDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolationExplanation_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_OccurrenceDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_UncorrectedFireCodeViolation_ResolutionDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_LineOfBusinessCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_PolicyNumberIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Subsidiary_ParentOwnershipPercent_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Subsidiary_ParentSubsidiaryRelationshipDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_LineOfBusinessCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_PolicyNumberIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_LineOfBusinessCode_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherPolicy_PolicyNumberIdentifier_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_OccupiedByEmployeesIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_OccupancyTypeIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_EmployeesIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_AnualRevenueIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_AreaOpenToPublicIndicator_E",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_TotalBuildingAreaIndicator_F",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_LeasedToOthersIndicator_G",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Date_BusinessStarted_H",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfPrimaryOperations_I",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_SafetyManualsIndicator_J",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentCarrier_K",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_NoPriorInsuranceIndicator_L",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentPremium_M",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_N",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupiedArea_SquareFootage_O",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_AuditIndicator_P",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CommercialPolicy_RemarkText_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LinesOfBusinessIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAutoIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGLIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PropertyIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "WorkersCompensationIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProfessionalLiabilityIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NoFaultIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PersonalInjuryProtectionIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CoverageEndorsementIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAutoPolicyFormNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGLPolicyFormNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PropertyPolicyFormNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "WorkersCompensationPolicyFormNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProfessionalLiabilityPolicyFormNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAutoCoverageLimit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGLCoverageLimit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PropertyCoverageLimit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "WorkersCompensationCoverageLimit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProfessionalLiabilityCoverageLimit_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAutoDeductible_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGLDeductible_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PropertyDeductible_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "WorkersCompensationDeductible_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProfessionalLiabilityDeductible_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAutoAnnualPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGLAnnualPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PropertyAnnualPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "WorkersCompensationAnnualPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProfessionalLiabilityAnnualPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerNote_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AdditionalNamedInsureds_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationInformation_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureofBusinessIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TypeOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_ExpirationDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_InsurerFullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_TotalPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_ExpirationDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_InsurerFullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_TotalPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_ExpirationDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_InsurerFullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_LineOfBusinessCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_TotalPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_PolicyYear_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_EffectiveDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_ExpirationDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_InsurerFullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_PolicyNumberIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_TotalPremiumAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Name_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Address_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_City_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_State_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Zip_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Telephone_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_Email_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentCarrier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NoPriorInsurance_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentPremium_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAuto_LinesOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGL_LinesOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Property_LinesOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGL_Indicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NoFault_Indicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactType_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactPhone_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactEmail_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingNumber_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Address_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "City_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "State_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "InsideCityLimits_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Occupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOfOccupancy_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Employees_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AnnualRevenue_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupiedArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AreaOpenToPublic_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TotalBuildingArea_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LeasedToOthers_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesManualSafety_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesTrainingProgram_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesInsurance_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "YesPremiumPaymentPlan_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_NoPriorLossesIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_ExpirationDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_InsurerFullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_PolicyNumberIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_TotalPremiumAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_ExpirationDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_InsurerFullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_TotalPremiumAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_ExpirationDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_InsurerFullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_PolicyNumberIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_TotalPremiumAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_PolicyYear_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_ExpirationDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_InsurerFullName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_PolicyNumberIdentifier_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_TotalPremiumAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_EffectiveDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_ExpirationDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_InsurerFullName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_PolicyNumberIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Automobile_TotalPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_EffectiveDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_ExpirationDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PolicyNumber_BA_37810023",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CurrentCarrier_ZurichNorthAmericaInsuranceCompanyLLC",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_DateOfLastLoss_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_TypeOfLoss_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_AmountOfLoss_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Business_Sex/GenderCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Business_MaritalStatus_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Business_EmploymentType_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Contact_ContactInformationType_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Contact_ContactName_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Contact_ContactPhone_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Contact_ContactEmail_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_Address_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_CityStateZipCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_InsideCityLimits_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_Occupancy_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_DescriptionOfOccupancy_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_Employees_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_AnnualRevenue_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_OccupiedArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_AreaOpenToPublic_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_TotalBuildingArea_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessLocation_LeasedtoOthers_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_Sex/GenderCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_TypeOfBusiness_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusiness_DateOfIncorporation_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_ProducerNote_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsureds_NamedInsuredName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsureds_NamedInsuredEntity_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_AgencyPart_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_QuoteBindRequest_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_LinesOfBusinessAttached_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_EffectiveDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_BillingPlan_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_PaymentPlan_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralInformation_Audit_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_InsurerFullName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_PolicyNumberIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_GeneralLiability_TotalPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_EffectiveDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_ExpirationDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_InsurerFullName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_PolicyNumberIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_OtherLine_TotalPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_PolicyYear_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_EffectiveDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_ExpirationDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_InsurerFullName_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_PolicyNumberIdentifier_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PriorCoverage_Property_TotalPremiumAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAuto_LiabilityInsuranceIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAuto_PersonalUseIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BusinessAuto_MiscellaneousLine_indicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGL_InsuranceIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGL_SmallBusinessIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Property_OccupancyIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Property_TenantOccupancyIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Property_CondoUnitOccupancyIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralLiability_LiabilityLimitsIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralLiability_UnderinsuredMotoristIndicator_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralLiability_WrongfulDischargeOfBloodIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "GeneralLiability_PersonalPropertyCoverageIndicator_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OtherLine_SmallBusinessIndicator_D",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_OpenCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_SubrogationCode_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_InformationYearCount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LineOfBusiness_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDescription_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_PaidAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ReservedAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_TotalAmount_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_OpenCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_SubrogationCode_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LineOfBusiness_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDate_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDescription_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_PaidAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ReservedAmount_B",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_OpenCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ClaimStatus_SubrogationCode_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_LineOfBusiness_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDate_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_OccurrenceDescription_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_PaidAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LossHistory_ReservedAmount_C",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Business_Auto",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "CGL",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Property",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_PriorInsurance",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NoLosses",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DateStarted_Business",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionPrimaryOperations",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "HasSafetyManuals",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupancyOwned",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "DescriptionOccupancy",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AreaOpenPublic",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "TypeBusiness",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "OccupancyTenantCondUnitOwner",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "HasMultipleNamedInsureds",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ContactTypeGeneralInfo",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Email",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LocationNumberAddress",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BuildingNumberAddress",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "InsideCityLimitsYesNo",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "EmployeesFullTime",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LeasedToOthersYesNo",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NatureOfBusinessType",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "chk_CheckBoxLinesOfBusiness",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsuredCorporateEntity",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AuditFrequencyAnnual",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "BillingPlanDirect",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PaymentPlanMonthly",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "AgencyPart",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Quote",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "LinesOfBusinessAttached",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsuredInitials_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsuredSignature_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "NamedInsuredSignatureDate_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "PolicyInformationPracticesNoticeIndicator_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerAuthorizedRepresentative_FullName_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerAuthorizedRepresentative_Signature_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "ProducerNationalIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  },
+  {
+    "name": "Producer_StateLicenseIdentifier_A",
+    "type": "rectangle",
+    "attributes": []
+  }
+]

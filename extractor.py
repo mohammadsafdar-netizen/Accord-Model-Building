@@ -184,6 +184,7 @@ class ACORDExtractor:
         use_checkbox_crops: bool = False,
         use_glm_ocr: bool = False,
         use_nanonets_ocr: bool = False,
+        knowledge_store: Optional[Any] = None,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -202,6 +203,8 @@ class ACORDExtractor:
         self.strict_verify = strict_verify
         # Optional RAG: few-shot examples from ground truth (ExampleRAGStore). Improves accuracy.
         self.rag_store = rag_store
+        # Optional knowledge base: semantic context from insurance knowledge collections
+        self.knowledge_store = knowledge_store
         # Feature flags for new capabilities
         self.use_semantic_matching = use_semantic_matching and SENTENCE_TRANSFORMERS_AVAILABLE
         self.use_templates = use_templates and TemplateRegistry is not None
@@ -233,6 +236,50 @@ class ACORDExtractor:
         self._semantic_matcher_cache: Dict[str, Any] = {}
         self._template_registry: Optional[Any] = None
         self._table_transformer: Optional[Any] = None
+
+    # ==================================================================
+    # Knowledge base context helper
+    # ==================================================================
+
+    def _get_knowledge_context(
+        self, form_type: str, category: str, field_names: list[str]
+    ) -> str:
+        """Retrieve relevant knowledge context for extraction prompts."""
+        if self.knowledge_store is None:
+            return ""
+        try:
+            results = []
+            # Field definitions for this form + category
+            results.extend(
+                self.knowledge_store.query(
+                    f"{category} fields ACORD {form_type}",
+                    collection="acord_fields",
+                    n_results=5,
+                    where={"form_type": form_type},
+                )
+            )
+            # Glossary terms related to the category
+            results.extend(
+                self.knowledge_store.query(
+                    category, collection="insurance_glossary", n_results=2
+                )
+            )
+            # Form structure info
+            results.extend(
+                self.knowledge_store.query(
+                    f"ACORD {form_type} {category}",
+                    collection="form_structure",
+                    n_results=2,
+                )
+            )
+            if not results:
+                return ""
+            # Sort by relevance and format
+            results.sort(key=lambda r: r.get("distance", 999))
+            ctx = self.knowledge_store.format_context(results, max_chars=1500)
+            return f"\n=== INSURANCE KNOWLEDGE CONTEXT ===\n{ctx}\n"
+        except Exception:
+            return ""
 
     # ==================================================================
     # Main entry point
@@ -1360,9 +1407,9 @@ class ACORDExtractor:
             batch = field_names[i:i + BATCH_SIZE]
             batch_tooltips = {k: v for k, v in tooltips.items() if k in batch}
 
-            few_shot = ""
+            few_shot = self._get_knowledge_context(form_type, category, batch)
             if self.rag_store is not None:
-                few_shot = self.rag_store.retrieve(form_type, category, batch, k=3)
+                few_shot += self.rag_store.retrieve(form_type, category, batch, k=3)
             prompt = build_extraction_prompt(
                 form_type=form_type,
                 category=category,
@@ -1391,9 +1438,9 @@ class ACORDExtractor:
             for i in range(0, len(missing), BATCH_SIZE):
                 gap_batch = missing[i:i + BATCH_SIZE]
                 gap_tooltips = {k: v for k, v in tooltips.items() if k in gap_batch}
-                gap_few_shot = ""
+                gap_few_shot = self._get_knowledge_context(form_type, category, gap_batch)
                 if self.rag_store is not None:
-                    gap_few_shot = self.rag_store.retrieve_for_fields(form_type, gap_batch, k=2)
+                    gap_few_shot += self.rag_store.retrieve_for_fields(form_type, gap_batch, k=2)
                 gap_prompt = build_gap_fill_prompt(
                     form_type=form_type,
                     missing_fields=gap_batch,
@@ -2283,9 +2330,9 @@ class ACORDExtractor:
             # Get pre-extracted row data for this driver
             row_data = driver_rows.get(driver_num, "")
 
-            driver_few_shot = ""
+            driver_few_shot = self._get_knowledge_context(form_type, "driver", field_names)
             if self.rag_store is not None:
-                driver_few_shot = self.rag_store.retrieve(form_type, "driver", field_names, k=3)
+                driver_few_shot += self.rag_store.retrieve(form_type, "driver", field_names, k=3)
             print(f"    Driver {suffix} (#{driver_num}) - {len(field_names)} fields ...")
             prompt = build_driver_row_prompt(
                 driver_num=driver_num,
@@ -2416,9 +2463,9 @@ class ACORDExtractor:
             field_names = suffix_groups[suffix_key]
             tooltips = self.registry.get_tooltips(form_type, field_names)
 
-            vehicle_few_shot = ""
+            vehicle_few_shot = self._get_knowledge_context(form_type, "vehicle", field_names)
             if self.rag_store is not None:
-                vehicle_few_shot = self.rag_store.retrieve(form_type, "vehicle", field_names, k=3)
+                vehicle_few_shot += self.rag_store.retrieve(form_type, "vehicle", field_names, k=3)
             print(f"    Vehicle {suffix} - {len(field_names)} fields ...")
             prompt = build_vehicle_prompt(
                 form_type=form_type,
@@ -2459,9 +2506,9 @@ class ACORDExtractor:
         for i in range(0, len(missing_fields), batch_size):
             batch = missing_fields[i:i + batch_size]
             batch_tooltips = {k: v for k, v in tooltips.items() if k in batch}
-            gap_few_shot = ""
+            gap_few_shot = self._get_knowledge_context(form_type, "general", batch)
             if self.rag_store is not None:
-                gap_few_shot = self.rag_store.retrieve_for_fields(form_type, batch, k=2)
+                gap_few_shot += self.rag_store.retrieve_for_fields(form_type, batch, k=2)
             prompt = build_gap_fill_prompt(
                 form_type=form_type,
                 missing_fields=batch,
@@ -2808,9 +2855,9 @@ class ACORDExtractor:
                     print(f"      chunk {chunk_idx + 1}/{len(chunks)} ({len(chunk_fields)} fields) ...")
 
                 tooltips = self.registry.get_tooltips(form_type, chunk_fields)
-                few_shot = ""
+                few_shot = self._get_knowledge_context(form_type, batch_cats[0], chunk_fields)
                 if self.rag_store is not None:
-                    few_shot = self.rag_store.retrieve(form_type, batch_cats[0], chunk_fields, k=3)
+                    few_shot += self.rag_store.retrieve(form_type, batch_cats[0], chunk_fields, k=3)
 
                 prompt = build_batched_extraction_prompt(
                     form_type=form_type,

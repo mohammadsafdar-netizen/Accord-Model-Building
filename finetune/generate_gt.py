@@ -53,6 +53,11 @@ FORM_CONFIGS = {
         "schema": "137.json",
         "prefix": "ACORD_137",
     },
+    "163": {
+        "dir": "ACORD_163",
+        "schema": "163.json",
+        "prefix": "ACORD_163",
+    },
 }
 
 

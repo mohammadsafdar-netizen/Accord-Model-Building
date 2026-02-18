@@ -111,6 +111,10 @@ Examples:
         help="Directory of ground-truth JSONs for RAG (default: TEST_DATA_DIR from config).",
     )
     parser.add_argument(
+        "--use-knowledge-base", action="store_true",
+        help="Inject insurance knowledge context (field definitions, glossary, form structure) into extraction prompts.",
+    )
+    parser.add_argument(
         "--vision-model", type=str, default="qwen2.5vl:7b",
         help="Ollama vision model for --vision or --vision-checkboxes-only (default: qwen2.5vl:7b)",
     )
@@ -313,6 +317,14 @@ Examples:
         rag_store = build_example_store(gt_dir, schemas_dir)
         print("  [RAG] Few-shot examples enabled (loaded from ground truth).")
 
+    knowledge_store = None
+    if args.use_knowledge_base:
+        from knowledge.knowledge_store import InsuranceKnowledgeStore
+        knowledge_store = InsuranceKnowledgeStore()
+        stats = knowledge_store.collection_stats()
+        total = sum(stats.values())
+        print(f"  [KB] Knowledge base context enabled ({total:,} documents).")
+
     extractor = ACORDExtractor(
         ocr, llm, registry,
         use_vision=args.vision,
@@ -342,6 +354,7 @@ Examples:
         use_checkbox_crops=args.checkbox_crops,
         use_glm_ocr=args.glm_ocr,
         use_nanonets_ocr=args.nanonets_ocr,
+        knowledge_store=knowledge_store,
     )
 
     # --- Run extraction ---

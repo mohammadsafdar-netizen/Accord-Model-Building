@@ -33,15 +33,17 @@ FORM_TYPES = {
     "ACORD_0125": ("125", "125.json"),
     "127_Business_Auto": ("127", "127.json"),
     "ACORD_137": ("137", "137.json"),
+    "ACORD_163": ("163", "163.json"),
 }
 
 # Validation holdout: one form per type (by hash suffix)
 # These will go into val.jsonl, everything else into train.jsonl
 VAL_HOLDOUT_HASHES = {
-    "125": "49df78c7",   # ACORD 125
-    "127": "b07a4a25",   # ACORD 127
+    "125": "00d73f3c",   # ACORD 125
+    "127": "06003c8b",   # ACORD 127
+    "137": "0227f2f0",   # ACORD 137
+    "163": "0007dd82",   # ACORD 163
 }
-# 137 only has 1 form, so it stays in training
 
 # System prompt for all training examples
 SYSTEM_PROMPT = (

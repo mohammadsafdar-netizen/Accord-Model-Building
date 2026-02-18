@@ -118,9 +118,23 @@ def is_date_field(field_name: str) -> bool:
 
 
 def strip_label_prefixes(value: str, field_name: str) -> str:
+    # Strip HTML tags first (e.g. <b>EFFECTIVE DATE</b> → EFFECTIVE DATE)
+    value = re.sub(r"<[^>]+>", "", value)
     patterns = [
+        # Short labels with colons
         r"^(?:Name|Address|City|State|ZIP|Phone|Fax|Email|Date|Code|No\.?|Number|#)\s*[:：]\s*",
         r"^(?:NAIC|VIN|SSN|FEIN|DOB)\s*[:：]\s*",
+        # Full ACORD form labels commonly prepended by LLM
+        r"^LOC#\s*(?:STREET|BLDG#?)?\s*",
+        r"^(?:TOTAL\s+)?BUILDING\s+AREA\s*[:：]?\s*",
+        r"^OPEN\s+TO\s+PUBLIC\s+AREA\s*[:：]?\s*",
+        r"^DESCRIPTION\s+OF\s+(?:OPERATIONS|BUSINESS)\s*[:：]?\s*",
+        r"^(?:ANNUAL\s+)?(?:GROSS\s+)?REVENUE\s*[:：]?\s*",
+        r"^OCCUPIED\s+AREA\s*[:：]?\s*",
+        r"^MAKE\s*[:：]\s*",
+        r"^MODEL\s*[:：]\s*",
+        r"^YEAR\s*[:：]\s*",
+        r"^(?:CITY|COUNTY)\s*[:：]\s*",
     ]
     for pat in patterns:
         value = re.sub(pat, "", value, flags=re.IGNORECASE)

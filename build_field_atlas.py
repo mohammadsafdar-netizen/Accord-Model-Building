@@ -44,6 +44,10 @@ ANCHOR_LABELS_BY_FORM = {
         "AGENCY", "CARRIER", "NAIC CODE", "POLICY NUMBER",
         "NAMED INSURED",
     ],
+    "163": [
+        "AGENCY", "CARRIER", "NAIC CODE", "POLICY NUMBER",
+        "NAMED INSURED",
+    ],
 }
 
 # Default reference PDFs (first PDF found in each test_data subfolder)
@@ -51,6 +55,7 @@ FORM_FOLDERS = {
     "125": "ACORD_0125_CommercialInsurance_Acroform",
     "127": "127_Business_Auto_Section_2015_12",
     "137": "ACORD_137",
+    "163": "ACORD_163",
 }
 
 
@@ -239,7 +244,7 @@ def main():
         description="Enrich schema JSONs with widget positions from AcroForm PDFs"
     )
     parser.add_argument(
-        "--form", choices=["125", "127", "137"],
+        "--form", choices=["125", "127", "137", "163"],
         help="Form type to enrich",
     )
     parser.add_argument(
@@ -270,7 +275,7 @@ def main():
 
     forms_to_process = []
     if args.all:
-        forms_to_process = ["125", "127", "137"]
+        forms_to_process = ["125", "127", "137", "163"]
     elif args.form:
         forms_to_process = [args.form]
     else:

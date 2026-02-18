@@ -120,11 +120,14 @@ def normalise_value(
 
     fn_lower = field_name.lower()
 
-    # Checkbox/indicator/code -> true/false
+    # Checkbox/indicator -> true/false
+    # Exclude "Code" fields that hold real values (GenderCode, SymbolCode, MaritalStatusCode, etc.)
+    _non_checkbox_code = ("gender", "marital", "symbol", "province", "state", "type", "class")
     is_checkbox = (
         "indicator" in fn_lower or fn_lower.startswith("chk")
         or (checkbox_fields and field_name in checkbox_fields)
-        or ("code" in fn_lower and s.lower() in _CHECKBOX_TRUE | _CHECKBOX_FALSE)
+        or ("code" in fn_lower and s.lower() in _CHECKBOX_TRUE | _CHECKBOX_FALSE
+            and not any(exc in fn_lower for exc in _non_checkbox_code))
     )
     if is_checkbox:
         sl = s.lower()

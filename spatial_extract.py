@@ -1809,8 +1809,8 @@ def extract_127_vehicles(bbox_pages: List[List[Dict]]) -> Dict[str, Any]:
                     if f"Vehicle_ModelDescription_{suffix}" not in result and text.upper() not in ("VIN", "YEAR", "MAKE", "MODEL"):
                         result[f"Vehicle_ModelDescription_{suffix}"] = text
 
-                # VIN (17-char alphanumeric near vin_x)
-                elif abs(b["x"] - vin_x) < 300 and re.match(r'^[A-Z0-9]{10,17}$', text):
+                # VIN (exactly 17-char alphanumeric near vin_x)
+                elif abs(b["x"] - vin_x) < 300 and re.match(r'^[A-Z0-9]{17}$', text):
                     result[f"Vehicle_VINIdentifier_{suffix}"] = text
 
         if result:
@@ -1984,12 +1984,18 @@ def _parse_driver_row(row: List[Dict]) -> Dict[str, str]:
         if 850 <= x <= 930:
             if text in ("M", "F"):
                 parsed["sex"] = text
+            elif text in ("S", "D", "W"):
+                # Marital status leaked into gender column — redirect
+                parsed["marital"] = text
             continue
 
         # Marital status (x ≈ 940-970)
         if 935 <= x <= 975:
             if text in ("S", "M", "D", "W"):
                 parsed["marital"] = text
+            elif text in ("F",) and "sex" not in parsed:
+                # Gender leaked into marital column — redirect
+                parsed["sex"] = text
             continue
 
         # DOB (x ≈ 1080-1160)
@@ -2008,7 +2014,9 @@ def _parse_driver_row(row: List[Dict]) -> Dict[str, str]:
         # Year licensed (x ≈ 1360-1400)
         if 1360 <= x <= 1400:
             if re.match(r'^\d{4}$', text):
-                parsed["year_licensed"] = text
+                yr = int(text)
+                if 1950 <= yr <= 2030:
+                    parsed["year_licensed"] = text
             continue
 
         # License number (x ≈ 1500-1620)

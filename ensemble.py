@@ -227,20 +227,6 @@ class EnsembleFusion:
                 all_sources=source_results,
             )
 
-        # Checkbox crop override: for checkbox/radio fields, vlm_checkbox_crop
-        # always wins — it's a focused visual inspection of the exact region.
-        field_type = self._field_types.get(field_name, "text")
-        if field_type in ("checkbox", "radio"):
-            for sr in source_results:
-                if sr.source == "vlm_checkbox_crop":
-                    return FieldFusion(
-                        final_value=sr.value,
-                        confidence=0.99,
-                        winning_source="vlm_checkbox_crop",
-                        agreement_count=1,
-                        all_sources=source_results,
-                    )
-
         # Group by normalized value to find agreements
         value_groups: Dict[str, List[SourceResult]] = {}
         for sr in source_results:

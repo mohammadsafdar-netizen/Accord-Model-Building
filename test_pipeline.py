@@ -218,6 +218,7 @@ def run_single_form(
     use_checkbox_crops: bool = False,
     use_glm_ocr: bool = False,
     use_nanonets_ocr: bool = False,
+    knowledge_store: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -267,6 +268,7 @@ def run_single_form(
         use_checkbox_crops=use_checkbox_crops,
         use_glm_ocr=use_glm_ocr,
         use_nanonets_ocr=use_nanonets_ocr,
+        knowledge_store=knowledge_store,
     )
 
     start = time.time()
@@ -490,6 +492,10 @@ def main():
     parser.add_argument(
         "--use-rag", action="store_true",
         help="Use few-shot RAG from test_data ground truth to improve extraction accuracy.",
+    )
+    parser.add_argument(
+        "--use-knowledge-base", action="store_true",
+        help="Inject insurance knowledge context into extraction prompts.",
     )
     # --- New feature flags ---
     parser.add_argument(
@@ -754,6 +760,14 @@ def main():
         rag_store = build_example_store(get_rag_gt_dir(), schemas_dir)
         print("  [RAG] Few-shot examples enabled (loaded from ground truth).")
 
+    knowledge_store = None
+    if args.use_knowledge_base:
+        from knowledge.knowledge_store import InsuranceKnowledgeStore
+        knowledge_store = InsuranceKnowledgeStore()
+        stats = knowledge_store.collection_stats()
+        total = sum(stats.values())
+        print(f"  [KB] Knowledge base context enabled ({total:,} documents).")
+
     # ---- Run tests per form type ----
     all_results: Dict[str, Any] = {}
     form_counter = 0
@@ -811,6 +825,7 @@ def main():
                 use_checkbox_crops=args.checkbox_crops,
                 use_glm_ocr=args.glm_ocr,
                 use_nanonets_ocr=args.nanonets_ocr,
+                knowledge_store=knowledge_store,
             )
             type_results.append(result)
 

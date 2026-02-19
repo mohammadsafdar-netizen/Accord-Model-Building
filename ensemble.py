@@ -28,13 +28,13 @@ from typing import Any, Dict, List, Optional, Tuple
 SOURCE_CONFIDENCE = {
     "acroform": 0.99,   # Direct PDF form field data (highest confidence)
     "spatial": 0.95,
-    "vlm_checkbox_crop": 0.93,  # Focused checkbox crop + enhanced VLM (--checkbox-crops)
+    "vlm_checkbox_crop": 0.80,  # Focused checkbox crop + enhanced VLM (--checkbox-crops)
     "label_map": 0.92,  # Pre-built label→field mapping from GT cross-reference
-    "multimodal": 0.92,  # Combined image + OCR text VLM extraction (--multimodal)
+    "multimodal": 0.78,  # Combined image + OCR text VLM extraction (--multimodal)
     "positional_checkbox": 0.91, # Pixel-based checkbox detection on exact coordinates
     "template": 0.90,
     "vlm_ocr": 0.87,       # Two-stage VLM-OCR extraction (--glm-ocr / --nanonets-ocr)
-    "vlm_extract": 0.88,  # Direct VLM extraction from page images (--vlm-extract)
+    "vlm_extract": 0.60,  # Direct VLM extraction from page images (--vlm-extract) — gap-filler only
     "vision_checkbox": 0.85,  # VLM visual inspection of checkbox regions
     "vision_driver": 0.82,    # VLM reading narrow driver table columns
     "positional": 0.88, # Geometric atlas matching (widget positions from schema)
@@ -51,27 +51,27 @@ AGREEMENT_BOOST = 0.10
 # Field-type-aware confidence overrides (--smart-ensemble)
 FIELD_TYPE_WEIGHTS = {
     "checkbox": {
-        "vlm_checkbox_crop": 0.99, "vlm_extract": 0.95, "positional_checkbox": 0.93,
+        "positional_checkbox": 0.93, "vlm_checkbox_crop": 0.80,
         "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
-        "positional": 0.88, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
+        "positional": 0.88, "vlm_extract": 0.55, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
     },
     "radio": {  # Same as checkbox
-        "vlm_checkbox_crop": 0.99, "vlm_extract": 0.95, "positional_checkbox": 0.93,
+        "positional_checkbox": 0.93, "vlm_checkbox_crop": 0.80,
         "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
-        "positional": 0.88, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
+        "positional": 0.88, "vlm_extract": 0.55, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
     },
     "text": {
-        "spatial": 0.95, "text_llm": 0.75, "vlm_ocr": 0.85, "vlm_extract": 0.82,
+        "spatial": 0.95, "text_llm": 0.75, "vlm_ocr": 0.85, "vlm_extract": 0.60,
         "positional": 0.80, "label_value": 0.78, "semantic": 0.82,
         "gap_fill": 0.55, "template": 0.90, "label_map": 0.92,
     },
     "numeric": {
         "positional": 0.92, "template": 0.92, "spatial": 0.90,
-        "vlm_extract": 0.85, "vlm_ocr": 0.83, "text_llm": 0.70, "label_value": 0.75,
+        "vlm_extract": 0.60, "vlm_ocr": 0.83, "text_llm": 0.70, "label_value": 0.75,
         "semantic": 0.78, "gap_fill": 0.50,
     },
     "date": {
-        "spatial": 0.93, "text_llm": 0.80, "vlm_extract": 0.85, "vlm_ocr": 0.83,
+        "spatial": 0.93, "text_llm": 0.80, "vlm_extract": 0.60, "vlm_ocr": 0.83,
         "positional": 0.88, "label_value": 0.78, "semantic": 0.80,
         "gap_fill": 0.55, "template": 0.90,
     },

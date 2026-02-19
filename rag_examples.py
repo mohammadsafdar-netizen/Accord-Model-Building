@@ -150,7 +150,7 @@ class ExampleRAGStore:
         store = cls(schemas_dir=schemas_dir)
         registry = store.registry
 
-        folder_to_form = {"125": "125", "127": "127", "137": "137", "0125": "125"}
+        folder_to_form = {"125": "125", "127": "127", "137": "137", "163": "163", "0125": "125"}
 
         for subdir in gt_root.iterdir():
             if not subdir.is_dir():

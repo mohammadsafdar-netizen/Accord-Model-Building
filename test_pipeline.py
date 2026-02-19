@@ -53,6 +53,7 @@ FOLDER_TYPE_MAP = {
     "125": "125",
     "127": "127",
     "137": "137",
+    "163": "163",
 }
 
 
@@ -419,8 +420,8 @@ def main():
     parser.add_argument("--model", default="qwen2.5:7b", help="Ollama model")
     parser.add_argument("--ollama-url", default="http://localhost:11434")
     parser.add_argument(
-        "--forms", nargs="+", default=["125", "127", "137"],
-        choices=["125", "127", "137"], help="Form types to test",
+        "--forms", nargs="+", default=["125", "127", "137", "163"],
+        choices=["125", "127", "137", "163"], help="Form types to test",
     )
     parser.add_argument(
         "--one-per-form",

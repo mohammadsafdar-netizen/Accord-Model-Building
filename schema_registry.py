@@ -21,12 +21,13 @@ from typing import Any, Dict, List, Optional, Tuple
 # Constants
 # ===========================================================================
 
-SUPPORTED_FORMS = ("125", "127", "137")
+SUPPORTED_FORMS = ("125", "127", "137", "163")
 
 FORM_NAMES = {
     "125": "Commercial Insurance Application",
     "127": "Business Auto Section",
     "137": "Commercial Auto Section",
+    "163": "Contractors Supplement",
 }
 
 # Categories in extraction order (most important first)

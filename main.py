@@ -51,7 +51,7 @@ Examples:
     )
     parser.add_argument("pdf_path", type=Path, help="Path to the scanned PDF")
     parser.add_argument(
-        "--form-type", choices=["125", "127", "137"], default=None,
+        "--form-type", choices=["125", "127", "137", "163"], default=None,
         help="ACORD form type (auto-detected if not specified)",
     )
     parser.add_argument(

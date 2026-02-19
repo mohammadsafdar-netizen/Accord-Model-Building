@@ -1,6 +1,6 @@
 # Running on Eureka
 
-This guide covers setting up and running the best_project pipeline on the **Eureka** machine for usability and testing.
+This guide covers setting up and running the ACORD extraction pipeline on the **Eureka** machine for usability and testing.
 
 ---
 
@@ -12,43 +12,40 @@ This guide covers setting up and running the best_project pipeline on the **Eure
 2. **One-time:** install deps and Ollama (see below).
 3. **Run:**
    ```bash
-   cd best_project
-   python test_pipeline.py --gpu
+   cd Accord-Model-Building
+   .venv/bin/python test_pipeline.py --gpu
    ```
    That runs the full pipeline (Docling + bbox OCR + text LLM) on all discovered forms in `test_data/`, compares to ground truth, and writes results to `test_output/`.  
    **Note:** `test_pipeline.py` has no `--text-llm` or `--docling` flags; it always uses Docling and the text LLM.
 
 No extra download of test docs is needed **if** `test_data/` and `schemas/` are committed in your repo (they are not in `.gitignore`). If your repo omits `test_data/` (e.g. large files not pushed), copy it onto Eureka or set `BEST_PROJECT_TEST_DATA` to its path.
 
-### Including the VLM (vision pass)
+### Recommended: Full pipeline with finetuned VLM
 
-The command above uses **only the text LLM**. To run the **full pipeline with the VLM** (vision on form images for missing fields):
+For the highest accuracy, use the finetuned `acord-vlm-7b` model with the full pipeline:
 
-1. **Pull a vision model in Ollama** (once):
+1. **Pull required models** (once):
    ```bash
-   ollama pull llava:7b
-   # or a larger model if you have VRAM, e.g.:
-   # ollama pull qwen2.5-vl:7b
-   # ollama pull qwen2.5-vl:30b
+   ollama pull qwen2.5:7b          # Text LLM
+   # acord-vlm-7b is registered via finetune/export_ollama.py
    ```
 
-2. **Run with `--vision`:**
+2. **Set Ollama environment for multi-model:**
    ```bash
-   python test_pipeline.py --gpu --vision --vision-model llava:7b
-   ```
-   For a 30B vision model (e.g. on Eureka):
-   ```bash
-   ollama pull qwen3-vl:30b
-   python test_pipeline.py --gpu --vision --vision-model qwen3-vl:30b
+   OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
    ```
 
-   Optional flags:
-   - `--vision-model llava:7b` (default) or `qwen2.5-vl:7b`, `qwen3-vl:30b`, etc.
-   - `--vision-checkboxes-only` — VLM only for checkboxes (faster); text LLM fills the rest.
-   - `--vision-fast` — larger batches, 1 page; faster but more risk of truncation.
-   - `--vision-max-tokens 16384` — reduce truncation (default 16384).
+3. **Run with optimal config:**
+   ```bash
+   .venv/bin/python test_pipeline.py --gpu --one-per-form \
+       --docling --preprocess --use-positional \
+       --vlm-extract --vlm-extract-model acord-vlm-7b \
+       --checkbox-crops --text-llm --use-rag \
+       --smart-ensemble --no-confidence-routing \
+       --validate-fields --no-semantic-matching
+   ```
 
-So: **text-only** = `python test_pipeline.py --gpu`. **With VLM** = add `--vision --vision-model <name>` (after `ollama pull <name>`). Do **not** pass `--text-llm` or `--docling`; the test script does not accept those.
+This achieves ~79% average accuracy across all 4 form types (125, 127, 137, 163).
 
 ### RAG (few-shot examples)
 
@@ -67,13 +64,13 @@ This builds an in-memory store from all GT JSONs under `test_data/` and injects 
 ```bash
 # Clone or copy the project to Eureka
 cd /path/on/eureka
-# e.g. git clone ... best_project && cd best_project
+# e.g. git clone ... Accord-Model-Building && cd Accord-Model-Building
 
-# Create virtualenv and install deps
+# Create virtualenv and install deps (Python 3.12)
 python3 -m venv .venv
-source .venv/bin/activate   # Linux/Mac
-pip install -r requirements.txt
-pip install -r requirements-dev.txt   # for pytest
+source .venv/bin/activate
+uv pip install -r requirements.txt
+uv pip install -r requirements-dev.txt   # for pytest
 ```
 
 ---
@@ -87,14 +84,14 @@ Set these on Eureka so paths and defaults match the machine:
 | `BEST_PROJECT_ROOT` | Project root | Directory containing `config.py` |
 | `BEST_PROJECT_TEST_DATA` | Test PDFs + ground truth JSON | `<root>/test_data` |
 | `BEST_PROJECT_OUTPUT` | Where to write test_output | `<root>/test_output` |
-| `BEST_PROJECT_SCHEMAS` | Schema JSONs (125, 127, 137) | `<root>/schemas` |
+| `BEST_PROJECT_SCHEMAS` | Schema JSONs (125, 127, 137, 163) | `<root>/schemas` |
 | `OLLAMA_URL` | Ollama API URL | `http://localhost:11434` |
 | `USE_GPU` | Use GPU for OCR by default | Set to `1` on Eureka |
 
 Example for Eureka (e.g. in `~/.bashrc` or a `.env` in the project):
 
 ```bash
-export BEST_PROJECT_ROOT=/path/to/best_project
+export BEST_PROJECT_ROOT=/path/to/Accord-Model-Building
 export BEST_PROJECT_TEST_DATA=$BEST_PROJECT_ROOT/test_data
 export BEST_PROJECT_OUTPUT=$BEST_PROJECT_ROOT/test_output
 export USE_GPU=1
@@ -108,7 +105,7 @@ export OLLAMA_URL=http://localhost:11434
 **Unit tests only (no GPU, no test data):**
 
 ```bash
-cd /path/to/best_project
+cd /path/to/Accord-Model-Building
 source .venv/bin/activate
 pytest tests/ -v
 # or
@@ -152,8 +149,8 @@ python main.py /path/to/form125.pdf --form-type 125 --docling --gpu --text-llm
 
 ## 5. Checklist for Eureka
 
-- [ ] Python 3.9+ and venv
-- [ ] `pip install -r requirements.txt` and `requirements-dev.txt`
+- [ ] Python 3.12+ and venv
+- [ ] `uv pip install -r requirements.txt` and `requirements-dev.txt`
 - [ ] Ollama installed and running (`ollama serve`), models pulled (e.g. `ollama pull qwen2.5:7b`)
 - [ ] `test_data/` populated with PDFs and matching `.json` ground truth (see README)
 - [ ] Optional: set `BEST_PROJECT_*` and `USE_GPU=1` in env

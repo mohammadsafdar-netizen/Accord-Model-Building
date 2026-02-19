@@ -98,15 +98,17 @@ Together these support **reproducibility** and **auditability** of accuracy and 
 
 ## 3. Latest accuracy results
 
-Using the recommended optimal configuration (positional + templates + finetuned VLM + text LLM + smart ensemble + validation + checkbox crops + multimodal):
+Using the recommended optimal configuration (preprocess + positional + finetuned VLM + checkbox crops + text LLM + RAG + smart ensemble + validation):
 
 | Form | Accuracy | Coverage |
 |------|----------|----------|
-| ACORD 125 | 71.66% | 94.61% |
-| ACORD 127 | 75.17% | 98.98% |
-| ACORD 137 | 72.92% | 97.05% |
+| ACORD 125 | 75.54% | 96.77% |
+| ACORD 127 | 79.41% | 97.12% |
+| ACORD 137 | 77.88% | 94.10% |
+| ACORD 163 | 84.82% | 100.0% |
+| **Average** | **79.41%** | **97.00%** |
 
-Coverage (~97%) means most fields are found. The accuracy gap (~73%) is primarily from text mismatches (56%), checkbox errors (27%), truncation (14%), and numeric errors (3%).
+Coverage (~97%) means most fields are found. The remaining accuracy gap (~21%) is primarily from checkbox detection in dense grids, table row/column confusion, OCR character-level errors, and VLM field boundary detection.
 
 ## 4. How to improve accuracy and credibility
 

@@ -10,20 +10,22 @@ The highest-accuracy configuration with all major features enabled:
 
 ```bash
 .venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching
 ```
 
 For batch testing:
 
 ```bash
 .venv/bin/python test_pipeline.py --gpu --one-per-form \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching
 ```
 
 ---
@@ -61,10 +63,11 @@ For batch testing:
 
 ```bash
 .venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal \
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching \
     --ground-truth path/to/gt.json
 ```
 
@@ -98,7 +101,7 @@ For batch testing:
 | Flag | Default | Description |
 |------|---------|-------------|
 | `pdf_path` | (required) | Path to the scanned PDF |
-| `--form-type` | auto-detect | ACORD form type: `125`, `127`, `137` |
+| `--form-type` | auto-detect | ACORD form type: `125`, `127`, `137`, `163` |
 | `--model` | `qwen2.5:7b` | Ollama text LLM model |
 | `--ollama-url` | `localhost:11434` | Ollama API base URL |
 | `--output-dir` | auto | Output directory for results |

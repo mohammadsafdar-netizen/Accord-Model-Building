@@ -68,9 +68,11 @@ Using the recommended optimal configuration with finetuned VLM:
 
 | Form | Accuracy | Coverage |
 |------|----------|----------|
-| ACORD 125 | 71.66% | 94.61% |
-| ACORD 127 | 75.17% | 98.98% |
-| ACORD 137 | 72.92% | 97.05% |
+| ACORD 125 | 75.54% | 96.77% |
+| ACORD 127 | 79.41% | 97.12% |
+| ACORD 137 | 77.88% | 94.10% |
+| ACORD 163 | 84.82% | 100.0% |
+| **Average** | **79.41%** | **97.00%** |
 
 ## Quick Start
 
@@ -103,13 +105,14 @@ Using the recommended optimal configuration with finetuned VLM:
 
 ```bash
 .venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching
 ```
 
-This configuration enables all major accuracy features: positional atlas, template anchoring, finetuned VLM, text LLM, smart ensemble fusion, cross-field validation, checkbox crops, and multimodal extraction.
+This configuration enables all major accuracy features: image preprocessing, positional atlas, finetuned VLM, checkbox crops, text LLM, RAG few-shot examples, smart ensemble fusion, full-field extraction (no confidence routing), and cross-field validation.
 
 ### Basic Usage
 
@@ -166,10 +169,11 @@ pytest tests/ -v
 pytest tests/ -m e2e -v
 # or full pipeline test:
 .venv/bin/python test_pipeline.py --gpu --one-per-form \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching
 ```
 
 ## Files
@@ -220,10 +224,11 @@ The pipeline uses GPU for **one stage at a time** (OCR -> VLM -> text LLM), with
 ```bash
 OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
 .venv/bin/python main.py form.pdf --form-type 125 --gpu \
-    --docling --use-positional --use-templates \
+    --docling --preprocess --use-positional \
     --vlm-extract --vlm-extract-model acord-vlm-7b \
-    --text-llm --smart-ensemble \
-    --validate-fields --checkbox-crops --multimodal
+    --checkbox-crops --text-llm --use-rag \
+    --smart-ensemble --no-confidence-routing \
+    --validate-fields --no-semantic-matching
 ```
 
 ## RAG (Few-Shot) Feature

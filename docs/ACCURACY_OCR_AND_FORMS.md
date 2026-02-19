@@ -90,7 +90,13 @@ This document summarizes how **Docling**, **BBox (EasyOCR)**, and **label-value 
 
 ---
 
-## 5. Cross-form recommendations
+## 5. Form 163 - Contractors Supplement
+
+ACORD 163 support was added alongside the 7B VLM finetuning (510 forms dataset includes ~90 ACORD 163 forms). The schema has 518 fields covering contractor information, operations, equipment, and subcontractors.
+
+---
+
+## 6. Cross-form recommendations
 
 1. **Dual-OCR rule in prompts:** “Use BOTH Docling and BBox; when the same information appears in both, **BBox positions (X,Y) decide which field a value belongs to** (e.g. status row, driver columns, LOB columns).”  
 2. **Section-scoped note:** When extraction uses section-scoped text, add: “The text below is limited to the relevant form section(s); use it with BBox positions for correct field assignment.”  
@@ -99,7 +105,7 @@ This document summarizes how **Docling**, **BBox (EasyOCR)**, and **label-value 
 
 ---
 
-## 6. File reference
+## 7. File reference
 
 | Component | Path |
 |-----------|------|
@@ -109,4 +115,13 @@ This document summarizes how **Docling**, **BBox (EasyOCR)**, and **label-value 
 | Section detection and scoped text | `form_sections.py` |
 | Prompts (layout, category hints) | `prompts.py` |
 | Extractor (category loop, section-scoped, gap-fill, vision) | `extractor.py` |
+| Ensemble fusion (multi-source confidence-weighted) | `ensemble.py` |
+| Positional atlas matching | `positional_matcher.py` |
+| Semantic matching (MiniLM) | `semantic_matcher.py` |
+| Template anchoring | `template_registry.py` |
+| Cross-field validation | `field_validator.py` |
+| VLM-OCR two-stage (GLM-OCR, Nanonets-OCR) | `vlm_ocr_engine.py` |
+| Table detection (DETR) | `table_detector.py` |
+| Image preprocessing (deskew, denoise) | `image_preprocessor.py` |
+| Image alignment (SIFT) | `image_aligner.py` |
 | Comparison and normalisation | `compare.py` |

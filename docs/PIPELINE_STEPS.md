@@ -3,7 +3,11 @@
 This describes the full flow when you run:
 
 ```bash
-python test_pipeline.py --gpu --one-per-form --model qwen2.5:7b --vision --vision-model qwen3-vl:30b --vram-reserve 2
+.venv/bin/python test_pipeline.py --gpu --one-per-form \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
 ---
@@ -14,11 +18,11 @@ python test_pipeline.py --gpu --one-per-form --model qwen2.5:7b --vision --visio
    CLI parses `--gpu`, `--forms`, `--one-per-form`, `--model`, `--vision`, `--vision-model`, `--vram-reserve`, etc.
 
 2. **Discover test data**  
-   Scans `test_data/` for folders named like `*125*`, `*127*`, `*137*`. In each folder, finds every `*.pdf` and its matching `*.json` (ground truth).  
-   If `--one-per-form`: keeps only the **first PDF per form type** (so 3 PDFs total: one 125, one 127, one 137).
+   Scans `test_data/` for folders named like `*125*`, `*127*`, `*137*`, `*163*`. In each folder, finds every `*.pdf` and its matching `*.json` (ground truth).
+   If `--one-per-form`: keeps only the **first PDF per form type**.
 
 3. **Load schemas**  
-   Loads `schemas/125.json`, `schemas/127.json`, `schemas/137.json` (field names, categories, tooltips).
+   Loads `schemas/125.json`, `schemas/127.json`, `schemas/137.json`, `schemas/163.json` (field names, categories, tooltips, positions).
 
 4. **Create shared engines**  
    - **OCREngine**: Docling + EasyOCR, DPI 300, GPU/CPU as requested; with `--gpu`, Docling runs on CPU and EasyOCR on GPU so VRAM is left for the LLM.  
@@ -113,12 +117,16 @@ For **one** PDF, this is the sequence inside the extractor.
 
 ---
 
-### Step 5: Vision pass first (if `--vision` and vision model configured)
+### Step 5: Multi-pass VLM extraction
 
-- **Unload text model** so the **vision model** (e.g. qwen3-vl:30b) can use the GPU.  
-- **Checkbox-only pass:** Among fields still missing after spatial, checkbox/radio fields are sent to the VLM with form images; responses merged.  
-- **General vision pass:** Remaining missing fields sent to the VLM; JSON merged. If vision model returns 404, both passes are skipped.  
-- **Unload vision model** so the text model can run for the next steps.
+Multiple VLM passes run (if enabled) after spatial pre-extraction:
+
+- **Positional atlas matching** (`--use-positional`): Geometric OCR-to-field mapping using widget positions from schemas.
+- **Template anchoring** (`--use-templates`): Standardized field regions with DPI scaling.
+- **VLM direct extract** (`--vlm-extract`): Page images sent to VLM (e.g. `acord-vlm-7b`) for direct JSON extraction. Runs in parallel with ThreadPoolExecutor.
+- **Multimodal extract** (`--multimodal`): Image + OCR text sent to VLM together for higher confidence (0.92).
+- **Checkbox crop extract** (`--checkbox-crops`): Tight crops with CLAHE enhancement sent to VLM per checkbox field (conf 0.93).
+- **Legacy vision pass** (`--vision`): Checkbox-only and general VLM passes on form images.
 
 ---
 
@@ -154,25 +162,31 @@ For **one** PDF, this is the sequence inside the extractor.
 
 ---
 
-### Step 8: Verification and normalization
+### Step 8: Ensemble fusion and validation
 
-- **Verify with BBox**  
-  - For each extracted value, checks whether that **exact string** (or a close variant) appears in the raw BBox text.  
-  - Count of “verified” values is printed; used for monitoring, not for changing values.  
-- **Normalise**  
-  - Form-specific normalisation (e.g. dates, checkboxes 1/Off, trimming).  
-- **Validate field names**  
-  - Drops any key that is not in the schema (except spatially pre-extracted keys that are kept for GT alignment).  
-- **Unload LLM**  
-  - Text (and vision) model are stopped so GPU is free for the next PDF’s OCR.
+- **Ensemble fusion** (`--smart-ensemble`): Multi-source confidence-weighted merge. Smart ensemble applies field-type-aware weights (checkbox, text, numeric, date).
+- **Cross-field validation** (`--validate-fields`): State/ZIP consistency, date ordering, VIN checksum, phone format, NAIC code validation.
+- **Dual-LLM validation** (`--dual-llm-validate`, optional): Second LLM pass to verify and correct extracted values against OCR text.
+
+### Step 9: Verification and normalization
+
+- **Verify with BBox**
+  - For each extracted value, checks whether that **exact string** (or a close variant) appears in the raw BBox text.
+  - Count of “verified” values is printed; used for monitoring, not for changing values.
+- **Normalise**
+  - Form-specific normalisation (e.g. dates, checkboxes 1/Off, trimming).
+- **Validate field names**
+  - Drops any key that is not in the schema (except spatially pre-extracted keys that are kept for GT alignment).
+- **Unload LLM**
+  - Text (and vision) model are stopped so GPU is free for the next PDF’s OCR (unless `--no-keep-models-loaded` is off).
 
 ---
 
-### Step 9: Return result
+### Step 10: Return result
 
 ---
 
-**Order summary:** Spatial pre-extract → **Vision (VLM) first** → Text LLM by category → Driver/Vehicle → Gap-fill → Verify/normalise.
+**Order summary:** Spatial → Positional → Template → Label-Value → Semantic → **VLM Extract** → **Multimodal** → **Checkbox Crops** → VLM Vision → Text LLM by category → Driver/Vehicle → Gap-fill → **Ensemble** → **Validate** → Verify/normalise.
 
 - Returns **extracted_fields** (final dict) and **metadata** (form_type, source_pdf, counts, time, model name).
 
@@ -220,16 +234,26 @@ For each PDF, **after** `extractor.extract()` returns:
 ```
 Start
   → Unload LLM (free GPU)
-  → OCR: PDF → images → remove lines → Docling (→ unload) → EasyOCR (→ unload) → spatial index
+  → OCR: PDF → images → [preprocess] → [align] → Docling → EasyOCR/Surya → spatial index
   → Form type + schema
   → Section detection + save intermediates
-  → Spatial pre-extract (label/position rules) → merge into extracted
-  → [If vision] Unload text → VLM checkbox pass → VLM general pass → unload VLM
-  → For each category: build prompt (Docling + BBox + sections) → text LLM → merge new fields
+  → Spatial pre-extract (label/position rules) → merge
+  → [If positional] Positional atlas matching → merge
+  → [If templates] Template anchoring → merge
+  → Label-value pairing → merge
+  → Semantic matching (MiniLM) → merge
+  → [If vlm-extract] VLM direct extract (parallel) → merge
+  → [If multimodal] Multimodal extract (image+text) → merge
+  → [If checkbox-crops] Checkbox crop extract → merge
+  → [If vision] VLM vision pass → merge
+  → For each category: build prompt (Docling + BBox + sections) → text LLM → merge
   → Driver extraction (127) → merge
   → Vehicle extraction (127/137) → merge
   → Gap-fill (missing fields) → merge
-  → Verify vs BBox, normalise, validate field names, unload LLM
+  → [If smart-ensemble] Ensemble fusion (confidence-weighted) → merge
+  → [If validate-fields] Cross-field validation
+  → [If dual-llm-validate] Second LLM verification pass
+  → Verify vs BBox, normalise, validate field names
   → Return extracted + metadata
   → Save JSON, compare to GT, print report
 End

@@ -49,7 +49,12 @@ Each extracted field is produced by one of:
 | Source | Meaning | Typical reliability |
 |--------|--------|----------------------|
 | **spatial** | Value came from **spatial pre-extraction**: label + position rules on BBox OCR (no LLM). | Highest: rule-based, same logic every time. |
-| **vision** | Value came from the **vision model** (VLM) looking at form images. | Model-dependent; good for checkboxes and layout when VLM is strong. |
+| **positional** | Value came from **positional atlas matching**: geometric OCR-to-field mapping using widget positions. | High: geometry-based, no LLM. |
+| **template** | Value came from **template anchoring**: standardized field regions with DPI scaling. | High: template-guided. |
+| **vlm_extract** | Value came from **VLM direct extract**: page image sent to VLM (e.g. acord-vlm-7b) for JSON. | High with finetuned model; model-dependent otherwise. |
+| **multimodal** | Value came from **multimodal extract**: image + OCR text sent to VLM together. | High (conf 0.92). |
+| **checkbox_crop** | Value came from **checkbox crop extract**: tight VLM crop with CLAHE enhancement. | High for checkboxes (conf 0.93). |
+| **vision** | Value came from the **vision model** (VLM) looking at form images (legacy pass). | Model-dependent; good for checkboxes and layout when VLM is strong. |
 | **text_llm** | Value came from the **text LLM** (category, driver, or vehicle prompts) using OCR text. | Depends on OCR quality and prompt; section-scoping helps. |
 | **gap_fill** | Value came from the **gap-fill** pass over remaining missing fields. | Same as text LLM but with a single, broad prompt. |
 
@@ -91,17 +96,31 @@ Together these support **reproducibility** and **auditability** of accuracy and 
 
 ---
 
-## 3. How to improve accuracy and credibility
+## 3. Latest accuracy results
 
-- **OCR:** Better scans and resolution (e.g. 300 DPI), table-line removal, and dual OCR (Docling + BBox) improve both accuracy and verification rate.
+Using the recommended optimal configuration (positional + templates + finetuned VLM + text LLM + smart ensemble + validation + checkbox crops + multimodal):
+
+| Form | Accuracy | Coverage |
+|------|----------|----------|
+| ACORD 125 | 71.66% | 94.61% |
+| ACORD 127 | 75.17% | 98.98% |
+| ACORD 137 | 72.92% | 97.05% |
+
+Coverage (~97%) means most fields are found. The accuracy gap (~73%) is primarily from text mismatches (56%), checkbox errors (27%), truncation (14%), and numeric errors (3%).
+
+## 4. How to improve accuracy and credibility
+
+- **Finetuned VLM:** The `acord-vlm-7b` model (Qwen2.5-VL-7B finetuned on 510 ACORD forms) significantly improves extraction accuracy.
+- **Smart ensemble:** `--smart-ensemble` applies field-type-aware confidence weights, prioritizing reliable sources per field type.
+- **Cross-field validation:** `--validate-fields` catches inconsistencies (state/ZIP, dates, VIN, phone, NAIC).
+- **OCR:** Better scans and resolution (e.g. 300 DPI), table-line removal, and dual OCR (Docling + BBox) improve both accuracy and verification rate. Use `--preprocess` for deskew + denoise.
 - **Spatial rules:** More fields in spatial pre-extract → more high-credibility (spatial) values and fewer model errors for those fields.
 - **Prompts and schema:** Align schema and prompts with form layout and GT naming; use section-scoped context where it helps.
-- **Vision:** When the VLM is reliable, vision-first fills checkboxes and layout-heavy fields; text LLM then fills the rest.
 - **GT and comparison:** Use comparison.json to find systematic wrong/missing patterns; fix prompts, spatial rules, or schema. Re-run and compare again to measure improvement.
 
 ---
 
-## 4. Summary
+## 5. Summary
 
 - **Accuracy** = how well extraction matches your ground truth (matched/partial/wrong/missing and derived %).
 - **Credibility** = source of each value (spatial > vision > text_llm > gap_fill), BBox verification (value seen in OCR), schema validation, and saved outputs for audit.

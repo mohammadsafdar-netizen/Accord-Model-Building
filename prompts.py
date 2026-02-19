@@ -212,6 +212,10 @@ def build_extraction_prompt(
 
     Combines form layout, category hint, field tooltips, and dual OCR text.
     """
+    # Vehicle/coverage categories have many text fields that get truncated at 5000;
+    # give them more bbox context to reduce value truncation.
+    if category in ("vehicle", "coverage") and max_bbox == 5000:
+        max_bbox = 6000
     max_lv = 2000
 
     layout = _layout_hint(form_type)

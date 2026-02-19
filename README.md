@@ -1,6 +1,15 @@
-# Best Project: OCR Fusion + Text LLM Pipeline
+# ACORD Form Extraction Pipeline
 
-High-accuracy extraction pipeline for scanned ACORD forms **125**, **127**, and **137**.
+High-accuracy extraction pipeline for scanned ACORD insurance forms using OCR + LLM fusion.
+
+## Supported Forms
+
+| Form | Name | Fields | Key Data |
+|------|------|--------|----------|
+| ACORD 125 | Commercial Insurance Application | 548 | Insurer, producer, named insured, policy, lines of business, premises |
+| ACORD 127 | Business Auto Section | 634 | Header, 13 drivers (A-M), vehicles (A-E), coverages, checkboxes |
+| ACORD 137 | Commercial Auto Section | 403 | Named insured, policy, insurer, vehicle schedule (A-F), coverage symbols |
+| ACORD 163 | Contractors Supplement | 518 | Contractor info, operations, equipment, subcontractors |
 
 ## Architecture
 
@@ -8,34 +17,38 @@ High-accuracy extraction pipeline for scanned ACORD forms **125**, **127**, and 
 Scanned PDF
     |
     v
-+---------------------------+
-|      OCR Engine           |
-|  (ocr_engine.py)          |
-|                           |
-|  PDF -> 300 DPI Images    |
-|  Table line removal       |
-|  Docling  -> Markdown     |
-|  EasyOCR  -> BBox X,Y     |
-|  Spatial indexing          |
-+---------------------------+
++-----------------------------------+
+|         OCR Engine                 |
+|  (ocr_engine.py)                  |
+|                                   |
+|  PDF -> 300 DPI Images            |
+|  Optional: deskew + denoise       |
+|  Optional: SIFT template align    |
+|  Docling  -> Markdown / HTML      |
+|  EasyOCR/Surya -> BBox X,Y       |
+|  Spatial indexing + label-value   |
++-----------------------------------+
     |
     v
-+---------------------------+
-|      Extractor            |
-|  (extractor.py)           |
-|                           |
-|  Form type detection      |
-|  Schema + tooltips load   |
-|  Category-by-category:    |
-|    header -> insurer ->   |
-|    producer -> insured -> |
-|    policy -> drivers ->   |
-|    vehicles -> coverage   |
-|  Two-pass per category:   |
-|    1. Docling-guided      |
-|    2. BBox gap-fill       |
-|  Verification + normalise |
-+---------------------------+
++-----------------------------------+
+|         Extraction Pipeline        |
+|  (extractor.py)                   |
+|                                   |
+|  1. Spatial pre-extract           |
+|  2. Positional atlas matching     |
+|  3. Template anchoring            |
+|  4. Label-value pairing           |
+|  5. Semantic matching (MiniLM)    |
+|  6. VLM direct extract            |
+|  7. Multimodal extract            |
+|  8. Checkbox crop extract         |
+|  9. VLM vision pass               |
+| 10. Text LLM (category-by-cat)   |
+| 11. Gap-fill pass                 |
+| 12. Ensemble fusion               |
+| 13. Cross-field validation        |
+| 14. Normalize + verify            |
++-----------------------------------+
     |
     v
   Structured JSON Output
@@ -43,74 +56,21 @@ Scanned PDF
 
 ### Key Design Decisions
 
-- **Dual OCR Fusion**: Docling provides semantic structure (headings, tables, columns). EasyOCR provides spatial positions (X,Y bounding boxes). Combined, they resolve column alignment issues that plague driver tables.
+- **Dual OCR Fusion**: Docling provides semantic structure (headings, tables, columns). EasyOCR/Surya provides spatial positions (X,Y bounding boxes). Combined, they resolve column alignment issues that plague driver tables.
 - **Category-by-Category**: Extracts fields in focused batches (header, insurer, producer, etc.) to reduce LLM confusion. Each batch gets a targeted prompt with disambiguation rules.
-- **Two-Pass Strategy**: First pass uses structured Docling text + tooltips. Second pass targets missed fields using BBox positional text.
-- **Schema-Guided**: Field names and tooltips from ACORD PDF schemas drive extraction. The LLM knows exactly what each field should contain.
-- **Future-Proof for Vision**: The `LLMEngine.generate_with_image()` stub allows plugging in a vision LLM later. Only 2 files need changes (llm_engine.py, extractor.py).
+- **Multi-Source Ensemble**: Spatial, positional, template, VLM, and text LLM sources are fused with confidence-weighted ensemble. Smart ensemble applies field-type-aware weights (checkbox vs text vs numeric vs date).
+- **Finetuned VLM**: A Qwen2.5-VL-7B model finetuned on 510 ACORD forms (`acord-vlm-7b`) provides direct page-image extraction with high accuracy.
+- **Schema-Guided**: Field names, tooltips, and positions from ACORD PDF schemas drive extraction. The LLM knows exactly what each field should contain.
 
-## Files
+## Latest Accuracy Results
 
-| File | Purpose |
-|------|---------|
-| `config.py` | Central paths and env (Eureka-friendly; see `docs/EUREKA.md`) |
-| `main.py` | CLI entry point |
-| `ocr_engine.py` | Dual OCR: Docling + EasyOCR + Surya/Paddle + spatial analysis |
-| `llm_engine.py` | LLM interface: text now, vision hook for later |
-| `extractor.py` | Core pipeline: category-by-category extraction |
-| `prompts.py` | Prompt builders: form-specific, category-specific |
-| `schema_registry.py` | Schema loading: fields, tooltips, categories |
-| `compare.py` | Accuracy comparison against ground truth |
-| `rag_examples.py` | RAG store: few-shot examples from ground truth (used when `--use-rag`) |
-| `utils.py` | JSON cleanup, logging helpers |
-| `test_pipeline.py` | End-to-end test for all 3 forms |
-| `tests/` | Unit tests (`tests/unit/`) and E2E (`tests/integration/`, `-m e2e`); run with `pytest tests/` |
-| `scripts/run_eureka.sh` | One-command run: tests, e2e, pipeline, or extract (see `docs/EUREKA.md`) |
-| `schemas/125.json` | ACORD 125 field schema (548 fields) |
-| `schemas/127.json` | ACORD 127 field schema (634 fields) |
-| `schemas/137.json` | ACORD 137 field schema (102 fields) |
-| `scripts/enrich_schemas.py` | Add tooltips (137) and format hints (125/127) to improve extraction |
+Using the recommended optimal configuration with finetuned VLM:
 
-Schemas define field names, types (text/checkbox/radio), tooltips (shown to the LLM), and categories. Better tooltips and consistent format hints (e.g. "Return 1 or Off" for checkboxes, "MM/DD/YYYY" for dates) improve accuracy and coverage. Run `python scripts/enrich_schemas.py` to (re)apply enrichment.
-
-## Transferring This Project (Portable)
-
-This project is **portable**: it uses no hardcoded absolute paths and works from any directory on any system.
-
-**Clone or pull from GitHub (other machine):**
-
-```bash
-# First time: clone the repo
-git clone https://github.com/mohammadsafdar-netizen/Accord-Model-Building.git best_project
-cd best_project
-
-# If you already have the repo: pull latest
-cd best_project   # or wherever you cloned it
-git pull origin main
-```
-
-Then install deps and run (see **Quick Start** and **Basic Usage** below).
-
-**To move without git (e.g. zip / USB):**
-
-1. Copy the entire `best_project` folder.
-2. On the new system, from inside `best_project`:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **LangGraph app (optional):** If you use `langgraph_impl/`, create your env file:
-   ```bash
-   cp langgraph_impl/.env.example langgraph_impl/.env
-   # Edit langgraph_impl/.env and set GROQ_API_KEY=your_key
-   ```
-4. Run from the project root as in **Basic Usage** and **Run Tests** below.
-
-**To reduce transfer size**, you can omit (they can be regenerated):
-- `test_output/` — recreated by `python test_pipeline.py`
-- `langgraph_impl/logs/` — recreated when running the app
-- `langgraph_impl/filled_forms/` — recreated when filling forms
-
-Never commit or share `langgraph_impl/.env`; it may contain API keys. Use `.env.example` as a template.
+| Form | Accuracy | Coverage |
+|------|----------|----------|
+| ACORD 125 | 71.66% | 94.61% |
+| ACORD 127 | 75.17% | 98.98% |
+| ACORD 137 | 72.92% | 97.05% |
 
 ## Quick Start
 
@@ -118,46 +78,53 @@ Never commit or share `langgraph_impl/.env`; it may contain API keys. Use `.env.
 
 1. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv pip install -r requirements.txt
    ```
 
-2. Ensure Ollama is running with a text model:
+2. Ensure Ollama is running with optimal settings:
    ```bash
-   ollama pull qwen2.5:7b
-   ollama serve
+   OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
    ```
 
-3. **Required:** System dependency for PDF→image conversion (pdf2image uses poppler):
+3. Pull required models:
+   ```bash
+   ollama pull qwen2.5:7b          # Text LLM
+   # If using finetuned VLM (recommended):
+   # See finetune/README.md to train and register acord-vlm-7b
+   ```
+
+4. System dependency for PDF-to-image conversion:
    ```bash
    sudo apt install poppler-utils   # Linux (Debian/Ubuntu)
    brew install poppler             # macOS
    ```
-   If you see `PDFInfoNotInstalledError` or `No such file or directory: 'pdfinfo'`, install poppler-utils and ensure it’s in your PATH.
+
+### Recommended Configuration (Optimal Accuracy)
+
+```bash
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
+```
+
+This configuration enables all major accuracy features: positional atlas, template anchoring, finetuned VLM, text LLM, smart ensemble fusion, cross-field validation, checkbox crops, and multimodal extraction.
 
 ### Basic Usage
 
 ```bash
-# Extract from a scanned PDF (auto-detect form type)
-python main.py path/to/form.pdf
+# Simple extraction (auto-detect form type)
+.venv/bin/python main.py path/to/form.pdf
 
 # Specify form type and model
-python main.py path/to/form127.pdf --form-type 127 --model qwen2.5:7b
+.venv/bin/python main.py path/to/form127.pdf --form-type 127 --model qwen2.5:7b
 
 # With accuracy comparison
-python main.py path/to/form127.pdf --ground-truth path/to/gt.json
+.venv/bin/python main.py path/to/form127.pdf --ground-truth path/to/gt.json
 
 # Use GPU for faster OCR
-python main.py path/to/form.pdf --gpu
-
-# Add a vision pass (VLM on form images for missing fields)
-# Requires an Ollama vision model, e.g. llava:7b
-ollama pull llava:7b
-python main.py path/to/form.pdf --vision
-python main.py path/to/form.pdf --vision --vision-model llava:13b
-
-# Enable RAG (few-shot examples from ground truth for better accuracy)
-python main.py path/to/form.pdf --use-rag
-python main.py path/to/form.pdf --docling --text-llm --use-rag --rag-gt-dir ./test_data
+.venv/bin/python main.py path/to/form.pdf --gpu
 ```
 
 ### Configuration (Eureka / other machines)
@@ -174,131 +141,114 @@ Paths and defaults can be set via **environment variables** so the same code run
 
 See **`docs/EUREKA.md`** for full setup and **`scripts/run_eureka.sh`** for one-command test/run.
 
+### Ollama Environment
+
+For multi-model pipelines (VLM + text LLM), set these before starting Ollama:
+
+```bash
+OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
+```
+
+This allows keeping up to 3 models loaded simultaneously and running 4 parallel requests, which significantly speeds up ensemble pipelines.
+
 ### Run Tests
 
 **Unit tests (no GPU):**
 
 ```bash
-pip install -r requirements-dev.txt
+uv pip install -r requirements-dev.txt
 pytest tests/ -v
-# or: ./scripts/run_eureka.sh tests
 ```
 
 **E2E / full pipeline (GPU + test_data):**
 
 ```bash
 pytest tests/ -m e2e -v
-# or: python test_pipeline.py --gpu
-# or: ./scripts/run_eureka.sh pipeline
+# or full pipeline test:
+.venv/bin/python test_pipeline.py --gpu --one-per-form \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
-**Legacy single script:**
+## Files
 
-```bash
-# Test all 3 forms
-python test_pipeline.py
+| File | Purpose |
+|------|---------|
+| `config.py` | Central paths and env (Eureka-friendly; see `docs/EUREKA.md`) |
+| `main.py` | CLI entry point |
+| `ocr_engine.py` | Dual OCR: Docling + EasyOCR/Surya/Paddle + spatial analysis |
+| `llm_engine.py` | LLM interface: text, vision, VLM with Ollama |
+| `extractor.py` | Core pipeline orchestrator: multi-pass extraction |
+| `prompts.py` | Prompt builders: form-specific, category-specific |
+| `schema_registry.py` | Schema loading: fields, tooltips, categories, positions |
+| `compare.py` | Accuracy comparison against ground truth |
+| `ensemble.py` | Multi-source confidence-weighted fusion (smart ensemble) |
+| `positional_matcher.py` | Geometric OCR-to-field matching from positional atlas |
+| `semantic_matcher.py` | MiniLM embedding-based label-to-field matching |
+| `image_preprocessor.py` | Deskew + denoise + binarize + CLAHE preprocessing |
+| `image_aligner.py` | SIFT feature matching + homography warp to template |
+| `field_validator.py` | Cross-field validation (state/ZIP, dates, VIN, phone, NAIC) |
+| `vlm_ocr_engine.py` | VLM-OCR two-stage: GLM-OCR / Nanonets-OCR + text LLM |
+| `table_detector.py` | ML-based table detection using DETR models |
+| `template_registry.py` | Template anchoring: standardized field regions with DPI scaling |
+| `spatial_extract.py` | Spatial pre-extraction: label + position rules (no LLM) |
+| `rag_examples.py` | RAG store: few-shot examples from ground truth |
+| `utils.py` | JSON cleanup, logging helpers |
+| `test_pipeline.py` | End-to-end test for all form types |
+| `tests/` | Unit tests (`tests/unit/`) and E2E (`tests/integration/`) |
+| `scripts/run_eureka.sh` | One-command run for Eureka machine |
+| `schemas/125.json` | ACORD 125 field schema (548 fields) |
+| `schemas/127.json` | ACORD 127 field schema (634 fields) |
+| `schemas/137.json` | ACORD 137 field schema (403 fields) |
+| `schemas/163.json` | ACORD 163 field schema (518 fields) |
+| `finetune/` | VLM fine-tuning pipeline (Qwen2.5-VL-7B) |
 
-# Test specific forms
-python test_pipeline.py --forms 127 137
+## Recommended Setups by VRAM
 
-# With a different model
-python test_pipeline.py --model llama3.2:3b
-```
+The pipeline uses GPU for **one stage at a time** (OCR -> VLM -> text LLM), with unloads between stages unless `--no-keep-models-loaded` is off (default: models stay loaded for speed).
 
-## Supported Forms
-
-| Form | Name | Fields | Key Data |
-|------|------|--------|----------|
-| ACORD 125 | Commercial Insurance Application | 548 | Insurer, producer, named insured, policy, lines of business, premises |
-| ACORD 127 | Business Auto Section | 634 | Header, 13 drivers (A-M), vehicles (A-E), coverages, checkboxes |
-| ACORD 137 | Commercial Auto Section | 102 | Named insured, policy, insurer, vehicle schedule (A-F), coverage symbols |
-
-## Vision pass (VLM)
-
-A **vision pass** runs after the text-based extraction and gap-fill. It uses an Ollama vision model (e.g. **llava:7b**) on the form page images to fill remaining missing fields.
-
-- **CLI:** `--vision` and `--vision-model llava:7b` (default). Pull a vision model first: `ollama pull llava:7b`.
-- **Flow:** OCR → category extraction → gap-fill → **vision pass** (VLM on first 1–2 pages, batched missing fields) → verification.
-- You can switch to a larger model later (e.g. `--vision-model llava:13b` or another Ollama vision model) without code changes.
-- **Describe-then-extract (optional):** `--vision-descriptions` crops each page into regions, uses a **small** VLM to describe each region, then sends the **crop images + descriptions** to the main VLM. Cropping is **dynamic layout-based** when OCR is available: EasyOCR spatial index (row clusters by vertical gap) or raw bbox clustering; otherwise falls back to a 2×2 grid. Use `--vision-describer-model llava:7b` for the describer. Example: `python main.py form.pdf --vision --vision-model qwen3-vl:30b --vision-descriptions --vision-describer-model llava:7b`
-
-## Recommended setups by VRAM
-
-The pipeline uses the GPU for **one stage at a time** (OCR → text LLM → vision LLM), with unloads between stages. So your VRAM must fit the **largest single model**, not all at once.
-
-| VRAM | Text LLM (`--model`) | Vision (`--vision-model`) | Notes |
+| VRAM | Text LLM (`--model`) | VLM (`--vlm-extract-model`) | Notes |
 |------|----------------------|---------------------------|--------|
-| **24 GB** | `qwen2.5:14b` (~9 GB) | `qwen3-vl:30b` (~20–24 GB) | Best quality: 14b text + 30B vision both fit. Optional text: `qwen2.5:32b` (~18 GB) if you skip vision or use a smaller VLM. |
-| **20 GB** | `qwen2.5:14b` (~9 GB) | `llava:13b` or `qwen2-vl:7b` (~5–9 GB) | Best balance. For vision you can try `qwen3-vl:30b` (may need quantized tag, can OOM); if OOM use `llava:13b`. |
-| **20 GB** (safer) | `qwen2.5:7b` (~5 GB) | `qwen3-vl:30b` or `llava:13b` | Use 7b text if you want to run 30B vision on 20 GB (tight; close other GPU apps). |
-| **12 GB** | `qwen2.5:7b` | `llava:7b` or `qwen2-vl:7b` | Avoid 30B vision. |
-| **8 GB** | `qwen2.5:7b` | `llava:7b` | Or run without `--vision`. |
-| **6 GB** | `qwen2.5:7b` | No vision (or `llava:7b` if Ollama not loaded) | Use **CPU OCR**: `--ocr-backend easyocr` and do **not** pass `--gpu`, so only Ollama uses the GPU. Surya/Paddle will OOM. |
+| **24 GB** | `qwen2.5:14b` | `acord-vlm-7b` + `qwen3-vl:30b` | Best: finetuned VLM + large text model. With `OLLAMA_MAX_LOADED_MODELS=3`, both fit. |
+| **16-20 GB** | `qwen2.5:7b` | `acord-vlm-7b` | Finetuned VLM (~5 GB Q5_K_M) + 7B text fits comfortably. |
+| **12 GB** | `qwen2.5:7b` | `acord-vlm-7b` | Both fit with keep-models-loaded. |
+| **8 GB** | `qwen2.5:7b` | Skip VLM or `acord-vlm-7b` (tight) | Use `--no-keep-models-loaded` to swap between models. |
 
-**Example for 24 GB (recommended):**
+**Example (24 GB, optimal):**
 ```bash
-ollama pull qwen2.5:14b
-ollama pull qwen3-vl:30b
-python test_pipeline.py --forms 125 127 137 --gpu --one-per-form --vision --model qwen2.5:14b --vision-model "qwen3-vl:30b"
+OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
+.venv/bin/python main.py form.pdf --form-type 125 --gpu \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
-**Example for 20 GB (recommended):**
-```bash
-ollama pull qwen2.5:14b
-ollama pull llava:13b
-python test_pipeline.py --forms 125 127 137 --gpu --one-per-form --vision --model qwen2.5:14b --vision-model llava:13b
-```
+## RAG (Few-Shot) Feature
 
-**Example for 20 GB (max vision, risk of OOM):**
-```bash
-python test_pipeline.py ... --model qwen2.5:7b --vision --vision-model "qwen3-vl:30b"
-```
-
-**Example for 6 GB (CPU OCR, GPU only for Ollama):**
-```bash
-# main.py: EasyOCR on CPU, Ollama 7b on GPU. Omit --gpu so Surya/Paddle are not used.
-python main.py path/to/form125.pdf --form-type 125 --text-llm --ocr-backend easyocr
-
-# test_pipeline: same idea; first run can be slow (CPU OCR). Use --one-per-form to limit PDFs.
-python test_pipeline.py --forms 125 --one-per-form --ocr-backend easyocr
-```
-If you have cached OCR from a previous run, re-running with the same output dir skips heavy OCR and only runs the LLM. The pipeline sets `PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True` by default so Paddle (if installed) does not block startup.
-
-## RAG (few-shot) feature
-
-When enabled with **`--use-rag`**, the pipeline injects few-shot (field → value) examples from ground-truth JSONs into every extraction step that uses the text LLM:
-
-- **Category extraction** (header, insurer, producer, named_insured, policy, etc.)
-- **Driver rows** (Form 127)
-- **Vehicle rows** (Forms 127 / 137)
-- **Gap-fill** (second pass for missed fields)
-
-Examples are loaded from a directory of ground-truth JSONs (by default `test_data/` or `BEST_PROJECT_RAG_GT`). The store is built once at startup; retrieval is in-memory and adds only a small number of lines per prompt. This improves accuracy (format and convention alignment) with minimal speed impact.
-
-**Activate:**
+When enabled with **`--use-rag`**, the pipeline injects few-shot (field -> value) examples from ground-truth JSONs into every extraction prompt. Examples are loaded from a directory of ground-truth JSONs (by default `test_data/` or `BEST_PROJECT_RAG_GT`). See `docs/RAG_DESIGN.md` for design details.
 
 ```bash
-# Single PDF
-python main.py path/to/form.pdf --docling --text-llm --use-rag
-
-# Full test pipeline
-python test_pipeline.py --gpu --use-rag
+.venv/bin/python main.py path/to/form.pdf --docling --text-llm --use-rag
 ```
 
-**Custom RAG ground-truth path:** `--rag-gt-dir <path>` (main.py) or set `BEST_PROJECT_RAG_GT`. Directory layout: form subfolders (e.g. `ACORD_0125_*/`, `127/`, `137/`) containing `*.json` files with flat field → value. See `docs/RAG_DESIGN.md` for design details.
+## Improving Accuracy
 
-## Improving accuracy
-
-- **Checkbox/indicator fields:** Comparison normalises values (1/On/True/Yes/Y → true, 0/Off/False/No/N → false). If your ground truth uses different conventions, ensure schemas and prompts ask for a format that normalises correctly (e.g. "Return 1 if checked, Off if not").
-- **Schema vs ground truth:** Accuracy is computed only over fields that exist in both the schema and the ground truth JSON. If GT has many more keys (e.g. flattened or different naming), align schema field names with GT or normalise GT keys before comparison.
-- **Vision (VLM) batches:** If the VLM often returns empty content (e.g. with qwen3-vl:30b on large batches), the pipeline falls back to streaming. You can reduce the vision batch size in `extractor.py` (`VISION_BATCH`) to ease load on the VLM and improve reliability.
-- **Larger models:** Using a larger text model (e.g. `qwen2.5:14b`) and/or vision model (e.g. `qwen3-vl:30b`) usually improves extraction quality at the cost of speed and VRAM.
-- **Schema enrichment:** Run `python scripts/enrich_schemas.py` so tooltips and format hints (dates, checkboxes, amounts) are present; the LLM uses these for extraction.
-- **Describe-then-extract:** Using `--vision-descriptions` with Docling + EasyOCR regions often improves vision coverage; ensure Docling and EasyOCR complete successfully so region crops are meaningful.
+- **Finetuned VLM**: The `acord-vlm-7b` model (Qwen2.5-VL-7B finetuned on 510 ACORD forms) significantly improves extraction accuracy. See `finetune/README.md`.
+- **Smart Ensemble**: `--smart-ensemble` applies field-type-aware confidence weights, prioritizing reliable sources per field type.
+- **Cross-field Validation**: `--validate-fields` catches inconsistencies (state/ZIP mismatches, date ordering, VIN checksums).
+- **Checkbox Crops**: `--checkbox-crops` uses tight VLM crops with CLAHE enhancement for checkbox detection.
+- **Multimodal**: `--multimodal` sends both image and OCR text to VLM for higher-confidence extraction.
+- **Schema Enrichment**: Run `python scripts/enrich_schemas.py` to add tooltips and format hints.
+- **Preprocessing**: `--preprocess` applies deskew + denoise for better OCR on poor scans.
 
 ## Troubleshooting
 
 | Error | Fix |
 |-------|-----|
-| `PDFInfoNotInstalledError` or `No such file or directory: 'pdfinfo'` | Install poppler: `sudo apt install poppler-utils` (Linux) or `brew install poppler` (macOS). Restart the terminal if needed so `pdfinfo` is in PATH. |
-| `404` for `localhost:11434/api/generate` (or `/api/chat`, `/v1/chat/completions`) | The process on port 11434 is not exposing Ollama’s API. **Fix on that machine:** (1) Stop any service using 11434. (2) Start Ollama’s server: `ollama serve` (leave it running in a terminal, or use the official systemd service). (3) Check: `curl -s http://localhost:11434/api/tags` should return JSON with a `models` list. (4) If using Snap or a custom install, reinstall from [ollama.com](https://ollama.com/download/linux) so the HTTP API is available. |
+| `PDFInfoNotInstalledError` | Install poppler: `sudo apt install poppler-utils` (Linux) or `brew install poppler` (macOS) |
+| Ollama `404` errors | Ensure Ollama is running: `ollama serve`. Check: `curl -s http://localhost:11434/api/tags` |
+| OOM during VLM | Use `--no-keep-models-loaded` to unload between passes, or use smaller models |
+| Slow pipeline | Set `OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4` and restart Ollama |

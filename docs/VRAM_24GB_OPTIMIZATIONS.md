@@ -1,72 +1,93 @@
 # Running Faster on a 24GB VRAM GPU
 
-On a 24GB GPU you can run more on device and reduce load/unload, so **the pipeline runs faster** than on 6–8GB.
+On a 24GB GPU you can run more on device and reduce load/unload, so **the pipeline runs faster** than on 6-8GB.
 
 ---
 
 ## What runs faster
 
-| Step | 6–8GB typical | 24GB |
+| Step | 6-8GB typical | 24GB |
 |------|----------------|------|
-| **Docling** | CPU (to free VRAM for EasyOCR + LLM) | **GPU** → faster OCR |
+| **Docling** | CPU (to free VRAM for EasyOCR + LLM) | **GPU** -> faster OCR |
 | **EasyOCR / Surya** | GPU, then unload | GPU, less pressure to unload |
-| **Unload wait** | 5–8 s between stages | Can use 2–4 s |
+| **Unload wait** | 5-8 s between stages | Can use 2-4 s |
 | **Text LLM (Ollama)** | GPU | GPU, same |
-| **VLM** | Often 7B or skip | 7B or 30B if you want |
+| **VLM** | Often 7B or skip | 7B finetuned + optional 30B |
+| **Keep models loaded** | Swap frequently | Keep 2-3 models loaded |
 
 So: **OCR is faster** (Docling on GPU, optional larger Surya batches), **less waiting** between stages, and you can keep models loaded longer.
 
 ---
 
-## Recommended flags for 24GB
+## Recommended configuration for 24GB
 
-**Phase 1 (text-only) – fastest:**
+**Optimal accuracy (all features):**
 
 ```bash
-# Docling on GPU, Surya for bbox, 7B text model (24GB: use --docling-gpu for faster OCR)
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --gpu \
-  --ocr-backend surya --docling-gpu
+OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
 
-# Without --docling-gpu (default): Docling runs on CPU so GPU is free for Surya + LLM
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --gpu --ocr-backend surya
-
-# With test_pipeline (batch): Docling on GPU
-python test_pipeline.py --gpu --docling-gpu --forms 125 --model qwen2.5:7b
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
-**Phase 1 fast path (few LLM calls):**
+**Batch testing:**
 
 ```bash
-python run_phase1_fast.py --pdf path/to/form.pdf --form 125 --gpu \
-  --ocr-backend surya --out phase1_fast_out
+.venv/bin/python test_pipeline.py --gpu --one-per-form \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
-**Full pipeline with vision (24GB):**
+**Text LLM only (faster, lower accuracy):**
 
 ```bash
-# Docling on GPU; VLM 7B fits with text 7B unloaded between stages
-python test_pipeline.py --gpu --docling-gpu --vision --vision-model llava:7b \
-  --vision-checkboxes-only --forms 125
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu --docling --text-llm
 ```
 
 ---
 
-## Environment / tuning (optional)
+## Environment / tuning
 
-- **Surya** (when using `--ocr-backend surya`):  
-  - `RECOGNITION_BATCH_SIZE=256` or `512` (default can be 512; reduce if OOM).  
+- **Ollama multi-model:**
+  ```bash
+  OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
+  ```
+  This allows keeping VLM + text LLM + OCR model loaded simultaneously. With `--no-keep-models-loaded` disabled (default), models stay loaded between passes, saving ~40% time from avoided load/unload cycles.
+
+- **Surya** (when using `--ocr-backend surya`):
+  - `RECOGNITION_BATCH_SIZE=256` or `512` (default can be 512; reduce if OOM).
   - Larger batch = fewer steps = faster recognition.
 
-- **Unload wait:**  
-  - In code or via `--unload-wait 3` (test_pipeline) you can lower the wait after unloading OCR so the next model loads sooner (e.g. 3–4 s on 24GB).
+- **Parallel VLM:**
+  - Default: `--vlm-workers 3` with ThreadPoolExecutor for concurrent VLM calls.
+  - Set `--vlm-workers` <= `OLLAMA_NUM_PARALLEL`.
 
-- **Docling on GPU:**  
-  - `--docling-gpu` in **run_phase1_extraction.py**, test_pipeline, and main: Docling uses GPU instead of CPU → faster OCR, uses more VRAM. Recommended on 24GB when running Phase 1 or vision pipeline.
+- **Confidence routing:**
+  - Default: enabled. Fields already extracted with high confidence (>= 0.90) are skipped in subsequent VLM/LLM passes.
+  - Disable with `--no-confidence-routing` if you want all sources to contribute to all fields.
+
+---
+
+## Model recommendations for 24GB
+
+| Model | Size | Purpose |
+|-------|------|---------|
+| `acord-vlm-7b` | ~5 GB (Q5_K_M) | Finetuned VLM for form extraction (recommended) |
+| `qwen2.5:7b` | ~5 GB | Text LLM for category extraction |
+| `qwen2.5:14b` | ~9 GB | Higher-quality text LLM (if VRAM allows) |
+| `qwen3-vl:8b` | ~5 GB | General VLM (if finetuned model unavailable) |
+
+With `OLLAMA_MAX_LOADED_MODELS=3`, you can keep `acord-vlm-7b` + `qwen2.5:7b` + one more model loaded simultaneously on 24GB.
 
 ---
 
 ## Summary
 
-- **Yes, it will run faster on a 24GB VRAM GPU:** mainly from Docling on GPU, less unload wait, and (if you use Surya) larger recognition batches.
-- Use **`--gpu`** and **`--docling-gpu`** (where supported) for 24GB.
-- Phase 1 fast path (**run_phase1_fast.py**) with **chunk-by-category** (default) improves accuracy vs fixed-size chunks and still uses few LLM calls.
+- **Yes, it will run faster on a 24GB VRAM GPU:** mainly from keeping models loaded, parallel VLM, Docling on GPU, and less unload wait.
+- Use `--gpu` and set `OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4` for best performance.
+- The finetuned `acord-vlm-7b` (~5 GB) fits comfortably alongside a 7B text model on 24GB.

@@ -22,8 +22,8 @@ from typing import Any, Dict, List, Optional
 # Value normalisation
 # ===========================================================================
 
-_CHECKBOX_TRUE = {"true", "1", "on", "yes", "x", "checked", "y", "s"}
-_CHECKBOX_FALSE = {"false", "0", "off", "no", "unchecked", "", "n"}
+_CHECKBOX_TRUE = {"true", "1", "on", "yes", "x", "checked", "y", "s", "☑", "✓", "✔", "☒", "selected"}
+_CHECKBOX_FALSE = {"false", "0", "off", "no", "unchecked", "", "n", "☐", "□", "unselected", "none"}
 
 # Common date formats for parsing (order matters: try more specific first)
 _DATE_FORMATS = [

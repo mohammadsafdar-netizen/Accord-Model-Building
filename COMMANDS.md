@@ -1,140 +1,208 @@
-# Full pipeline commands (all features off by default)
+# Pipeline Commands Reference
 
-Use these from the `best_project` directory. Replace `path/to/form.pdf` with your PDF and `125` with `127` or `137` if needed.
+All commands use `main.py` as the single entry point. Run from the project root.
 
 ---
 
-## run_phase1_extraction.py
+## Recommended Optimal Configuration
 
-**Docling only** (structure OCR, no bbox, no LLM, no VLM — images + empty/minimal extraction):
+The highest-accuracy configuration with all major features enabled:
+
 ```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
-**Docling + EasyOCR** (prefill from spatial + label-value only):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend easyocr
-```
+For batch testing:
 
-**Docling + Surya (Marker)** (prefill from spatial + label-value only):
 ```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya
-```
-
-**Docling + text LLM** (no bbox, no VLM — needs Docling text for LLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --text-llm
-```
-
-**Docling + VLM only** (no bbox OCR, no text LLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --vision
-```
-
-**Docling + EasyOCR + text LLM** (no VLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend easyocr --text-llm
-```
-
-**Docling + Surya + text LLM** (no VLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya --text-llm
-```
-
-**Docling + EasyOCR + VLM** (no text LLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend easyocr --vision
-```
-
-**Docling + Surya + VLM** (no text LLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya --vision
-```
-
-**Full pipeline** (Docling + bbox + text LLM + VLM):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya --text-llm --vision
-```
-or with EasyOCR:
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend easyocr --text-llm --vision
-```
-
-**With GPU, custom output, ground truth, DPI:**
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya --text-llm --vision --gpu --out ./my_out --ground-truth path/to/gt.json --dpi 200
-```
-
-**VLM-only with custom vision model and batch size:**
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --vision --vision-model qwen2-vl:7b --vision-batch-size 12
-```
-
-**Fast path** (fewer LLM calls; needs --docling and --ocr-backend for fill-nulls):
-```bash
-python run_phase1_extraction.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya --text-llm --fast --max-llm-chunks 4
+.venv/bin/python test_pipeline.py --gpu --one-per-form \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal
 ```
 
 ---
 
-## main.py
+## Common Configurations
 
-**Docling only:**
+### Minimal (OCR only, no LLM)
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --docling
 ```
 
-**Docling + EasyOCR + text LLM:**
+### Text LLM only
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling --ocr-backend easyocr --text-llm
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu --docling --text-llm
 ```
 
-**Docling + Surya + text LLM:**
+### VLM only (direct page-image extraction)
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling --ocr-backend surya --text-llm
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --vlm-extract --vlm-extract-model acord-vlm-7b
 ```
 
-**Docling + VLM only:**
+### VLM + Text LLM + Ensemble
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling --vision
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble
 ```
 
-**Full pipeline:**
+### With ground truth comparison
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling --ocr-backend surya --text-llm --vision
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --use-positional --use-templates \
+    --vlm-extract --vlm-extract-model acord-vlm-7b \
+    --text-llm --smart-ensemble \
+    --validate-fields --checkbox-crops --multimodal \
+    --ground-truth path/to/gt.json
 ```
 
-**With GPU and ground truth:**
+### Two-stage VLM-OCR (Nanonets)
+
 ```bash
-python main.py path/to/form.pdf --form-type 125 --docling --ocr-backend surya --text-llm --vision --gpu --ground-truth path/to/gt.json
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --nanonets-ocr --text-llm --smart-ensemble
+```
+
+### Two-stage VLM-OCR (GLM)
+
+```bash
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --glm-ocr --text-llm --smart-ensemble
+```
+
+### With image preprocessing
+
+```bash
+.venv/bin/python main.py path/to/form.pdf --form-type 125 --gpu \
+    --docling --preprocess --text-llm
 ```
 
 ---
 
-## run_phase1_fast.py (standalone)
+## Quick Reference: All CLI Flags
 
-Requires either `--docling` or `--form`; bbox defaults to none.
+### Form Configuration
 
-**Docling + Surya + fill-nulls LLM:**
-```bash
-python run_phase1_fast.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend surya
-```
+| Flag | Default | Description |
+|------|---------|-------------|
+| `pdf_path` | (required) | Path to the scanned PDF |
+| `--form-type` | auto-detect | ACORD form type: `125`, `127`, `137` |
+| `--model` | `qwen2.5:7b` | Ollama text LLM model |
+| `--ollama-url` | `localhost:11434` | Ollama API base URL |
+| `--output-dir` | auto | Output directory for results |
+| `--ground-truth` | none | Ground truth JSON for accuracy comparison |
+| `--schemas-dir` | `./schemas` | Directory containing schema JSON files |
 
-**Docling + EasyOCR + fill-nulls LLM:**
-```bash
-python run_phase1_fast.py --pdf path/to/form.pdf --form 125 --docling --ocr-backend easyocr
-```
+### OCR & Preprocessing
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--docling` | off | Run Docling OCR for structure/markdown |
+| `--ocr-backend` | `surya` | Bbox OCR: `none`, `easyocr`, `surya`, `paddle` |
+| `--dpi` | `300` | Image DPI for PDF conversion |
+| `--preprocess` | off | Deskew + denoise + binarize + CLAHE before OCR |
+| `--docling-html` | off | Export Docling as HTML instead of markdown |
+| `--align-to-template` | off | SIFT feature matching to align to template |
+| `--gpu` | off | Use GPU for OCR |
+
+### VLM / Vision Extraction
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--vlm-extract` | off | Direct VLM extraction from page images |
+| `--vlm-extract-model` | `qwen3-vl:8b` | Ollama VLM model for `--vlm-extract` |
+| `--multimodal` | off | Send image + OCR text to VLM together |
+| `--checkbox-crops` | off | Tight VLM crops for checkbox fields |
+| `--vlm-crop-extract` | off | Cropped VLM extraction by field clusters |
+| `--vision` | off | Legacy VLM pass on form images |
+| `--vision-model` | `qwen2.5vl:7b` | Ollama vision model for `--vision` |
+| `--vision-descriptions` | off | Crop+describe regions, then extract |
+| `--vision-describer-model` | same as vision | Small VLM for region descriptions |
+| `--vision-checkboxes-only` | off | VLM only for checkbox fields |
+
+### Text LLM Extraction
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--text-llm` | off | Run text LLM for category/driver/vehicle/gap-fill |
+
+### VLM-OCR Two-Stage
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--glm-ocr` | off | GLM-OCR (0.9B) VLM OCR -> text LLM |
+| `--nanonets-ocr` | off | Nanonets-OCR (3B) with checkbox Unicode -> text LLM |
+| `--glm-ocr-model` | `glm-ocr` | Ollama model for GLM-OCR |
+| `--nanonets-ocr-model` | `yasserrmd/Nanonets-OCR-s` | Ollama model for Nanonets-OCR |
+| `--stage2-model` | same as `--model` | Text LLM override for stage 2 |
+
+### Field Matching
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--no-semantic-matching` | enabled | Disable MiniLM semantic label matching |
+| `--use-positional` | off | Enable positional atlas matching |
+| `--use-templates` | off | Enable template anchoring |
+| `--table-transformer` | off | ML-based table detection (DETR) |
+
+### Multi-Source Fusion & Validation
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--ensemble` | off | Enable multi-source confidence-weighted fusion |
+| `--smart-ensemble` | off | Field-type-aware ensemble (implies `--ensemble`) |
+| `--validate-fields` | off | Cross-field validation (state/ZIP, dates, VIN, phone, NAIC) |
+| `--dual-llm-validate` | off | Second LLM pass to verify + correct values |
+
+### Performance & Optimization
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--no-keep-models-loaded` | keep loaded | Unload models between passes |
+| `--no-parallel-vlm` | parallel | Disable concurrent VLM calls |
+| `--vlm-workers` | `3` | Max concurrent VLM API calls |
+| `--no-structured-json` | structured | Disable Ollama `format:json` |
+| `--no-batch-categories` | batched | Extract each category separately |
+| `--no-confidence-routing` | routing on | Extract all fields in every pass |
+| `--confidence-threshold` | `0.90` | Confidence threshold for routing |
+| `--timeout` | `300` | LLM request timeout in seconds |
+
+### Data Sources
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--use-acroform` | off | Use AcroForm PDF fields (debug/testing only) |
+| `--use-rag` | off | Few-shot RAG from ground truth |
+| `--rag-gt-dir` | `test_data/` | Directory of ground-truth JSONs for RAG |
+| `--use-knowledge-base` | off | Inject insurance knowledge context |
 
 ---
 
-## Quick reference
+## Ollama Environment
 
-| Feature    | Phase 1 flag       | main.py flag        |
-|-----------|--------------------|----------------------|
-| Docling   | `--docling`        | `--docling`          |
-| EasyOCR   | `--ocr-backend easyocr` | `--ocr-backend easyocr` |
-| Surya     | `--ocr-backend surya`   | `--ocr-backend surya`   |
-| VLM       | `--vision`         | `--vision`            |
-| Text LLM  | `--text-llm`       | `--text-llm`         |
+For optimal performance with multi-model pipelines:
 
-Without `--docling` you must pass `--form 125` (or `127`/`137`).
+```bash
+OLLAMA_MAX_LOADED_MODELS=3 OLLAMA_NUM_PARALLEL=4 ollama serve
+```
+
+## Additional Flags for Accuracy Testing
+
+| Flag | Expected Impact | Risk |
+|------|----------------|------|
+| `--preprocess` | Better OCR from deskew+denoise | Minimal, may slow slightly |
+| `--dual-llm-validate` | Second LLM corrects errors | Adds ~30-60s per form |
+| `--no-confidence-routing` | All sources contribute to all fields | May re-introduce VLM errors |
+| `--nanonets-ocr` | Better OCR with checkbox Unicode | Needs model loaded |

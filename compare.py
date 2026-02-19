@@ -94,6 +94,29 @@ def _strip_noise_prefix(gt: str, ext: str) -> bool:
     m = re.match(r'^(.+?)\s*[|/\[\]].+$', ext)
     if m and m.group(1).strip() == gt:
         return True
+    # Leading pipe/I noise on short values: "in" -> "n", "|n" -> "n"
+    if len(gt) == 1 and len(ext) == 2 and ext[0] in ("i", "|") and ext[1] == gt:
+        return True
+    # Trailing Y/N noise on dates: "04/11/2022 | y" or "04/11/2022y"
+    m = re.match(r'^(.+?)\s*\|?\s*[yn]$', ext)
+    if m and m.group(1).strip() == gt:
+        return True
+    return False
+
+
+def _yn_boolean_match(a: str, b: str) -> bool:
+    """Check if one value is Y/N and the other is true/false, matching semantically.
+
+    Y = true/yes/1, N = false/no/0. Only matches when one side is a single letter
+    Y or N and the other is a boolean string, avoiding false matches on checkbox fields
+    (which are already normalized to true/false by normalise_value).
+    """
+    _yes = {"y", "true", "yes"}
+    _no = {"n", "false", "no"}
+    if (a in _yes and b in _yes) or (a in _no and b in _no):
+        # Only count if at least one side is the single letter
+        if len(a) == 1 or len(b) == 1:
+            return True
     return False
 
 
@@ -189,6 +212,16 @@ def normalise_value(
     if ("area" in fn_lower or "count" in fn_lower) and re.match(r"^[\d,.\s]+$", s):
         return _normalise_amount(s)
 
+    # Email: normalise spaces/underscores near @ and domain separators
+    # (must come before address check since "emailaddress" contains "address")
+    if "email" in fn_lower and "@" in s:
+        s = re.sub(r"\s+@", "@", s)
+        s = re.sub(r"@\s+", "@", s)
+        s = s.replace(" com", ".com").replace("_com", ".com")
+        s = s.replace(" org", ".org").replace("_org", ".org")
+        s = s.replace(" net", ".net").replace("_net", ".net")
+        return s.lower()
+
     # Address-like fields: expand abbreviations for fair comparison
     if any(x in fn_lower for x in ("address", "lineone", "linetwo", "cityname")):
         return _normalise_address_abbreviations(s)
@@ -251,6 +284,14 @@ def compare_fields(
                 "extracted": None,
             }
         elif gt_norm == ext_norm:
+            results["matched"] += 1
+            results["field_results"][field_name] = {
+                "status": "matched",
+                "expected": gt_val,
+                "extracted": ext_val,
+            }
+        elif _yn_boolean_match(gt_norm, ext_norm):
+            # Y/N ↔ true/false equivalence for non-checkbox text fields
             results["matched"] += 1
             results["field_results"][field_name] = {
                 "status": "matched",

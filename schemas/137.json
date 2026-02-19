@@ -6,7 +6,7 @@
     "CommercialVehicleLineOfBusiness_RemarkText_A": {
       "name": "CommercialVehicleLineOfBusiness_RemarkText_A",
       "type": "text",
-      "tooltip": "From GT: CommercialVehicleLineOfBusiness RemarkText A",
+      "tooltip": "Remarks or notes, commercial vehicle line of business A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -32,7 +32,7 @@
     "CommercialVehicleLineOfBusiness_RemarkText_C": {
       "name": "CommercialVehicleLineOfBusiness_RemarkText_C",
       "type": "text",
-      "tooltip": "From GT: CommercialVehicleLineOfBusiness RemarkText C",
+      "tooltip": "Remarks or notes, commercial vehicle line of business C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -45,7 +45,7 @@
     "Form_CompletionDate_A": {
       "name": "Form_CompletionDate_A",
       "type": "text",
-      "tooltip": "From GT: Form CompletionDate A",
+      "tooltip": "Date the form was completed (MM/DD/YYYY), section A",
       "default_value": null,
       "category": "header",
       "suffix": "_A",
@@ -97,7 +97,7 @@
     "NamedInsured_SignatureDate_A": {
       "name": "NamedInsured_SignatureDate_A",
       "type": "text",
-      "tooltip": "From GT: NamedInsured SignatureDate A",
+      "tooltip": "Date signed (MM/DD/YYYY), named insured A",
       "default_value": null,
       "category": "named_insured",
       "suffix": "_A",
@@ -110,7 +110,7 @@
     "NamedInsured_SignatureDate_B": {
       "name": "NamedInsured_SignatureDate_B",
       "type": "text",
-      "tooltip": "From GT: NamedInsured SignatureDate B",
+      "tooltip": "Date signed (MM/DD/YYYY), named insured B",
       "default_value": null,
       "category": "named_insured",
       "suffix": "_B",
@@ -136,7 +136,7 @@
     "NamedInsured_Signature_A": {
       "name": "NamedInsured_Signature_A",
       "type": "text",
-      "tooltip": "From GT: NamedInsured Signature A",
+      "tooltip": "Signature, named insured A",
       "default_value": null,
       "category": "named_insured",
       "suffix": "_A",
@@ -149,7 +149,7 @@
     "NamedInsured_Signature_B": {
       "name": "NamedInsured_Signature_B",
       "type": "text",
-      "tooltip": "From GT: NamedInsured Signature B",
+      "tooltip": "Signature, named insured B",
       "default_value": null,
       "category": "named_insured",
       "suffix": "_B",
@@ -188,7 +188,7 @@
     "Policy_PolicyNumberIdentifier_A": {
       "name": "Policy_PolicyNumberIdentifier_A",
       "type": "text",
-      "tooltip": "From GT: Policy PolicyNumberIdentifier A",
+      "tooltip": "Policy number, section A",
       "default_value": null,
       "category": "policy",
       "suffix": "_A",
@@ -201,7 +201,7 @@
     "Producer_AuthorizedRepresentative_Signature_A": {
       "name": "Producer_AuthorizedRepresentative_Signature_A",
       "type": "text",
-      "tooltip": "From GT: Producer AuthorizedRepresentative Signature A",
+      "tooltip": "Signature for authorized representative, producer/agent A",
       "default_value": null,
       "category": "producer",
       "suffix": "_A",
@@ -240,7 +240,7 @@
     "Producer_CustomerIdentifier_A": {
       "name": "Producer_CustomerIdentifier_A",
       "type": "text",
-      "tooltip": "From GT: Producer CustomerIdentifier A",
+      "tooltip": "Customer ID, producer/agent A",
       "default_value": null,
       "category": "producer",
       "suffix": "_A",
@@ -253,7 +253,7 @@
     "Producer_FullName_A": {
       "name": "Producer_FullName_A",
       "type": "text",
-      "tooltip": "From GT: Producer FullName A",
+      "tooltip": "Full name, producer/agent A",
       "default_value": null,
       "category": "producer",
       "suffix": "_A",
@@ -266,7 +266,7 @@
     "Producer_NationalIdentifier_A": {
       "name": "Producer_NationalIdentifier_A",
       "type": "text",
-      "tooltip": "From GT: Producer NationalIdentifier A",
+      "tooltip": "National identifier (e.g., NPN), producer/agent A",
       "default_value": null,
       "category": "producer",
       "suffix": "_A",
@@ -383,7 +383,7 @@
     "Vehicle_BodilyInjury_PerAccidentLimitAmount_A": {
       "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount A",
+      "tooltip": "Per-accident limit amount in dollars for bodily injury, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -396,7 +396,7 @@
     "Vehicle_BodilyInjury_PerAccidentLimitAmount_B": {
       "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount B",
+      "tooltip": "Per-accident limit amount in dollars for bodily injury, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -409,7 +409,7 @@
     "Vehicle_BodilyInjury_PerAccidentLimitAmount_C": {
       "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerAccidentLimitAmount C",
+      "tooltip": "Per-accident limit amount in dollars for bodily injury, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -422,7 +422,7 @@
     "Vehicle_BodilyInjury_PerPersonLimitAmount_A": {
       "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount A",
+      "tooltip": "Per-person limit amount in dollars for bodily injury, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -435,7 +435,7 @@
     "Vehicle_BodilyInjury_PerPersonLimitAmount_B": {
       "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount B",
+      "tooltip": "Per-person limit amount in dollars for bodily injury, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -448,7 +448,7 @@
     "Vehicle_BodilyInjury_PerPersonLimitAmount_C": {
       "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle BodilyInjury PerPersonLimitAmount C",
+      "tooltip": "Per-person limit amount in dollars for bodily injury, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -630,7 +630,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_A": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode A",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -643,7 +643,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_B": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode B",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -656,7 +656,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_C": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode C",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -669,7 +669,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_E": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode E",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -682,7 +682,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_F": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode F",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -695,7 +695,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_G": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_G",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode G",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle G",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_G",
@@ -708,7 +708,7 @@
     "Vehicle_BusinessAutoSymbol_OtherSymbolCode_H": {
       "name": "Vehicle_BusinessAutoSymbol_OtherSymbolCode_H",
       "type": "text",
-      "tooltip": "From GT: Vehicle BusinessAutoSymbol OtherSymbolCode H",
+      "tooltip": "Covered auto symbol number for business auto symbol, vehicle H",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_H",
@@ -1085,7 +1085,7 @@
     "Vehicle_Collision_DeductibleAmount_A": {
       "name": "Vehicle_Collision_DeductibleAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle Collision DeductibleAmount A",
+      "tooltip": "Deductible amount in dollars for collision, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -1111,7 +1111,7 @@
     "Vehicle_Collision_DeductibleAmount_C": {
       "name": "Vehicle_Collision_DeductibleAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle Collision DeductibleAmount C",
+      "tooltip": "Deductible amount in dollars for collision, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1241,7 +1241,7 @@
     "Vehicle_Comprehensive_DeductibleAmount_A": {
       "name": "Vehicle_Comprehensive_DeductibleAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle Comprehensive DeductibleAmount A",
+      "tooltip": "Deductible amount in dollars for comprehensive, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -1267,7 +1267,7 @@
     "Vehicle_Comprehensive_DeductibleAmount_C": {
       "name": "Vehicle_Comprehensive_DeductibleAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle Comprehensive DeductibleAmount C",
+      "tooltip": "Deductible amount in dollars for comprehensive, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1462,7 +1462,7 @@
     "Vehicle_HiredBorrowed_HiredCostAmount_C": {
       "name": "Vehicle_HiredBorrowed_HiredCostAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed HiredCostAmount C",
+      "tooltip": "Hired cost amount in dollars for hired borrowed, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1553,7 +1553,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_A": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode A",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -1566,7 +1566,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_B": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode B",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -1579,7 +1579,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_C": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode C",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1592,7 +1592,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_D": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode D",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -1631,7 +1631,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_G": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_G",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode G",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle G",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_G",
@@ -1644,7 +1644,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_H": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_H",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode H",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle H",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_H",
@@ -1657,7 +1657,7 @@
     "Vehicle_HiredBorrowed_StateOrProvinceCode_I": {
       "name": "Vehicle_HiredBorrowed_StateOrProvinceCode_I",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredBorrowed StateOrProvinceCode I",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired borrowed, vehicle I",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_I",
@@ -1709,7 +1709,7 @@
     "Vehicle_HiredPhysicalDamage_DayCount_A": {
       "name": "Vehicle_HiredPhysicalDamage_DayCount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage DayCount A",
+      "tooltip": "Number of days for hired physical damage, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -1735,7 +1735,7 @@
     "Vehicle_HiredPhysicalDamage_DayCount_C": {
       "name": "Vehicle_HiredPhysicalDamage_DayCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage DayCount C",
+      "tooltip": "Number of days for hired physical damage, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1826,7 +1826,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_A": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode A",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -1839,7 +1839,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_B": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode B",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -1852,7 +1852,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_C": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode C",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -1865,7 +1865,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_D": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode D",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -1878,7 +1878,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_E": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode E",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -1891,7 +1891,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_F": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode F",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -1982,7 +1982,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_M": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_M",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode M",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle M",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_M",
@@ -1995,7 +1995,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_N": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_N",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode N",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle N",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_N",
@@ -2008,7 +2008,7 @@
     "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_O": {
       "name": "Vehicle_HiredPhysicalDamage_StateOrProvinceCode_O",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage StateOrProvinceCode O",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for hired physical damage, vehicle O",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_O",
@@ -2086,7 +2086,7 @@
     "Vehicle_HiredPhysicalDamage_VehicleCount_C": {
       "name": "Vehicle_HiredPhysicalDamage_VehicleCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle HiredPhysicalDamage VehicleCount C",
+      "tooltip": "Number of vehicles for hired physical damage, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -2099,7 +2099,7 @@
     "Vehicle_MedicalPayments_PerPersonLimitAmount_A": {
       "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount A",
+      "tooltip": "Per-person limit amount in dollars for medical payments, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -2112,7 +2112,7 @@
     "Vehicle_MedicalPayments_PerPersonLimitAmount_B": {
       "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount B",
+      "tooltip": "Per-person limit amount in dollars for medical payments, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -2125,7 +2125,7 @@
     "Vehicle_MedicalPayments_PerPersonLimitAmount_C": {
       "name": "Vehicle_MedicalPayments_PerPersonLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle MedicalPayments PerPersonLimitAmount C",
+      "tooltip": "Per-person limit amount in dollars for medical payments, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -2138,7 +2138,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_A": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode A",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -2151,7 +2151,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_B": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode B",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -2164,7 +2164,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_C": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode C",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -2177,7 +2177,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_E": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode E",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -2190,7 +2190,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_F": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode F",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -2203,7 +2203,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_G": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_G",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode G",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle G",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_G",
@@ -2216,7 +2216,7 @@
     "Vehicle_MotorCarrierSymbol_OtherSymbolCode_H": {
       "name": "Vehicle_MotorCarrierSymbol_OtherSymbolCode_H",
       "type": "text",
-      "tooltip": "From GT: Vehicle MotorCarrierSymbol OtherSymbolCode H",
+      "tooltip": "Covered auto symbol number for motor carrier symbol, vehicle H",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_H",
@@ -2827,7 +2827,7 @@
     "Vehicle_NonOwnedGroup_EmployeeCount_A": {
       "name": "Vehicle_NonOwnedGroup_EmployeeCount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount A",
+      "tooltip": "Number of employees for non owned group, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -2840,7 +2840,7 @@
     "Vehicle_NonOwnedGroup_EmployeeCount_B": {
       "name": "Vehicle_NonOwnedGroup_EmployeeCount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount B",
+      "tooltip": "Number of employees for non owned group, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -2853,7 +2853,7 @@
     "Vehicle_NonOwnedGroup_EmployeeCount_C": {
       "name": "Vehicle_NonOwnedGroup_EmployeeCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup EmployeeCount C",
+      "tooltip": "Number of employees for non owned group, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -2905,7 +2905,7 @@
     "Vehicle_NonOwnedGroup_PartnerCount_A": {
       "name": "Vehicle_NonOwnedGroup_PartnerCount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount A",
+      "tooltip": "Number of partners for non owned group, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -2918,7 +2918,7 @@
     "Vehicle_NonOwnedGroup_PartnerCount_B": {
       "name": "Vehicle_NonOwnedGroup_PartnerCount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount B",
+      "tooltip": "Number of partners for non owned group, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -2931,7 +2931,7 @@
     "Vehicle_NonOwnedGroup_PartnerCount_C": {
       "name": "Vehicle_NonOwnedGroup_PartnerCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup PartnerCount C",
+      "tooltip": "Number of partners for non owned group, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -2983,7 +2983,7 @@
     "Vehicle_NonOwnedGroup_VolunteerCount_A": {
       "name": "Vehicle_NonOwnedGroup_VolunteerCount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount A",
+      "tooltip": "Number of volunteers for non owned group, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -2996,7 +2996,7 @@
     "Vehicle_NonOwnedGroup_VolunteerCount_B": {
       "name": "Vehicle_NonOwnedGroup_VolunteerCount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount B",
+      "tooltip": "Number of volunteers for non owned group, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -3009,7 +3009,7 @@
     "Vehicle_NonOwnedGroup_VolunteerCount_C": {
       "name": "Vehicle_NonOwnedGroup_VolunteerCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwnedGroup VolunteerCount C",
+      "tooltip": "Number of volunteers for non owned group, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3100,7 +3100,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_A": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode A",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -3139,7 +3139,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_B": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode B",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -3152,7 +3152,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_C": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode C",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3165,7 +3165,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_D": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode D",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -3178,7 +3178,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_E": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode E",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -3243,7 +3243,7 @@
     "Vehicle_NonOwned_StateOrProvinceCode_K": {
       "name": "Vehicle_NonOwned_StateOrProvinceCode_K",
       "type": "text",
-      "tooltip": "From GT: Vehicle NonOwned StateOrProvinceCode K",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for non owned, vehicle K",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_K",
@@ -3490,7 +3490,7 @@
     "Vehicle_OtherCoverageDescription_C": {
       "name": "Vehicle_OtherCoverageDescription_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription C",
+      "tooltip": "Other coverage description, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3503,7 +3503,7 @@
     "Vehicle_OtherCoverageDescription_D": {
       "name": "Vehicle_OtherCoverageDescription_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription D",
+      "tooltip": "Other coverage description, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -3516,7 +3516,7 @@
     "Vehicle_OtherCoverageDescription_E": {
       "name": "Vehicle_OtherCoverageDescription_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription E",
+      "tooltip": "Other coverage description, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -3555,7 +3555,7 @@
     "Vehicle_OtherCoverageDescription_J": {
       "name": "Vehicle_OtherCoverageDescription_J",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription J",
+      "tooltip": "Other coverage description, vehicle J",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_J",
@@ -3581,7 +3581,7 @@
     "Vehicle_OtherCoverageDescription_N": {
       "name": "Vehicle_OtherCoverageDescription_N",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription N",
+      "tooltip": "Other coverage description, vehicle N",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_N",
@@ -3594,7 +3594,7 @@
     "Vehicle_OtherCoverageDescription_O": {
       "name": "Vehicle_OtherCoverageDescription_O",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverageDescription O",
+      "tooltip": "Other coverage description, vehicle O",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_O",
@@ -3698,7 +3698,7 @@
     "Vehicle_OtherCoverage_LimitAmount_N": {
       "name": "Vehicle_OtherCoverage_LimitAmount_N",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage LimitAmount N",
+      "tooltip": "Coverage limit amount in dollars for other coverage, vehicle N",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_N",
@@ -3711,7 +3711,7 @@
     "Vehicle_OtherCoverage_LimitAmount_O": {
       "name": "Vehicle_OtherCoverage_LimitAmount_O",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage LimitAmount O",
+      "tooltip": "Coverage limit amount in dollars for other coverage, vehicle O",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_O",
@@ -3724,7 +3724,7 @@
     "Vehicle_OtherCoverage_SymbolDescription_C": {
       "name": "Vehicle_OtherCoverage_SymbolDescription_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription C",
+      "tooltip": "Covered auto symbol description/code for other coverage, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3737,7 +3737,7 @@
     "Vehicle_OtherCoverage_SymbolDescription_D": {
       "name": "Vehicle_OtherCoverage_SymbolDescription_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription D",
+      "tooltip": "Covered auto symbol description/code for other coverage, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -3815,7 +3815,7 @@
     "Vehicle_OtherCoverage_SymbolDescription_N": {
       "name": "Vehicle_OtherCoverage_SymbolDescription_N",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription N",
+      "tooltip": "Covered auto symbol description/code for other coverage, vehicle N",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_N",
@@ -3828,7 +3828,7 @@
     "Vehicle_OtherCoverage_SymbolDescription_O": {
       "name": "Vehicle_OtherCoverage_SymbolDescription_O",
       "type": "text",
-      "tooltip": "From GT: Vehicle OtherCoverage SymbolDescription O",
+      "tooltip": "Covered auto symbol description/code for other coverage, vehicle O",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_O",
@@ -3841,7 +3841,7 @@
     "Vehicle_PropertyDamage_PerAccidentLimitAmount_A": {
       "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount A",
+      "tooltip": "Per-accident limit amount in dollars for property damage, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -3854,7 +3854,7 @@
     "Vehicle_PropertyDamage_PerAccidentLimitAmount_B": {
       "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount B",
+      "tooltip": "Per-accident limit amount in dollars for property damage, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -3867,7 +3867,7 @@
     "Vehicle_PropertyDamage_PerAccidentLimitAmount_C": {
       "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle PropertyDamage PerAccidentLimitAmount C",
+      "tooltip": "Per-accident limit amount in dollars for property damage, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3880,7 +3880,7 @@
     "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_A": {
       "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount A",
+      "tooltip": "Deductible amount in dollars for specified cause of loss, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -3893,7 +3893,7 @@
     "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_B": {
       "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount B",
+      "tooltip": "Deductible amount in dollars for specified cause of loss, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -3906,7 +3906,7 @@
     "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_C": {
       "name": "Vehicle_SpecifiedCauseOfLoss_DeductibleAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle SpecifiedCauseOfLoss DeductibleAmount C",
+      "tooltip": "Deductible amount in dollars for specified cause of loss, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3919,7 +3919,7 @@
     "Vehicle_TowingAndLabour_LimitAmount_A": {
       "name": "Vehicle_TowingAndLabour_LimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount A",
+      "tooltip": "Coverage limit amount in dollars for towing and labour, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -3932,7 +3932,7 @@
     "Vehicle_TowingAndLabour_LimitAmount_B": {
       "name": "Vehicle_TowingAndLabour_LimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount B",
+      "tooltip": "Coverage limit amount in dollars for towing and labour, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -3945,7 +3945,7 @@
     "Vehicle_TowingAndLabour_LimitAmount_C": {
       "name": "Vehicle_TowingAndLabour_LimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle TowingAndLabour LimitAmount C",
+      "tooltip": "Coverage limit amount in dollars for towing and labour, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -3971,7 +3971,7 @@
     "Vehicle_TrailerInterchangeCollision_DeductibleAmount_C": {
       "name": "Vehicle_TrailerInterchangeCollision_DeductibleAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchangeCollision DeductibleAmount C",
+      "tooltip": "Deductible amount in dollars for trailer interchange collision, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -4049,7 +4049,7 @@
     "Vehicle_TrailerInterchange_DayCount_D": {
       "name": "Vehicle_TrailerInterchange_DayCount_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange DayCount D",
+      "tooltip": "Number of days for trailer interchange, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -4062,7 +4062,7 @@
     "Vehicle_TrailerInterchange_DayCount_E": {
       "name": "Vehicle_TrailerInterchange_DayCount_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange DayCount E",
+      "tooltip": "Number of days for trailer interchange, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4075,7 +4075,7 @@
     "Vehicle_TrailerInterchange_DayCount_F": {
       "name": "Vehicle_TrailerInterchange_DayCount_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange DayCount F",
+      "tooltip": "Number of days for trailer interchange, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -4127,7 +4127,7 @@
     "Vehicle_TrailerInterchange_Radius_D": {
       "name": "Vehicle_TrailerInterchange_Radius_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange Radius D",
+      "tooltip": "Operating radius in miles for trailer interchange, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -4140,7 +4140,7 @@
     "Vehicle_TrailerInterchange_Radius_E": {
       "name": "Vehicle_TrailerInterchange_Radius_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange Radius E",
+      "tooltip": "Operating radius in miles for trailer interchange, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4153,7 +4153,7 @@
     "Vehicle_TrailerInterchange_Radius_F": {
       "name": "Vehicle_TrailerInterchange_Radius_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange Radius F",
+      "tooltip": "Operating radius in miles for trailer interchange, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -4205,7 +4205,7 @@
     "Vehicle_TrailerInterchange_StateOrProvinceCode_D": {
       "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode D",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for trailer interchange, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -4218,7 +4218,7 @@
     "Vehicle_TrailerInterchange_StateOrProvinceCode_E": {
       "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode E",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for trailer interchange, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4231,7 +4231,7 @@
     "Vehicle_TrailerInterchange_StateOrProvinceCode_F": {
       "name": "Vehicle_TrailerInterchange_StateOrProvinceCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange StateOrProvinceCode F",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for trailer interchange, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -4244,7 +4244,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_A": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount A",
+      "tooltip": "Number of trailers for trailer interchange, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -4257,7 +4257,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_B": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount B",
+      "tooltip": "Number of trailers for trailer interchange, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -4270,7 +4270,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_C": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount C",
+      "tooltip": "Number of trailers for trailer interchange, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -4283,7 +4283,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_D": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount D",
+      "tooltip": "Number of trailers for trailer interchange, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -4296,7 +4296,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_E": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount E",
+      "tooltip": "Number of trailers for trailer interchange, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4309,7 +4309,7 @@
     "Vehicle_TrailerInterchange_TrailerCount_F": {
       "name": "Vehicle_TrailerInterchange_TrailerCount_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerCount F",
+      "tooltip": "Number of trailers for trailer interchange, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -4335,7 +4335,7 @@
     "Vehicle_TrailerInterchange_TrailerValueAmount_B": {
       "name": "Vehicle_TrailerInterchange_TrailerValueAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle TrailerInterchange TrailerValueAmount B",
+      "tooltip": "Trailer value amount in dollars for trailer interchange, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -4361,7 +4361,7 @@
     "Vehicle_TruckersHiredBorrowed_HiredCostAmount_C": {
       "name": "Vehicle_TruckersHiredBorrowed_HiredCostAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersHiredBorrowed HiredCostAmount C",
+      "tooltip": "Hired cost amount in dollars for truckers hired borrowed, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -4426,7 +4426,7 @@
     "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_A": {
       "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode A",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for truckers hired borrowed, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -4465,7 +4465,7 @@
     "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_D": {
       "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_D",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode D",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for truckers hired borrowed, vehicle D",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_D",
@@ -4478,7 +4478,7 @@
     "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_E": {
       "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode E",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for truckers hired borrowed, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4491,7 +4491,7 @@
     "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_F": {
       "name": "Vehicle_TruckersHiredBorrowed_StateOrProvinceCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersHiredBorrowed StateOrProvinceCode F",
+      "tooltip": "Two-letter state code (e.g., FL, NY) for truckers hired borrowed, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -4946,7 +4946,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_A": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode A",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -4959,7 +4959,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_B": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode B",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -4972,7 +4972,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_C": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode C",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -4985,7 +4985,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_E": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_E",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode E",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle E",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_E",
@@ -4998,7 +4998,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_F": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_F",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode F",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle F",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_F",
@@ -5011,7 +5011,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_G": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_G",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode G",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle G",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_G",
@@ -5024,7 +5024,7 @@
     "Vehicle_TruckersSymbol_OtherSymbolCode_H": {
       "name": "Vehicle_TruckersSymbol_OtherSymbolCode_H",
       "type": "text",
-      "tooltip": "From GT: Vehicle TruckersSymbol OtherSymbolCode H",
+      "tooltip": "Covered auto symbol number for truckers symbol, vehicle H",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_H",
@@ -5128,7 +5128,7 @@
     "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A": {
       "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerAccidentLimitAmount A",
+      "tooltip": "Bodily injury per-accident limit amount in dollars for uninsured motorists, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -5154,7 +5154,7 @@
     "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_C": {
       "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerAccidentLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerAccidentLimitAmount C",
+      "tooltip": "Bodily injury per-accident limit amount in dollars for uninsured motorists, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -5167,7 +5167,7 @@
     "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A": {
       "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount A",
+      "tooltip": "Bodily injury per-person limit amount in dollars for uninsured motorists, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -5180,7 +5180,7 @@
     "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_B": {
       "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount B",
+      "tooltip": "Bodily injury per-person limit amount in dollars for uninsured motorists, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -5193,7 +5193,7 @@
     "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_C": {
       "name": "Vehicle_UninsuredMotorists_BodilyInjuryPerPersonLimitAmount_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists BodilyInjuryPerPersonLimitAmount C",
+      "tooltip": "Bodily injury per-person limit amount in dollars for uninsured motorists, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",
@@ -5206,7 +5206,7 @@
     "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A": {
       "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_A",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit A",
+      "tooltip": "Property damage per-accident limit amount in dollars for uninsured motorists, vehicle A",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_A",
@@ -5219,7 +5219,7 @@
     "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B": {
       "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_B",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit B",
+      "tooltip": "Property damage per-accident limit amount in dollars for uninsured motorists, vehicle B",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_B",
@@ -5232,7 +5232,7 @@
     "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C": {
       "name": "Vehicle_UninsuredMotorists_PropertyDamagePerAccidentLimit_C",
       "type": "text",
-      "tooltip": "From GT: Vehicle UninsuredMotorists PropertyDamagePerAccidentLimit C",
+      "tooltip": "Property damage per-accident limit amount in dollars for uninsured motorists, vehicle C",
       "default_value": null,
       "category": "vehicle",
       "suffix": "_C",

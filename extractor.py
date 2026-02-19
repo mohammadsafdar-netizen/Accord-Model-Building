@@ -1285,7 +1285,7 @@ class ACORDExtractor:
                         # Ensemble says checked, but pixel says clearly empty → override
                         extracted[fi.name] = "Off"
                         corrected_off += 1
-                    elif str(current) == "Off" and ratio > 0.35:
+                    elif str(current) in ("Off", "false", "False") and ratio > 0.35:
                         # Ensemble says unchecked, but pixel says clearly checked → override
                         extracted[fi.name] = "1"
                         corrected_on += 1
@@ -2703,10 +2703,12 @@ class ACORDExtractor:
                 normalised[key] = vin_fixed
                 continue
 
-            # Email: fix common OCR errors (space before @, missing dots)
+            # Email: fix common OCR errors (space before @, missing dots, underscore for dot)
             if "email" in key_lower and "@" in str_val:
                 str_val = re.sub(r"\s+@", "@", str_val)  # "adam @foo" -> "adam@foo"
                 str_val = re.sub(r"@\s+", "@", str_val)  # "adam@ foo" -> "adam@foo"
+                # Fix space/underscore before domain TLD: "humphreyinc com" → "humphreyinc.com"
+                str_val = re.sub(r"[\s_](com|org|net|edu|gov|io)$", r".\1", str_val, flags=re.IGNORECASE)
                 normalised[key] = str_val
                 continue
 
@@ -2740,6 +2742,92 @@ class ACORDExtractor:
         if state_zip_splits:
             normalised.update(state_zip_splits)
 
+        # Post-pass: strip date prefix "MM/DD/" from non-date numeric fields
+        # e.g. "02/19/150" → "150" for HiredCostAmount, VehicleCount, etc.
+        date_prefix_re = re.compile(r"^(\d{1,2}/\d{1,2}/)(\d+\.?\d*)$")
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            if "date" in kl or "time" in kl:
+                continue  # Skip actual date/time fields
+            m = date_prefix_re.match(str(value).strip())
+            if m:
+                normalised[key] = m.group(2)
+
+        # Post-pass: validate StateOrProvinceCode fields against real US/CA codes
+        _VALID_STATE_CODES = {
+            "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+            "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+            "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+            "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+            "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
+            "DC", "PR", "VI", "GU", "AS", "MP",  # US territories
+            "AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE",
+            "QC", "SK", "YT",  # Canadian provinces
+        }
+        for key, value in list(normalised.items()):
+            if "stateorprovincecode" in key.lower():
+                sv = str(value).strip()
+                # Keep only valid 2-letter state/province codes
+                if sv.upper() not in _VALID_STATE_CODES:
+                    del normalised[key]
+
+        # Post-pass: remove "From GT:" debug text from extracted values
+        for key, value in list(normalised.items()):
+            if isinstance(value, str) and value.startswith("From GT:"):
+                del normalised[key]
+
+        # Post-pass: clean single-letter fields with leading pipe/I noise
+        # "IN" → "N", "|N" → "N", "In" → "N" for short text fields
+        for key, value in list(normalised.items()):
+            sv = str(value).strip()
+            if len(sv) == 2 and sv[0] in ("I", "|", "i") and sv[1] in ("N", "n", "Y", "y"):
+                normalised[key] = sv[1].upper()
+            elif len(sv) == 3 and sv.startswith("In "):
+                normalised[key] = "N"
+
+        # Post-pass: convert "true"/"false" to "Y"/"N" for non-checkbox text fields
+        # that are likely Y/N flag fields (not indicators, not checkboxes)
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            if key in checkbox_fields or "indicator" in kl or kl.startswith("chk"):
+                continue  # Skip actual checkboxes
+            sv = str(value).strip().lower()
+            if sv in ("true", "false"):
+                # Check if schema says this is a text field (not checkbox/radio)
+                finfo = schema.fields.get(key) if schema else None
+                if finfo and finfo.field_type == "text":
+                    normalised[key] = "Y" if sv == "true" else "N"
+
+        # Post-pass: strip label prefix from values (e.g. "FEIN OR SOC SEC #" for NAICSCode)
+        for key, value in list(normalised.items()):
+            sv = str(value).strip()
+            if re.match(r'^[A-Z][A-Z\s#$&/]+$', sv) and len(sv) > 10:
+                # All-caps label text with special chars — likely a form label, not a value
+                # Only remove if field expects numeric-like content
+                kl = key.lower()
+                if any(x in kl for x in ("naicscode", "siccode", "naiscode")):
+                    del normalised[key]
+
+        # Post-pass: use schema default_value for sequential row-number fields
+        # (e.g. Driver_ProducerIdentifier_A default "1", _B default "2", etc.)
+        # When the extracted value doesn't look like a valid row number, use the default.
+        if schema:
+            for key, value in list(normalised.items()):
+                finfo = schema.fields.get(key)
+                if not finfo or not finfo.default_value:
+                    continue
+                expected_default = str(finfo.default_value)
+                # Only apply to simple numeric defaults (sequential row numbers)
+                if not expected_default.isdigit() or int(expected_default) > 20:
+                    continue
+                sv = str(value).strip()
+                if sv == expected_default:
+                    continue
+                # If extracted value is significantly longer than expected or contains
+                # non-numeric garbage, it's likely reading the wrong OCR region
+                if len(sv) > len(expected_default) + 2 or not sv.replace(".", "").isdigit():
+                    normalised[key] = expected_default
+
         return normalised
 
     @staticmethod
@@ -2767,13 +2855,32 @@ class ACORDExtractor:
         """Try to parse date and return MM/DD/YYYY; else None."""
         from datetime import datetime
         s = s.strip()
+        # Strip common noise: state prefix (e.g. "NC "), trailing Y/N flags, pipe chars
+        s_clean = re.sub(r'^[A-Z]{1,2}\s+', '', s)  # "NC 04/01/2022" → "04/01/2022"
+        s_clean = re.sub(r'\s*[|/\[\]]+\s*[YNyn]?\s*$', '', s_clean)  # trailing " | N"
+        s_clean = re.sub(r'\s*[YNyn]\s*$', '', s_clean)  # trailing " N" or "Y"
+        # Fix OCR: leading J/)/1/2 that should be 0 in month (J4 → 04, )2 → 02, 13 → 03)
+        m_ocr = re.match(r'^([J)\]]?)(\d)[/\-](\d{1,2})[/\-](\d{4})', s_clean)
+        if m_ocr and m_ocr.group(1):
+            s_clean = f"0{m_ocr.group(2)}/{m_ocr.group(3)}/{m_ocr.group(4)}"
+        # Fix OCR: leading digit that doubled the month (13 → 03, 18 → 08, 25 → 05)
+        m_dbl = re.match(r'^(\d)(\d)[/\-](\d{1,2})[/\-](\d{4})', s_clean)
+        if m_dbl:
+            first, second = int(m_dbl.group(1)), int(m_dbl.group(2))
+            candidate_mo = first * 10 + second
+            if candidate_mo > 12 and 1 <= second <= 9:
+                # The first digit is noise — try "0{second}" as month
+                s_clean = f"0{second}/{m_dbl.group(3)}/{m_dbl.group(4)}"
+        # Fix OCR: trailing E/C/: in year (201E → 2018? — can't know, just try 4 digits)
+        s_clean = re.sub(r'(\d{3})[ECec:;()\[\]]+\s*$', r'\g<1>0', s_clean)
+
         for fmt in ("%m/%d/%Y", "%m-%d-%Y", "%Y-%m-%d", "%d/%m/%Y", "%B %d, %Y", "%m/%d/%y"):
             try:
-                dt = datetime.strptime(s, fmt)
+                dt = datetime.strptime(s_clean, fmt)
                 return dt.strftime("%m/%d/%Y")
             except ValueError:
                 continue
-        m = re.search(r"(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})", s)
+        m = re.search(r"(\d{1,2})[/\-](\d{1,2})[/\-](\d{4})", s_clean)
         if m:
             try:
                 mo, day, yr = int(m.group(1)), int(m.group(2)), int(m.group(3))

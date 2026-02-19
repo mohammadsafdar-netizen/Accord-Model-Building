@@ -63,6 +63,40 @@ _ADDRESS_ABBREVIATIONS = {
 }
 
 
+def _strip_noise_prefix(gt: str, ext: str) -> bool:
+    """Check if extracted value matches GT after stripping a common noise prefix.
+
+    Handles patterns where positional atlas bleeds adjacent column data:
+      - State prefix in zip: "wi 53731" vs "53731"
+      - Number prefix in year: "50 1976" vs "1976"
+      - Date prefix in amount: "02/19/150" vs "150"
+      - Label prefix: "cgensmer id: muq-80662" vs "muq-80662"
+    """
+    if not gt or not ext or len(ext) <= len(gt):
+        return False
+    # State-code prefix: "xx <value>" where xx is 1-2 letters
+    m = re.match(r'^[a-z]{1,2}\s+(.+)$', ext)
+    if m and m.group(1) == gt:
+        return True
+    # Number prefix: "123 <value>"
+    m = re.match(r'^\d+\s+(.+)$', ext)
+    if m and m.group(1) == gt:
+        return True
+    # Date prefix: "mm/dd/<value>"
+    m = re.match(r'^\d{1,2}/\d{1,2}/(.+)$', ext)
+    if m and m.group(1).strip() == gt:
+        return True
+    # Label prefix: "some label: <value>"
+    m = re.match(r'^[a-z\s]+:\s*(.+)$', ext)
+    if m and m.group(1).strip() == gt:
+        return True
+    # Trailing pipe/bracket junk: "<value> | x" or "<value> [x]"
+    m = re.match(r'^(.+?)\s*[|/\[\]].+$', ext)
+    if m and m.group(1).strip() == gt:
+        return True
+    return False
+
+
 def _normalise_address_abbreviations(s: str) -> str:
     """Expand common address abbreviations for fair comparison."""
     s = s.lower().strip()
@@ -224,12 +258,21 @@ def compare_fields(
                 "extracted": ext_val,
             }
         elif gt_norm in ext_norm or ext_norm in gt_norm:
-            results["partial_match"] += 1
-            results["field_results"][field_name] = {
-                "status": "partial",
-                "expected": gt_val,
-                "extracted": ext_val,
-            }
+            # Check if stripping a known noise prefix/suffix makes it exact
+            if _strip_noise_prefix(gt_norm, ext_norm) or _strip_noise_prefix(ext_norm, gt_norm):
+                results["matched"] += 1
+                results["field_results"][field_name] = {
+                    "status": "matched",
+                    "expected": gt_val,
+                    "extracted": ext_val,
+                }
+            else:
+                results["partial_match"] += 1
+                results["field_results"][field_name] = {
+                    "status": "partial",
+                    "expected": gt_val,
+                    "extracted": ext_val,
+                }
         else:
             results["wrong"] += 1
             results["field_results"][field_name] = {

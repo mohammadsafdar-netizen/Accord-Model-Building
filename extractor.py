@@ -1248,9 +1248,8 @@ class ACORDExtractor:
             else:
                 print("    -> All cross-field checks passed")
 
-        # Smart checkbox default: only set "Off" for checkboxes where pixel analysis
-        # confirms the box is definitely empty (ratio < 0.05). This avoids the old
-        # problem of blindly defaulting ALL missing checkboxes to "Off".
+        # Smart checkbox pixel verification: use pixel analysis to both
+        # default empty checkboxes AND correct misclassified existing ones.
         if self.use_positional and schema.get_positioned_fields():
             checkbox_images = getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
             if checkbox_images:
@@ -1258,9 +1257,9 @@ class ACORDExtractor:
                 _pm = _PM()
                 offsets = _pm.compute_alignment(schema, page_bbox)
                 defaulted_off = 0
+                corrected_off = 0   # "1" overridden to "Off" (clearly empty)
+                corrected_on = 0    # "Off" overridden to "1" (clearly checked)
                 for fi in schema.get_positioned_fields():
-                    if fi.name in extracted:
-                        continue
                     if fi.field_type not in ("checkbox", "radio"):
                         continue
                     page_idx = fi.page
@@ -1272,12 +1271,34 @@ class ACORDExtractor:
                         fi.x_max + dx, fi.y_max + dy,
                         checkbox_images[page_idx],
                     )
-                    if ratio is not None and ratio < 0.05:
+                    if ratio is None:
+                        continue
+
+                    current = extracted.get(fi.name)
+                    if current is None:
+                        # Missing checkbox: default to "Off" if clearly empty
+                        if ratio < 0.05:
+                            extracted[fi.name] = "Off"
+                            field_sources[fi.name] = "pixel_empty"
+                            defaulted_off += 1
+                    elif str(current) == "1" and ratio < 0.08:
+                        # Ensemble says checked, but pixel says clearly empty → override
                         extracted[fi.name] = "Off"
-                        field_sources[fi.name] = "pixel_empty"
-                        defaulted_off += 1
+                        corrected_off += 1
+                    elif str(current) == "Off" and ratio > 0.35:
+                        # Ensemble says unchecked, but pixel says clearly checked → override
+                        extracted[fi.name] = "1"
+                        corrected_on += 1
+
+                msgs = []
                 if defaulted_off:
-                    print(f"  [PIXEL-OFF] Defaulted {defaulted_off} empty checkboxes to 'Off' (pixel ratio < 0.05)")
+                    msgs.append(f"{defaulted_off} empty→Off")
+                if corrected_off:
+                    msgs.append(f"{corrected_off} false-checked→Off")
+                if corrected_on:
+                    msgs.append(f"{corrected_on} false-unchecked→1")
+                if msgs:
+                    print(f"  [PIXEL-VERIFY] Checkbox pixel verification: {', '.join(msgs)}")
 
         # ---- Validate field names ----------------------------------------
         # Spatial fields are protected from schema validation (they use GT-matching names)

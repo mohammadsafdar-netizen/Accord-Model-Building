@@ -226,7 +226,7 @@
     },
     "marital[0]": {
       "name": "marital[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -512,7 +512,7 @@
     },
     "maritalstatus1[0]": {
       "name": "maritalstatus1[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -785,7 +785,7 @@
     },
     "maritalstatus2[0]": {
       "name": "maritalstatus2[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: S",
       "default_value": null,
       "category": "driver",
@@ -1058,7 +1058,7 @@
     },
     "maritalstatus3[0]": {
       "name": "maritalstatus3[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -1331,7 +1331,7 @@
     },
     "maritalstatus4[0]": {
       "name": "maritalstatus4[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -1591,7 +1591,7 @@
     },
     "maritalstatus5[0]": {
       "name": "maritalstatus5[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: S",
       "default_value": null,
       "category": "driver",
@@ -1864,7 +1864,7 @@
     },
     "maritalstatus6[0]": {
       "name": "maritalstatus6[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -2150,7 +2150,7 @@
     },
     "maritalstatus7[0]": {
       "name": "maritalstatus7[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -2423,7 +2423,7 @@
     },
     "maritalstatus8[0]": {
       "name": "maritalstatus8[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: M",
       "default_value": null,
       "category": "driver",
@@ -2683,7 +2683,7 @@
     },
     "maritalstatus9[0]": {
       "name": "maritalstatus9[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -2969,7 +2969,7 @@
     },
     "maritalstatus10[0]": {
       "name": "maritalstatus10[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: S",
       "default_value": null,
       "category": "driver",
@@ -3242,7 +3242,7 @@
     },
     "maritalstatus11[0]": {
       "name": "maritalstatus11[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: D",
       "default_value": null,
       "category": "driver",
@@ -3515,7 +3515,7 @@
     },
     "maritalstatus12[0]": {
       "name": "maritalstatus12[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -3775,7 +3775,7 @@
     },
     "maritalstatus13[0]": {
       "name": "maritalstatus13[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: M",
       "default_value": null,
       "category": "driver",
@@ -4048,7 +4048,7 @@
     },
     "maritalstatus14[0]": {
       "name": "maritalstatus14[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -4321,7 +4321,7 @@
     },
     "maritalstatus15[0]": {
       "name": "maritalstatus15[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -4594,7 +4594,7 @@
     },
     "maritalstatus16[0]": {
       "name": "maritalstatus16[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: S",
       "default_value": null,
       "category": "driver",
@@ -4880,7 +4880,7 @@
     },
     "maritalstatus17[0]": {
       "name": "maritalstatus17[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: D",
       "default_value": null,
       "category": "driver",
@@ -5140,7 +5140,7 @@
     },
     "maritalstatus18[0]": {
       "name": "maritalstatus18[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: W",
       "default_value": null,
       "category": "driver",
@@ -5426,7 +5426,7 @@
     },
     "maritalstatus19[0]": {
       "name": "maritalstatus19[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: S",
       "default_value": null,
       "category": "driver",
@@ -5686,7 +5686,7 @@
     },
     "maritalstatus20[0]": {
       "name": "maritalstatus20[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: D",
       "default_value": null,
       "category": "driver",
@@ -5959,7 +5959,7 @@
     },
     "maritalstatus21[0]": {
       "name": "maritalstatus21[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",
@@ -6245,7 +6245,7 @@
     },
     "maritalstatus22[0]": {
       "name": "maritalstatus22[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: M",
       "default_value": null,
       "category": "driver",
@@ -6518,7 +6518,7 @@
     },
     "maritalstatus23[0]": {
       "name": "maritalstatus23[0]",
-      "type": "radio",
+      "type": "text",
       "tooltip": "Sample: P",
       "default_value": null,
       "category": "driver",

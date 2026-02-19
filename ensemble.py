@@ -51,12 +51,12 @@ AGREEMENT_BOOST = 0.10
 # Field-type-aware confidence overrides (--smart-ensemble)
 FIELD_TYPE_WEIGHTS = {
     "checkbox": {
-        "positional_checkbox": 0.93, "vlm_checkbox_crop": 0.80,
+        "positional_checkbox": 0.88, "vlm_checkbox_crop": 0.87,
         "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
         "positional": 0.88, "vlm_extract": 0.55, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
     },
     "radio": {  # Same as checkbox
-        "positional_checkbox": 0.93, "vlm_checkbox_crop": 0.80,
+        "positional_checkbox": 0.88, "vlm_checkbox_crop": 0.87,
         "vision_checkbox": 0.90, "vlm_ocr": 0.88, "spatial": 0.85, "text_llm": 0.55,
         "positional": 0.88, "vlm_extract": 0.55, "label_value": 0.50, "semantic": 0.55, "gap_fill": 0.40,
     },

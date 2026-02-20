@@ -54,12 +54,41 @@ Page 1: Named Insured, Policy effective date, Insurer, NAIC code.
 Page 2+: Same layout for Truckers (_B) and Motor Carrier (_C). Coverage amounts and deductibles appear in fixed X regions; use BBox Y to match labels to values.
 VEHICLE SUFFIX: _A to _F for different vehicle/coverage rows."""
 
+ACORD_163_LAYOUT = """ACORD 163 - Contractors Supplement (Driver Schedule)
+This form contains a DENSE DRIVER TABLE with up to 24 driver rows.
+COLUMN ORDER (left to right in each row):
+  1. Driver # (sequential number)
+  2. Name (full name of driver)
+  3. Date of Birth (MM/DD/YYYY)
+  4. Sex (M or F, single letter)
+  5. Marital Status (single letter: S=Single, M=Married, P=Partner, W=Widowed, D=Divorced)
+  6. Middle Initial (single letter)
+  7. DL # (driver license number)
+  8. DL State (2-letter state code)
+  9. Year Licensed (4-digit year)
+  10. Street Address (full street address like "123 Main St")
+  11. City (city name ONLY — NOT combined with street)
+  12. State (2-letter state code for residence)
+  13. ZIP (5-digit postal code)
+  14. Date Hired (MM/DD/YYYY)
+  15. Good Student (Y or N)
+  16. Driver Training (Y or N)
+
+CRITICAL COLUMN SEPARATION RULES:
+- Street Address and City are SEPARATE COLUMNS. Do NOT merge them.
+- Street Address = house number + street name (e.g. "8153 Martin Park")
+- City = city name ONLY (e.g. "Madison", "Milwaukee")
+- Date fields contain ONLY dates. Do NOT append Y/N values to dates.
+- Y/N fields contain ONLY Y or N. Do NOT prepend dates to Y/N values.
+- Each field is in its own table cell. Read ONLY the content of that specific cell."""
+
 
 def _layout_hint(form_type: str) -> str:
     return {
         "125": ACORD_125_LAYOUT,
         "127": ACORD_127_LAYOUT,
         "137": ACORD_137_LAYOUT,
+        "163": ACORD_163_LAYOUT,
     }.get(form_type, "ACORD form. Header at top; sections labeled by headings.")
 
 
@@ -105,21 +134,41 @@ _CATEGORY_HINTS = {
         "Policy_EffectiveDate_A = PROPOSED EFF DATE in the policy block (proposed effective date). Do NOT confuse the two. "
         "Policy_Status_EffectiveTime_A = TIME only as 4-digit HHMM (e.g. 1000 for 10:00 AM). NEVER put a date in a time field. "
         "EffectiveTime / ExpirationTime when they are TIME (not date): use 4-digit HHMM only. "
+        "PRIOR COVERAGE TABLE: Suffix _A = FIRST/CURRENT year row, _B = SECOND year row, _C = THIRD year row. "
+        "Each row has its own insurer, policy number, dates, and premium amounts. "
+        "CRITICAL: Do NOT swap values between rows. Row _A values come from the FIRST data row, _B from the SECOND, _C from the THIRD. "
+        "Each line of business (General Liability, Auto, Property) has its own set of prior coverage rows. "
         "For any field with 'Indicator' in the name or schema type checkbox/radio: return only the string '1' (checked) or 'Off' (unchecked). Do not put dates, times, amounts, or addresses in these fields. "
         "Line of Business premium fields (e.g. GeneralLiabilityLineOfBusiness_TotalPremiumAmount_A) must be numeric dollar amounts only. LOB description or name goes in description fields, not in premium/amount fields."
     ),
     "driver": (
         "DRIVER fields from the driver table. Each row is one driver. "
         "Suffix _A = Driver #1, _B = Driver #2 ... _M = Driver #13. "
+        "CRITICAL: Each column is SEPARATE — do NOT mix values across columns. "
         "Use BBox row order (Y) for driver number and BBox X positions for columns: "
-        "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), Marital Status, DOB (~1080-1160), % Use (Use Veh #), DOC (Driver Other Car), Broadened No-Fault, License# (~1500-1620), License State (~1830). "
-        "Driver_Vehicle_UsePercent_* = percentage in '% Use' column (e.g. 100, 50). Driver_Coverage_DriverOtherCarCode_* and Driver_Coverage_BroadenedNoFaultCode_* = N/Y or 1/Off from DOC and Broadened No-Fault columns. "
-        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment. Do not put phone numbers or percentages in ZIP or License#; do not put ZIP in phone fields. Do NOT put % Use or ZIP in checkbox/indicator fields."
+        "First Name (~200-280), City (~285-500), Last Name/State (~560-700), Zip (~700-780), Sex (~850), Marital Status (~950), DOB (~1080-1160), % Use (~1200-1290), DOC (~1350), Broadened No-Fault (~1420), License# (~1500-1620), License State (~1830). "
+        "Driver_MailingAddress_PostalCode = 5-digit ZIP from the ZIP column ONLY (e.g. 28295, 46250). "
+        "Driver_Vehicle_UsePercent_* = percentage number ONLY (e.g. 100, 50, 70) — no % sign. "
+        "Driver_Coverage_DriverOtherCarCode_* = Y or N from the DOC column ONLY. "
+        "Driver_Coverage_BroadenedNoFaultCode_* = Y or N from the BR NO FAULT column ONLY. "
+        "Driver_ProducerIdentifier_* = the sequential driver number (1, 2, 3...) from the leftmost '#' column. "
+        "COMMON ERRORS TO AVOID: Do NOT put license numbers in ProducerIdentifier fields. "
+        "Do NOT put city postal codes in driver address postal codes from a different driver row. "
+        "Each driver row is independent — verify values come from the SAME horizontal row. "
+        "If a field's cell is EMPTY or BLANK on the form, do NOT extract it — omit it from the output. "
+        "Only extract values you can clearly read from the form. Do NOT guess or hallucinate values. "
+        "Docling may merge first name+city or state+zip; prefer BBox for correct assignment. "
+        "Do not put phone numbers or percentages in ZIP or License#. Do NOT put % Use or ZIP in checkbox/indicator fields."
     ),
     "vehicle": (
         "VEHICLE fields: Year, Make, Model, VIN, body type, GVW, cost new, "
         "radius of use, garaging location. Suffixes _A-_E (127) or _A-_F (137). "
-        "Business Auto Symbol and Indicator fields are checkboxes (1/Off); limits and deductibles are numeric."
+        "CRITICAL: Each vehicle ROW is independent — do NOT mix values across different vehicle rows. "
+        "Vehicle_ModelYear = 4-digit year from the YEAR column (e.g. 2020, 2019). "
+        "Do NOT confuse ModelYear with driver 'Year Licensed' from a different section. "
+        "Business Auto Symbol and Indicator fields are checkboxes (1/Off); limits and deductibles are numeric. "
+        "OtherSymbolCode fields contain the ACTUAL symbol number (1-9), NOT a checkbox value. "
+        "Read the specific digit in the 'Other' column, not the checkbox state."
     ),
     "coverage": (
         "COVERAGE fields: Business Auto symbols (1-9), liability limits, "
@@ -127,6 +176,9 @@ _CATEGORY_HINTS = {
         "Symbol values: 1=Any Auto, 2=Owned Autos Only, 7=Specifically Described, 8=Hired, 9=Non-Owned. "
         "Form 137: Vehicle_BusinessAutoSymbol_*Indicator and Vehicle_BusinessAutoSymbol_OtherSymbolCode are per vehicle row (_A to _F); use BBox to see which symbol column is marked. "
         "Business Auto Symbol and Indicator fields are CHECKBOXES: output only '1' or 'Off'. Limits and deductibles are numeric. "
+        "CRITICAL: Each coverage ROW corresponds to one suffix (_A, _B, _C...). Do NOT swap amounts between rows. "
+        "PerPersonLimitAmount is the FIRST limit (lower number), PerAccidentLimitAmount is the SECOND (higher or equal). "
+        "OtherSymbolCode fields contain the ACTUAL symbol digit (1-9), NOT a checkbox '1'/'Off' value. "
         "For any field with 'Indicator' in the name or schema type checkbox/radio: return only '1' (checked) or 'Off' (unchecked). Do not put dates, times, amounts, or addresses in these fields."
     ),
     "checkbox": (
@@ -999,6 +1051,14 @@ RULES:
 - Use EXACTLY these field key names. Do NOT rename.
 - Read values directly from the image for row #{driver_num}.
 - Dates: MM/DD/YYYY. Output ONLY valid JSON.
+- CRITICAL: Each column value must come from the SAME row #{driver_num}. Do NOT mix values from different rows.
+- If a cell is EMPTY or BLANK, do NOT extract that field — omit it entirely.
+- Only extract values you can clearly see in the image. Do NOT guess or hallucinate.
+- PostalCode must be a 5-digit ZIP code from the ZIP column (e.g. 28295, 46250).
+- ProducerIdentifier = the row number {driver_num} (simple sequential number).
+- UsePercent = a percentage NUMBER only (e.g. 100, 50, 70), no % sign.
+- DriverOtherCarCode = Y or N only, from the DOC column.
+- BroadenedNoFaultCode = Y or N only, from the BR NO FAULT column.
 
 JSON TEMPLATE:
 {json_tmpl}

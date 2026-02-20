@@ -185,6 +185,8 @@ class ACORDExtractor:
         use_glm_ocr: bool = False,
         use_nanonets_ocr: bool = False,
         knowledge_store: Optional[Any] = None,
+        generate_review: bool = False,
+        review_threshold: float = 0.85,
     ):
         self.ocr = ocr_engine
         self.llm = llm_engine
@@ -232,6 +234,9 @@ class ACORDExtractor:
         # VLM-OCR two-stage extraction (--glm-ocr / --nanonets-ocr)
         self.use_glm_ocr = use_glm_ocr and bool(getattr(llm_engine, "vlm_ocr_model", None))
         self.use_nanonets_ocr = use_nanonets_ocr and bool(getattr(llm_engine, "vlm_ocr_model", None))
+        # Confidence-based human review: flag low-confidence fields for correction
+        self.generate_review = generate_review
+        self.review_threshold = review_threshold
         # Lazy-initialized components
         self._semantic_matcher_cache: Dict[str, Any] = {}
         self._template_registry: Optional[Any] = None
@@ -1281,12 +1286,14 @@ class ACORDExtractor:
                             extracted[fi.name] = "Off"
                             field_sources[fi.name] = "pixel_empty"
                             defaulted_off += 1
-                    elif str(current) == "1" and ratio < 0.08:
+                    elif str(current) == "1" and ratio < 0.10:
                         # Ensemble says checked, but pixel says clearly empty → override
+                        # Raised from 0.08 to 0.10 to catch more false positives (ghost checks)
                         extracted[fi.name] = "Off"
                         corrected_off += 1
-                    elif str(current) in ("Off", "false", "False") and ratio > 0.35:
+                    elif str(current) in ("Off", "false", "False") and ratio > 0.28:
                         # Ensemble says unchecked, but pixel says clearly checked → override
+                        # Lowered from 0.35 to 0.28 to catch more faint/small checkmarks
                         extracted[fi.name] = "1"
                         corrected_on += 1
 
@@ -1318,6 +1325,24 @@ class ACORDExtractor:
             print(f"  [DEBUG] {pre_validation_count - post_validation_count} fields removed by schema validation")
             print(f"  [DEBUG] {post_validation_count} fields remaining after validation")
 
+        # ---- Effective confidence (always computed) ----
+        effective_confidence = self._compute_effective_confidence(
+            extracted, field_sources, field_confidence, ensemble_metadata,
+        )
+
+        # ---- Human review manifest (opt-in) ----
+        review_manifest = None
+        if self.generate_review:
+            review_manifest = self._generate_review_manifest(
+                extracted, effective_confidence, field_sources,
+                field_verified, ensemble_metadata, schema, bbox_plain,
+            )
+            summary = review_manifest["summary"]
+            print(f"\n  [REVIEW] {summary['fields_for_review']}/{summary['total_fields']} fields "
+                  f"flagged for review ({summary['review_rate_percent']}% review rate, "
+                  f"threshold={summary['review_threshold']})")
+            _save_json(review_manifest, output_dir / "review_manifest.json")
+
         # ---- Unload LLM from GPU (done with this form) -------------------
         self.llm.unload_model()
 
@@ -1329,21 +1354,26 @@ class ACORDExtractor:
         print(f"  Time: {elapsed:.1f}s")
         print(f"{'='*60}\n")
 
+        metadata = {
+            "form_type": form_type,
+            "source_pdf": str(pdf_path),
+            "fields_extracted": len(extracted),
+            "fields_verified": len(verified),
+            "field_sources": field_sources,
+            "field_verified": field_verified,
+            "field_confidence": field_confidence,
+            "effective_confidence": effective_confidence,
+            "total_schema_fields": schema.total_fields,
+            "pages": ocr_result.num_pages,
+            "extraction_time_seconds": round(elapsed, 2),
+            "model": self.llm.model,
+        }
+        if review_manifest is not None:
+            metadata["review_manifest"] = review_manifest
+
         return {
             "extracted_fields": extracted,
-            "metadata": {
-                "form_type": form_type,
-                "source_pdf": str(pdf_path),
-                "fields_extracted": len(extracted),
-                "fields_verified": len(verified),
-                "field_sources": field_sources,
-                "field_verified": field_verified,
-                "field_confidence": field_confidence,
-                "total_schema_fields": schema.total_fields,
-                "pages": ocr_result.num_pages,
-                "extraction_time_seconds": round(elapsed, 2),
-                "model": self.llm.model,
-            },
+            "metadata": metadata,
         }
 
     # ==================================================================
@@ -2551,6 +2581,146 @@ class ACORDExtractor:
         return all_result
 
     # ==================================================================
+    # Confidence-based human review
+    # ==================================================================
+
+    def _compute_effective_confidence(
+        self,
+        extracted: Dict[str, Any],
+        field_sources: Dict[str, str],
+        field_confidence: Dict[str, float],
+        ensemble_metadata: Optional[Dict[str, Any]],
+    ) -> Dict[str, float]:
+        """
+        Compute a unified effective confidence score (0-1) per field.
+
+        Combines ensemble confidence (when available) with BBox verification
+        into a single score. Always called; result stored in metadata.
+        """
+        from ensemble import SOURCE_CONFIDENCE
+
+        effective: Dict[str, float] = {}
+
+        for field_name in extracted:
+            bbox_conf = field_confidence.get(field_name, 0.5)
+
+            if ensemble_metadata and field_name in ensemble_metadata:
+                # Ensemble was used — start from ensemble confidence
+                ens_conf = ensemble_metadata[field_name]["confidence"]
+                # Demote if BBox verification disagrees
+                if bbox_conf < 0.7:
+                    ens_conf = min(ens_conf, 0.80)
+                effective[field_name] = round(ens_conf, 3)
+            else:
+                # No ensemble — synthesize from source confidence + BBox
+                source = field_sources.get(field_name, "text_llm")
+                src_conf = SOURCE_CONFIDENCE.get(source, 0.5)
+                score = src_conf * (0.5 + 0.5 * bbox_conf)
+                effective[field_name] = round(score, 3)
+
+        return effective
+
+    def _generate_review_manifest(
+        self,
+        extracted: Dict[str, Any],
+        effective_confidence: Dict[str, float],
+        field_sources: Dict[str, str],
+        field_verified: Dict[str, bool],
+        ensemble_metadata: Optional[Dict[str, Any]],
+        schema: Any,
+        bbox_plain: str,
+    ) -> Dict[str, Any]:
+        """
+        Generate a review manifest for fields below the review threshold.
+
+        Returns dict with 'summary' and 'fields' (sorted lowest confidence first).
+        """
+        review_fields = []
+
+        for field_name, value in extracted.items():
+            conf = effective_confidence.get(field_name, 0.0)
+            if conf >= self.review_threshold:
+                continue
+
+            source = field_sources.get(field_name, "unknown")
+            verified = field_verified.get(field_name, False)
+
+            # Get field type and category from schema
+            field_type = "text"
+            category = "general"
+            if schema:
+                field_info = schema.fields.get(field_name)
+                if field_info:
+                    field_type = getattr(field_info, "field_type", "text") or "text"
+                    category = getattr(field_info, "category", "general") or "general"
+
+            # Ensemble agreement info
+            agreement_count = 1
+            all_sources = [{"source": source, "value": str(value), "confidence": conf}]
+            if ensemble_metadata and field_name in ensemble_metadata:
+                em = ensemble_metadata[field_name]
+                agreement_count = em.get("agreement_count", 1)
+                all_sources = em.get("all_sources", all_sources)
+
+            ocr_snippet = self._find_ocr_snippet(str(value), bbox_plain)
+
+            review_fields.append({
+                "field_name": field_name,
+                "extracted_value": value,
+                "confidence": conf,
+                "source": source,
+                "verified_against_ocr": verified,
+                "field_type": field_type,
+                "category": category,
+                "ocr_snippet": ocr_snippet,
+                "agreement_count": agreement_count,
+                "all_sources": all_sources,
+            })
+
+        # Sort by confidence ascending (lowest first — most needs review)
+        review_fields.sort(key=lambda f: f["confidence"])
+
+        total = len(extracted)
+        review_count = len(review_fields)
+        review_rate = round(100.0 * review_count / total, 1) if total else 0.0
+
+        return {
+            "summary": {
+                "total_fields": total,
+                "fields_for_review": review_count,
+                "review_threshold": self.review_threshold,
+                "review_rate_percent": review_rate,
+            },
+            "fields": review_fields,
+        }
+
+    @staticmethod
+    def _find_ocr_snippet(value: str, bbox_plain: str, context_chars: int = 40) -> str:
+        """Extract ~80 chars of surrounding OCR text around a value match."""
+        if not value or not bbox_plain:
+            return ""
+        val_lower = value.lower().strip()
+        text_lower = bbox_plain.lower()
+        idx = text_lower.find(val_lower)
+        if idx < 0:
+            # Try first significant word
+            words = [w for w in val_lower.split() if len(w) > 2]
+            for w in words:
+                idx = text_lower.find(w)
+                if idx >= 0:
+                    break
+        if idx < 0:
+            return ""
+        start = max(0, idx - context_chars)
+        end = min(len(bbox_plain), idx + len(val_lower) + context_chars)
+        snippet = bbox_plain[start:end].strip()
+        if start > 0:
+            snippet = "..." + snippet
+        if end < len(bbox_plain):
+            snippet = snippet + "..."
+        return snippet
+
+    # ==================================================================
     # Verification
     # ==================================================================
 
@@ -2744,14 +2914,21 @@ class ACORDExtractor:
 
         # Post-pass: strip date prefix "MM/DD/" from non-date numeric fields
         # e.g. "02/19/150" → "150" for HiredCostAmount, VehicleCount, etc.
+        # Also handles "02/20/2026" → "2026" when field expects a simple number
         date_prefix_re = re.compile(r"^(\d{1,2}/\d{1,2}/)(\d+\.?\d*)$")
         for key, value in list(normalised.items()):
             kl = key.lower()
             if "date" in kl or "time" in kl:
                 continue  # Skip actual date/time fields
-            m = date_prefix_re.match(str(value).strip())
+            sv = str(value).strip()
+            m = date_prefix_re.match(sv)
             if m:
                 normalised[key] = m.group(2)
+            else:
+                # Also strip state prefix + date: "WI 02/20/150" → "150"
+                m2 = re.match(r"^[A-Z]{2}\s+\d{1,2}/\d{1,2}/(\d+\.?\d*)$", sv)
+                if m2:
+                    normalised[key] = m2.group(1)
 
         # Post-pass: validate StateOrProvinceCode fields against real US/CA codes
         _VALID_STATE_CODES = {
@@ -2808,6 +2985,44 @@ class ACORDExtractor:
                 if any(x in kl for x in ("naicscode", "siccode", "naiscode")):
                     del normalised[key]
 
+        # Post-pass: strip trailing "%" from percent/use fields
+        # e.g. "80%" → "80" for Driver_Vehicle_UsePercent_*
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            if "percent" in kl or "usepercent" in kl or "rate" in kl:
+                sv = str(value).strip()
+                if sv.endswith("%"):
+                    normalised[key] = sv[:-1].strip()
+
+        # Post-pass: fix street/city field boundary bleed
+        # Pattern: city field contains "street_text CityName" → extract just city
+        # Pattern: street field ends with city name appended without separator
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            sv = str(value).strip()
+            if "cityname" in kl or ("city" in kl and "address" not in kl):
+                # If city value looks like "1234 Street Name CityName", extract last word(s)
+                # Check if value starts with a number (street address pattern)
+                if re.match(r'^\d+\s+\w', sv):
+                    # Contains a street address — try to extract city from end
+                    # Look for common city patterns: word(s) after the last recognizable street element
+                    parts = sv.split()
+                    if len(parts) >= 3:
+                        # Heuristic: if last 1-2 words are alpha-only (no numbers), that's the city
+                        city_parts = []
+                        for p in reversed(parts):
+                            if p.isalpha():
+                                city_parts.insert(0, p)
+                            else:
+                                break
+                        if city_parts and len(city_parts) <= 3:
+                            normalised[key] = " ".join(city_parts)
+
+        # Post-pass: fix OtherSymbolCode fields that default to "1" incorrectly
+        # When a symbol code field has value "1" but is adjacent to checkbox "1" values,
+        # the LLM may be reading the checkbox state instead of the actual symbol number
+        # We can't easily fix this without spatial data, but we can flag suspicious values
+
         # Post-pass: use schema default_value for sequential row-number fields
         # (e.g. Driver_ProducerIdentifier_A default "1", _B default "2", etc.)
         # When the extracted value doesn't look like a valid row number, use the default.
@@ -2823,9 +3038,22 @@ class ACORDExtractor:
                 sv = str(value).strip()
                 if sv == expected_default:
                     continue
-                # If extracted value is significantly longer than expected or contains
-                # non-numeric garbage, it's likely reading the wrong OCR region
-                if len(sv) > len(expected_default) + 2 or not sv.replace(".", "").isdigit():
+                # If extracted value is non-numeric garbage, use default
+                if not sv.replace(".", "").isdigit():
+                    normalised[key] = expected_default
+                    continue
+                # For ProducerIdentifier fields, the value should be close to
+                # the expected sequential number (1-20). If the extracted number
+                # is way off (e.g. "31" when expecting "2"), use the default.
+                if "produceridentifier" in key.lower():
+                    try:
+                        extracted_num = int(sv)
+                        expected_num = int(expected_default)
+                        if extracted_num > 20 or abs(extracted_num - expected_num) > 3:
+                            normalised[key] = expected_default
+                    except ValueError:
+                        normalised[key] = expected_default
+                elif len(sv) > len(expected_default) + 2:
                     normalised[key] = expected_default
 
         return normalised

@@ -50,6 +50,14 @@ def parse_args():
     parser.add_argument("--lora-alpha", type=int, default=32, help="LoRA alpha (default: 32)")
     parser.add_argument("--resume", action="store_true", help="Resume from last checkpoint")
     parser.add_argument("--seed", type=int, default=42, help="Random seed (default: 42)")
+    parser.add_argument(
+        "--curriculum", action="store_true",
+        help="Enable multi-phase curriculum training (general → hard → error-specific)",
+    )
+    parser.add_argument(
+        "--curriculum-config", type=str, default=None,
+        help="Path to curriculum config JSON (default: built-in 3-phase config)",
+    )
     return parser.parse_args()
 
 
@@ -86,25 +94,8 @@ class ACORDVisionDataset(TorchDataset):
         }
 
 
-def main():
-    args = parse_args()
-
-    # ── Validate data exists ──
-    train_path = DATA_DIR / "train.jsonl"
-    val_path = DATA_DIR / "val.jsonl"
-    if not train_path.exists():
-        print("ERROR: Training data not found. Run prepare_dataset.py first.")
-        print(f"  Expected: {train_path}")
-        sys.exit(1)
-
-    # ── Load raw data ──
-    print("Loading datasets...")
-    train_dataset = ACORDVisionDataset(train_path)
-    val_dataset = ACORDVisionDataset(val_path) if val_path.exists() else None
-    print(f"  Train: {len(train_dataset)} examples")
-    print(f"  Val:   {len(val_dataset) if val_dataset else 0} examples")
-
-    # ── Import Unsloth (heavy imports) ──
+def _load_model_and_lora(args):
+    """Load model and apply LoRA adapters. Returns (model, tokenizer, FastVisionModel, is_bfloat16_supported, UnslothVisionDataCollator)."""
     print(f"\nLoading model: {MODEL_MAP[args.model]}...")
     from unsloth import FastVisionModel
     from unsloth.trainer import is_bfloat16_supported, UnslothVisionDataCollator
@@ -116,7 +107,6 @@ def main():
         use_gradient_checkpointing="unsloth",
     )
 
-    # ── Apply LoRA adapters ──
     print("Applying LoRA adapters...")
     model = FastVisionModel.get_peft_model(
         model,
@@ -134,6 +124,141 @@ def main():
         finetune_attention_modules=True,
         finetune_mlp_modules=True,
     )
+
+    return model, tokenizer, is_bfloat16_supported, UnslothVisionDataCollator
+
+
+def run_curriculum_training(model, tokenizer, args, config):
+    """Run multi-phase curriculum training.
+
+    Each phase creates a fresh SFTConfig + SFTTrainer with phase-specific
+    lr/epochs. The model stays in memory across phases (LoRA weights accumulate).
+    Phases whose data files don't exist are skipped with a warning.
+    """
+    from trl import SFTConfig, SFTTrainer
+    from unsloth.trainer import is_bfloat16_supported, UnslothVisionDataCollator
+
+    val_path = DATA_DIR / "val.jsonl"
+    val_dataset = ACORDVisionDataset(val_path) if val_path.exists() else None
+
+    print(f"\n{'='*60}")
+    print(f"  CURRICULUM TRAINING — {len(config.phases)} phases")
+    print(f"{'='*60}")
+
+    for phase_idx, phase in enumerate(config.phases):
+        print(f"\n{'─'*60}")
+        print(f"  Phase {phase_idx + 1}/{len(config.phases)}: {phase.name}")
+        print(f"  Data:   {phase.data_path}")
+        print(f"  Epochs: {phase.epochs}")
+        print(f"  LR:     {phase.lr}")
+        print(f"{'─'*60}")
+
+        if not phase.data_path.exists():
+            print(f"  WARNING: Data file not found, skipping phase: {phase.data_path}")
+            continue
+
+        train_dataset = ACORDVisionDataset(phase.data_path)
+        if len(train_dataset) == 0:
+            print(f"  WARNING: Empty dataset, skipping phase: {phase.data_path}")
+            continue
+
+        print(f"  Loaded {len(train_dataset)} training examples")
+
+        phase_output_dir = OUTPUT_DIR / f"phase_{phase_idx}_{phase.name}"
+        phase_output_dir.mkdir(parents=True, exist_ok=True)
+
+        total_steps = (len(train_dataset) * phase.epochs) // (args.batch_size * args.grad_accum)
+        warmup_steps = max(1, int(total_steps * phase.warmup_ratio))
+
+        training_args = SFTConfig(
+            output_dir=str(phase_output_dir),
+            per_device_train_batch_size=args.batch_size,
+            gradient_accumulation_steps=args.grad_accum,
+            learning_rate=phase.lr,
+            num_train_epochs=phase.epochs,
+            warmup_steps=warmup_steps,
+            lr_scheduler_type="cosine",
+            optim="adamw_8bit",
+            weight_decay=0.01,
+            fp16=not is_bfloat16_supported(),
+            bf16=is_bfloat16_supported(),
+            logging_steps=1,
+            save_strategy="epoch",
+            save_total_limit=2,
+            seed=args.seed,
+            max_seq_length=args.max_seq_len,
+            report_to="none",
+            remove_unused_columns=False,
+            dataset_text_field="",
+            dataset_kwargs={"skip_prepare_dataset": True},
+            dataloader_pin_memory=False,
+        )
+
+        trainer = SFTTrainer(
+            model=model,
+            tokenizer=tokenizer,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            data_collator=UnslothVisionDataCollator(model, tokenizer),
+        )
+
+        trainer.train()
+
+        # Save phase checkpoint
+        final_dir = phase_output_dir / "final"
+        print(f"  Saving phase checkpoint to {final_dir}...")
+        model.save_pretrained(str(final_dir))
+        tokenizer.save_pretrained(str(final_dir))
+
+        # Evaluate
+        if val_dataset is not None and len(val_dataset) > 0:
+            metrics = trainer.evaluate()
+            print(f"  Phase {phase.name} val loss: {metrics.get('eval_loss', 'N/A'):.4f}")
+
+    # Save final combined model
+    final_dir = OUTPUT_DIR / "final"
+    print(f"\nSaving final curriculum model to {final_dir}...")
+    model.save_pretrained(str(final_dir))
+    tokenizer.save_pretrained(str(final_dir))
+
+    print("\nCurriculum training complete!")
+
+
+def main():
+    args = parse_args()
+
+    # ── Curriculum mode ──
+    if args.curriculum:
+        from curriculum_config import CurriculumConfig
+
+        if args.curriculum_config:
+            config = CurriculumConfig.from_json(Path(args.curriculum_config))
+        else:
+            config = CurriculumConfig.default_3phase(DATA_DIR)
+
+        model, tokenizer, _, _ = _load_model_and_lora(args)
+        run_curriculum_training(model, tokenizer, args, config)
+        return
+
+    # ── Standard single-phase training ──
+
+    # ── Validate data exists ──
+    train_path = DATA_DIR / "train.jsonl"
+    val_path = DATA_DIR / "val.jsonl"
+    if not train_path.exists():
+        print("ERROR: Training data not found. Run prepare_dataset.py first.")
+        print(f"  Expected: {train_path}")
+        sys.exit(1)
+
+    # ── Load raw data ──
+    print("Loading datasets...")
+    train_dataset = ACORDVisionDataset(train_path)
+    val_dataset = ACORDVisionDataset(val_path) if val_path.exists() else None
+    print(f"  Train: {len(train_dataset)} examples")
+    print(f"  Val:   {len(val_dataset) if val_dataset else 0} examples")
+
+    model, tokenizer, is_bfloat16_supported, UnslothVisionDataCollator = _load_model_and_lora(args)
 
     # ── Configure training ──
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

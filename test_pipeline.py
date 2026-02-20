@@ -220,6 +220,8 @@ def run_single_form(
     use_glm_ocr: bool = False,
     use_nanonets_ocr: bool = False,
     knowledge_store: Optional[Any] = None,
+    generate_review: bool = False,
+    review_threshold: float = 0.85,
 ) -> Dict[str, Any]:
     """
     Run extraction on a single PDF, save all outputs, compare against GT.
@@ -270,6 +272,8 @@ def run_single_form(
         use_glm_ocr=use_glm_ocr,
         use_nanonets_ocr=use_nanonets_ocr,
         knowledge_store=knowledge_store,
+        generate_review=generate_review,
+        review_threshold=review_threshold,
     )
 
     start = time.time()
@@ -626,6 +630,15 @@ def main():
         "--stage2-model", type=str, default=None,
         help="Text LLM for stage 2 in VLM-OCR pipeline (default: same as --model)",
     )
+    # --- Human review flags ---
+    parser.add_argument(
+        "--generate-review", action="store_true",
+        help="Generate a review manifest flagging low-confidence fields for human correction.",
+    )
+    parser.add_argument(
+        "--review-threshold", type=float, default=0.85,
+        help="Confidence threshold below which fields are flagged for review (default: 0.85).",
+    )
     args = parser.parse_args()
 
     # ---- GPU + CPU offload: reserve VRAM and hint Ollama ----
@@ -827,6 +840,8 @@ def main():
                 use_glm_ocr=args.glm_ocr,
                 use_nanonets_ocr=args.nanonets_ocr,
                 knowledge_store=knowledge_store,
+                generate_review=args.generate_review,
+                review_threshold=args.review_threshold,
             )
             type_results.append(result)
 

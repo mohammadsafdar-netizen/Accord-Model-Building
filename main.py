@@ -251,6 +251,16 @@ Examples:
         help="Text LLM for stage 2 extraction in VLM-OCR pipeline (default: same as --model)",
     )
 
+    # --- Human review flags ---
+    parser.add_argument(
+        "--generate-review", action="store_true",
+        help="Generate a review manifest flagging low-confidence fields for human correction.",
+    )
+    parser.add_argument(
+        "--review-threshold", type=float, default=0.85,
+        help="Confidence threshold below which fields are flagged for review (default: 0.85).",
+    )
+
     args = parser.parse_args()
 
     if args.ollama_url is None:
@@ -355,6 +365,8 @@ Examples:
         use_glm_ocr=args.glm_ocr,
         use_nanonets_ocr=args.nanonets_ocr,
         knowledge_store=knowledge_store,
+        generate_review=args.generate_review,
+        review_threshold=args.review_threshold,
     )
 
     # --- Run extraction ---

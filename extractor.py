@@ -1084,6 +1084,91 @@ class ACORDExtractor:
                 ensemble.add_results("gap_fill", gap_result, confidence=0.50)
             print(f"    -> {new_count} additional fields recovered")
 
+        # ---- Targeted small-field recovery pass (Task #17) ----
+        # For missing small text fields (state codes, Y/N, single-char codes) that have
+        # positional data, search OCR bboxes for text blocks overlapping the field region.
+        # This catches fields that spatial/LLM passes missed due to narrow widget size.
+        if self.use_positional and schema and schema.get_positioned_fields():
+            _SMALL_FIELD_PATTERNS = (
+                "stateorprovincecode", "broadenednofaultcode", "driverothercarcode",
+                "sr22fr44", "usepercent", "symbolcode",
+            )
+            missing_small = []
+            for n in all_field_names:
+                if n in extracted:
+                    continue
+                fi = schema.fields.get(n)
+                if not fi or fi.field_type in ("checkbox", "radio"):
+                    continue
+                if fi.x_min is None or fi.x_max is None:
+                    continue
+                # Target small fields by widget width (< 80 pixels) or known patterns
+                field_width = fi.x_max - fi.x_min
+                nl = n.lower()
+                if field_width < 80 or any(pat in nl for pat in _SMALL_FIELD_PATTERNS):
+                    missing_small.append(fi)
+
+            if missing_small and page_bbox:
+                from positional_matcher import PositionalMatcher as _PM_recovery
+                _pm_r = _PM_recovery()
+                offsets_r = _pm_r.compute_alignment(schema, page_bbox)
+                recovered_small = 0
+                for fi in missing_small:
+                    page_idx = fi.page
+                    if page_idx is None or page_idx >= len(page_bbox):
+                        continue
+                    dx, dy = offsets_r[page_idx] if page_idx < len(offsets_r) else (0.0, 0.0)
+                    fx0 = fi.x_min + dx
+                    fy0 = fi.y_min + dy
+                    fx1 = fi.x_max + dx
+                    fy1 = fi.y_max + dy
+                    # Expand search region slightly for small fields
+                    pad_x = max(5, (fx1 - fx0) * 0.3)
+                    pad_y = max(3, (fy1 - fy0) * 0.2)
+                    # Search bbox data for text blocks in this region
+                    best_text = None
+                    best_dist = float("inf")
+                    for block in page_bbox[page_idx]:
+                        bx, by = block.get("x", 0), block.get("y", 0)
+                        bw = block.get("w", 0)
+                        bh = block.get("h", 0)
+                        bx1 = bx + bw
+                        by1 = by + bh
+                        # Check if block center is within expanded field region
+                        bcx = (bx + bx1) / 2
+                        bcy = (by + by1) / 2
+                        if fx0 - pad_x <= bcx <= fx1 + pad_x and fy0 - pad_y <= bcy <= fy1 + pad_y:
+                            text = block.get("text", "").strip()
+                            if not text or len(text) > 20:
+                                continue
+                            # Prefer blocks closer to field center
+                            fcx = (fx0 + fx1) / 2
+                            fcy = (fy0 + fy1) / 2
+                            dist = ((bcx - fcx) ** 2 + (bcy - fcy) ** 2) ** 0.5
+                            if dist < best_dist:
+                                best_dist = dist
+                                best_text = text
+                    if best_text:
+                        # Validate: for state codes, must be 2-letter alpha
+                        nl = fi.name.lower()
+                        if "stateorprovincecode" in nl:
+                            if len(best_text) == 2 and best_text.isalpha():
+                                extracted[fi.name] = best_text.upper()
+                                field_sources[fi.name] = "small_field_recovery"
+                                recovered_small += 1
+                        elif "usepercent" in nl:
+                            digits = re.sub(r"[^\d]", "", best_text)
+                            if digits and 0 <= int(digits) <= 100:
+                                extracted[fi.name] = digits
+                                field_sources[fi.name] = "small_field_recovery"
+                                recovered_small += 1
+                        else:
+                            extracted[fi.name] = best_text
+                            field_sources[fi.name] = "small_field_recovery"
+                            recovered_small += 1
+                if recovered_small:
+                    print(f"  [SMALL-FIELD] Recovered {recovered_small} small text fields via positional search")
+
         # ---- VLM checkbox pass (after text LLM, before ensemble) ----
         # Only for truly missing checkboxes — do NOT override existing positional results
         vlm_loaded = False
@@ -1253,8 +1338,9 @@ class ACORDExtractor:
             else:
                 print("    -> All cross-field checks passed")
 
-        # Smart checkbox pixel verification: use pixel analysis to both
-        # default empty checkboxes AND correct misclassified existing ones.
+        # Smart checkbox pixel verification with multi-resolution (Task #15):
+        # Use pixel analysis at 1x and 2x zoom to verify checkbox states.
+        # Ambiguous cases (ratio between clear thresholds) get a 2x zoom re-check.
         if self.use_positional and schema.get_positioned_fields():
             checkbox_images = getattr(ocr_result, 'clean_image_paths', None) or getattr(ocr_result, 'image_paths', [])
             if checkbox_images:
@@ -1264,6 +1350,7 @@ class ACORDExtractor:
                 defaulted_off = 0
                 corrected_off = 0   # "1" overridden to "Off" (clearly empty)
                 corrected_on = 0    # "Off" overridden to "1" (clearly checked)
+                zoom_resolved = 0   # Ambiguous at 1x, resolved by 2x zoom
                 for fi in schema.get_positioned_fields():
                     if fi.field_type not in ("checkbox", "radio"):
                         continue
@@ -1271,15 +1358,54 @@ class ACORDExtractor:
                     if page_idx >= len(checkbox_images):
                         continue
                     dx, dy = offsets[page_idx] if page_idx < len(offsets) else (0.0, 0.0)
+                    fx0 = fi.x_min + dx
+                    fy0 = fi.y_min + dy
+                    fx1 = fi.x_max + dx
+                    fy1 = fi.y_max + dy
                     ratio = _pm._get_checkbox_pixel_ratio(
-                        fi.x_min + dx, fi.y_min + dy,
-                        fi.x_max + dx, fi.y_max + dy,
+                        fx0, fy0, fx1, fy1,
                         checkbox_images[page_idx],
                     )
                     if ratio is None:
                         continue
 
                     current = extracted.get(fi.name)
+
+                    # Multi-resolution: for ambiguous ratios (0.10-0.28), do 2x zoom re-check
+                    # by expanding the crop region and using tighter thresholds
+                    if 0.10 <= ratio <= 0.28:
+                        # Expand crop by 50% in each direction for better context
+                        w = fx1 - fx0
+                        h = fy1 - fy0
+                        zoom_ratio = _pm._get_checkbox_pixel_ratio(
+                            fx0 - w * 0.25, fy0 - h * 0.25,
+                            fx1 + w * 0.25, fy1 + h * 0.25,
+                            checkbox_images[page_idx],
+                        )
+                        if zoom_ratio is not None:
+                            # Use the average of both ratios for more stable decision
+                            avg_ratio = (ratio + zoom_ratio) / 2
+                            if current is None:
+                                if avg_ratio < 0.08:
+                                    extracted[fi.name] = "Off"
+                                    field_sources[fi.name] = "pixel_empty"
+                                    defaulted_off += 1
+                                    zoom_resolved += 1
+                                elif avg_ratio > 0.20:
+                                    extracted[fi.name] = "1"
+                                    field_sources[fi.name] = "pixel_zoom"
+                                    corrected_on += 1
+                                    zoom_resolved += 1
+                            elif str(current) == "1" and avg_ratio < 0.08:
+                                extracted[fi.name] = "Off"
+                                corrected_off += 1
+                                zoom_resolved += 1
+                            elif str(current) in ("Off", "false", "False") and avg_ratio > 0.20:
+                                extracted[fi.name] = "1"
+                                corrected_on += 1
+                                zoom_resolved += 1
+                            continue  # Handled by zoom path
+
                     if current is None:
                         # Missing checkbox: default to "Off" if clearly empty
                         if ratio < 0.05:
@@ -1288,12 +1414,10 @@ class ACORDExtractor:
                             defaulted_off += 1
                     elif str(current) == "1" and ratio < 0.10:
                         # Ensemble says checked, but pixel says clearly empty → override
-                        # Raised from 0.08 to 0.10 to catch more false positives (ghost checks)
                         extracted[fi.name] = "Off"
                         corrected_off += 1
                     elif str(current) in ("Off", "false", "False") and ratio > 0.28:
                         # Ensemble says unchecked, but pixel says clearly checked → override
-                        # Lowered from 0.35 to 0.28 to catch more faint/small checkmarks
                         extracted[fi.name] = "1"
                         corrected_on += 1
 
@@ -1304,6 +1428,8 @@ class ACORDExtractor:
                     msgs.append(f"{corrected_off} false-checked→Off")
                 if corrected_on:
                     msgs.append(f"{corrected_on} false-unchecked→1")
+                if zoom_resolved:
+                    msgs.append(f"{zoom_resolved} resolved-by-zoom")
                 if msgs:
                     print(f"  [PIXEL-VERIFY] Checkbox pixel verification: {', '.join(msgs)}")
 
@@ -2367,8 +2493,8 @@ class ACORDExtractor:
         # Build dynamic column map from spatial analysis (page 1)
         column_map = self._detect_driver_columns(ocr_result)
 
-        # Pre-extract driver table rows from spatial index
-        driver_rows = self._extract_driver_table_rows(ocr_result)
+        # Pre-extract driver table rows from spatial index (with column alignment)
+        driver_rows = self._extract_driver_table_rows(ocr_result, column_map=column_map)
 
         for suffix_key in sorted(suffix_groups.keys()):
             if suffix_key == "_NONE":
@@ -2406,15 +2532,22 @@ class ACORDExtractor:
         return all_drivers
 
     def _extract_driver_table_rows(
-        self, ocr_result: OCRResult
+        self, ocr_result: OCRResult, column_map: Optional[Dict[str, int]] = None,
     ) -> Dict[int, str]:
         """
         Pre-extract driver table rows from spatial data.
-        
+
         Returns {driver_num: formatted_row_text} for each detected driver row.
+        When column_map is provided, labels each value with its column name
+        for structured table extraction (Task #18).
         """
         if not ocr_result.spatial_indices:
             return {}
+
+        # Build sorted column boundaries for column-to-value assignment
+        sorted_cols: List[Tuple[str, int]] = []
+        if column_map:
+            sorted_cols = sorted(column_map.items(), key=lambda t: t[1])
 
         # Driver table is typically on page 1 (maybe page 2 for long forms)
         driver_rows: Dict[int, str] = {}
@@ -2442,11 +2575,35 @@ class ACORDExtractor:
                     else:
                         driver_num = row_idx + 1
 
-                # Format row as: "text1 [X=pos1] | text2 [X=pos2] | ..."
-                parts = []
-                for block in sorted(row.blocks, key=lambda b: b.x):
-                    parts.append(f"{block.text} [X={block.x}]")
-                row_text = " | ".join(parts)
+                sorted_blocks = sorted(row.blocks, key=lambda b: b.x)
+
+                # Enhanced: assign each block to nearest column header
+                if sorted_cols:
+                    parts = []
+                    for block in sorted_blocks:
+                        text = block.text.strip()
+                        if not text:
+                            continue
+                        # Find nearest column by X position
+                        best_col = None
+                        best_dist = float("inf")
+                        for col_name, col_x in sorted_cols:
+                            dist = abs(block.x - col_x)
+                            if dist < best_dist:
+                                best_dist = dist
+                                best_col = col_name
+                        if best_col and best_dist < 150:
+                            parts.append(f"{best_col}={text}")
+                        else:
+                            parts.append(f"{text} [X={block.x}]")
+                    row_text = " | ".join(parts)
+                else:
+                    # Fallback: raw position-based format
+                    parts = []
+                    for block in sorted_blocks:
+                        parts.append(f"{block.text} [X={block.x}]")
+                    row_text = " | ".join(parts)
+
                 driver_rows[driver_num] = row_text
 
         return driver_rows
@@ -3055,6 +3212,155 @@ class ACORDExtractor:
                         normalised[key] = expected_default
                 elif len(sv) > len(expected_default) + 2:
                     normalised[key] = expected_default
+
+        # Post-pass: Tooltip/instruction text filtering (Task #12)
+        # Detect extracted values that are actually form instructions/tooltips
+        # e.g. "Enter Y for Yes or N for No" instead of actual "Y" or "N"
+        _INSTRUCTION_PATTERNS = [
+            re.compile(r"^enter\s+", re.IGNORECASE),                      # "Enter Y for..."
+            re.compile(r"^type\s+or\s+print", re.IGNORECASE),            # "Type or print..."
+            re.compile(r"^if\s+(yes|applicable|any)", re.IGNORECASE),     # "If yes, explain..."
+            re.compile(r"^please\s+(enter|provide|list)", re.IGNORECASE), # "Please enter..."
+            re.compile(r"^check\s+(if|box|all)", re.IGNORECASE),          # "Check if applicable"
+            re.compile(r"^see\s+(attached|page|reverse)", re.IGNORECASE), # "See attached..."
+            re.compile(r"^complete\s+(if|this|section)", re.IGNORECASE),  # "Complete if..."
+            re.compile(r"^describe\s+(the|any|all)", re.IGNORECASE),      # "Describe the..."
+            re.compile(r"^attach\s+(a|additional|copy)", re.IGNORECASE),  # "Attach a copy..."
+            re.compile(r"^list\s+(all|each|the)", re.IGNORECASE),         # "List all..."
+            re.compile(r"^\(?\s*mm\s*/\s*dd\s*/\s*yyyy\s*\)?$", re.IGNORECASE),  # "(MM/DD/YYYY)"
+            re.compile(r"^\(?\s*hh\s*:?\s*mm\s*\)?$", re.IGNORECASE),    # "(HH:MM)"
+        ]
+        for key, value in list(normalised.items()):
+            sv = str(value).strip()
+            if len(sv) < 8:
+                continue  # Short values are unlikely to be instructions
+            for pat in _INSTRUCTION_PATTERNS:
+                if pat.search(sv):
+                    del normalised[key]
+                    break
+
+        # Post-pass: Expanded value format normalization (Task #13)
+        # Split combined limits like "1000000/2000000" into separate fields
+        # Strip ACV suffix, dollar signs from non-amount fields, stray punctuation
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            sv = str(value).strip()
+
+            # Strip "ACV" or "Actual Cash Value" suffix from limit/deductible fields
+            if any(x in kl for x in ("limit", "deductible", "amount")) and "count" not in kl:
+                sv_clean = re.sub(r"\s*\(?ACV\)?\s*$", "", sv, flags=re.IGNORECASE)
+                sv_clean = re.sub(r"\s*Actual\s+Cash\s+Value\s*$", "", sv_clean, flags=re.IGNORECASE)
+                if sv_clean != sv:
+                    normalised[key] = sv_clean.strip()
+
+            # Strip stray dollar sign from non-amount text fields
+            if "amount" not in kl and "limit" not in kl and "premium" not in kl and "deductible" not in kl:
+                if sv.startswith("$"):
+                    normalised[key] = sv[1:].strip()
+
+            # Strip "per occurrence" / "per accident" suffixes from limit fields
+            if any(x in kl for x in ("limit", "deductible")):
+                sv2 = str(normalised.get(key, sv))
+                sv2_clean = re.sub(
+                    r"\s*\(?\s*per\s+(occurrence|accident|person|claim)\s*\)?\s*$",
+                    "", sv2, flags=re.IGNORECASE,
+                )
+                if sv2_clean != sv2:
+                    normalised[key] = sv2_clean.strip()
+
+        # Post-pass: Cross-section plausibility validation (Task #14)
+        # Catch implausible values from cross-section bleed (wrong row/column data)
+        current_year = 2026  # Avoid import overhead
+        for key, value in list(normalised.items()):
+            kl = key.lower()
+            sv = str(value).strip()
+
+            # Vehicle ModelYear: must be 4 digits, 1950-current_year+2
+            if "modelyear" in kl or ("vehicle" in kl and "year" in kl):
+                digits = re.sub(r"[^\d]", "", sv)
+                if digits and len(digits) == 4:
+                    yr = int(digits)
+                    if yr < 1950 or yr > current_year + 2:
+                        del normalised[key]  # Implausible year — remove
+                elif digits and len(digits) != 4:
+                    del normalised[key]  # Not a valid year format
+
+            # PostalCode: must be 5 or 9 digits (US) or A1A 1A1 (CA)
+            if "postalcode" in kl:
+                digits = re.sub(r"[^\d]", "", sv)
+                # Allow 5-digit ZIP, 9-digit ZIP+4, or Canadian postal code
+                if digits and len(digits) not in (5, 9):
+                    # Check for Canadian format
+                    if not re.match(r'^[A-Z]\d[A-Z]\s?\d[A-Z]\d$', sv, re.IGNORECASE):
+                        # Not a valid postal code format — if it's numeric garbage, remove
+                        if len(digits) < 5 and digits:
+                            del normalised[key]
+
+            # UsePercent: must be 0-100
+            if "usepercent" in kl or ("percent" in kl and "use" in kl):
+                try:
+                    pct = float(sv)
+                    if pct < 0 or pct > 100:
+                        del normalised[key]
+                except ValueError:
+                    pass
+
+            # NAIC code: exactly 5 digits
+            if "naic" in kl and "code" not in kl:
+                # naic field directly
+                digits = re.sub(r"[^\d]", "", sv)
+                if digits and len(digits) != 5:
+                    del normalised[key]
+
+            # Phone: must be 10 or 11 digits
+            if any(x in kl for x in ("phone", "fax", "telephone")):
+                digits = re.sub(r"[^\d]", "", sv)
+                if digits and len(digits) not in (0, 7, 10, 11):
+                    # Could be a date or other junk bleeding into phone field
+                    if len(digits) < 7:
+                        del normalised[key]
+
+        # Post-pass: Positional boundary enforcement for text fields (Task #16)
+        # Use schema field positions to detect values that are too long for their
+        # widget width — indicating bleed from adjacent fields.
+        if schema:
+            for key, value in list(normalised.items()):
+                finfo = schema.fields.get(key)
+                if not finfo or finfo.field_type in ("checkbox", "radio"):
+                    continue
+                if finfo.x_min is None or finfo.x_max is None:
+                    continue
+                sv = str(value).strip()
+                if not sv:
+                    continue
+                # Estimate expected max chars from field widget width
+                # Typical form field: ~7 pixels per character at 150 DPI
+                field_width = finfo.x_max - finfo.x_min
+                if field_width <= 0:
+                    continue
+                estimated_max_chars = int(field_width / 6)  # ~6px per char
+                if estimated_max_chars < 5:
+                    estimated_max_chars = 5  # Minimum reasonable
+                # If value is > 2x expected width, likely contains bleed
+                if len(sv) > estimated_max_chars * 2 and len(sv) > 30:
+                    kl = key.lower()
+                    # Don't trim address/remarks/description fields (naturally long)
+                    if any(x in kl for x in ("address", "remark", "description", "lineone",
+                                              "linetwo", "fullname", "explanation")):
+                        continue
+                    # For state codes, take only first 2 chars
+                    if "stateorprovincecode" in kl and len(sv) > 2:
+                        parts = sv.split()
+                        if parts and len(parts[0]) == 2 and parts[0].isalpha():
+                            normalised[key] = parts[0].upper()
+                            continue
+                    # For short-code fields (Y/N, single char), take first char
+                    if any(x in kl for x in ("code", "type")) and len(sv) > 10:
+                        # Don't trim NAIC codes (5 digits) or policy numbers
+                        if "naic" not in kl and "policy" not in kl and "number" not in kl:
+                            first_word = sv.split()[0] if sv.split() else sv
+                            if len(first_word) <= 5:
+                                normalised[key] = first_word
 
         return normalised
 

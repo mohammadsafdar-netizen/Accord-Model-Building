@@ -528,24 +528,40 @@ def main():
         help="Enable AcroForm as extraction source (default: off, scanned-image mode)",
     )
     parser.add_argument(
-        "--use-positional", action="store_true",
-        help="Enable positional atlas matching (geometric field mapping from enriched schemas)",
+        "--use-positional", action="store_true", default=True,
+        help="Enable positional atlas matching (default: on)",
+    )
+    parser.add_argument(
+        "--no-positional", action="store_false", dest="use_positional",
+        help="Disable positional atlas matching.",
     )
     parser.add_argument(
         "--docling", action="store_true",
         help="Run Docling OCR (alias for consistency with main.py; always on in test_pipeline)",
     )
     parser.add_argument(
-        "--text-llm", action="store_true",
-        help="Run text LLM (on by default unless --vlm-extract used; pass both for combined mode)",
+        "--text-llm", action="store_true", default=True,
+        help="Run text LLM (default: on).",
     )
     parser.add_argument(
-        "--vlm-extract", action="store_true",
-        help="Direct VLM extraction from page images (can combine with --text-llm --ensemble)",
+        "--no-text-llm", action="store_false", dest="text_llm",
+        help="Disable text LLM pass.",
     )
     parser.add_argument(
-        "--vlm-extract-model", type=str, default="qwen3-vl:8b",
-        help="Ollama VLM for --vlm-extract (default: qwen3-vl:8b)",
+        "--vlm-extract", action="store_true", default=True,
+        help="Direct VLM extraction from page images (default: on)",
+    )
+    parser.add_argument(
+        "--no-vlm-extract", action="store_false", dest="vlm_extract",
+        help="Disable VLM direct extraction.",
+    )
+    parser.add_argument(
+        "--vlm-extract-model", type=str, default="acord-vlm",
+        help="VLM for --vlm-extract (default: acord-vlm)",
+    )
+    parser.add_argument(
+        "--vllm-base-url", type=str, default=None,
+        help="vLLM OpenAI-compatible base URL (e.g. http://localhost:8000). Routes all VLM image calls through vLLM.",
     )
     parser.add_argument(
         "--preprocess", action="store_true",
@@ -560,8 +576,12 @@ def main():
         help="Align scanned images to canonical template via SIFT feature matching",
     )
     parser.add_argument(
-        "--smart-ensemble", action="store_true",
-        help="Enable field-type-aware ensemble weighting (implies --ensemble)",
+        "--smart-ensemble", action="store_true", default=True,
+        help="Enable field-type-aware ensemble weighting (default: on, implies --ensemble)",
+    )
+    parser.add_argument(
+        "--no-smart-ensemble", action="store_false", dest="smart_ensemble",
+        help="Disable smart ensemble.",
     )
     parser.add_argument(
         "--validate-fields", action="store_true",
@@ -589,8 +609,12 @@ def main():
         help="Max concurrent VLM API calls when parallel VLM is enabled (default: 3)",
     )
     parser.add_argument(
-        "--multimodal", action="store_true",
-        help="Enable multimodal extraction (send image + OCR text to VLM together)",
+        "--multimodal", action="store_true", default=True,
+        help="Enable multimodal extraction (default: on)",
+    )
+    parser.add_argument(
+        "--no-multimodal", action="store_false", dest="multimodal",
+        help="Disable multimodal extraction.",
     )
     parser.add_argument(
         "--no-confidence-routing", action="store_true",
@@ -764,6 +788,7 @@ def main():
         unload_wait_seconds=args.unload_wait,
         keep_models_loaded=not args.no_keep_models_loaded,
         structured_json=not args.no_structured_json,
+        vllm_base_url=args.vllm_base_url,
     )
     schemas_dir = get_schemas_dir()
     registry = SchemaRegistry(schemas_dir=schemas_dir)

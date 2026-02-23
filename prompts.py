@@ -1008,16 +1008,25 @@ def build_vlm_extract_driver_prompt(
     suffix: str,
     field_names: List[str],
     tooltips: Dict[str, str],
+    row_position: Optional[str] = None,
 ) -> str:
     """
     VLM direct extract prompt for a single driver row from the driver table.
 
     The VLM reads the form image directly and extracts fields for one driver.
+
+    Args:
+        row_position: Optional hint like "UPPER", "MIDDLE", "LOWER" for spatial grounding.
     """
     field_block = _format_fields_with_tooltips(field_names, tooltips)
     json_tmpl = _json_template(field_names)
 
+    position_hint = ""
+    if row_position:
+        position_hint = f"\nNOTE: This driver row is in the {row_position} section of the driver table. The image has been cropped to show only this row.\n"
+
     prompt = f"""Look at this ACORD 127 form image. Find the DRIVER INFORMATION TABLE and extract data for DRIVER #{driver_num} (suffix _{suffix}).
+{position_hint}
 
 DRIVER TABLE COLUMN ORDER (left to right):
   1. Driver # (row number)
@@ -1111,6 +1120,68 @@ RULES:
 - Business Auto Symbol and Indicator fields are CHECKBOXES: "1" or "Off" only.
 - Limits and deductibles are numeric dollar amounts.
 - Read values directly from the image. Output ONLY valid JSON.
+
+JSON TEMPLATE:
+{json_tmpl}
+
+Return ONLY valid JSON. No explanation, no markdown fences:
+"""
+    return prompt
+
+
+def build_vlm_extract_163_row_prompt(
+    row_num: int,
+    field_names: List[str],
+    tooltips: Dict[str, str],
+) -> str:
+    """
+    VLM direct extract prompt for a single driver row from Form 163's dense driver table.
+
+    The image should be cropped to show only this row. The VLM reads the cropped
+    row image and extracts fields for one driver.
+    """
+    field_block = _format_fields_with_tooltips(field_names, tooltips)
+    json_tmpl = _json_template(field_names)
+
+    prompt = f"""Look at this cropped row from an ACORD 163 form (Contractors Supplement - Driver Schedule).
+This image shows ONLY driver row #{row_num}. Extract the fields for this single driver.
+
+COLUMN ORDER (left to right in this row):
+  1. Driver # (sequential number)
+  2. Name (full name of driver)
+  3. Date of Birth (MM/DD/YYYY)
+  4. Sex (M or F ONLY — single letter)
+  5. Marital Status (single letter ONLY: S=Single, M=Married, P=Partner, W=Widowed, D=Divorced)
+  6. Middle Initial (single letter)
+  7. DL # (driver license number — alphanumeric)
+  8. DL State (2-letter state code)
+  9. Year Licensed (4-digit year)
+  10. Street Address (house number + street name)
+  11. City (city name ONLY — NOT combined with street)
+  12. State (2-letter state code for residence)
+  13. ZIP (5-digit postal code)
+  14. Date Hired (MM/DD/YYYY)
+  15. Good Student (Y or N)
+  16. Driver Training (Y or N)
+
+CRITICAL COLUMN SEPARATION RULES:
+- MaritalStatus = SINGLE LETTER ONLY (S, M, P, W, or D). Not a name, not a word.
+- Sex = SINGLE LETTER ONLY (M or F). Not a name, not a word.
+- State = 2-letter code ONLY (WI, IN, CA, etc.). Not a name.
+- Street Address and City are SEPARATE COLUMNS. Do NOT merge them.
+- Each value comes from its own cell/column. Do NOT combine adjacent columns.
+- Date fields contain ONLY dates (MM/DD/YYYY). Do NOT append Y/N values to dates.
+- Y/N fields contain ONLY Y or N. Do NOT prepend dates to Y/N values.
+
+FIELDS TO EXTRACT:
+{field_block}
+
+RULES:
+- Use EXACTLY these field key names. Do NOT rename or invent keys.
+- Read values directly from the cropped row image.
+- Dates: MM/DD/YYYY format.
+- If a cell is EMPTY or BLANK, omit that field entirely.
+- Only extract what you can clearly read. Do NOT guess.
 
 JSON TEMPLATE:
 {json_tmpl}

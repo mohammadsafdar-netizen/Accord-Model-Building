@@ -46,6 +46,7 @@ from prompts import (
     build_vlm_extract_prompt,
     build_vlm_extract_driver_prompt,
     build_vlm_extract_vehicle_prompt,
+    build_vlm_extract_163_row_prompt,
     build_multimodal_extract_prompt,
     build_checkbox_crop_prompt,
     build_checkbox_grid_prompt,
@@ -1666,6 +1667,35 @@ class ACORDExtractor:
                     return b
         return None
 
+    @staticmethod
+    def _crop_row_image(image_path: Path, y_min: float, y_max: float, padding: int = 30) -> Path:
+        """Crop a page image to a horizontal band (full width) and save to a temp file.
+
+        Used to isolate individual driver rows for focused VLM extraction.
+
+        Args:
+            image_path: Path to the full page image.
+            y_min: Top Y coordinate of the row region.
+            y_max: Bottom Y coordinate of the row region.
+            padding: Extra pixels above and below the row.
+
+        Returns:
+            Path to the cropped temporary image file.
+        """
+        import tempfile
+        from PIL import Image
+
+        img = Image.open(image_path)
+        w, h = img.size
+        top = max(0, int(y_min) - padding)
+        bottom = min(h, int(y_max) + padding)
+        cropped = img.crop((0, top, w, bottom))
+
+        tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+        cropped.save(tmp.name)
+        tmp.close()
+        return Path(tmp.name)
+
     def _exec_vlm_task(
         self,
         prompt: str,
@@ -1773,7 +1803,7 @@ class ACORDExtractor:
             for fname in page_fields:
                 fi = schema.fields.get(fname)
                 cat = fi.category if fi else None
-                if cat == "driver" and form_type == "127":
+                if cat == "driver" and form_type in ("127", "163"):
                     driver_fields.append(fname)
                 elif cat in ("vehicle", "coverage"):
                     vehicle_fields.append(fname)
@@ -1839,17 +1869,97 @@ class ACORDExtractor:
                             driver_by_suffix[sfx] = []
                         driver_by_suffix[sfx].append(fname)
 
-                for sfx in sorted(driver_by_suffix.keys()):
+                total_suffixes = len(driver_by_suffix)
+                for si, sfx in enumerate(sorted(driver_by_suffix.keys())):
                     sfx_fields = driver_by_suffix[sfx]
                     driver_num = ord(sfx[0].upper()) - ord('A') + 1 if sfx else 1
                     sfx_tooltips = {k: v for k, v in tooltips_all.items() if k in sfx_fields}
+
+                    # Compute row Y bounds and crop image
+                    y_vals = []
+                    for fn in sfx_fields:
+                        fi = schema.fields.get(fn)
+                        if fi and fi.y_min is not None and fi.y_max is not None:
+                            y_vals.append((fi.y_min, fi.y_max))
+                    if y_vals:
+                        row_y_min = min(y for y, _ in y_vals)
+                        row_y_max = max(y for _, y in y_vals)
+                        cropped_path = self._crop_row_image(image_path, row_y_min, row_y_max)
+                        # Determine position hint
+                        if si < total_suffixes * 0.33:
+                            row_pos = "UPPER"
+                        elif si < total_suffixes * 0.67:
+                            row_pos = "MIDDLE"
+                        else:
+                            row_pos = "LOWER"
+                    else:
+                        cropped_path = image_path
+                        row_pos = None
+
                     prompt = build_vlm_extract_driver_prompt(
                         driver_num=driver_num,
                         suffix=sfx,
                         field_names=sfx_fields,
                         tooltips=sfx_tooltips,
+                        row_position=row_pos,
                     )
-                    vlm_tasks.append((prompt, image_path, sfx_fields, f"Driver _{sfx}"))
+                    vlm_tasks.append((prompt, cropped_path, sfx_fields, f"Driver _{sfx}"))
+
+            # --- Form 163 driver fields: group by Y position (row), crop per row ---
+            if driver_fields and form_type == "163":
+                # Form 163 has 24 driver rows, each spanning ~100px vertically.
+                # Use marital status fields as row anchors (perfectly spaced at ~100px).
+                # Assign each driver field to the nearest row band.
+                import re as _re
+
+                # Build row bands from marital fields: marital[0]=row1, maritalstatus1[0]=row2, ...
+                row_bands: List[Tuple[int, float, float]] = []  # (row_num, y_min, y_max)
+                for fname in driver_fields:
+                    m = _re.match(r'^marital(?:status(\d+))?\[0\]$', fname)
+                    if m:
+                        fi = schema.fields.get(fname)
+                        if fi and fi.y_min is not None and fi.y_max is not None:
+                            row_idx = int(m.group(1)) + 1 if m.group(1) else 1
+                            row_bands.append((row_idx, fi.y_min, fi.y_max))
+                row_bands.sort(key=lambda t: t[0])
+
+                if row_bands:
+                    # Assign each driver field to a row band by Y overlap
+                    rows_163: Dict[int, List[str]] = {}
+                    rows_163_bounds: Dict[int, Tuple[float, float]] = {}
+
+                    for fname in driver_fields:
+                        fi = schema.fields.get(fname)
+                        if not fi or fi.y_min is None or fi.y_max is None:
+                            continue
+                        f_yc = (fi.y_min + fi.y_max) / 2.0
+                        # Find nearest row band
+                        best_row = 1
+                        best_dist = float('inf')
+                        for row_idx, ry_min, ry_max in row_bands:
+                            band_center = (ry_min + ry_max) / 2.0
+                            dist = abs(f_yc - band_center)
+                            if dist < best_dist:
+                                best_dist = dist
+                                best_row = row_idx
+                        if best_row not in rows_163:
+                            rows_163[best_row] = []
+                            rows_163_bounds[best_row] = (fi.y_min, fi.y_max)
+                        rows_163[best_row].append(fname)
+                        cur_min, cur_max = rows_163_bounds[best_row]
+                        rows_163_bounds[best_row] = (min(cur_min, fi.y_min), max(cur_max, fi.y_max))
+
+                    for row_num in sorted(rows_163.keys()):
+                        row_fields = rows_163[row_num]
+                        ry_min, ry_max = rows_163_bounds[row_num]
+                        row_tooltips = {k: v for k, v in tooltips_all.items() if k in row_fields}
+                        cropped_path = self._crop_row_image(image_path, ry_min, ry_max)
+                        prompt = build_vlm_extract_163_row_prompt(
+                            row_num=row_num,
+                            field_names=row_fields,
+                            tooltips=row_tooltips,
+                        )
+                        vlm_tasks.append((prompt, cropped_path, row_fields, f"163 Row {row_num}"))
 
             # --- Vehicle/coverage fields: one VLM call per suffix ---
             if vehicle_fields:

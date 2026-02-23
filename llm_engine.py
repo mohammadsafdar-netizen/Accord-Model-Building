@@ -66,9 +66,12 @@ class LLMEngine:
         unload_wait_seconds: Optional[int] = None,
         keep_models_loaded: bool = True,
         structured_json: bool = True,
+        vllm_base_url: Optional[str] = None,
     ):
         self.model = model
         self.base_url = base_url.rstrip("/")
+        # When set, all VLM image calls route through vLLM's OpenAI-compatible API
+        self.vllm_base_url = vllm_base_url.rstrip("/") if vllm_base_url else None
         self.timeout = timeout
         self.max_retries = max_retries
         self.temperature = temperature
@@ -552,7 +555,14 @@ class LLMEngine:
     ) -> str:
         """Ollama /api/chat with optional images (base64).
         Uses streaming first to avoid empty content when response hits num_predict (Ollama quirk).
+        When vllm_base_url is set, routes through OpenAI-compatible API instead.
         """
+        # Route through vLLM when configured
+        if self.vllm_base_url:
+            return self._chat_with_images_openai(
+                prompt=prompt, images=images, system=system,
+                temperature=temperature, max_tokens=max_tokens, model=model,
+            )
         model = model or self.vision_model
         temp = temperature if temperature is not None else self.temperature
         tokens = max_tokens if max_tokens is not None else self.max_tokens
@@ -628,6 +638,83 @@ class LLMEngine:
                     time.sleep(wait)
         raise RuntimeError(
             f"Vision LLM failed after {self.max_retries} attempts: {last_error}"
+        )
+
+    def _chat_with_images_openai(
+        self,
+        prompt: str,
+        images: List[str],
+        system: Optional[str] = None,
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
+        model: Optional[str] = None,
+    ) -> str:
+        """Call vLLM via OpenAI-compatible /v1/chat/completions with image content blocks."""
+        model = model or self.vlm_extract_model or self.vision_model
+        temp = temperature if temperature is not None else self.temperature
+        tokens = max_tokens if max_tokens is not None else self.max_tokens
+        vision_timeout = max(self.timeout, 360)
+
+        # Build content blocks: text prompt + image_url entries
+        content_blocks: List[Dict[str, Any]] = []
+        if system:
+            content_blocks.append({"type": "text", "text": system})
+        content_blocks.append({"type": "text", "text": prompt})
+        for img_b64 in images:
+            # Detect MIME from base64-decoded header bytes
+            try:
+                header = base64.b64decode(img_b64[:32])
+                if header[:8] == b'\x89PNG\r\n\x1a\n':
+                    mime = "image/png"
+                else:
+                    mime = "image/jpeg"
+            except Exception:
+                mime = "image/jpeg"
+            content_blocks.append({
+                "type": "image_url",
+                "image_url": {"url": f"data:{mime};base64,{img_b64}"},
+            })
+
+        payload: Dict[str, Any] = {
+            "model": model,
+            "messages": [{"role": "user", "content": content_blocks}],
+            "temperature": temp,
+            "max_tokens": tokens,
+        }
+        if self.structured_json:
+            payload["response_format"] = {"type": "json_object"}
+
+        last_error: Optional[Exception] = None
+        for attempt in range(1, self.max_retries + 1):
+            try:
+                resp = requests.post(
+                    f"{self.vllm_base_url}/v1/chat/completions",
+                    json=payload,
+                    timeout=vision_timeout,
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                choices = data.get("choices") or []
+                if not choices:
+                    return ""
+                msg = choices[0].get("message") or {}
+                return (msg.get("content") or "").strip()
+            except requests.exceptions.HTTPError as exc:
+                if exc.response is not None and exc.response.status_code == 404:
+                    raise VisionModelNotFoundError(model or "?")
+                last_error = exc
+                if attempt < self.max_retries:
+                    wait = 2 ** attempt
+                    print(f"  [vLLM] Attempt {attempt} failed ({exc}), retrying in {wait}s ...")
+                    time.sleep(wait)
+            except (requests.RequestException, KeyError) as exc:
+                last_error = exc
+                if attempt < self.max_retries:
+                    wait = 2 ** attempt
+                    print(f"  [vLLM] Attempt {attempt} failed ({exc}), retrying in {wait}s ...")
+                    time.sleep(wait)
+        raise RuntimeError(
+            f"vLLM VLM call failed after {self.max_retries} attempts: {last_error}"
         )
 
     def _chat_with_images_streaming(

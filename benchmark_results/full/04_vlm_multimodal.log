@@ -1,0 +1,663 @@
+[2026-02-23 13:17:45,641] [ WARNING] __init__.py:108 - Skipping import of cpp extensions due to incompatible torch version 2.9.1+cu128 for torchao version 0.16.0             Please see https://github.com/pytorch/ao/issues/2919 for more info
+  [GPU] Reserved 2.0 GB VRAM for Ollama (using 92% for OCR)
+  [GPU] For big models: if Ollama runs in another process, start it with e.g.:
+        OLLAMA_GPU_OVERHEAD=2147483648 OLLAMA_NUM_PARALLEL=1 ollama serve
+======================================================================
+  BEST PROJECT - END-TO-END PIPELINE TEST
+  Model: qwen2.5:7b
+  Mode:  GPU (sequential: Docling→EasyOCR→LLM)
+  Forms: 125, 127, 137, 163 (one per form)
+  VLM Extract: /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (direct page image → JSON)
+  Total PDFs to run: 4
+    Form 125: 1 PDF(s)
+      - ACORD_0125_CommercialInsurance_Acroform_00d73f3c [✓ GT]
+    Form 127: 1 PDF(s)
+      - 127_Business_Auto_Section_2015_12_06003c8b [✓ GT]
+    Form 137: 1 PDF(s)
+      - ACORD_137_0227f2f0 [✓ GT]
+    Form 163: 1 PDF(s)
+      - ACORD_163_0007dd82 [✓ GT]
+======================================================================
+  [Schema] ACORD 137: 403 fields
+  [Schema] ACORD 163: 518 fields
+  [Schema] ACORD 125: 548 fields
+  [Schema] ACORD 127: 634 fields
+
+======================================================================
+  TESTING FORM 125 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [1/4] Form 125 - PDF 1/1
+  File: ACORD_0125_CommercialInsurance_Acroform_00d73f3c
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_0125_CommercialInsurance_Acroform_00d73f3c.pdf
+============================================================
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [ACROFORM] Extracted 460 fields (299 text, 161 checkboxes)
+  [OCR] Removing table lines ...
+  [OCR] Loading cached Docling + bbox results (skipping heavy OCR)
+  [OCR] Rebuilt spatial indices: 912 blocks from cache
+
+  Form type: ACORD 125
+  [SAVE] All intermediate outputs saved to /home/inevoai/Development/Accord-Model-Building/test_output/form_125/ACORD_0125_CommercialInsurance_Acroform_00d73f3c
+  [SECTIONS] Detected 26 form sections (header-based)
+  [ACROFORM] 460 fields matched schema (of 460 total) [DEBUG ONLY]
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 58 fields pre-extracted spatially
+    Insurer_FullName_A: CNA Financial Corporation
+    Insurer_NAICCode_A: 20443
+    Producer_FullName_A: Humphrey Inc
+    NamedInsured_FullName_A: Humphrey Inc
+    Policy_PolicyNumberIdentifier_A: BA-06839021
+    Form_CompletionDate_A: 08/14/2023
+
+  [POSITIONAL] Matching OCR blocks to schema field atlas ...
+    -> 230 fields matched positionally
+  [SEMANTIC] MiniLM matcher initialized for form 125
+  [LABEL-MAP] Loaded 32 label mappings for form 125
+  [PREFILL] Empty form JSON pre-filled from OCR: 96 fields (spatial + label-value + 17 label-map)
+  [POSITIONAL] 171 new fields from positional atlas matching
+  [ROUTING] 68 high-confidence fields (>=0.9) will be skipped in VLM/LLM passes
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [1/2] VLM Direct Extract (281 remaining fields) ...
+    [VLM-EXT] 27 VLM tasks (parallel, workers=3)
+    [VLM-EXT] 27 VLM calls, 267 fields extracted
+    -> 267 new fields from VLM direct extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [2/2] Multimodal Extract (14 fields) ...
+    [MULTIMODAL] 5 VLM tasks (parallel)
+    [MULTIMODAL] 5 VLM calls, 12 fields extracted
+    -> 12 new fields from multimodal extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [ENSEMBLE] Fused 564 fields from 564 field entries
+    49 field(s) overridden by ensemble winner
+    19 field(s) with source disagreements
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    559/564 values found in OCR text
+  [PIXEL-VERIFY] Checkbox pixel verification: 5 empty→Off, 12 false-checked→Off, 3 false-unchecked→1, 3 resolved-by-zoom
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 557
+  Time: 317.7s
+============================================================
+
+
+============================================================
+  ACORD 125 - ACORD_0125_CommercialInsurance_Acroform_00d73f3c
+============================================================
+  Total GT fields:   464
+  Exact matches:     373
+  Partial matches:   19
+  Wrong:             65
+  Missing:           7
+  ---
+  Accuracy:          82.44%
+  Exact match rate:  80.39%
+  Coverage:          98.49%
+
+  Top mismatches (wrong):
+    Policy_Status_EffectiveTime_A
+      expected:  8:00 AM
+      got:       02/23/800
+    Policy_Status_EffectiveTimeAMIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_IssueIndicator_A
+      expected:  True
+      got:       Off
+    Policy_Status_QuoteIndicator_A
+      expected:  False
+      got:       1
+    Policy_Status_RenewIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_BusinessAutoIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_CrimeIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_GarageAndDealersIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_MotorCarrierIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_TruckersIndicator_A
+      expected:  False
+      got:       1
+    Policy_LineOfBusiness_OtherIndicator_B
+      expected:  True
+      got:       Off
+    Policy_LineOfBusiness_OtherIndicator_F
+      expected:  True
+      got:       Off
+    CommercialPolicy_Attachment_AdditionalInterestScheduleIndicator_A
+      expected:  False
+      got:       1
+    CommercialPolicy_Attachment_ContractorsSupplementIndicator_A
+      expected:  False
+      got:       1
+    CommercialPolicy_Attachment_InternationalLiabilityExposureSupplementIndicator_A
+      expected:  False
+      got:       1
+
+  Missing fields (7):
+    Producer_MailingAddress_StateOrProvinceCode_A
+    NamedInsured_MailingAddress_StateOrProvinceCode_A
+    NamedInsured_NAICSCode_A
+    NamedInsured_MailingAddress_StateOrProvinceCode_B
+    NamedInsured_NAICSCode_B
+    NamedInsured_MailingAddress_StateOrProvinceCode_C
+    NamedInsured_NAICSCode_C
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> ACORD_0125_CommercialInsurance_Acroform_00d73f3c: Accuracy=82.44%, Coverage=98.49%, Time=317.7s
+
+============================================================
+  FORM 125 SUMMARY (1/1 successful)
+============================================================
+  Aggregate Accuracy:     82.44%
+  Aggregate Exact Match:  80.39%
+  Aggregate Coverage:     98.49%
+  Total GT Fields:        464
+  Matched/Partial/Wrong/Missing: 373/19/65/7
+  Total Time:             317.7s
+
+  Per-form accuracy:
+    ACORD_0125_CommercialInsurance_Acroform_00d73f3c: 82.44%
+============================================================
+
+======================================================================
+  TESTING FORM 127 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [2/4] Form 127 - PDF 1/1
+  File: 127_Business_Auto_Section_2015_12_06003c8b
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: 127_Business_Auto_Section_2015_12_06003c8b.pdf
+============================================================
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 4 page images created
+  [ACROFORM] Extracted 590 fields (422 text, 168 checkboxes)
+  [OCR] Removing table lines ...
+  [OCR] Loading cached Docling + bbox results (skipping heavy OCR)
+  [OCR] Rebuilt spatial indices: 947 blocks from cache
+
+  Form type: ACORD 127
+  [SAVE] All intermediate outputs saved to /home/inevoai/Development/Accord-Model-Building/test_output/form_127/127_Business_Auto_Section_2015_12_06003c8b
+  [SECTIONS] Detected 16 form sections (header-based)
+  [ACROFORM] 590 fields matched schema (of 590 total) [DEBUG ONLY]
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 146 fields pre-extracted spatially
+    Insurer_FullName_A: Cincinnati Insurance Company
+    Insurer_NAICCode_A: 10677
+    Producer_FullName_A: John Doe
+    NamedInsured_FullName_A: Vance, Cooke and Hickman LLC
+    Policy_PolicyNumberIdentifier_A: BA-84079451
+    Form_CompletionDate_A: 10/15/2023
+
+  [POSITIONAL] Matching OCR blocks to schema field atlas ...
+    -> 340 fields matched positionally
+  [SEMANTIC] MiniLM matcher initialized for form 127
+  [LABEL-MAP] Loaded 31 label mappings for form 127
+  [PREFILL] Empty form JSON pre-filled from OCR: 161 fields (spatial + label-value + 7 label-map)
+  [POSITIONAL] 234 new fields from positional atlas matching
+  [ROUTING] 153 high-confidence fields (>=0.9) will be skipped in VLM/LLM passes
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [1/2] VLM Direct Extract (239 remaining fields) ...
+    [VLM-EXT] 26 VLM tasks (parallel, workers=3)
+    [VLM-EXT] 26 VLM calls, 203 fields extracted
+    -> 203 new fields from VLM direct extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [2/2] Multimodal Extract (36 fields) ...
+    [MULTIMODAL] 4 VLM tasks (parallel)
+    [MULTIMODAL] 4 VLM calls, 36 fields extracted
+    -> 36 new fields from multimodal extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [ENSEMBLE] Fused 645 fields from 645 field entries
+    83 field(s) overridden by ensemble winner
+    60 field(s) with source disagreements
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    636/645 values found in OCR text
+  [PIXEL-VERIFY] Checkbox pixel verification: 42 false-checked→Off
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 640
+  Time: 235.7s
+============================================================
+
+
+============================================================
+  ACORD 127 - 127_Business_Auto_Section_2015_12_06003c8b
+============================================================
+  Total GT fields:   590
+  Exact matches:     498
+  Partial matches:   14
+  Wrong:             75
+  Missing:           3
+  ---
+  Accuracy:          85.59%
+  Exact match rate:  84.41%
+  Coverage:          99.49%
+
+  Top mismatches (wrong):
+    Driver_Coverage_BroadenedNoFaultCode_B
+      expected:  False
+      got:       Y
+    Driver_Vehicle_ProducerIdentifier_B
+      expected:  Vance, Cooke and Hickman LLC
+      got:       84079451
+    Driver_Coverage_BroadenedNoFaultCode_C
+      expected:  False
+      got:       Y
+    Driver_Coverage_DriverOtherCarCode_C
+      expected:  True
+      got:       N
+    Driver_Coverage_BroadenedNoFaultCode_D
+      expected:  False
+      got:       Y
+    Driver_Coverage_DriverOtherCarCode_D
+      expected:  True
+      got:       84079
+    Driver_GivenName_D
+      expected:  Evan
+      got:       Evvan
+    Driver_Coverage_BroadenedNoFaultCode_E
+      expected:  False
+      got:       Y
+    Driver_Coverage_DriverOtherCarCode_E
+      expected:  True
+      got:       001
+    Driver_HiredDate_E
+      expected:  08/15/2013
+      got:       08/15/2012
+    Driver_Vehicle_ProducerIdentifier_E
+      expected:  001
+      got:       3A-84
+    Driver_Vehicle_UsePercent_E
+      expected:  80
+      got:       100
+    Driver_Coverage_BroadenedNoFaultCode_F
+      expected:  False
+      got:       Y
+    Driver_Coverage_DriverOtherCarCode_F
+      expected:  True
+      got:       001
+    Driver_HiredDate_F
+      expected:  01/01/2018
+      got:       NC J1/01/2O18
+
+  Missing fields (3):
+    AdditionalInterest_MailingAddress_StateOrProvinceCode_A
+    AdditionalInterest_MailingAddress_StateOrProvinceCode_B
+    Vehicle_Use_OtherDescription_C
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> 127_Business_Auto_Section_2015_12_06003c8b: Accuracy=85.59%, Coverage=99.49%, Time=235.68s
+
+============================================================
+  FORM 127 SUMMARY (1/1 successful)
+============================================================
+  Aggregate Accuracy:     85.59%
+  Aggregate Exact Match:  84.41%
+  Aggregate Coverage:     99.49%
+  Total GT Fields:        590
+  Matched/Partial/Wrong/Missing: 498/14/75/3
+  Total Time:             235.68s
+
+  Per-form accuracy:
+    127_Business_Auto_Section_2015_12_06003c8b: 85.59%
+============================================================
+
+======================================================================
+  TESTING FORM 137 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [3/4] Form 137 - PDF 1/1
+  File: ACORD_137_0227f2f0
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_137_0227f2f0.pdf
+============================================================
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 3 page images created
+  [ACROFORM] Extracted 373 fields (179 text, 194 checkboxes)
+  [OCR] Removing table lines ...
+  [OCR] Loading cached Docling + bbox results (skipping heavy OCR)
+  [OCR] Rebuilt spatial indices: 777 blocks from cache
+
+  Form type: ACORD 137
+  [SAVE] All intermediate outputs saved to /home/inevoai/Development/Accord-Model-Building/test_output/form_137/ACORD_137_0227f2f0
+  [SECTIONS] Detected 9 form sections (header-based)
+  [ACROFORM] 372 fields matched schema (of 373 total) [DEBUG ONLY]
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 52 fields pre-extracted spatially
+    Insurer_FullName_A: Travelers Property Casualty
+    Insurer_NAICCode_A: 25674
+    Producer_FullName_A: Erica Eaton
+    NamedInsured_FullName_A: Mills Group
+    Policy_PolicyNumberIdentifier_A: BA-47921593
+    Form_CompletionDate_A: 03/19/2023
+
+  [POSITIONAL] Matching OCR blocks to schema field atlas ...
+    -> 178 fields matched positionally
+  [SEMANTIC] MiniLM matcher initialized for form 137
+  [LABEL-MAP] Loaded 14 label mappings for form 137
+  [PREFILL] Empty form JSON pre-filled from OCR: 57 fields (spatial + label-value + 4 label-map)
+  [POSITIONAL] 140 new fields from positional atlas matching
+  [ROUTING] 56 high-confidence fields (>=0.9) will be skipped in VLM/LLM passes
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [1/2] VLM Direct Extract (206 remaining fields) ...
+    [VLM-EXT] 38 VLM tasks (parallel, workers=3)
+    [VLM-EXT] 38 VLM calls, 206 fields extracted
+    -> 206 new fields from VLM direct extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [2/2] Multimodal Extract (0 fields) ...
+    -> 0 new fields from multimodal extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [ENSEMBLE] Fused 403 fields from 403 field entries
+    52 field(s) overridden by ensemble winner
+    10 field(s) with source disagreements
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    399/403 values found in OCR text
+  [PIXEL-VERIFY] Checkbox pixel verification: 37 false-checked→Off
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 395
+  Time: 265.7s
+============================================================
+
+
+============================================================
+  ACORD 137 - ACORD_137_0227f2f0
+============================================================
+  Total GT fields:   373
+  Exact matches:     300
+  Partial matches:   8
+  Wrong:             56
+  Missing:           9
+  ---
+  Accuracy:          81.5%
+  Exact match rate:  80.43%
+  Coverage:          97.59%
+
+  Top mismatches (wrong):
+    Vehicle_BodilyInjury_EachPersonLimitIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_BusinessAutoSymbol_EightIndicator_A
+      expected:  True
+      got:       Off
+    Vehicle_BusinessAutoSymbol_FourIndicator_A
+      expected:  True
+      got:       Off
+    Vehicle_BusinessAutoSymbol_SevenIndicator_A
+      expected:  True
+      got:       Off
+    Vehicle_Collision_DeductibleWaiverIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_Coverage_ComprehensiveDeductibleIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_Coverage_SpecifiedCauseOfLossDeductibleIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_HiredBorrowed_YesIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_HiredPhysicalDamage_SecondaryIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_NonOwnedGroup_PartnerIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_NonOwned_NoIndicator_A
+      expected:  False
+      got:       1
+    Vehicle_BodilyInjury_EachPersonLimitIndicator_B
+      expected:  False
+      got:       1
+    Vehicle_BodilyInjury_PerPersonLimitAmount_B
+      expected:  100000/300000
+      got:       1000000
+    Vehicle_BusinessAutoSymbol_FourIndicator_B
+      expected:  True
+      got:       Off
+    Vehicle_BusinessAutoSymbol_TwoIndicator_B
+      expected:  True
+      got:       Off
+
+  Missing fields (9):
+    Vehicle_NonOwned_StateOrProvinceCode_A
+    Vehicle_Coverage_FireTheftWindstormIndicator_B
+    Vehicle_HiredPhysicalDamage_StateOrProvinceCode_B
+    Vehicle_HiredPhysicalDamage_StateOrProvinceCode_O
+    Vehicle_HiredPhysicalDamage_StateOrProvinceCode_P
+    Vehicle_HiredPhysicalDamage_StateOrProvinceCode_Q
+    Vehicle_HiredPhysicalDamage_StateOrProvinceCode_R
+    Vehicle_NonOwned_StateOrProvinceCode_W
+    Vehicle_NonOwned_StateOrProvinceCode_X
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> ACORD_137_0227f2f0: Accuracy=81.5%, Coverage=97.59%, Time=265.7s
+
+============================================================
+  FORM 137 SUMMARY (1/1 successful)
+============================================================
+  Aggregate Accuracy:     81.5%
+  Aggregate Exact Match:  80.43%
+  Aggregate Coverage:     97.59%
+  Total GT Fields:        373
+  Matched/Partial/Wrong/Missing: 300/8/56/9
+  Total Time:             265.7s
+
+  Per-form accuracy:
+    ACORD_137_0227f2f0: 81.5%
+============================================================
+
+======================================================================
+  TESTING FORM 163 (1 PDFs)
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  [4/4] Form 163 - PDF 1/1
+  File: ACORD_163_0007dd82
+──────────────────────────────────────────────────────────────────────
+
+============================================================
+  ACORD FORM EXTRACTION
+  PDF: ACORD_163_0007dd82.pdf
+============================================================
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+  [OCR] Converting PDF to images at 300 DPI ...
+  [OCR] 1 page images created
+  [ACROFORM] Extracted 517 fields (514 text, 3 checkboxes)
+  [OCR] Removing table lines ...
+  [OCR] Loading cached Docling + bbox results (skipping heavy OCR)
+  [OCR] Rebuilt spatial indices: 447 blocks from cache
+
+  Form type: ACORD 163
+  [SAVE] All intermediate outputs saved to /home/inevoai/Development/Accord-Model-Building/test_output/form_163/ACORD_163_0007dd82
+  [ACROFORM] 517 fields matched schema (of 517 total) [DEBUG ONLY]
+
+  [SPATIAL] Pre-extracting from BBox positions ...
+    -> 0 fields pre-extracted spatially
+
+  [POSITIONAL] Matching OCR blocks to schema field atlas ...
+    -> 365 fields matched positionally
+  [SEMANTIC] MiniLM matcher initialized for form 163
+  [PREFILL] Empty form JSON pre-filled from OCR: 1 fields (spatial + label-value)
+  [POSITIONAL] 365 new fields from positional atlas matching
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [1/2] VLM Direct Extract (152 remaining fields) ...
+    [VLM-EXT] 17 VLM tasks (parallel, workers=3)
+    [VLM-EXT] 17 VLM calls, 152 fields extracted
+    -> 152 new fields from VLM direct extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [LLM] Skipping unload of qwen2.5:7b (keep_models_loaded=True)
+
+  [2/2] Multimodal Extract (0 fields) ...
+    -> 0 new fields from multimodal extract
+  [VLM-EXT] Skipping unload of /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full (keep_models_loaded=True)
+  [ENSEMBLE] Fused 518 fields from 518 field entries
+
+  [VERIFY] Cross-checking against BBox OCR text ...
+    517/518 values found in OCR text
+  [LLM] Stopped qwen2.5:7b, /home/inevoai/Development/Accord-Model-Building/finetune/export/merged_full, waiting 8s for GPU...
+  [LLM] Unload requested (GPU may still be releasing)
+
+============================================================
+  EXTRACTION COMPLETE
+  Fields extracted: 518
+  Time: 118.9s
+============================================================
+
+
+============================================================
+  ACORD 163 - ACORD_163_0007dd82
+============================================================
+  Total GT fields:   517
+  Exact matches:     381
+  Partial matches:   40
+  Wrong:             96
+  Missing:           0
+  ---
+  Accuracy:          77.56%
+  Exact match rate:  73.69%
+  Coverage:          100.0%
+
+  Top mismatches (wrong):
+    Text9[0]
+      expected:  78319 Ian Crest Apt. 144
+      got:       78319 lan Crest Apt: 144
+    marital[0]
+      expected:  P
+      got:       S
+    maritalstatus1[0]
+      expected:  W
+      got:       MI
+    maritalstatus3[0]
+      expected:  W
+      got:       mI
+    maritalstatus4[0]
+      expected:  P
+      got:       F
+    maritalstatus6[0]
+      expected:  P
+      got:       F
+    maritalstatus7[0]
+      expected:  P
+      got:       F
+    maritalstatus9[0]
+      expected:  P
+      got:       S
+    maritalstatus10[0]
+      expected:  S
+      got:       DATE OF BIRTH
+    maritalstatus11[0]
+      expected:  D
+      got:       P
+    maritalstatus12[0]
+      expected:  W
+      got:       MI
+    maritalstatus14[0]
+      expected:  W
+      got:       M/
+    maritalstatus15[0]
+      expected:  W
+      got:       mI
+    maritalstatus17[0]
+      expected:  D
+      got:       P
+    maritalstatus18[0]
+      expected:  W
+      got:       mI
+============================================================
+
+  [OCR] Docling unloaded from GPU
+  [OCR] EasyOCR unloaded from GPU
+  [OCR] All OCR GPU memory released
+  >>> ACORD_163_0007dd82: Accuracy=77.56%, Coverage=100.0%, Time=118.89s
+
+============================================================
+  FORM 163 SUMMARY (1/1 successful)
+============================================================
+  Aggregate Accuracy:     77.56%
+  Aggregate Exact Match:  73.69%
+  Aggregate Coverage:     100.0%
+  Total GT Fields:        517
+  Matched/Partial/Wrong/Missing: 381/40/96/0
+  Total Time:             118.89s
+
+  Per-form accuracy:
+    ACORD_163_0007dd82: 77.56%
+============================================================
+
+======================================================================
+  OVERALL SUMMARY
+======================================================================
+Form    PDFs  Accuracy    ExactMatch  Coverage    Match  Wrong  Miss   Time(s)   
+----------------------------------------------------------------------------------
+125     1     82.44       80.39       98.49       373    65     7      317.7     
+127     1     85.59       84.41       99.49       498    75     3      235.68    
+137     1     81.5        80.43       97.59       300    56     9      265.7     
+163     1     77.56       73.69       100.0       381    96     0      118.89    
+
+Full results saved to: /home/inevoai/Development/Accord-Model-Building/test_output/test_summary.json
+Intermediate outputs in: /home/inevoai/Development/Accord-Model-Building/test_output/
+[W223 13:34:57.600942914 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

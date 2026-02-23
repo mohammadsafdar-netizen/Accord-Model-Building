@@ -99,8 +99,8 @@ Examples:
         help="Run VLM on form images for extraction. Off by default.",
     )
     parser.add_argument(
-        "--text-llm", action="store_true", default=True,
-        help="Run text LLM for category/driver/vehicle/gap-fill (default: on).",
+        "--text-llm", action="store_true", default=False,
+        help="Run text LLM for category/driver/vehicle/gap-fill (default: off — VLM-only is faster with same accuracy).",
     )
     parser.add_argument(
         "--no-text-llm", action="store_false", dest="text_llm",
@@ -229,8 +229,8 @@ Examples:
         help="Max concurrent VLM API calls when parallel VLM is enabled (default: 3)",
     )
     parser.add_argument(
-        "--multimodal", action="store_true", default=True,
-        help="Enable multimodal extraction (default: on)",
+        "--multimodal", action="store_true", default=False,
+        help="Enable multimodal extraction (default: off).",
     )
     parser.add_argument(
         "--no-multimodal", action="store_false", dest="multimodal",

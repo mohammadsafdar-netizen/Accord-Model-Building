@@ -540,8 +540,8 @@ def main():
         help="Run Docling OCR (alias for consistency with main.py; always on in test_pipeline)",
     )
     parser.add_argument(
-        "--text-llm", action="store_true", default=True,
-        help="Run text LLM (default: on).",
+        "--text-llm", action="store_true", default=False,
+        help="Run text LLM (default: off — VLM-only is faster with same accuracy).",
     )
     parser.add_argument(
         "--no-text-llm", action="store_false", dest="text_llm",
@@ -609,8 +609,8 @@ def main():
         help="Max concurrent VLM API calls when parallel VLM is enabled (default: 3)",
     )
     parser.add_argument(
-        "--multimodal", action="store_true", default=True,
-        help="Enable multimodal extraction (default: on)",
+        "--multimodal", action="store_true", default=False,
+        help="Enable multimodal extraction (default: off).",
     )
     parser.add_argument(
         "--no-multimodal", action="store_false", dest="multimodal",

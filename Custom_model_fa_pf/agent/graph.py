@@ -19,6 +19,7 @@ from Custom_model_fa_pf.agent.nodes import (
     review_node,
     reflect_node,
     summarize_node,
+    process_tool_results_node,
 )
 from Custom_model_fa_pf.agent.prompts import build_system_message
 from Custom_model_fa_pf.agent.tools import get_all_tools
@@ -189,7 +190,7 @@ def _build_graph(checkpointer=None):
           needs_summary → summarize → agent
           no_summary → agent
       agent → _should_use_tools:
-        "tools" → tools → agent
+        "tools" → tools → process_tools → agent
         "reflect" → reflect → _route_after_reflect:
           "revise" → agent (max 1)
           "pass" → check_gaps
@@ -232,7 +233,9 @@ def _build_graph(checkpointer=None):
         "reflect": "reflect",
         END: END,
     })
-    workflow.add_edge("tools", "agent")  # After tools, back to agent
+    workflow.add_node("process_tools", process_tool_results_node)
+    workflow.add_edge("tools", "process_tools")  # After tools, process results
+    workflow.add_edge("process_tools", "agent")  # Then back to agent
 
     # Reflection routing
     workflow.add_conditional_edges("reflect", _route_after_reflect, {

@@ -22,6 +22,7 @@ class TestGraphStructure:
         assert "reflect" in node_names
         assert "summarize" in node_names
         assert "maybe_summarize" in node_names
+        assert "process_tools" in node_names
 
     def test_agent_creates_with_checkpointer(self):
         agent = create_agent()

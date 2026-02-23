@@ -18,8 +18,21 @@ logger = logging.getLogger(__name__)
 
 
 def format_agent_response(text: str) -> str:
-    """Clean up agent response text for display."""
-    return text.strip()
+    """Clean up agent response text for display.
+
+    Strips save_field() text that smaller models sometimes include
+    in their conversational output instead of using proper tool calls.
+    """
+    import re
+    # Remove lines that are just save_field(...) calls
+    lines = text.split("\n")
+    cleaned = []
+    for line in lines:
+        stripped = line.strip()
+        if re.match(r'^save_field\(', stripped):
+            continue  # Skip tool call text
+        cleaned.append(line)
+    return "\n".join(cleaned).strip()
 
 
 def extract_text_from_messages(messages: list, skip: int = 0) -> str:

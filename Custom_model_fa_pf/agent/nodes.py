@@ -67,6 +67,95 @@ def understand_node(state: IntakeState) -> dict:
     }
 
 
+def process_tool_results_node(state: IntakeState) -> dict:
+    """Process ToolMessages from save_field and update form_state accordingly.
+
+    LangGraph ToolNode returns tool outputs as ToolMessages. This node
+    scans recent ToolMessages for save_field results and writes them
+    into form_state so the agent knows what's been collected.
+
+    Also handles the case where smaller models write save_field(...) as plain
+    text instead of using the proper tool calling format — parses those from
+    the AI message content.
+    """
+    import re
+    from langchain_core.messages import ToolMessage
+
+    messages = state.get("messages", [])
+    form_state = dict(state.get("form_state", {}))
+    entities = state.get("entities", {})
+    updated = False
+
+    # 1. Process actual ToolMessages from LangGraph ToolNode
+    for msg in reversed(messages):
+        if not isinstance(msg, ToolMessage):
+            if isinstance(msg, AIMessage) and getattr(msg, "tool_calls", None):
+                break
+            continue
+
+        try:
+            data = json.loads(msg.content)
+        except (json.JSONDecodeError, TypeError):
+            continue
+
+        # Skip non-dict results (e.g. lists from classify_lobs)
+        if not isinstance(data, dict):
+            continue
+
+        # Process save_field results
+        if data.get("status") == "saved" and data.get("field_name"):
+            field_name = data["field_name"]
+            form_state[field_name] = {
+                "value": data.get("value", ""),
+                "confidence": data.get("confidence", 0.0),
+                "source": data.get("source", "user_stated"),
+                "status": "confirmed",
+            }
+            updated = True
+            logger.debug("Saved field from tool result: %s = %s", field_name, data.get("value"))
+
+        # Process extract_entities results — update entities
+        if "business" in data or "drivers" in data or "vehicles" in data:
+            entities = data
+            updated = True
+
+    # 2. Parse text-based tool calls from AI messages
+    #    Small models sometimes write save_field("name", "value") as text
+    for msg in reversed(messages[-5:]):  # Only check recent messages
+        if not isinstance(msg, AIMessage) or not msg.content:
+            continue
+        if getattr(msg, "tool_calls", None):
+            continue  # Real tool call, already handled above
+
+        # Match patterns like: save_field("field_name", "value", "source")
+        # or save_field("field_name", "value")
+        pattern = r'save_field\(\s*["\']([^"\']+)["\']\s*,\s*["\']([^"\']*)["\'](?:\s*,\s*["\']([^"\']*)["\'])?\s*\)'
+        matches = re.findall(pattern, msg.content)
+        for match in matches:
+            field_name = match[0]
+            value = match[1]
+            source = match[2] if match[2] else "user_stated"
+            if value.strip():
+                from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
+                scorer = ConfidenceScorer()
+                confidence = scorer.score(field_name, value, source=source)
+                form_state[field_name] = {
+                    "value": value.strip(),
+                    "confidence": confidence,
+                    "source": source,
+                    "status": "confirmed",
+                }
+                updated = True
+                logger.info("Parsed text tool call: save_field(%s, %s)", field_name, value)
+
+    result = {}
+    if updated:
+        result["form_state"] = form_state
+        if entities != state.get("entities", {}):
+            result["entities"] = entities
+    return result
+
+
 def check_gaps_node(state: IntakeState) -> dict:
     """Analyze completeness and decide what to do next.
 
@@ -185,27 +274,81 @@ def review_node(state: IntakeState) -> dict:
     }
 
 
+def _parse_text_tool_calls(state: IntakeState) -> dict:
+    """Parse save_field() calls written as text by smaller models.
+
+    Small LLMs sometimes write tool invocations as plain text instead of
+    using the proper function calling format. This function extracts those
+    and updates form_state.
+    """
+    import re
+    from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
+
+    messages = state.get("messages", [])
+    form_state = dict(state.get("form_state", {}))
+    updated = False
+
+    for msg in reversed(messages[-5:]):
+        if not isinstance(msg, AIMessage) or not msg.content:
+            continue
+        if getattr(msg, "tool_calls", None):
+            continue
+
+        pattern = r'save_field\(\s*["\']([^"\']+)["\']\s*,\s*["\']([^"\']*)["\'](?:\s*,\s*["\']([^"\']*)["\'])?\s*\)'
+        matches = re.findall(pattern, msg.content)
+        scorer = ConfidenceScorer()
+        for match in matches:
+            field_name = match[0]
+            value = match[1]
+            source = match[2] if match[2] else "user_stated"
+            if value.strip():
+                confidence = scorer.score(field_name, value, source=source)
+                form_state[field_name] = {
+                    "value": value.strip(),
+                    "confidence": confidence,
+                    "source": source,
+                    "status": "confirmed",
+                }
+                updated = True
+                logger.info("Parsed text tool call: save_field(%s, %s)", field_name, value)
+
+    if updated:
+        return {"form_state": form_state}
+    return {}
+
+
 def reflect_node(state: IntakeState) -> dict:
     """Critique the agent's last response before showing to user (Pattern 4: Reflection).
+
+    Also parses any save_field() calls written as plain text by smaller models
+    and updates form_state before reflection.
 
     Checks for hallucination, multiple questions, off-topic content, and incorrect
     confirmations. If issues found, sends revision feedback back to agent.
     """
+    # First: parse any text-based tool calls and update form_state
+    text_updates = _parse_text_tool_calls(state)
+
     messages = state.get("messages", [])
     if not messages:
-        return {}
+        return text_updates
 
     last = messages[-1]
     # Only reflect on AI text responses, not tool calls or empty messages
     if not isinstance(last, AIMessage) or not last.content:
-        return {}
+        return text_updates
     if getattr(last, "tool_calls", None):
-        return {}  # Don't reflect on tool-calling messages
+        return text_updates  # Don't reflect on tool-calling messages
+
+    # Merge current form_state with any text-parsed updates for reflection context
+    merged_form_state = dict(state.get("form_state", {}))
+    if "form_state" in text_updates:
+        merged_form_state.update(text_updates["form_state"])
 
     llm = _get_chat_llm()
     prompt = REFLECTION_PROMPT.format(
         response=last.content,
-        form_state_summary=build_form_state_context(state.get("form_state", {})),
+        form_state_summary=build_form_state_context(merged_form_state),
     )
 
     try:
@@ -213,19 +356,23 @@ def reflect_node(state: IntakeState) -> dict:
         verdict = json.loads(result.content)
         if verdict.get("verdict") == "pass":
             logger.debug("Reflection passed for response")
-            return {}  # Response is fine, pass through
+            return text_updates  # Response is fine, pass through with form updates
 
         # Response needs revision — increment reflect_count and add feedback
         issues = verdict.get("issues", [])
         suggestion = verdict.get("suggestion", "Please revise your response.")
         logger.info("Reflection flagged issues: %s", issues)
-        return {
+        revision_result = {
             "messages": [SystemMessage(content=f"REVISION NEEDED: {suggestion}")],
             "reflect_count": state.get("reflect_count", 0) + 1,
         }
+        # Merge text updates into revision result
+        if "form_state" in text_updates:
+            revision_result["form_state"] = text_updates["form_state"]
+        return revision_result
     except (json.JSONDecodeError, Exception) as exc:
         logger.debug("Reflection failed (letting response through): %s", exc)
-        return {}  # Reflection failed — let the response through
+        return text_updates  # Reflection failed — let the response through with form updates
 
 
 def summarize_node(state: IntakeState) -> dict:

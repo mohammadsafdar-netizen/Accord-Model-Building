@@ -76,7 +76,11 @@ Respond with ONLY this JSON structure (use null for missing fields, MM/DD/YYYY f
         "email": "john@company.com",
         "role": "Owner"
       }}
-    ]
+    ],
+    "nature_of_business": "Long-haul trucking",
+    "part_time_employees": null,
+    "annual_payroll": "850000",
+    "subcontractor_cost": null
   }},
   "producer": {{
     "agency_name": "ABC Insurance Agency",
@@ -115,7 +119,12 @@ Respond with ONLY this JSON structure (use null for missing fields, MM/DD/YYYY f
       "garaging_address": null,
       "use_type": "commercial",
       "radius_of_travel": null,
-      "farthest_zone": null
+      "farthest_zone": null,
+      "territory": null,
+      "class_code": null,
+      "stated_amount": null,
+      "deductible_collision": "1000",
+      "deductible_comprehensive": "500"
     }}
   ],
   "drivers": [
@@ -132,7 +141,11 @@ Respond with ONLY this JSON structure (use null for missing fields, MM/DD/YYYY f
       "years_experience": "15",
       "hire_date": "01/15/2020",
       "mailing_address": null,
-      "licensed_year": "2003"
+      "licensed_year": "2003",
+      "occupation": null,
+      "relationship": "employee",
+      "vehicle_assigned": "1",
+      "pct_use": "100"
     }}
   ],
   "coverages": [
@@ -140,7 +153,12 @@ Respond with ONLY this JSON structure (use null for missing fields, MM/DD/YYYY f
       "lob": "commercial_auto",
       "coverage_type": "liability",
       "limit": "1000000",
-      "deductible": "1000"
+      "deductible": "1000",
+      "per_person_limit": "500000",
+      "per_accident_limit": "1000000",
+      "aggregate_limit": null,
+      "premium": null,
+      "symbol": "1"
     }}
   ],
   "locations": [
@@ -216,7 +234,92 @@ Rules:
 - interest_type must be one of: additional_insured, mortgagee, lienholder, loss_payee, lenders_loss_payable
 - additional_interests: lienholders, mortgagees, loss payees, etc. (banks, finance companies holding liens)
 - prior_insurance: previous/expiring insurance carriers and policy numbers
-- cyber_info: only include if cyber/privacy coverage is discussed (set to null otherwise)"""
+- cyber_info: only include if cyber/privacy coverage is discussed (set to null otherwise)
+- For BI limits like "500/1000" or "500000/1000000": set per_person_limit and per_accident_limit separately
+- For CSL (Combined Single Limit) like "$1M CSL": set limit to the total, coverage_type to "combined_single_limit"
+- Driver relationship: employee, owner, family, other
+- driver.vehicle_assigned: index (1-based) of the vehicle this driver primarily uses
+- driver.pct_use: percentage of vehicle use (e.g. "100", "50")
+- business.annual_payroll: total annual payroll amount (for workers' comp)
+- business.nature_of_business: brief description (e.g. "trucking", "manufacturing")
+- vehicle.territory: rating territory code
+- vehicle.class_code: vehicle classification code
+- vehicle.stated_amount: agreed/stated value for physical damage
+- vehicle.deductible_collision and deductible_comprehensive: deductible amounts per vehicle
+- coverage.symbol: auto symbol code (e.g. "1" for Any Auto, "2" for Owned Autos Only)
+- coverage.premium: premium amount for this coverage if mentioned"""
+
+# --- Field Mapping Prompts (for LLM-powered field mapper) ---
+
+FIELD_MAPPING_SYSTEM = """You are an expert insurance form field mapper. Your job is to map extracted customer data
+to PDF form fields. You understand ACORD form conventions, field naming patterns, and insurance terminology.
+You must respond with ONLY valid JSON, no other text."""
+
+FIELD_MAPPING_PROMPT = """Map the extracted customer data to the PDF form fields listed below.
+
+EXTRACTED DATA:
+{entity_json}
+
+PDF FORM FIELDS (unmapped — need values):
+{field_list}
+
+ALREADY MAPPED FIELDS (for context — do NOT re-map these):
+{already_mapped_sample}
+
+RULES:
+1. Only fill fields where you have clear data — SKIP if unsure
+2. Checkboxes: "1" if true, "Off" if false, SKIP if unknown
+3. Suffixes: _A = first item, _B = second, _C = third, etc.
+4. Dates must be MM/DD/YYYY format
+5. States must be 2-letter codes (e.g. "IL", "CA")
+6. Use the tooltip to understand each field's purpose
+7. For split-limit fields (per_person / per_accident), map each part separately
+8. Phone numbers: (XXX) XXX-XXXX format
+9. FEIN/Tax ID: XX-XXXXXXX format
+10. Do NOT guess values — only map what exists in the extracted data
+
+Respond with ONLY this JSON:
+{{
+  "mappings": {{
+    "FieldName_A": "value",
+    "FieldName_B": "value"
+  }}
+}}"""
+
+# --- Smart Follow-up Prompt (validation-aware) ---
+
+FOLLOW_UP_SYSTEM = """You are a professional insurance underwriting assistant. Generate specific, personalized follow-up
+questions based on the extracted data and validation issues found. Reference actual data values when possible.
+You must respond with ONLY valid JSON, no other text."""
+
+FOLLOW_UP_PROMPT = """Generate follow-up questions for this insurance application.
+
+WHAT WE HAVE:
+{extracted_summary}
+
+MISSING CRITICAL INFORMATION:
+{missing_critical}
+
+VALIDATION ISSUES FOUND:
+{validation_issues}
+
+RULES:
+- Reference actual data values (e.g. "VIN for the 2024 RAM 3500 appears incomplete")
+- Do NOT use generic questions (e.g. "Please provide VIN numbers")
+- Group related questions naturally
+- Prioritize critical issues that block underwriting
+- Maximum 10 questions
+
+Respond with ONLY this JSON:
+{{
+  "questions": [
+    {{
+      "category": "Vehicle Information",
+      "priority": "critical",
+      "question": "The VIN for the 2024 RAM 3500 appears to be only 15 characters — can you verify the full 17-character VIN?"
+    }}
+  ]
+}}"""
 
 GAP_ANALYSIS_SYSTEM = """You are an insurance underwriting assistant. Analyze extracted data completeness and generate follow-up questions.
 You must respond with ONLY valid JSON, no other text."""

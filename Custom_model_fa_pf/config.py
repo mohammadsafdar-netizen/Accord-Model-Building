@@ -19,3 +19,16 @@ DEFAULT_OLLAMA_URL = "http://localhost:11434"
 DEFAULT_CONFIDENCE_THRESHOLD = 0.7
 DEFAULT_TIMEOUT = 300
 DEFAULT_MAX_TOKENS = 4096
+
+# --- Agent configuration ---
+LLM_BACKEND = "ollama"  # "vllm" or "ollama"
+VLLM_BASE_URL = "http://localhost:8000/v1"
+OLLAMA_OPENAI_URL = "http://localhost:11434/v1"  # Ollama's OpenAI-compatible endpoint
+
+AGENT_MODEL = "qwen2.5:7b"  # Model name for agent LLM
+AGENT_TEMPERATURE = 0.3
+AGENT_MAX_TOKENS = 4096
+
+MAX_CONVERSATION_TURNS = 30
+MAX_TOOL_CALLS_PER_TURN = 5
+SUMMARIZE_AFTER_TURNS = 20

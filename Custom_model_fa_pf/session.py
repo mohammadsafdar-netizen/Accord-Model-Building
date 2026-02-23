@@ -12,6 +12,7 @@ from Custom_model_fa_pf.entity_schema import CustomerSubmission
 from Custom_model_fa_pf.form_assigner import FormAssignment
 from Custom_model_fa_pf.gap_analyzer import GapReport
 from Custom_model_fa_pf.lob_classifier import LOBClassification
+from Custom_model_fa_pf.validation_engine import ValidationResult
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +49,9 @@ class Session:
     assignments: List[FormAssignment] = field(default_factory=list)
     field_values: Dict[str, Dict[str, str]] = field(default_factory=dict)
     gap_report: Optional[GapReport] = None
+    validation_results: Dict[str, ValidationResult] = field(default_factory=dict)
+    conversation_turn: int = 0
+    pending_corrections: Dict[str, Dict[str, str]] = field(default_factory=dict)
     created_at: float = field(default_factory=time.time)
     updated_at: float = field(default_factory=time.time)
     error: Optional[str] = None
@@ -74,6 +78,8 @@ class Session:
             "assignments": [a.to_dict() for a in self.assignments],
             "field_values": self.field_values,
             "gap_report": self.gap_report.to_dict() if self.gap_report else None,
+            "validation_results": {k: v.to_dict() for k, v in self.validation_results.items()},
+            "conversation_turn": self.conversation_turn,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "error": self.error,
@@ -89,6 +95,8 @@ class Session:
             "fields_mapped": {k: len(v) for k, v in self.field_values.items()},
             "gaps_remaining": len(self.gap_report.missing_critical) if self.gap_report else 0,
             "completeness_pct": self.gap_report.completeness_pct if self.gap_report else 0.0,
+            "validation_errors": sum(v.error_count for v in self.validation_results.values()),
+            "conversation_turn": self.conversation_turn,
             "message_count": len(self.messages),
             "created_at": self.created_at,
             "updated_at": self.updated_at,

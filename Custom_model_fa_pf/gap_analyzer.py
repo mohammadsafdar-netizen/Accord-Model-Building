@@ -234,6 +234,7 @@ def analyze(
     assignments: List[FormAssignment],
     field_values: Dict[str, Dict[str, str]],
     llm_engine=None,
+    validation_results: Optional[Dict] = None,
 ) -> GapReport:
     """Analyze gaps in extracted data and generate follow-up questions.
 
@@ -242,6 +243,7 @@ def analyze(
         assignments: Form assignments
         field_values: Mapped field values per form
         llm_engine: Optional LLMEngine for generating follow-up questions
+        validation_results: Optional validation results per form
 
     Returns:
         GapReport with missing fields and follow-up questions
@@ -279,6 +281,19 @@ def analyze(
     # Calculate completeness
     if total_required > 0:
         report.completeness_pct = (total_present / total_required) * 100
+
+    # Incorporate validation issues into gap analysis
+    if validation_results:
+        for form_num, vr in validation_results.items():
+            for issue in vr.issues:
+                if issue.severity == "error":
+                    report.missing_critical.append(
+                        f"[validation] Form {form_num}: {issue.message}"
+                    )
+                elif issue.severity == "warning":
+                    report.missing_important.append(
+                        f"[validation] Form {form_num}: {issue.message}"
+                    )
 
     # Generate contextual follow-up questions (no LLM needed)
     report.follow_up_questions = _build_contextual_questions(

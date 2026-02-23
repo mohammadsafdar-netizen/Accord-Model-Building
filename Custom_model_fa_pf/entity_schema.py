@@ -106,6 +106,10 @@ class BusinessInfo:
     website: Optional[str] = None
     business_start_date: Optional[str] = None  # MM/DD/YYYY
     contacts: List[Contact] = field(default_factory=list)
+    nature_of_business: Optional[str] = None
+    part_time_employees: Optional[str] = None
+    annual_payroll: Optional[str] = None
+    subcontractor_cost: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         d = {}
@@ -140,6 +144,10 @@ class BusinessInfo:
             website=data.get("website"),
             business_start_date=data.get("business_start_date"),
             contacts=[c for c in contacts if c],
+            nature_of_business=data.get("nature_of_business"),
+            part_time_employees=_str_or_none(data.get("part_time_employees")),
+            annual_payroll=_str_or_none(data.get("annual_payroll")),
+            subcontractor_cost=_str_or_none(data.get("subcontractor_cost")),
         )
 
 
@@ -224,6 +232,11 @@ class VehicleInfo:
     use_type: Optional[str] = None  # service, commercial, retail, pleasure
     radius_of_travel: Optional[str] = None  # miles
     farthest_zone: Optional[str] = None  # zone code
+    territory: Optional[str] = None
+    class_code: Optional[str] = None
+    stated_amount: Optional[str] = None
+    deductible_collision: Optional[str] = None
+    deductible_comprehensive: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         d = {}
@@ -252,6 +265,11 @@ class VehicleInfo:
             use_type=data.get("use_type"),
             radius_of_travel=data.get("radius_of_travel"),
             farthest_zone=data.get("farthest_zone"),
+            territory=data.get("territory"),
+            class_code=data.get("class_code"),
+            stated_amount=_str_or_none(data.get("stated_amount")),
+            deductible_collision=_str_or_none(data.get("deductible_collision")),
+            deductible_comprehensive=_str_or_none(data.get("deductible_comprehensive")),
         )
 
 
@@ -270,6 +288,10 @@ class DriverInfo:
     hire_date: Optional[str] = None
     mailing_address: Optional[Address] = None
     licensed_year: Optional[str] = None  # 4-digit year first licensed
+    occupation: Optional[str] = None
+    relationship: Optional[str] = None  # employee, owner, family, other
+    vehicle_assigned: Optional[str] = None  # vehicle index or identifier
+    pct_use: Optional[str] = None  # percentage of vehicle use
 
     def get_first_name(self) -> Optional[str]:
         """Return first_name, falling back to splitting full_name."""
@@ -318,6 +340,10 @@ class DriverInfo:
             hire_date=data.get("hire_date"),
             mailing_address=Address.from_dict(data.get("mailing_address")),
             licensed_year=data.get("licensed_year"),
+            occupation=data.get("occupation"),
+            relationship=data.get("relationship"),
+            vehicle_assigned=_str_or_none(data.get("vehicle_assigned")),
+            pct_use=_str_or_none(data.get("pct_use")),
         )
 
 
@@ -327,6 +353,11 @@ class CoverageRequest:
     coverage_type: Optional[str] = None
     limit: Optional[str] = None
     deductible: Optional[str] = None
+    per_person_limit: Optional[str] = None
+    per_accident_limit: Optional[str] = None
+    aggregate_limit: Optional[str] = None
+    premium: Optional[str] = None
+    symbol: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         return {k: v for k, v in self.__dict__.items() if v is not None}
@@ -340,6 +371,11 @@ class CoverageRequest:
             coverage_type=data.get("coverage_type"),
             limit=data.get("limit"),
             deductible=data.get("deductible"),
+            per_person_limit=_str_or_none(data.get("per_person_limit")),
+            per_accident_limit=_str_or_none(data.get("per_accident_limit")),
+            aggregate_limit=_str_or_none(data.get("aggregate_limit")),
+            premium=_str_or_none(data.get("premium")),
+            symbol=data.get("symbol"),
         )
 
 

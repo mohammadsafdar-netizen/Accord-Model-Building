@@ -117,16 +117,28 @@ class ResultResponse(BaseModel):
     entities: Optional[dict] = None
     gap_report: Optional[dict] = None
 
+class SubmitWithPdfRequest(BaseModel):
+    text: str = Field(..., min_length=10, description="Customer info text")
+    pdf_path: str = Field(..., description="Path to AcroForm PDF template")
+    model: str = Field(default=DEFAULT_MODEL, description="Ollama model name")
+    ollama_url: str = Field(default=DEFAULT_OLLAMA_URL, description="Ollama API URL")
+    confidence_threshold: float = Field(default=DEFAULT_CONFIDENCE_THRESHOLD, ge=0.0, le=1.0)
+
+class CorrectionRequest(BaseModel):
+    form_number: str = Field(..., description="Form number to correct")
+    corrections: dict = Field(..., description="Dict of field_name -> corrected_value")
+
 
 # ---------- Pipeline helpers (run in thread to not block event loop) ----------
 def _run_pipeline_stages(session_id: str, model: str, ollama_url: str, confidence_threshold: float):
     """Run all pipeline stages synchronously (called via run_in_executor)."""
     from Custom_model_fa_pf import (
         entity_extractor,
-        field_mapper,
         form_assigner,
         gap_analyzer,
         lob_classifier,
+        llm_field_mapper,
+        validation_engine,
     )
 
     session = store.get(session_id)
@@ -140,6 +152,13 @@ def _run_pipeline_stages(session_id: str, model: str, ollama_url: str, confidenc
         registry = _get_schema_registry()
 
         full_text = session.get_full_text()
+
+        # Apply pending corrections before re-running
+        if session.pending_corrections:
+            for form_num, corrections in session.pending_corrections.items():
+                if form_num in session.field_values:
+                    session.field_values[form_num].update(corrections)
+            session.pending_corrections.clear()
 
         # Stage 1: LOB Classification
         session.lobs = lob_classifier.classify(
@@ -158,18 +177,38 @@ def _run_pipeline_stages(session_id: str, model: str, ollama_url: str, confidenc
         # Stage 3: Form Assignment
         session.assignments = form_assigner.assign(session.lobs)
 
-        # Stage 4: Field Mapping
-        session.field_values = field_mapper.map_all(
-            session.entities, session.assignments, schema_registry=registry
+        # Stage 4: Dynamic Field Mapping
+        lob_ids = []
+        for assignment in session.assignments:
+            for lob_id in assignment.lobs:
+                if lob_id not in lob_ids:
+                    lob_ids.append(lob_id)
+
+        session.field_values = llm_field_mapper.map_all(
+            submission=session.entities,
+            assignments=session.assignments,
+            lobs=lob_ids,
+            llm_engine=llm,
+            schema_registry=registry,
         )
 
-        # Stage 5: Gap Analysis
+        # Stage 5: Validation
+        for form_num, fields in session.field_values.items():
+            vr = validation_engine.validate(fields, entities=session.entities)
+            session.validation_results[form_num] = vr
+            session.field_values[form_num] = vr.corrected_values
+
+        # Stage 6: Gap Analysis
         session.gap_report = gap_analyzer.analyze(
             session.entities,
             session.assignments,
             session.field_values,
             llm_engine=llm,
+            validation_results=session.validation_results,
         )
+
+        # Increment conversation turn
+        session.conversation_turn += 1
 
         # Determine status based on gaps
         if session.gap_report and session.gap_report.missing_critical:
@@ -194,6 +233,14 @@ def _build_session_response(session) -> dict:
         follow_ups = [q.to_dict() for q in session.gap_report.follow_up_questions]
         completeness = session.gap_report.completeness_pct
 
+    validation_summary = {}
+    for form_num, vr in session.validation_results.items():
+        validation_summary[form_num] = {
+            "errors": vr.error_count,
+            "warnings": vr.warning_count,
+            "auto_corrections": len(vr.auto_corrections),
+        }
+
     return {
         "session_id": session.id,
         "status": session.status.value,
@@ -206,6 +253,8 @@ def _build_session_response(session) -> dict:
         "gaps": gaps,
         "completeness_pct": round(completeness, 1),
         "follow_up_questions": follow_ups,
+        "validation": validation_summary,
+        "conversation_turn": session.conversation_turn,
     }
 
 
@@ -342,6 +391,88 @@ async def finalize(session_id: str):
             for fr in fill_results
         ],
         "output_dir": str(output_dir),
+    }
+
+
+@app.post("/api/v1/submit-with-pdf")
+async def submit_with_pdf(req: SubmitWithPdfRequest):
+    """Submit customer info text + custom AcroForm PDF for dynamic mapping.
+
+    Reads the PDF to discover all fields, then runs the full pipeline with
+    LLM-powered field mapping tailored to the specific form.
+    """
+    from pathlib import Path as PPath
+    pdf_path = PPath(req.pdf_path)
+    if not pdf_path.exists():
+        raise HTTPException(status_code=400, detail=f"PDF not found: {req.pdf_path}")
+
+    session = store.create()
+    parsed = parse_input(req.text)
+    session.add_message("user", parsed.text)
+
+    # Store PDF path in session metadata for the pipeline
+    # Run standard pipeline — it will auto-read the PDF
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(
+        None,
+        partial(
+            _run_pipeline_stages,
+            session.id,
+            req.model,
+            req.ollama_url,
+            req.confidence_threshold,
+        ),
+    )
+
+    return _build_session_response(session)
+
+
+@app.get("/api/v1/session/{session_id}/validation")
+async def get_validation(session_id: str):
+    """Get validation results for a session — errors, warnings, auto-corrections per form."""
+    session = store.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found or expired")
+
+    return {
+        "session_id": session.id,
+        "validation_results": {
+            form_num: vr.to_dict()
+            for form_num, vr in session.validation_results.items()
+        },
+    }
+
+
+@app.post("/api/v1/session/{session_id}/correct")
+async def apply_correction(session_id: str, req: CorrectionRequest):
+    """Apply manual field corrections to a session and re-validate.
+
+    Stores corrections and re-runs validation on the corrected values.
+    """
+    session = store.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found or expired")
+
+    if req.form_number not in session.field_values:
+        raise HTTPException(status_code=400, detail=f"Form {req.form_number} not found in session")
+
+    # Apply corrections
+    session.field_values[req.form_number].update(req.corrections)
+
+    # Re-validate the corrected form
+    from Custom_model_fa_pf import validation_engine
+    vr = validation_engine.validate(
+        session.field_values[req.form_number],
+        entities=session.entities,
+    )
+    session.validation_results[req.form_number] = vr
+    session.field_values[req.form_number] = vr.corrected_values
+
+    return {
+        "session_id": session.id,
+        "form_number": req.form_number,
+        "fields_corrected": len(req.corrections),
+        "validation": vr.to_dict(),
     }
 
 

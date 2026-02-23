@@ -8,11 +8,14 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from Custom_model_fa_pf.config import OUTPUT_DIR, SCHEMAS_DIR
-from Custom_model_fa_pf import lob_classifier, entity_extractor, form_assigner, field_mapper, pdf_filler, gap_analyzer
+from Custom_model_fa_pf import lob_classifier, entity_extractor, form_assigner, pdf_filler, gap_analyzer
+from Custom_model_fa_pf import llm_field_mapper, form_reader
+from Custom_model_fa_pf import validation_engine
 from Custom_model_fa_pf.lob_classifier import LOBClassification
 from Custom_model_fa_pf.entity_schema import CustomerSubmission
 from Custom_model_fa_pf.form_assigner import FormAssignment
 from Custom_model_fa_pf.gap_analyzer import GapReport
+from Custom_model_fa_pf.validation_engine import ValidationResult
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +28,7 @@ class PipelineResult:
     field_values: Dict[str, Dict[str, str]] = field(default_factory=dict)
     fill_results: list = field(default_factory=list)
     gap_report: Optional[GapReport] = None
+    validation_results: Dict[str, ValidationResult] = field(default_factory=dict)
     output_dir: Optional[Path] = None
 
     def to_dict(self):
@@ -35,6 +39,7 @@ class PipelineResult:
             "field_values": self.field_values,
             "fill_results": [r.to_dict() for r in self.fill_results],
             "gap_report": self.gap_report.to_dict() if self.gap_report else None,
+            "validation_results": {k: v.to_dict() for k, v in self.validation_results.items()},
             "output_dir": str(self.output_dir) if self.output_dir else None,
         }
 
@@ -125,35 +130,63 @@ def run(
     logger.info("=" * 60)
     result.assignments = form_assigner.assign(result.lobs)
 
-    # --- Stage 4: Field Mapping ---
+    # --- Stage 4: Dynamic Form Reading + LLM Field Mapping ---
     logger.info("=" * 60)
-    logger.info("Stage 4: Field Mapping")
+    logger.info("Stage 4: Dynamic Form Reading + LLM Field Mapping")
     logger.info("=" * 60)
-    result.field_values = field_mapper.map_all(
-        result.entities, result.assignments, schema_registry=schema_registry
+
+    # Collect LOB IDs
+    lob_ids = []
+    for assignment in result.assignments:
+        for lob_id in assignment.lobs:
+            if lob_id not in lob_ids:
+                lob_ids.append(lob_id)
+
+    # Read form catalogs and map fields
+    result.field_values = llm_field_mapper.map_all(
+        submission=result.entities,
+        assignments=result.assignments,
+        lobs=lob_ids,
+        llm_engine=llm,
+        schema_registry=schema_registry,
     )
 
-    # --- Stage 5: PDF Filling ---
+    # --- Stage 5: Validation ---
+    logger.info("=" * 60)
+    logger.info("Stage 5: Field Validation")
+    logger.info("=" * 60)
+    for form_num, fields in result.field_values.items():
+        vr = validation_engine.validate(fields, entities=result.entities)
+        result.validation_results[form_num] = vr
+        # Apply auto-corrections
+        result.field_values[form_num] = vr.corrected_values
+        if vr.auto_corrections:
+            logger.info(f"Form {form_num}: {len(vr.auto_corrections)} auto-corrections applied")
+        if vr.has_errors:
+            logger.warning(f"Form {form_num}: {vr.error_count} validation errors")
+
+    # --- Stage 6: PDF Filling ---
     if not json_only:
         logger.info("=" * 60)
-        logger.info("Stage 5: PDF Filling")
+        logger.info("Stage 6: PDF Filling")
         logger.info("=" * 60)
         filled_dir = output_dir / "filled_forms"
         filled_dir.mkdir(exist_ok=True)
         result.fill_results = pdf_filler.fill_all(result.field_values, filled_dir)
     else:
-        logger.info("Stage 5: PDF Filling (skipped — json_only mode)")
+        logger.info("Stage 6: PDF Filling (skipped — json_only mode)")
 
-    # --- Stage 6: Gap Analysis ---
+    # --- Stage 7: Gap Analysis ---
     if show_gaps:
         logger.info("=" * 60)
-        logger.info("Stage 6: Gap Analysis")
+        logger.info("Stage 7: Gap Analysis")
         logger.info("=" * 60)
         result.gap_report = gap_analyzer.analyze(
             result.entities,
             result.assignments,
             result.field_values,
             llm_engine=llm,
+            validation_results=result.validation_results,
         )
 
     # Save all outputs
@@ -191,6 +224,14 @@ def _save_results(result: PipelineResult, output_dir: Path):
         with open(mappings_dir / f"form_{form_num}.json", "w") as f:
             json.dump(fields, f, indent=2)
 
+    # Validation results
+    if result.validation_results:
+        with open(output_dir / "validation_results.json", "w") as f:
+            json.dump(
+                {k: v.to_dict() for k, v in result.validation_results.items()},
+                f, indent=2,
+            )
+
     # Gap report
     if result.gap_report:
         with open(output_dir / "gap_report.json", "w") as f:
@@ -217,6 +258,19 @@ def _print_summary(result: PipelineResult):
     print(f"\nField mappings:")
     for form_num, fields in result.field_values.items():
         print(f"  - Form {form_num}: {len(fields)} fields mapped")
+
+    if result.validation_results:
+        print(f"\nValidation:")
+        for form_num, vr in result.validation_results.items():
+            parts = []
+            if vr.error_count:
+                parts.append(f"{vr.error_count} errors")
+            if vr.warning_count:
+                parts.append(f"{vr.warning_count} warnings")
+            if vr.auto_corrections:
+                parts.append(f"{len(vr.auto_corrections)} auto-corrected")
+            summary = ", ".join(parts) if parts else "all valid"
+            print(f"  - Form {form_num}: {summary}")
 
     if result.fill_results:
         print(f"\nPDF filling:")

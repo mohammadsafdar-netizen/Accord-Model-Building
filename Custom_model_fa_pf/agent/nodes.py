@@ -84,6 +84,7 @@ def process_tool_results_node(state: IntakeState) -> dict:
     messages = state.get("messages", [])
     form_state = dict(state.get("form_state", {}))
     entities = state.get("entities", {})
+    _new_uploads = []
     updated = False
 
     # 1. Process actual ToolMessages from LangGraph ToolNode
@@ -119,6 +120,37 @@ def process_tool_results_node(state: IntakeState) -> dict:
             entities = data
             updated = True
 
+        # Process fill_forms results — log fill stats
+        if data.get("status") == "filled" and data.get("output_dir"):
+            logger.info(
+                "Forms filled: %d fields across %d forms → %s",
+                data.get("total_fields_filled", 0),
+                data.get("forms_count", 0),
+                data.get("output_dir"),
+            )
+            for fr in data.get("fill_results", []):
+                logger.info(
+                    "  Form %s: %d filled, %d skipped, %d errors",
+                    fr.get("form_number"), fr.get("filled_count", 0),
+                    fr.get("skipped_count", 0), fr.get("error_count", 0),
+                )
+
+        # Process process_document results — track uploads
+        if data.get("status") == "processed" and data.get("document_type"):
+            from datetime import datetime
+            _new_uploads.append({
+                "file_path": data.get("file_path", ""),
+                "document_type": data.get("document_type", "other"),
+                "fields_count": len(data.get("fields", {})),
+                "timestamp": datetime.now().isoformat(),
+            })
+            updated = True
+            logger.info(
+                "Tracked document upload: %s (%s, %d fields)",
+                data.get("file_path"), data.get("document_type"),
+                len(data.get("fields", {})),
+            )
+
     # 2. Parse text-based tool calls from AI messages
     #    Small models sometimes write save_field("name", "value") as text
     for msg in reversed(messages[-5:]):  # Only check recent messages
@@ -153,6 +185,10 @@ def process_tool_results_node(state: IntakeState) -> dict:
         result["form_state"] = form_state
         if entities != state.get("entities", {}):
             result["entities"] = entities
+        if _new_uploads:
+            uploaded = list(state.get("uploaded_documents", []))
+            uploaded.extend(_new_uploads)
+            result["uploaded_documents"] = uploaded
     return result
 
 

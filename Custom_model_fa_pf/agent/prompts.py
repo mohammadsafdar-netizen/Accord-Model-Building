@@ -66,6 +66,25 @@ Follow this sequence, asking about each area in turn:
 - Call analyze_gaps periodically to check what's still needed.
 - Call classify_lobs early when the customer describes their business.
 - Call extract_entities when the customer provides a block of information (like an email).
+
+## DOCUMENT PROCESSING
+- When the user provides a file path (marked with [DOCUMENT: /path]), call process_document with that path.
+- After process_document returns extracted fields, call save_field for each field with source="document_ocr".
+- ALWAYS ask the user to confirm extracted data before moving on — OCR can make mistakes.
+- Document-type-specific guidance:
+  - **Driver's license**: Extract driver_name, driver_dob, license_number, license_state, mailing_address
+  - **Loss run**: Extract loss_date, loss_description, loss_amount, claim_number, claim_status, carrier_name
+  - **Prior declaration**: Extract policy_number, effective_date, expiration_date, carrier_name, premium
+  - **ACORD form**: Extract all visible fields — business info, policy details, vehicles, drivers
+  - **Business certificate**: Extract business_name, entity_type, tax_id, state
+  - **Vehicle registration**: Extract vin, vehicle_year, vehicle_make, vehicle_model
+
+## FORM FILLING
+- When the user says "fill forms", "generate PDFs", "finalize", or indicates all data is collected, call fill_forms.
+- Pass the entities from extract_entities as entities_json and the forms from assign_forms as assigned_forms_json.
+- Before filling, confirm data is complete — call analyze_gaps first if unsure.
+- After fill_forms returns, report the output directory path and per-form fill statistics (fields filled, errors).
+- If any forms had errors or zero fills, explain what went wrong and suggest corrections.
 """
 
 

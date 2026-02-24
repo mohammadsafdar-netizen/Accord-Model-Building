@@ -97,6 +97,17 @@ def fill_pdf(
                 continue
 
             value = field_values[fname]
+
+            # Skip read-only fields (form metadata, not user-fillable)
+            if widget.field_flags & 1:
+                result.skipped_count += 1
+                continue
+
+            # Skip widgets with empty/degenerate rects (zero-area, invisible)
+            if widget.rect.is_empty or widget.rect.width <= 0 or widget.rect.height <= 0:
+                result.skipped_count += 1
+                continue
+
             try:
                 if widget.field_type == fitz.PDF_WIDGET_TYPE_CHECKBOX:
                     # Checkbox: set to True/False based on value
@@ -115,11 +126,12 @@ def fill_pdf(
                 result.errors.append(f"Error filling {fname}: {e}")
                 result.error_count += 1
 
-    # Count skipped (in our mapping but not found in PDF)
-    result.skipped_count = len(field_values) - len(filled_fields) - result.error_count
-    if result.skipped_count > 0:
+    # Count fields not found in PDF (add to skipped_count from read-only/bad-rect)
+    not_found = len(field_values) - len(filled_fields) - result.error_count - result.skipped_count
+    if not_found > 0:
+        result.skipped_count += not_found
         skipped = set(field_values.keys()) - filled_fields
-        logger.debug(f"Form {form_number}: {result.skipped_count} fields not found in PDF: {sorted(skipped)[:5]}")
+        logger.debug(f"Form {form_number}: {not_found} fields not found in PDF: {sorted(skipped)[:5]}")
 
     doc.saveIncr()
     doc.close()

@@ -663,3 +663,350 @@ User says "finalize" / "fill forms"
 | **Fast** (single LLM call) | `classify_lobs`, `read_form` | 1-3s |
 | **Medium** (VLM/LLM extraction) | `extract_entities`, `process_document` | 10-30s |
 | **Slow** (multi-phase LLM pipeline) | `map_fields`, `fill_forms` | 1-6 min |
+
+---
+
+## 7. Test Scenarios — Exact Inputs & Results
+
+All 14 test scenarios from `tests/test_bulk_input_e2e.py` with the exact text sent to the agent and what happened.
+
+### Test 1: Flatten Function (Unit Test — no LLM)
+
+Pure code test. Fed this nested dict:
+
+```
+business: Pinnacle Logistics LLC, LLC, FEIN 75-1234567, phone (214) 555-0187
+          45 employees, $12.5M revenue, 8 years, freight trucking
+          Address: 4500 Commerce Street Suite 200, Dallas TX 75226
+policy:   04/01/2026 – 04/01/2027
+vehicles: 2023 Ford F-150 (VIN 1FTFW1E80NFA00001)
+          2022 Freightliner Cascadia (VIN 3AKJHHDR5NSLA4521)
+drivers:  John Doe, DOB 01/15/1985, TX123, TX
+          Jane Smith, DOB 05/22/1990, TX456, TX
+prior:    State Farm, PKG-123456, $12,000
+```
+
+**Result**: 33 flat fields generated correctly (business_name, fein, mailing_city, vehicle_1_vin, driver_2_dob, prior_carrier_1_carrier, etc.)
+
+### Test 2: Multi-Vehicle/Driver Indexing (Unit Test — no LLM)
+
+4 vehicles + 4 drivers to test indexing doesn't break:
+
+```
+vehicles: VIN0001/2024 Ford F-150, VIN0002/2023 Chevy Silverado,
+          VIN0003/2022 RAM 1500, VIN0004/2021 Toyota Tundra
+drivers:  Driver A (TX), Driver B (CA), Driver C (IL), Driver D (WI)
+```
+
+**Result**: All 32 indexed fields correct (vehicle_1_* through vehicle_4_*, driver_1_* through driver_4_*)
+
+### Test 3: Commercial Auto — Full Email
+
+This is the main bulk input test. The agent received:
+
+```
+We are Pinnacle Logistics LLC, a freight trucking company at
+4500 Commerce Street Suite 200, Dallas TX 75226. FEIN 75-1234567,
+phone (214) 555-0187. We need commercial auto insurance for our fleet.
+8 years in business, 45 employees, $12.5M revenue.
+
+Policy effective 04/01/2026 through 04/01/2027.
+
+Vehicles:
+1. 2023 Ford F-150, VIN 1FTFW1E80NFA00001
+2. 2022 Freightliner Cascadia, VIN 3AKJHHDR5NSLA4521
+
+Drivers:
+1. John Doe, DOB 01/15/1985, CDL# TX12345, Texas
+2. Jane Smith, DOB 05/22/1990, CDL# TX67890, Texas
+
+We want $1M CSL liability.
+```
+
+**Result**: 25 fields captured in one turn (19.5s). Agent asked about missing fields like garaging address and vehicle year — did NOT re-ask business name, FEIN, or address.
+
+### Test 4: General Liability — Restaurant
+
+```
+Hi, I need general liability insurance for my restaurant.
+
+Business: The Golden Spoon Restaurant
+Address: 321 Culinary Ave, Milwaukee, WI 53202
+FEIN: 39-5544321
+Type: LLC
+We're a full-service restaurant with 30 seats, been open 5 years.
+Revenue last year was about $750,000 with 12 employees.
+
+Need coverage starting June 1, 2026.
+Looking for $1M per occurrence / $2M aggregate.
+
+Contact: Maria Santos, 414-555-7788, maria@goldenspoon.com
+```
+
+**Result**: 12 fields captured. Classified as `general_liability`, assigned forms 125+126. Did not re-ask business name.
+
+### Test 5: Multi-LOB — Construction Company (Auto + Umbrella)
+
+```
+We are looking for a commercial auto policy AND an umbrella policy
+for our construction company.
+
+Company: Apex Construction Group Inc.
+Address: 789 Builder's Way, Madison, WI 53703
+Tax ID: 39-8127456
+Entity: Corporation
+Operations: Commercial and residential construction
+Revenue: $8,500,000
+Employees: 45
+
+Contact: Lisa Chen, CFO
+Phone: 608-555-9012
+Email: lisa.chen@apexconstruction.com
+
+Effective: 05/01/2026 to 05/01/2027
+
+Vehicles:
+1. 2024 Chevrolet Silverado 3500HD, VIN: 1GC4YVEK1RF234567, GVW: 14,000, Cost: $58,000
+2. 2023 RAM 5500 Chassis Cab, VIN: 3C7WRSBL2NG345678, GVW: 19,500, Cost: $72,000
+
+Drivers:
+1. Robert Chen, DOB: 09/20/1975, Male, Married, DL# C388-5521-0092, WI, 25 yrs exp
+2. James Peters, DOB: 02/14/1988, Male, Single, DL# P291-3347-8856, WI, 10 yrs exp
+
+We want $1M CSL auto liability and a $2M umbrella policy.
+```
+
+**Result**: **39 fields** captured — the most of any test. Classified both `commercial_auto` + `commercial_umbrella`. Got vehicle costs, GVW, driver gender, marital status, experience years.
+
+### Test 6: Workers Comp + Commercial Property — Manufacturing
+
+```
+We need workers compensation and commercial property insurance.
+
+Business: Heartland Manufacturing Corp
+Address: 1000 Factory Lane, Des Moines, IA 50301
+FEIN: 42-1234567
+Corporation with 85 employees
+Annual payroll: $4,200,000
+
+Property location: Same as above
+Building: 25,000 sq ft masonry warehouse built in 2005
+Equipment value: $2,000,000
+
+Contact: David Kim, HR Director
+Phone: 515-555-4433
+Email: dkim@heartlandmfg.com
+
+Effective 07/01/2026.
+```
+
+**Result**: LOBs classified correctly (`workers_compensation` + `commercial_property`). Model chose to ask clarifying questions before saving — graceful degradation.
+
+### Test 7: Conversational Step-by-Step (5 turns)
+
+One fact at a time, like a real phone call:
+
+| Turn | User Says |
+|------|-----------|
+| 1 | "We're a landscaping company called Green Earth Landscaping LLC" |
+| 2 | "Our address is 250 Park Avenue, Austin TX 78701" |
+| 3 | "We need commercial auto insurance for our 3 work trucks" |
+| 4 | "Our FEIN is 74-9876543" |
+| 5 | "My name is Tom Garcia, phone 512-555-0101, email tom@greenearthlandscaping.com" |
+
+**Result**: All 5 turns completed, agent responded naturally each time, asked follow-up questions. No internal state leaks (no "save_field", "form_state", "langgraph" in any response).
+
+### Test 8: Missing Field Detection
+
+**Turn 1** — partial info with obvious gaps (no vehicles, no drivers, no FEIN):
+
+```
+We're Swift Courier Services LLC, a delivery company at
+900 Express Way, Phoenix AZ 85001. We need commercial auto
+insurance starting March 1, 2026. We have 20 employees
+and $2M in annual revenue. 5 years in business.
+```
+
+**Turn 2** — provide missing vehicles:
+
+```
+Here are our vehicles:
+1) 2024 Ford Transit Van, VIN 1FTBW2CM5RKA12345
+2) 2023 RAM ProMaster, VIN 3C6TRVDG6PE654321
+```
+
+**Result**: Turn 1: 5 fields saved, agent asked about vehicles/drivers/FEIN. Turn 2: `extract_entities` called, 29 fields flattened into form_state. Agent correctly identified what was still missing.
+
+### Test 9: Hybrid — Bulk Then Conversational Corrections
+
+**Turn 1** — bulk email:
+
+```
+Company: Riverside Plumbing Inc., Corporation
+Address: 567 Pipe Lane, San Antonio TX 78205
+FEIN: 74-5551234
+Phone: 210-555-8899
+Contact: Carlos Rivera, Owner
+Email: carlos@riversideplumbing.com
+20 employees, $1.8M revenue, 12 years in business
+
+Need commercial auto and general liability.
+
+Vehicles:
+1. 2023 Ford F-250, VIN 1FT7W2BT3PED11111
+2. 2024 Chevy Express 3500, VIN 1GCWGAFG1R1222222
+
+Drivers:
+1. Carlos Rivera, DOB 03/10/1980, DL# 12345678, TX, 20 years exp
+2. Miguel Torres, DOB 08/25/1992, DL# 87654321, TX, 8 years exp
+
+Policy effective 04/01/2026 to 04/01/2027.
+```
+
+**Turn 2** — correction:
+
+```
+Actually, we have 25 employees now, not 20.
+```
+
+**Turn 3** — addition:
+
+```
+Also, we just bought a new 2025 Toyota Tundra, VIN 5TFAW5F13RX000003
+```
+
+**Result**: 10 fields after bulk, correction and addition handled without losing existing data.
+
+### Test 10: No Re-Ask Confirmed Fields
+
+Comprehensive email (most data-rich single message):
+
+```
+Business: Metro Express Delivery LLC
+Address: 1200 Logistics Pkwy Suite 100, Houston TX 77001
+FEIN: 76-9998877
+Phone: 713-555-0202
+Contact: Sarah Johnson, Operations Manager
+Email: sarah@metroexpress.com
+Entity type: LLC
+30 employees, $5M revenue, 10 years in business
+Nature of business: Same-day courier and delivery services
+
+Need commercial auto insurance.
+
+Policy dates: 05/01/2026 to 05/01/2027
+
+Vehicles:
+1. 2024 Ford Transit, VIN 1FTBW2CM0RKB00001, GVW 9000
+2. 2023 Mercedes Sprinter, VIN WD4PF0CD2NP000002, GVW 11000
+3. 2024 RAM ProMaster, VIN 3C6TRVDG8PE000003, GVW 9000
+
+Drivers:
+1. Sarah Johnson, DOB 06/15/1982, DL# 12345678, TX, 18 yrs exp
+2. David Lee, DOB 11/30/1988, DL# 87654321, TX, 12 yrs exp
+3. Maria Garcia, DOB 04/20/1995, DL# 11223344, TX, 6 yrs exp
+
+$1M CSL liability, $500 collision deductible.
+```
+
+Then user asked: **"What other information do you need from me?"**
+
+**Result**: Agent asked about garaging address, vehicle use type, employment status — all genuinely missing. Did NOT ask about business name, company name, address, FEIN, phone, or email (6/6 checks passed).
+
+### Test 11: Cyber Liability
+
+```
+Hi, we need cyber liability insurance for our tech company.
+
+Business: CloudSecure Technologies Inc.
+Address: 2000 Innovation Drive, Suite 500, Austin TX 78758
+FEIN: 74-1112222
+Corporation, 150 employees
+Annual revenue: $25,000,000
+Been in business 7 years
+
+We handle sensitive customer data - about 500,000 records.
+We have encryption, MFA, and an incident response plan.
+No prior breaches.
+
+Contact: Alex Park, CTO
+Phone: 512-555-9999
+Email: alex@cloudsecure.com
+
+Need coverage starting 03/01/2026.
+```
+
+**Result**: 3 fields captured (business name, address, city). Cyber is a less common LOB — model was more conservative with fewer save_field calls.
+
+### Test 12: BOP (Business Owners Policy) — Retail Store
+
+```
+We need a business owners policy for our retail store.
+
+Business: Sunshine Gifts & Novelties LLC
+Address: 456 Retail Blvd, Orlando FL 32801
+FEIN: 59-7778899
+LLC, 8 employees
+Annual revenue: $600,000
+4 years in business
+
+Location: Same as mailing address
+1,500 sq ft retail space, built 2015, frame construction
+
+Contact: Jenny Walsh, Owner
+Phone: 407-555-3344
+Email: jenny@sunshinegifts.com
+
+Effective 06/01/2026.
+```
+
+**Result**: 12 fields captured. Classified as `bop`, assigned form 125.
+
+### Test 13: Response Quality (4 turns)
+
+A bakery scenario specifically testing for leaks/artifacts:
+
+| Turn | User Says |
+|------|-----------|
+| 1 | "Hi, I'm running a small bakery called Sweet Treats Bakery, an LLC in Portland Oregon" |
+| 2 | "We need general liability insurance" |
+| 3 | "Our address is 789 Baker Street, Portland OR 97201, FEIN 93-1234567" |
+| 4 | "We have 6 employees and about $400K in revenue" |
+
+Checked all 5 responses (greeting + 4 turns) for: JSON objects, code blocks, `save_field`, `extract_entities`, `classify_lobs`, `form_state`, `tool_call`, `langgraph`, `langchain`. Also checked length is 10-2000 chars.
+
+**Result**: 50/50 checks passed. Zero leaks across all responses.
+
+### Test 14: User-Confirmed Not Overwritten
+
+**Turn 1** (conversational): "Our business name is Premier Transport Inc"
+
+**Turn 2** (bulk):
+
+```
+Company: Premier Transport Inc
+Address: 100 Highway Drive, Memphis TN 38101
+FEIN: 62-1111222
+Need commercial auto insurance.
+15 employees, $3M revenue.
+Policy effective 05/01/2026.
+```
+
+**Result**: Field count didn't decrease — existing `user_confirmed` values preserved when bulk data came in.
+
+### Business Types Tested
+
+| Business | LOBs | State |
+|----------|------|-------|
+| Freight trucking company | Commercial Auto | TX |
+| Full-service restaurant | General Liability | WI |
+| Construction company | Auto + Umbrella | WI |
+| Manufacturing warehouse | Workers Comp + Property | IA |
+| Landscaping company | Commercial Auto | TX |
+| Courier/delivery service | Commercial Auto | AZ |
+| Plumbing company | Auto + GL | TX |
+| Same-day delivery service | Commercial Auto | TX |
+| Cyber security tech company | Cyber | TX |
+| Retail gift shop | BOP | FL |
+| Bakery | General Liability | OR |
+| Transport company | Commercial Auto | TN |

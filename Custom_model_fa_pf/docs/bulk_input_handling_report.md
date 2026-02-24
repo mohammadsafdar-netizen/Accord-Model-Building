@@ -512,3 +512,154 @@ The **TOOL USAGE** section (rewritten in this work) explicitly tells the LLM:
 | `prompts.py` | Rewrote TOOL USAGE section with bulk vs conversational modes | ~25 lines |
 | `graph.py` | Fixed `_should_use_tools` to count rounds not individual ToolMessages | ~15 lines |
 | `tools.py` | Fixed `assign_forms` to handle malformed LOB dicts gracefully | ~10 lines |
+
+---
+
+## 6. Complete Tool Reference
+
+The agent has **10 tools** defined in `agent/tools.py`, bound to the LLM via `bind_tools()` in the agent node.
+
+### 6.1 Tool Overview
+
+| # | Tool | Purpose | Input | Output |
+|---|------|---------|-------|--------|
+| 1 | **`save_field`** | Record a single confirmed field value | `field_name`, `value`, `source` | `{status, field_name, value, confidence}` |
+| 2 | **`validate_fields`** | Run business rules (VIN checksum, DL format, FEIN, date ordering, phone, state/ZIP) | `fields_json` (flat dict) | `{errors, warnings, auto_corrections}` |
+| 3 | **`classify_lobs`** | Detect lines of business from customer description | `text` | `[{lob_id, confidence, reasoning}]` |
+| 4 | **`extract_entities`** | Structured extraction — business, policy, vehicles, drivers, coverages, locations, losses | `text` | `CustomerSubmission.to_dict()` (nested JSON) |
+| 5 | **`assign_forms`** | Map LOBs to ACORD form numbers (125, 126, 127, 137, 163, etc.) | `lobs_json` | `[{form_number, purpose, lobs}]` |
+| 6 | **`read_form`** | Read a fillable PDF and return its field catalog (names, types, tooltips, sections) | `pdf_path` | `{form_number, total_fields, text_fields, checkbox_fields, sections}` |
+| 7 | **`map_fields`** | 3-phase entity→form field mapping (regex → suffix-indexed arrays → LLM batch) | `form_number`, `entities_json` | `{total_mapped, phase1/2/3_count, mappings}` |
+| 8 | **`analyze_gaps`** | Find missing/incomplete fields, suggest follow-up questions | `entities_json`, `assigned_forms_json`, `field_values_json` | `{missing_critical, missing_important, completeness_pct, suggestions}` |
+| 9 | **`process_document`** | VLM extraction from uploaded images/PDFs (loss runs, DLs, prior decs, ACORD forms, vehicle regs) | `file_path` | `{document_type, fields, summary, pages_processed}` |
+| 10 | **`fill_forms`** | Full pipeline: map→validate→auto-correct→fill blank PDF templates | `entities_json`, `assigned_forms_json` | `{output_dir, total_fields_filled, per_form_results}` |
+
+### 6.2 Tool Details
+
+#### Tool 1: `save_field`
+- **When called**: Every time the customer provides a piece of information
+- **Speed**: Instant (no LLM)
+- **How it works**: Takes a field name (e.g. `business_name`, `driver_1_dob`), a value, and a source tag. Computes a confidence score via `ConfidenceScorer` and returns a JSON result. The `process_tool_results_node` then writes the result into `form_state`.
+- **Example**: `save_field("business_name", "Pinnacle Logistics LLC", "user_stated")` → `{status: "saved", field_name: "business_name", value: "Pinnacle Logistics LLC", confidence: 0.95}`
+
+#### Tool 2: `validate_fields`
+- **When called**: When a section is complete (e.g. after collecting an address or VIN)
+- **Speed**: Instant (no LLM)
+- **How it works**: Calls `validation_engine.validate()` which checks:
+  - VIN checksum (17-char Luhn-based)
+  - Driver's license format by state
+  - FEIN format (XX-XXXXXXX)
+  - Date ordering (effective before expiration)
+  - Phone format
+  - State/ZIP consistency
+- **Returns**: Errors, warnings, and auto-corrections (e.g. formatting phone numbers)
+
+#### Tool 3: `classify_lobs`
+- **When called**: When the customer describes their insurance needs
+- **Speed**: ~1-2s (single LLM call)
+- **How it works**: Calls `lob_classifier.classify()` which sends the text to the LLM and identifies which lines of business apply. Supported LOBs: `commercial_auto`, `general_liability`, `workers_compensation`, `commercial_property`, `commercial_umbrella`, `bop`, `cyber`.
+- **Example output**: `[{lob_id: "commercial_auto", confidence: 0.95, reasoning: "Customer mentioned fleet vehicles"}]`
+
+#### Tool 4: `extract_entities`
+- **When called**: When the customer provides a large block of text (bulk input mode)
+- **Speed**: ~10-25s (LLM extraction)
+- **How it works**: Calls `entity_extractor.extract()` which parses the text into a structured `CustomerSubmission` with nested objects: `business` (with `mailing_address`), `policy`, `vehicles[]`, `drivers[]`, `coverages[]`, `locations[]`, `prior_insurance[]`. The `process_tool_results_node` auto-flattens this into `form_state`.
+- **Key benefit**: One call extracts ALL entities from a paragraph, vs. calling `save_field` 30+ times
+
+#### Tool 5: `assign_forms`
+- **When called**: After `classify_lobs` returns LOB results
+- **Speed**: Instant (lookup table)
+- **How it works**: Calls `form_assigner.assign()` which maps LOBs to ACORD form numbers. Examples:
+  - `commercial_auto` → forms 125 (common), 127 (auto), 137 (auto schedule)
+  - `general_liability` → forms 125 (common), 126 (GL)
+  - `workers_compensation` → form 125 (common), 130 (WC)
+  - `bop` → form 125 (common)
+- **Robustness fix**: Now handles malformed LOB dicts by trying multiple key names (`lob_id`, `id`, `lob`, `name`)
+
+#### Tool 6: `read_form`
+- **When called**: When exploring what fields a specific form contains
+- **Speed**: ~1s (PDF parsing)
+- **How it works**: Calls `form_reader.read_pdf_form()` to read an AcroForm PDF and return its field catalog organized by sections. Shows field names, types (text/checkbox), and tooltips.
+- **Use case**: Agent can check what fields a form needs before asking the customer
+
+#### Tool 7: `map_fields`
+- **When called**: Before filling forms (usually called internally by `fill_forms`)
+- **Speed**: 1-5 min (LLM batch mapping)
+- **How it works**: 3-phase mapping pipeline:
+  - **Phase 1**: Deterministic regex patterns (instant, ~12 fields)
+  - **Phase 2**: Suffix-indexed array mapping for drivers/vehicles (instant)
+  - **Phase 3**: LLM batch mapping for remaining fields (slow, batched by category)
+- **Example**: Maps `business_name` → PDF field `ApplicantName`, `vehicle_1_vin` → PDF field `VehIdNo_1`
+
+#### Tool 8: `analyze_gaps`
+- **When called**: To check what information is still missing
+- **Speed**: Instant (comparison logic)
+- **How it works**: Compares extracted entities + field values against the required fields for each assigned form. Returns:
+  - Missing critical fields (must-have: business name, FEIN, effective date)
+  - Missing important fields (should-have: garaging address, use type)
+  - Completeness percentage
+  - Suggested follow-up questions
+
+#### Tool 9: `process_document`
+- **When called**: When the user uploads/provides a document file path
+- **Speed**: ~10-30s (VLM extraction per page, up to 3 pages)
+- **How it works**:
+  1. Validates file exists and extension is supported (`.pdf`, `.png`, `.jpg`, `.tiff`, etc.)
+  2. If PDF → converts to page images via `OCREngine.pdf_to_images()`
+  3. Sends each page (up to 3) to VLM (`qwen3-vl:8b`) with a specialized extraction prompt
+  4. VLM classifies document type and extracts fields
+  5. Results merged across pages, flattened into `form_state` with `source="document_ocr"`
+- **Supported document types**: `loss_run`, `drivers_license`, `prior_declaration`, `acord_form`, `business_certificate`, `vehicle_registration`, `other`
+- **Field extraction by doc type**:
+  - **Loss run**: `loss_date`, `loss_description`, `loss_amount`, `claim_number`, `claim_status`, `carrier_name`
+  - **Driver's license**: `driver_name`, `driver_dob`, `license_number`, `license_state`, `mailing_address`
+  - **Prior declaration**: `policy_number`, `effective_date`, `expiration_date`, `carrier_name`, `premium`
+  - **ACORD form**: All visible fields (business info, policy, vehicles, drivers)
+  - **Business certificate**: `business_name`, `entity_type`, `tax_id`, `state`
+  - **Vehicle registration**: `vin`, `vehicle_year`, `vehicle_make`, `vehicle_model`
+
+#### Tool 10: `fill_forms`
+- **When called**: When the user says "fill forms", "generate PDFs", "finalize", or indicates all data is collected
+- **Speed**: 5-6 min (full pipeline)
+- **How it works**: Runs the complete end-to-end pipeline:
+  1. Parse entities into `CustomerSubmission`
+  2. Parse form assignments into `FormAssignment` objects
+  3. Run 3-phase field mapping (regex → indexed arrays → LLM batch) via `llm_field_mapper.map_all()`
+  4. Validate and auto-correct field values via `validation_engine.validate()`
+  5. Fill blank PDF templates via `pdf_filler.fill_all()`
+  6. Save JSON artifacts (entities, field mappings, validation results)
+- **Output**: Filled PDFs in `output/<timestamp>/filled_forms/` + JSON artifacts
+- **Example output**: `{status: "filled", output_dir: "output/20260224_122923", total_fields_filled: 143, forms_count: 3}`
+
+### 6.3 Tool Interaction Flow
+
+```
+User sends bulk email
+    │
+    ├─▶ save_field (x25-39)     ← records each data point
+    ├─▶ classify_lobs            ← detects: commercial_auto, GL, etc.
+    ├─▶ assign_forms             ← maps LOBs → form 125, 127, 137
+    │
+User provides more info
+    │
+    ├─▶ extract_entities         ← structured parse of paragraph/email
+    ├─▶ validate_fields          ← checks VIN, FEIN, dates, phone
+    ├─▶ analyze_gaps             ← what's still missing?
+    │
+User uploads a document
+    │
+    ├─▶ process_document         ← VLM reads loss run / DL / prior dec
+    │
+User says "finalize" / "fill forms"
+    │
+    ├─▶ fill_forms               ← map + validate + fill PDFs → output/
+```
+
+### 6.4 Speed Categories
+
+| Category | Tools | Latency |
+|----------|-------|---------|
+| **Instant** (no LLM) | `save_field`, `validate_fields`, `assign_forms`, `analyze_gaps` | <100ms |
+| **Fast** (single LLM call) | `classify_lobs`, `read_form` | 1-3s |
+| **Medium** (VLM/LLM extraction) | `extract_entities`, `process_document` | 10-30s |
+| **Slow** (multi-phase LLM pipeline) | `map_fields`, `fill_forms` | 1-6 min |

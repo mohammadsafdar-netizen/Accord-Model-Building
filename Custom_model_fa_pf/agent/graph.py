@@ -104,6 +104,8 @@ def _should_use_tools(state: IntakeState) -> str:
     """Check if the last AI message wants to call tools.
 
     Enforces MAX_TOOL_CALLS_PER_TURN to prevent infinite tool loops.
+    Counts agent→tools ROUND-TRIPS (not individual ToolMessages) so that
+    a single batch of many tool calls (e.g. 27 save_fields) counts as 1 round.
     Routes to 'reflect' instead of directly to 'check_gaps' (Pattern 4).
     """
     messages = state.get("messages", [])
@@ -112,21 +114,20 @@ def _should_use_tools(state: IntakeState) -> str:
 
     last = messages[-1]
     if hasattr(last, "tool_calls") and last.tool_calls:
-        # Count consecutive tool call rounds in this turn
+        # Count round-trips: each AIMessage with tool_calls = 1 round
         from langchain_core.messages import ToolMessage
-        tool_rounds = 0
+        rounds = 0
         for msg in reversed(messages):
             if isinstance(msg, ToolMessage):
-                tool_rounds += 1
+                continue  # Skip individual tool results
             elif hasattr(msg, "tool_calls") and msg.tool_calls:
-                continue  # AI message with tool calls
+                rounds += 1  # Each AI tool-calling message = 1 round
             else:
                 break
-        # Each tool round = 1 AI tool_call + N ToolMessages
-        if tool_rounds >= MAX_TOOL_CALLS_PER_TURN:
+        if rounds >= MAX_TOOL_CALLS_PER_TURN:
             logger.warning(
-                "Tool call limit reached (%d/%d), routing to reflect",
-                tool_rounds, MAX_TOOL_CALLS_PER_TURN,
+                "Tool call limit reached (%d/%d rounds), routing to reflect",
+                rounds, MAX_TOOL_CALLS_PER_TURN,
             )
             return "reflect"
         return "tools"

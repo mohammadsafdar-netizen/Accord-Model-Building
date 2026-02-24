@@ -50,6 +50,9 @@ class IntakeState(TypedDict):
     confidence_scores: dict  # field_name -> float
     validation_issues: list  # List of validation issue dicts
 
+    # Documents
+    uploaded_documents: list  # [{file_path, document_type, fields_count, timestamp}]
+
     # Session metadata
     session_id: str
     conversation_turn: int
@@ -69,6 +72,7 @@ def create_initial_state(session_id: str) -> dict:
         "assigned_forms": [],
         "confidence_scores": {},
         "validation_issues": [],
+        "uploaded_documents": [],
         "session_id": session_id,
         "conversation_turn": 0,
         "error_count": 0,

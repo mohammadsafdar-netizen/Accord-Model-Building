@@ -43,6 +43,8 @@ class ConfidenceScorer:
         "validated_external": 0.98,
         "defaulted": 0.50,
         "ocr_extracted": 0.80,
+        "document_ocr": 0.85,
+        "extracted": 0.85,
     }
     DEFAULT_WEIGHT = 0.50
 

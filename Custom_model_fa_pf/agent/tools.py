@@ -147,12 +147,20 @@ def assign_forms(lobs_json: str) -> str:
 
     lobs = []
     for d in lob_dicts:
+        if not isinstance(d, dict):
+            continue
+        lob_id = d.get("lob_id") or d.get("id") or d.get("lob") or d.get("name")
+        if not lob_id:
+            continue
         lobs.append(LOBClassification(
-            lob_id=d["lob_id"],
+            lob_id=lob_id,
             confidence=d.get("confidence", 0.9),
             reasoning=d.get("reasoning", ""),
             display_name=d.get("display_name", ""),
         ))
+
+    if not lobs:
+        return json.dumps({"error": "No valid LOB classifications found in input"})
 
     assignments = assign(lobs)
     return json.dumps([a.to_dict() for a in assignments])

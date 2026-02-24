@@ -6,6 +6,7 @@ import logging
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
+from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
 from Custom_model_fa_pf.agent.state import IntakePhase, IntakeState
 from Custom_model_fa_pf.agent.prompts import (
     build_system_message,
@@ -36,6 +37,166 @@ def _get_chat_llm() -> ChatOpenAI:
         temperature=AGENT_TEMPERATURE,
         max_tokens=AGENT_MAX_TOKENS,
     )
+
+
+# ---------------------------------------------------------------------------
+# Entity flattening — convert nested extract_entities output to flat form_state
+# ---------------------------------------------------------------------------
+
+# Maps nested entity paths to flat form_state field names.
+# Format: (nested_prefix, nested_key) -> flat_field_name
+# For top-level dicts (business, policy, prior_insurance_entry):
+_FLAT_MAP_BUSINESS = {
+    "business_name": "business_name",
+    "dba": "dba",
+    "entity_type": "entity_type",
+    "tax_id": "fein",
+    "fein": "fein",
+    "phone": "phone",
+    "email": "email",
+    "website": "website",
+    "sic_code": "sic_code",
+    "naics_code": "naics_code",
+    "years_in_business": "years_in_business",
+    "employee_count": "employee_count",
+    "annual_revenue": "annual_revenue",
+    "annual_payroll": "annual_payroll",
+    "nature_of_business": "nature_of_business",
+    "description_of_operations": "description_of_operations",
+}
+
+_FLAT_MAP_ADDRESS = {
+    "line_one": "street",
+    "line_two": "street_line2",
+    "city": "city",
+    "state": "state",
+    "zip_code": "zip",
+    "county": "county",
+}
+
+_FLAT_MAP_POLICY = {
+    "effective_date": "effective_date",
+    "expiration_date": "expiration_date",
+    "policy_number": "policy_number",
+    "carrier_name": "carrier_name",
+    "premium": "premium",
+}
+
+_FLAT_MAP_VEHICLE = {
+    "vin": "vin",
+    "year": "year",
+    "make": "make",
+    "model": "model",
+    "body_type": "body_type",
+    "gvw": "gvw",
+    "radius": "radius",
+    "farthest_terminal": "farthest_terminal",
+    "garaging_city": "garaging_city",
+    "garaging_state": "garaging_state",
+    "garaging_zip": "garaging_zip",
+    "use_type": "use_type",
+    "cost_new": "cost_new",
+}
+
+_FLAT_MAP_DRIVER = {
+    "full_name": "name",
+    "dob": "dob",
+    "license_number": "license_number",
+    "license_state": "license_state",
+    "years_experience": "years_experience",
+    "hire_date": "hire_date",
+}
+
+_FLAT_MAP_PRIOR = {
+    "carrier_name": "carrier",
+    "policy_number": "policy_number",
+    "effective_date": "effective_date",
+    "expiration_date": "expiration_date",
+    "premium": "premium",
+    "losses": "losses",
+}
+
+
+def flatten_entities_to_form_state(
+    entities: dict, source: str = "extracted"
+) -> dict[str, dict]:
+    """Flatten nested entity dict into flat form_state entries.
+
+    Args:
+        entities: Nested dict from extract_entities (CustomerSubmission.to_dict()).
+        source: Confidence source tag (default "extracted").
+
+    Returns:
+        Dict of field_name -> {value, confidence, source, status} entries.
+    """
+    scorer = ConfidenceScorer()
+    result: dict[str, dict] = {}
+
+    def _add(field_name: str, value):
+        """Add a single field if it has a truthy string value."""
+        if value is None:
+            return
+        str_val = str(value).strip()
+        if not str_val:
+            return
+        confidence = scorer.score(field_name, str_val, source=source)
+        result[field_name] = {
+            "value": str_val,
+            "confidence": confidence,
+            "source": source,
+            "status": "confirmed",
+        }
+
+    def _flatten_dict(data: dict, field_map: dict, prefix: str = ""):
+        """Flatten a dict using a field map, with optional prefix."""
+        for src_key, dst_key in field_map.items():
+            if src_key in data and data[src_key]:
+                _add(f"{prefix}{dst_key}", data[src_key])
+
+    def _flatten_address(addr: dict, prefix: str):
+        """Flatten an address sub-dict."""
+        if not isinstance(addr, dict):
+            return
+        _flatten_dict(addr, _FLAT_MAP_ADDRESS, prefix)
+
+    # --- Business ---
+    biz = entities.get("business", {})
+    if isinstance(biz, dict):
+        _flatten_dict(biz, _FLAT_MAP_BUSINESS)
+        # Mailing address
+        if "mailing_address" in biz and isinstance(biz["mailing_address"], dict):
+            _flatten_address(biz["mailing_address"], "mailing_")
+        # Physical address (if different)
+        if "physical_address" in biz and isinstance(biz["physical_address"], dict):
+            _flatten_address(biz["physical_address"], "physical_")
+
+    # --- Policy ---
+    policy = entities.get("policy", {})
+    if isinstance(policy, dict):
+        _flatten_dict(policy, _FLAT_MAP_POLICY)
+
+    # --- Vehicles (indexed: vehicle_1_vin, vehicle_2_vin, ...) ---
+    vehicles = entities.get("vehicles", [])
+    if isinstance(vehicles, list):
+        for idx, veh in enumerate(vehicles, start=1):
+            if isinstance(veh, dict):
+                _flatten_dict(veh, _FLAT_MAP_VEHICLE, f"vehicle_{idx}_")
+
+    # --- Drivers (indexed: driver_1_name, driver_2_dob, ...) ---
+    drivers = entities.get("drivers", [])
+    if isinstance(drivers, list):
+        for idx, drv in enumerate(drivers, start=1):
+            if isinstance(drv, dict):
+                _flatten_dict(drv, _FLAT_MAP_DRIVER, f"driver_{idx}_")
+
+    # --- Prior insurance (indexed) ---
+    priors = entities.get("prior_insurance", [])
+    if isinstance(priors, list):
+        for idx, pri in enumerate(priors, start=1):
+            if isinstance(pri, dict):
+                _flatten_dict(pri, _FLAT_MAP_PRIOR, f"prior_carrier_{idx}_")
+
+    return result
 
 
 def greet_node(state: IntakeState) -> dict:
@@ -115,9 +276,20 @@ def process_tool_results_node(state: IntakeState) -> dict:
             updated = True
             logger.debug("Saved field from tool result: %s = %s", field_name, data.get("value"))
 
-        # Process extract_entities results — update entities
+        # Process extract_entities results — update entities + flatten to form_state
         if "business" in data or "drivers" in data or "vehicles" in data:
             entities = data
+            flat_fields = flatten_entities_to_form_state(data, source="extracted")
+            for fname, finfo in flat_fields.items():
+                # Don't overwrite existing user-confirmed values
+                existing = form_state.get(fname)
+                if existing and existing.get("source") == "user_confirmed":
+                    continue
+                form_state[fname] = finfo
+            if flat_fields:
+                logger.info(
+                    "Flattened %d entity fields into form_state", len(flat_fields)
+                )
             updated = True
 
         # Process fill_forms results — log fill stats
@@ -135,7 +307,7 @@ def process_tool_results_node(state: IntakeState) -> dict:
                     fr.get("skipped_count", 0), fr.get("error_count", 0),
                 )
 
-        # Process process_document results — track uploads
+        # Process process_document results — track uploads + flatten fields
         if data.get("status") == "processed" and data.get("document_type"):
             from datetime import datetime
             _new_uploads.append({
@@ -144,6 +316,31 @@ def process_tool_results_node(state: IntakeState) -> dict:
                 "fields_count": len(data.get("fields", {})),
                 "timestamp": datetime.now().isoformat(),
             })
+            # Flatten document-extracted fields into form_state
+            doc_fields = data.get("fields", {})
+            if isinstance(doc_fields, dict):
+                scorer = ConfidenceScorer()
+                for fname, fval in doc_fields.items():
+                    if not fval:
+                        continue
+                    str_val = str(fval).strip()
+                    if not str_val:
+                        continue
+                    existing = form_state.get(fname)
+                    if existing and existing.get("source") == "user_confirmed":
+                        continue
+                    confidence = scorer.score(fname, str_val, source="document_ocr")
+                    form_state[fname] = {
+                        "value": str_val,
+                        "confidence": confidence,
+                        "source": "document_ocr",
+                        "status": "confirmed",
+                    }
+                if doc_fields:
+                    logger.info(
+                        "Flattened %d document fields into form_state",
+                        len(doc_fields),
+                    )
             updated = True
             logger.info(
                 "Tracked document upload: %s (%s, %d fields)",
@@ -168,7 +365,6 @@ def process_tool_results_node(state: IntakeState) -> dict:
             value = match[1]
             source = match[2] if match[2] else "user_stated"
             if value.strip():
-                from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
                 scorer = ConfidenceScorer()
                 confidence = scorer.score(field_name, value, source=source)
                 form_state[field_name] = {
@@ -230,11 +426,18 @@ def route_after_gaps(state: IntakeState) -> str:
     lobs = state.get("lobs", [])
     assigned_forms = state.get("assigned_forms", [])
 
-    # If we have LOBs + assigned forms + substantial entities, try validation
+    # If we have LOBs + assigned forms + substantial data, try validation
     confirmed_count = sum(1 for f in form_state.values() if f.get("status") == "confirmed")
     has_lobs = len(lobs) > 0
     has_forms = len(assigned_forms) > 0
+    # Check both entities dict AND form_state for business name
+    # (model may use save_field instead of extract_entities)
     has_entities = bool(entities.get("business", {}).get("business_name"))
+    if not has_entities:
+        has_entities = any(
+            "business_name" in k and v.get("value")
+            for k, v in form_state.items()
+        )
 
     if has_lobs and has_forms and has_entities and confirmed_count >= 10:
         # Check validation issues
@@ -318,7 +521,6 @@ def _parse_text_tool_calls(state: IntakeState) -> dict:
     and updates form_state.
     """
     import re
-    from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
 
     messages = state.get("messages", [])
     form_state = dict(state.get("form_state", {}))

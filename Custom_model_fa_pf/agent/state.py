@@ -1,7 +1,7 @@
 """Agent state schema for LangGraph intake agent."""
 
 from enum import Enum
-from typing import Annotated, TypedDict
+from typing import Annotated, Optional, TypedDict
 
 from langchain_core.messages import BaseMessage
 from langgraph.graph.message import add_messages
@@ -10,6 +10,7 @@ from langgraph.graph.message import add_messages
 class IntakePhase(str, Enum):
     """Phases of the insurance intake conversation."""
 
+    # Data collection
     GREETING = "greeting"
     APPLICANT_INFO = "applicant_info"
     POLICY_DETAILS = "policy_details"
@@ -17,6 +18,14 @@ class IntakePhase(str, Enum):
     FORM_SPECIFIC = "form_specific"
     REVIEW = "review"
     COMPLETE = "complete"
+
+    # Quoting & placement
+    QUOTING = "quoting"
+    QUOTE_SELECTION = "quote_selection"
+
+    # Binding & delivery
+    BIND_REQUEST = "bind_request"
+    POLICY_DELIVERY = "policy_delivery"
 
     @staticmethod
     def next_phase(current: "IntakePhase") -> "IntakePhase":
@@ -53,6 +62,15 @@ class IntakeState(TypedDict):
     # Documents
     uploaded_documents: list  # [{file_path, document_type, fields_count, timestamp}]
 
+    # Quoting & placement
+    quote_request: dict  # Structured quote request payload
+    carrier_matches: list  # [{carrier_id, name, eligible, reasoning, ...}]
+    quotes: list  # [{carrier_id, premiums, coverages, payment_options, ...}]
+    selected_quote: dict  # The quote the customer chose
+
+    # Binding
+    bind_request: dict  # {selected_quote, customer_ack, timestamp, status}
+
     # Session metadata
     session_id: str
     conversation_turn: int
@@ -73,6 +91,11 @@ def create_initial_state(session_id: str) -> dict:
         "confidence_scores": {},
         "validation_issues": [],
         "uploaded_documents": [],
+        "quote_request": {},
+        "carrier_matches": [],
+        "quotes": [],
+        "selected_quote": {},
+        "bind_request": {},
         "session_id": session_id,
         "conversation_turn": 0,
         "error_count": 0,

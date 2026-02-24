@@ -18,11 +18,14 @@ from Custom_model_fa_pf.agent.tools import (
 class TestToolDefinitions:
     def test_all_tools_list(self):
         tools = get_all_tools()
-        assert len(tools) >= 8
+        assert len(tools) >= 16  # 10 intake + 6 quoting tools
         names = [t.name for t in tools]
         assert "save_field" in names
         assert "validate_fields" in names
         assert "classify_lobs" in names
+        assert "build_quote_request" in names
+        assert "match_carriers" in names
+        assert "submit_bind_request" in names
 
     def test_tools_have_descriptions(self):
         for tool in get_all_tools():

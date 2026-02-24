@@ -14,23 +14,31 @@ class TestIntakePhase:
             IntakePhase.FORM_SPECIFIC,
             IntakePhase.REVIEW,
             IntakePhase.COMPLETE,
+            IntakePhase.QUOTING,
+            IntakePhase.QUOTE_SELECTION,
+            IntakePhase.BIND_REQUEST,
+            IntakePhase.POLICY_DELIVERY,
         ]
-        assert len(phases) == 7
+        assert len(phases) == 11
 
     def test_phase_values_are_strings(self):
         assert IntakePhase.GREETING.value == "greeting"
         assert IntakePhase.COMPLETE.value == "complete"
+        assert IntakePhase.QUOTING.value == "quoting"
+        assert IntakePhase.BIND_REQUEST.value == "bind_request"
+        assert IntakePhase.POLICY_DELIVERY.value == "policy_delivery"
 
     def test_phase_ordering(self):
-        """Phases should be orderable by their position in the intake flow."""
+        """Phases should be orderable by their position in the flow."""
         order = list(IntakePhase)
         assert order[0] == IntakePhase.GREETING
-        assert order[-1] == IntakePhase.COMPLETE
+        assert order[-1] == IntakePhase.POLICY_DELIVERY
 
     def test_next_phase(self):
         assert IntakePhase.next_phase(IntakePhase.GREETING) == IntakePhase.APPLICANT_INFO
         assert IntakePhase.next_phase(IntakePhase.REVIEW) == IntakePhase.COMPLETE
-        assert IntakePhase.next_phase(IntakePhase.COMPLETE) == IntakePhase.COMPLETE
+        assert IntakePhase.next_phase(IntakePhase.COMPLETE) == IntakePhase.QUOTING
+        assert IntakePhase.next_phase(IntakePhase.POLICY_DELIVERY) == IntakePhase.POLICY_DELIVERY
 
 
 class TestIntakeState:
@@ -71,3 +79,22 @@ class TestIntakeState:
         """IntakeState should have reflect_count for reflection pattern."""
         annotations = IntakeState.__annotations__
         assert "reflect_count" in annotations
+
+    def test_state_has_quoting_fields(self):
+        """IntakeState should have quoting and binding fields."""
+        annotations = IntakeState.__annotations__
+        assert "quote_request" in annotations
+        assert "carrier_matches" in annotations
+        assert "quotes" in annotations
+        assert "selected_quote" in annotations
+        assert "bind_request" in annotations
+
+    def test_initial_state_quoting_defaults(self):
+        """Quoting fields should be empty in initial state."""
+        from Custom_model_fa_pf.agent.state import create_initial_state
+        state = create_initial_state("test")
+        assert state["quote_request"] == {}
+        assert state["carrier_matches"] == []
+        assert state["quotes"] == []
+        assert state["selected_quote"] == {}
+        assert state["bind_request"] == {}

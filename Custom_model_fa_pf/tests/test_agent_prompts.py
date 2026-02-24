@@ -30,6 +30,20 @@ class TestIntakeSystemPrompt:
         assert "save_field" in INTAKE_SYSTEM_PROMPT
         assert "validate_fields" in INTAKE_SYSTEM_PROMPT
 
+    def test_contains_quoting_instructions(self):
+        assert "build_quote_request" in INTAKE_SYSTEM_PROMPT
+        assert "match_carriers" in INTAKE_SYSTEM_PROMPT
+        assert "generate_quotes" in INTAKE_SYSTEM_PROMPT
+        assert "compare_quotes" in INTAKE_SYSTEM_PROMPT
+        assert "submit_bind_request" in INTAKE_SYSTEM_PROMPT
+
+    def test_contains_quoting_phases(self):
+        assert "Phase 6" in INTAKE_SYSTEM_PROMPT
+        assert "Phase 7" in INTAKE_SYSTEM_PROMPT
+        assert "Phase 8" in INTAKE_SYSTEM_PROMPT
+        assert "Quoting" in INTAKE_SYSTEM_PROMPT
+        assert "Binding" in INTAKE_SYSTEM_PROMPT
+
 
 class TestBuildSystemMessage:
     def test_basic_message(self):
@@ -49,6 +63,28 @@ class TestBuildSystemMessage:
     def test_no_summary_when_empty(self):
         msg = build_system_message(form_state={}, summary="")
         assert "CONVERSATION SUMMARY" not in msg.content
+
+    def test_includes_phase(self):
+        msg = build_system_message(form_state={}, summary="", phase="quoting")
+        assert "quoting" in msg.content
+
+    def test_includes_quotes(self):
+        quotes = [{"carrier_name": "Progressive", "total_annual_premium": 15000, "quote_id": "Q1"}]
+        msg = build_system_message(form_state={}, summary="", quotes=quotes)
+        assert "Progressive" in msg.content
+        assert "Q1" in msg.content
+
+    def test_includes_selected_quote(self):
+        selected = {"quote_id": "Q1", "payment_plan": "monthly"}
+        msg = build_system_message(form_state={}, summary="", selected_quote=selected)
+        assert "Q1" in msg.content
+        assert "monthly" in msg.content
+
+    def test_includes_bind_request(self):
+        bind = {"bind_request_id": "BR-001", "bind_status": "pending_carrier_review"}
+        msg = build_system_message(form_state={}, summary="", bind_request=bind)
+        assert "BR-001" in msg.content
+        assert "pending_carrier_review" in msg.content
 
 
 class TestBuildFormStateContext:

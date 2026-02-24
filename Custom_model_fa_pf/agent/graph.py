@@ -61,10 +61,14 @@ def _agent_node(state: IntakeState) -> dict:
     tools = get_all_tools()
     llm_with_tools = llm.bind_tools(tools)
 
-    # Build system message with form state + summary
+    # Build system message with form state + summary + pipeline state
     system_msg = build_system_message(
         form_state=state.get("form_state", {}),
         summary=state.get("summary", ""),
+        phase=state.get("phase", ""),
+        quotes=state.get("quotes", []),
+        selected_quote=state.get("selected_quote", {}),
+        bind_request=state.get("bind_request", {}),
     )
 
     # Prepend system message to the conversation

@@ -264,12 +264,18 @@ def analyze_gaps(entities_json: str, assigned_forms_json: str, field_values_json
 
     assignments = []
     for d in assignments_dicts:
-        assignments.append(FormAssignment(
-            form_number=d["form_number"],
-            purpose=d.get("purpose", ""),
-            schema_available=d.get("schema_available", False),
-            lobs=d.get("lobs", []),
-        ))
+        # Handle both dict format {"form_number": "125"} and plain string "125"
+        if isinstance(d, dict):
+            assignments.append(FormAssignment(
+                form_number=d["form_number"],
+                purpose=d.get("purpose", ""),
+                schema_available=d.get("schema_available", False),
+                lobs=d.get("lobs", []),
+            ))
+        elif isinstance(d, str):
+            assignments.append(FormAssignment(
+                form_number=d, purpose="", schema_available=False, lobs=[],
+            ))
 
     report = analyze(entities, assignments, field_values)
     return json.dumps(report.to_dict())
@@ -286,8 +292,10 @@ def fill_forms(entities_json: str, assigned_forms_json: str) -> str:
     4. Validate and auto-correct field values
     5. Fill blank PDF templates and save to output directory
 
-    Call this when all data has been collected and the user wants to generate
-    filled ACORD forms.
+    Call this ONLY when:
+    - The user explicitly asks to fill/finalize/generate forms
+    - Sufficient data has been collected (entities + assigned forms)
+    Do NOT call this during mid-conversation data collection.
 
     Args:
         entities_json: JSON string of extracted entities (CustomerSubmission format
@@ -296,15 +304,7 @@ def fill_forms(entities_json: str, assigned_forms_json: str) -> str:
     """
     from datetime import datetime
 
-    from Custom_model_fa_pf.entity_schema import CustomerSubmission
-    from Custom_model_fa_pf.form_assigner import FormAssignment
-    from Custom_model_fa_pf import llm_field_mapper
-    from Custom_model_fa_pf.validation_engine import validate
-    from Custom_model_fa_pf.pdf_filler import fill_all
-    from Custom_model_fa_pf.config import OUTPUT_DIR
-    from Custom_model_fa_pf.agent._llm_provider import get_llm_engine
-
-    # --- Parse inputs ---
+    # Guard: require both entities and forms to be non-trivial
     try:
         entity_dict = json.loads(entities_json)
     except json.JSONDecodeError as e:
@@ -314,6 +314,28 @@ def fill_forms(entities_json: str, assigned_forms_json: str) -> str:
         forms_list = json.loads(assigned_forms_json)
     except json.JSONDecodeError as e:
         return json.dumps({"status": "error", "error": f"Invalid forms JSON: {e}"})
+
+    # Check minimum data: must have business name and at least 1 form
+    biz = entity_dict.get("business", {})
+    biz_name = biz.get("business_name", "") if isinstance(biz, dict) else ""
+    if not biz_name:
+        return json.dumps({
+            "status": "error",
+            "error": "Cannot fill forms yet — no business name collected. Continue gathering data first.",
+        })
+    if not forms_list or not isinstance(forms_list, list) or len(forms_list) == 0:
+        return json.dumps({
+            "status": "error",
+            "error": "Cannot fill forms yet — no forms assigned. Run classify_lobs and assign_forms first.",
+        })
+
+    from Custom_model_fa_pf.entity_schema import CustomerSubmission
+    from Custom_model_fa_pf.form_assigner import FormAssignment
+    from Custom_model_fa_pf import llm_field_mapper
+    from Custom_model_fa_pf.validation_engine import validate
+    from Custom_model_fa_pf.pdf_filler import fill_all
+    from Custom_model_fa_pf.config import OUTPUT_DIR
+    from Custom_model_fa_pf.agent._llm_provider import get_llm_engine
 
     submission = CustomerSubmission.from_llm_json(entity_dict)
 
@@ -515,6 +537,242 @@ def process_document(file_path: str) -> str:
                 pass
 
 
+# ---------------------------------------------------------------------------
+# Quoting & Placement tools
+# ---------------------------------------------------------------------------
+
+@tool
+def build_quote_request(entities_json: str, lobs_json: str, assigned_forms_json: str) -> str:
+    """Build a structured quote request from collected intake data.
+
+    Assembles all collected information into a standardized payload for
+    carrier quoting. Call this after forms are filled and data is complete.
+
+    Args:
+        entities_json: JSON string of extracted entities (from extract_entities)
+        lobs_json: JSON array of LOB ID strings (e.g., ["commercial_auto"])
+        assigned_forms_json: JSON array of form number strings (e.g., ["125","127"])
+    """
+    from Custom_model_fa_pf.agent.quote_builder import build_quote_request as _build
+
+    try:
+        entities = json.loads(entities_json)
+        lobs = json.loads(lobs_json)
+        forms = json.loads(assigned_forms_json)
+    except json.JSONDecodeError as e:
+        return json.dumps({"error": f"Invalid JSON: {e}"})
+
+    qr = _build(entities, lobs, forms)
+    return json.dumps(qr.to_dict())
+
+
+@tool
+def match_carriers(quote_request_json: str) -> str:
+    """Find eligible insurance carriers based on the risk profile.
+
+    Evaluates carrier appetite rules against the quote request to find
+    which carriers can write this risk. Returns ranked matches.
+
+    Args:
+        quote_request_json: JSON string of the quote request (from build_quote_request)
+    """
+    from Custom_model_fa_pf.agent.carrier_matcher import match_carriers as _match
+
+    try:
+        qr = json.loads(quote_request_json)
+    except json.JSONDecodeError as e:
+        return json.dumps({"error": f"Invalid JSON: {e}"})
+
+    risk_profile = qr.get("risk_profile", {})
+    lobs = qr.get("lobs", [])
+
+    matches = _match(risk_profile, lobs)
+    return json.dumps([m.to_dict() for m in matches])
+
+
+@tool
+def generate_quotes(carrier_matches_json: str, lobs_json: str, risk_profile_json: str) -> str:
+    """Generate premium estimates from eligible carriers.
+
+    Produces ballpark premium estimates for each eligible carrier using
+    factor-based rating. These are ESTIMATES — final premiums require
+    carrier underwriting.
+
+    Args:
+        carrier_matches_json: JSON array of carrier matches (from match_carriers)
+        lobs_json: JSON array of LOB ID strings
+        risk_profile_json: JSON string of the risk profile (from quote request)
+    """
+    from Custom_model_fa_pf.agent.premium_estimator import generate_quotes_for_matches
+
+    try:
+        matches = json.loads(carrier_matches_json)
+        lobs = json.loads(lobs_json)
+        risk_profile = json.loads(risk_profile_json)
+    except json.JSONDecodeError as e:
+        return json.dumps({"error": f"Invalid JSON: {e}"})
+
+    quotes = generate_quotes_for_matches(matches, lobs, risk_profile)
+    return json.dumps([q.to_dict() for q in quotes])
+
+
+@tool
+def compare_quotes(quotes_json: str) -> str:
+    """Format a side-by-side comparison of insurance quotes.
+
+    Produces a structured comparison showing premiums, coverages, and
+    payment options across all carriers. Present this to the customer
+    so they can choose.
+
+    Args:
+        quotes_json: JSON array of quotes (from generate_quotes)
+    """
+    try:
+        quotes = json.loads(quotes_json)
+    except json.JSONDecodeError as e:
+        return json.dumps({"error": f"Invalid JSON: {e}"})
+
+    if not quotes:
+        return json.dumps({"error": "No quotes to compare"})
+
+    comparison = {
+        "quote_count": len(quotes),
+        "cheapest": None,
+        "most_coverage": None,
+        "quotes": [],
+    }
+
+    for q in quotes:
+        entry = {
+            "quote_id": q.get("quote_id"),
+            "carrier": q.get("carrier_name"),
+            "total_annual": q.get("total_annual_premium"),
+            "monthly_estimate": round(q.get("total_annual_premium", 0) / 12, 2),
+            "coverages": [
+                {
+                    "line": cp.get("lob_display", cp.get("lob")),
+                    "annual": cp.get("annual_premium"),
+                }
+                for cp in q.get("coverage_premiums", [])
+            ],
+            "payment_options": [
+                {
+                    "plan": po.get("plan"),
+                    "amount": po.get("installment_amount"),
+                    "frequency": po.get("installment_count"),
+                    "total": po.get("total_cost"),
+                }
+                for po in q.get("payment_options", [])
+            ],
+        }
+        comparison["quotes"].append(entry)
+
+    # Identify cheapest and most-coverage
+    if comparison["quotes"]:
+        cheapest = min(comparison["quotes"], key=lambda x: x["total_annual"])
+        comparison["cheapest"] = {
+            "carrier": cheapest["carrier"],
+            "premium": cheapest["total_annual"],
+        }
+        most_cov = max(comparison["quotes"], key=lambda x: len(x["coverages"]))
+        comparison["most_coverage"] = {
+            "carrier": most_cov["carrier"],
+            "lines_covered": len(most_cov["coverages"]),
+        }
+
+    comparison["disclaimer"] = (
+        "All premiums are ESTIMATES based on provided information. "
+        "Final rates require carrier underwriting review."
+    )
+
+    return json.dumps(comparison)
+
+
+@tool
+def select_quote(quote_id: str, payment_plan: str = "annual") -> str:
+    """Record the customer's selected quote and payment preference.
+
+    Call this when the customer chooses a quote from the comparison.
+
+    Args:
+        quote_id: The quote_id of the selected quote
+        payment_plan: Payment plan choice (annual, semi_annual, quarterly, monthly)
+    """
+    from datetime import datetime
+
+    valid_plans = {"annual", "semi_annual", "quarterly", "monthly"}
+    if payment_plan not in valid_plans:
+        payment_plan = "annual"
+
+    return json.dumps({
+        "status": "selected",
+        "quote_id": quote_id,
+        "payment_plan": payment_plan,
+        "timestamp": datetime.now().isoformat(),
+    })
+
+
+@tool
+def submit_bind_request(
+    quote_id: str,
+    carrier_name: str,
+    total_premium: float,
+    payment_plan: str,
+    customer_acknowledgment: str,
+) -> str:
+    """Submit a bind request for the selected quote.
+
+    Creates a formal bind request after the customer confirms their selection.
+    In production this would submit to the carrier — currently saves locally.
+
+    Args:
+        quote_id: The selected quote ID
+        carrier_name: Name of the carrier
+        total_premium: Total annual premium amount
+        payment_plan: Selected payment plan
+        customer_acknowledgment: Customer's confirmation statement (e.g., "Yes, proceed with binding")
+    """
+    from datetime import datetime
+
+    if not customer_acknowledgment or len(customer_acknowledgment.strip()) < 3:
+        return json.dumps({
+            "status": "error",
+            "error": "Customer acknowledgment required before binding. Ask the customer to confirm.",
+        })
+
+    bind_request = {
+        "status": "submitted",
+        "bind_request_id": f"BR-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+        "quote_id": quote_id,
+        "carrier_name": carrier_name,
+        "total_premium": total_premium,
+        "payment_plan": payment_plan,
+        "customer_acknowledgment": customer_acknowledgment.strip(),
+        "submitted_at": datetime.now().isoformat(),
+        "bind_status": "pending_carrier_review",
+        "next_steps": [
+            "Carrier will review the submission within 1-2 business days",
+            "You will receive a policy number once binding is confirmed",
+            "Premium payment will be due per the selected payment plan",
+            "Certificate of insurance will be issued upon binding",
+        ],
+    }
+
+    # Save bind request artifact
+    try:
+        from Custom_model_fa_pf.config import OUTPUT_DIR
+        bind_dir = OUTPUT_DIR / "bind_requests"
+        bind_dir.mkdir(parents=True, exist_ok=True)
+        bind_file = bind_dir / f"{bind_request['bind_request_id']}.json"
+        bind_file.write_text(json.dumps(bind_request, indent=2))
+        bind_request["saved_to"] = str(bind_file)
+        logger.info("Bind request saved: %s", bind_file)
+    except Exception as e:
+        logger.warning("Failed to save bind request: %s", e)
+
+    return json.dumps(bind_request)
+
+
 # --- Tool aliases for test imports ---
 save_field_tool = save_field
 validate_fields_tool = validate_fields
@@ -526,11 +784,18 @@ map_fields_tool = map_fields
 analyze_gaps_tool = analyze_gaps
 process_document_tool = process_document
 fill_forms_tool = fill_forms
+build_quote_request_tool = build_quote_request
+match_carriers_tool = match_carriers
+generate_quotes_tool = generate_quotes
+compare_quotes_tool = compare_quotes
+select_quote_tool = select_quote
+submit_bind_request_tool = submit_bind_request
 
 
 def get_all_tools():
     """Return all agent tools for binding to the LLM."""
     return [
+        # Data collection
         save_field,
         validate_fields,
         classify_lobs,
@@ -541,4 +806,11 @@ def get_all_tools():
         analyze_gaps,
         process_document,
         fill_forms,
+        # Quoting & placement
+        build_quote_request,
+        match_carriers,
+        generate_quotes,
+        compare_quotes,
+        select_quote,
+        submit_bind_request,
     ]

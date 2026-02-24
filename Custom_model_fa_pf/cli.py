@@ -29,7 +29,11 @@ PHASE_DESCRIPTIONS = {
     "business_info": "Learning about the business",
     "form_specific": "Filling form-specific fields",
     "review": "Reviewing collected information",
-    "complete": "Intake complete",
+    "complete": "Data collection complete",
+    "quoting": "Generating insurance quotes",
+    "quote_selection": "Customer selecting a quote",
+    "bind_request": "Processing bind request",
+    "policy_delivery": "Policy bound — delivering documents",
 }
 
 
@@ -339,6 +343,26 @@ def handle_status_command(agent, config, session_id: str, console: Console):
         if len(validation_issues) > 5:
             lines.append(f"  ... +{len(validation_issues) - 5} more")
 
+    # Quoting status
+    quotes = vals.get("quotes", [])
+    selected = vals.get("selected_quote", {})
+    bind_req = vals.get("bind_request", {})
+
+    if quotes:
+        lines.append(f"\n[bold]Quotes:[/bold] {len(quotes)} received")
+        for q in quotes:
+            if isinstance(q, dict):
+                carrier = q.get("carrier_name", "Unknown")
+                total = q.get("total_annual_premium", 0)
+                qid = q.get("quote_id", "")
+                lines.append(f"  - {carrier}: ${total:,.2f}/yr ({qid})")
+    if selected and selected.get("quote_id"):
+        lines.append(f"\n[bold green]Selected:[/bold green] {selected.get('quote_id')} "
+                      f"({selected.get('payment_plan', 'annual')})")
+    if bind_req and bind_req.get("bind_request_id"):
+        lines.append(f"[bold green]Bind Request:[/bold green] {bind_req.get('bind_request_id')} "
+                      f"— {bind_req.get('bind_status', 'unknown')}")
+
     console.print(Panel(
         "\n".join(lines),
         title="Status",
@@ -365,7 +389,7 @@ def _detect_document_path(text: str) -> str | None:
 
 def run_chat(verbose: bool = False):
     """Run the interactive chat CLI."""
-    commands = "/quit, /status, /fields, /forms, /upload, /finalize, /reset"
+    commands = "/quit, /status, /fields, /forms, /upload, /finalize, /quote, /reset"
     console.print(Panel(
         "[bold]ACORD Insurance Intake Agent[/bold]\n"
         "Type your messages to interact with the agent.\n"
@@ -435,6 +459,14 @@ def run_chat(verbose: bool = False):
             user_input = (
                 "Please finalize and fill all assigned ACORD forms with the collected data. "
                 "Call fill_forms with the current entities and assigned forms."
+            )
+
+        if user_input.lower() == "/quote":
+            console.print("[cyan]Starting quoting process — finding carriers and generating estimates...[/cyan]")
+            user_input = (
+                "Please proceed to quoting. Build a quote request from the collected data, "
+                "find eligible carriers, generate premium estimates, and show me a comparison "
+                "of available quotes."
             )
 
         if user_input.lower().startswith("/upload"):

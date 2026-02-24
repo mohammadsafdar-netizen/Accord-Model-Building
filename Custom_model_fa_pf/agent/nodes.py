@@ -6,7 +6,7 @@ import logging
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
-from Custom_model_fa_pf.agent.confidence import ConfidenceScorer
+from Custom_model_fa_pf.agent.confidence import ConfidenceScorer, ReviewRouter
 from Custom_model_fa_pf.agent.state import IntakePhase, IntakeState
 from Custom_model_fa_pf.agent.prompts import (
     build_system_message,
@@ -245,6 +245,13 @@ def process_tool_results_node(state: IntakeState) -> dict:
     messages = state.get("messages", [])
     form_state = dict(state.get("form_state", {}))
     entities = state.get("entities", {})
+    _state_lobs = None  # Set when classify_lobs results detected
+    _state_forms = None  # Set when assign_forms results detected
+    _quote_request = None  # Set when build_quote_request results detected
+    _state_carrier_matches = None  # Set when match_carriers results detected
+    _state_quotes = None  # Set when generate_quotes results detected
+    _selected_quote = None  # Set when select_quote results detected
+    _bind_request = None  # Set when submit_bind_request results detected
     _new_uploads = []
     updated = False
 
@@ -260,7 +267,47 @@ def process_tool_results_node(state: IntakeState) -> dict:
         except (json.JSONDecodeError, TypeError):
             continue
 
-        # Skip non-dict results (e.g. lists from classify_lobs)
+        # Process list results (classify_lobs, assign_forms) before dict-only checks
+        if isinstance(data, list) and data and isinstance(data[0], dict):
+            # classify_lobs results — list of {lob_id, confidence, ...}
+            if "lob_id" in data[0]:
+                _new_lobs = [d["lob_id"] for d in data if d.get("lob_id")]
+                if _new_lobs:
+                    existing_lobs = list(state.get("lobs", []))
+                    for lob in _new_lobs:
+                        if lob not in existing_lobs:
+                            existing_lobs.append(lob)
+                    _state_lobs = existing_lobs
+                    updated = True
+                    logger.info("Captured LOBs from classify_lobs: %s", _new_lobs)
+
+            # assign_forms results — list of {form_number, purpose, ...}
+            if "form_number" in data[0]:
+                _new_forms = [d["form_number"] for d in data if d.get("form_number")]
+                if _new_forms:
+                    existing_forms = list(state.get("assigned_forms", []))
+                    for f in _new_forms:
+                        if f not in existing_forms:
+                            existing_forms.append(f)
+                    _state_forms = existing_forms
+                    updated = True
+                    logger.info("Captured assigned forms: %s", _new_forms)
+
+            # match_carriers results — list of {carrier_id, eligible, ...}
+            if "carrier_id" in data[0] and "eligible" in data[0]:
+                _state_carrier_matches = data
+                updated = True
+                eligible = sum(1 for d in data if d.get("eligible"))
+                logger.info("Captured %d carrier matches (%d eligible)", len(data), eligible)
+
+            # generate_quotes results — list of {quote_id, carrier_id, total_annual_premium, ...}
+            if "quote_id" in data[0] and "total_annual_premium" in data[0]:
+                _state_quotes = data
+                updated = True
+                logger.info("Captured %d quotes", len(data))
+
+            continue  # Lists fully handled, skip dict-only checks below
+
         if not isinstance(data, dict):
             continue
 
@@ -348,6 +395,29 @@ def process_tool_results_node(state: IntakeState) -> dict:
                 len(data.get("fields", {})),
             )
 
+        # Process build_quote_request results — store quote request + transition phase
+        if data.get("request_id") and data.get("risk_profile"):
+            _quote_request = data
+            updated = True
+            logger.info("Captured quote request: %s", data.get("request_id"))
+
+        # Process match_carriers results (handled as list above, but may also
+        # arrive wrapped — carrier_matches stored via _state_carrier_matches)
+
+        # Process generate_quotes results (list, handled above)
+
+        # Process select_quote results — store selected quote
+        if data.get("status") == "selected" and data.get("quote_id"):
+            _selected_quote = data
+            updated = True
+            logger.info("Customer selected quote: %s", data.get("quote_id"))
+
+        # Process submit_bind_request results — store bind request
+        if data.get("status") == "submitted" and data.get("bind_request_id"):
+            _bind_request = data
+            updated = True
+            logger.info("Bind request submitted: %s", data.get("bind_request_id"))
+
     # 2. Parse text-based tool calls from AI messages
     #    Small models sometimes write save_field("name", "value") as text
     for msg in reversed(messages[-5:]):  # Only check recent messages
@@ -381,43 +451,89 @@ def process_tool_results_node(state: IntakeState) -> dict:
         result["form_state"] = form_state
         if entities != state.get("entities", {}):
             result["entities"] = entities
+        if _state_lobs is not None:
+            result["lobs"] = _state_lobs
+        if _state_forms is not None:
+            result["assigned_forms"] = _state_forms
         if _new_uploads:
             uploaded = list(state.get("uploaded_documents", []))
             uploaded.extend(_new_uploads)
             result["uploaded_documents"] = uploaded
+        # Quoting & placement state
+        if _quote_request is not None:
+            result["quote_request"] = _quote_request
+            result["phase"] = IntakePhase.QUOTING.value
+        if _state_carrier_matches is not None:
+            result["carrier_matches"] = _state_carrier_matches
+        if _state_quotes is not None:
+            result["quotes"] = _state_quotes
+            result["phase"] = IntakePhase.QUOTE_SELECTION.value
+        if _selected_quote is not None:
+            result["selected_quote"] = _selected_quote
+            result["phase"] = IntakePhase.BIND_REQUEST.value
+        if _bind_request is not None:
+            result["bind_request"] = _bind_request
+            result["phase"] = IntakePhase.POLICY_DELIVERY.value
     return result
 
 
 def check_gaps_node(state: IntakeState) -> dict:
-    """Analyze completeness and decide what to do next.
+    """Analyze completeness and run confidence-based review routing.
 
-    This is a routing node — it doesn't modify state, just evaluates it.
-    The actual routing decision is made by route_after_gaps().
+    Populates confidence_scores from form_state and runs ReviewRouter
+    to flag fields needing human review. The routing decision itself
+    is made by route_after_gaps().
     """
     form_state = state.get("form_state", {})
     confirmed = sum(1 for f in form_state.values() if f.get("status") == "confirmed")
     total_expected = len(form_state) if form_state else 0
 
     logger.debug(f"Gap check: {confirmed}/{total_expected} fields confirmed, phase={state.get('phase')}")
-    return {}  # Pure routing node — route_after_gaps does the logic
+
+    # Build confidence_scores from form_state and run review routing
+    confidence_scores = {
+        k: v.get("confidence", 0.0)
+        for k, v in form_state.items()
+        if v.get("status") == "confirmed" and v.get("value")
+    }
+
+    result = {}
+    if confidence_scores:
+        router = ReviewRouter()
+        decision = router.route(confidence_scores)
+        result["confidence_scores"] = confidence_scores
+        if decision.flagged_fields:
+            logger.info(
+                "ReviewRouter: %s — %d fields flagged",
+                decision.action, len(decision.flagged_fields),
+            )
+    return result
 
 
 def route_after_gaps(state: IntakeState) -> str:
     """Conditional routing after gap analysis.
 
+    Handles the full pipeline flow:
+      Data collection → Review → Quoting → Quote Selection → Bind → Delivery
+
     Returns:
         "respond" — need more info, generate a follow-up question
         "validate" — have enough info, run validation
-        "review" — all complete, show summary
+        "review" — data complete, show summary
     """
     phase = state.get("phase", IntakePhase.GREETING.value)
 
-    # If we're in REVIEW phase, go to review
-    if phase == IntakePhase.REVIEW.value:
-        return "review"
+    # Post-intake phases: agent handles these via tools, just keep responding
+    if phase in (
+        IntakePhase.QUOTING.value,
+        IntakePhase.QUOTE_SELECTION.value,
+        IntakePhase.BIND_REQUEST.value,
+        IntakePhase.POLICY_DELIVERY.value,
+    ):
+        return "respond"
 
-    # If we're in COMPLETE phase, also go to review
-    if phase == IntakePhase.COMPLETE.value:
+    # If we're in REVIEW or COMPLETE phase, go to review
+    if phase in (IntakePhase.REVIEW.value, IntakePhase.COMPLETE.value):
         return "review"
 
     # Check if we have enough data to validate

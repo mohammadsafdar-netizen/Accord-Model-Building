@@ -228,6 +228,36 @@ def _split_dict_ordered(d: dict, sizes: List[int]) -> List[dict]:
 
 
 # ---------------------------------------------------------------------------
+# Document upload turn helpers
+# ---------------------------------------------------------------------------
+
+_DOC_FOLLOW_UP: Dict[str, str] = {
+    "loss_run": "Ask about prior insurance details or additional claims",
+    "drivers_license": "Ask about additional driver details or next driver",
+    "vehicle_registration": "Ask about additional vehicle details",
+    "business_certificate": "Ask about business operations details",
+    "prior_declaration": "Ask about prior policy coverage details",
+    "acord_form": "Ask about form-specific details",
+}
+
+
+def _build_document_upload_turns(scenario: ConversationScenario) -> List[TurnSkeleton]:
+    """Build TurnSkeleton entries for each document upload in the scenario."""
+    turns: List[TurnSkeleton] = []
+    for upload in getattr(scenario, "document_uploads", []):
+        doc_type = upload.get("document_type", "other")
+        follow_up = _DOC_FOLLOW_UP.get(doc_type, "Ask about remaining details")
+        turns.append(TurnSkeleton(
+            phase="form_specific",
+            user_fields={"_document_upload": upload},
+            tools_to_call=["process_document", "save_field"],
+            action="process_document",
+            assistant_should_ask=follow_up,
+        ))
+    return turns
+
+
+# ---------------------------------------------------------------------------
 # Skeleton builders per delivery style
 # ---------------------------------------------------------------------------
 
@@ -491,6 +521,10 @@ def _build_conversational(scenario: ConversationScenario, rng: random.Random) ->
             assistant_should_ask="Analyze gaps in the application",
         ))
 
+    # Document uploads (before gap analysis)
+    doc_turns = _build_document_upload_turns(scenario)
+    turns.extend(doc_turns)
+
     # Analyze gaps
     turns.append(TurnSkeleton(
         phase="form_specific",
@@ -632,6 +666,10 @@ def _build_bulk_email(scenario: ConversationScenario, rng: random.Random) -> Lis
                 action="save_fields",
                 assistant_should_ask="Ask about remaining gaps or proceed to review" if i < len(gap_chunks) - 1 else "Proceed to review",
             ))
+
+    # Document uploads (after gap fill, before review)
+    doc_turns = _build_document_upload_turns(scenario)
+    turns.extend(doc_turns)
 
     # --- REVIEW ---
     turns.append(TurnSkeleton(
@@ -822,6 +860,10 @@ def _build_mixed(scenario: ConversationScenario, rng: random.Random) -> List[Tur
             action="save_fields",
             assistant_should_ask="Analyze gaps in the application",
         ))
+
+    # Document uploads (before gap analysis)
+    doc_turns = _build_document_upload_turns(scenario)
+    turns.extend(doc_turns)
 
     # Analyze gaps
     turns.append(TurnSkeleton(

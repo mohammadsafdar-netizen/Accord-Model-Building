@@ -473,6 +473,110 @@ class TestSubmitBindRequest:
 
 
 # ---------------------------------------------------------------------------
+# process_document tests
+# ---------------------------------------------------------------------------
+
+
+class TestProcessDocument:
+    def test_inject_process_document(self):
+        """process_document turn should produce process_document + save_field calls."""
+        turn = TurnSkeleton(
+            phase="form_specific",
+            user_fields={"_document_upload": {
+                "document_type": "drivers_license",
+                "file_path": "/uploads/dl_john.jpg",
+                "extracted_fields": {
+                    "driver_1_name": "John Smith",
+                    "driver_1_dob": "1985-03-15",
+                },
+            }},
+            tools_to_call=["process_document", "save_field"],
+            action="process_document",
+            assistant_should_ask="Ask about coverage",
+        )
+        scenario = _make_simple_scenario()
+        interactions, new_state = inject_tool_calls(turn, {}, scenario)
+        # First interaction should be process_document
+        assert interactions[0]["tool_call"]["function"]["name"] == "process_document"
+        # Check process_document arguments
+        args = json.loads(interactions[0]["tool_call"]["function"]["arguments"])
+        assert args["file_path"] == "/uploads/dl_john.jpg"
+        # Check process_document response
+        resp = json.loads(interactions[0]["tool_response"]["content"])
+        assert resp["status"] == "success"
+        assert resp["document_type"] == "drivers_license"
+        # Remaining should be save_field for extracted fields
+        save_calls = [i for i in interactions if i["tool_call"]["function"]["name"] == "save_field"]
+        assert len(save_calls) >= 1
+        # Form state should have the extracted fields
+        assert "driver_1_name" in new_state
+        assert new_state["driver_1_name"]["value"] == "John Smith"
+        assert new_state["driver_1_name"]["source"] == "document_ocr"
+
+    def test_process_document_loss_run(self):
+        """Loss run uploads should include loss_history in response."""
+        turn = TurnSkeleton(
+            phase="form_specific",
+            user_fields={"_document_upload": {
+                "document_type": "loss_run",
+                "file_path": "/uploads/loss_run_2024.pdf",
+                "extracted_fields": {
+                    "loss_1_date": "06/15/2024",
+                    "loss_1_amount": "5000",
+                    "loss_1_description": "Minor fender bender",
+                },
+            }},
+            tools_to_call=["process_document", "save_field"],
+            action="process_document",
+            assistant_should_ask="Ask about prior insurance",
+        )
+        scenario = _make_simple_scenario()
+        interactions, new_state = inject_tool_calls(turn, {}, scenario)
+        resp = json.loads(interactions[0]["tool_response"]["content"])
+        assert resp["document_type"] == "loss_run"
+        assert "loss_history" in resp
+        assert len(resp["loss_history"]) >= 1
+
+    def test_process_document_skips_regular_save(self):
+        """When process_document is in tools, regular save_field should be skipped."""
+        turn = TurnSkeleton(
+            phase="form_specific",
+            user_fields={"_document_upload": {
+                "document_type": "drivers_license",
+                "file_path": "/uploads/dl.jpg",
+                "extracted_fields": {"driver_1_name": "Jane Doe"},
+            }},
+            tools_to_call=["process_document", "save_field"],
+            action="process_document",
+            assistant_should_ask="",
+        )
+        scenario = _make_simple_scenario()
+        interactions, _ = inject_tool_calls(turn, {}, scenario)
+        # Should NOT have a save_field for "_document_upload" as a field name
+        for i in interactions:
+            if i["tool_call"]["function"]["name"] == "save_field":
+                args = json.loads(i["tool_call"]["function"]["arguments"])
+                assert args["field_name"] != "_document_upload"
+
+    def test_process_document_confidence(self):
+        """Fields from document_ocr should have 0.85 confidence."""
+        turn = TurnSkeleton(
+            phase="form_specific",
+            user_fields={"_document_upload": {
+                "document_type": "drivers_license",
+                "file_path": "/uploads/dl.jpg",
+                "extracted_fields": {"driver_1_name": "Test Person"},
+            }},
+            tools_to_call=["process_document", "save_field"],
+            action="process_document",
+            assistant_should_ask="",
+        )
+        scenario = _make_simple_scenario()
+        _, new_state = inject_tool_calls(turn, {}, scenario)
+        assert new_state["driver_1_name"]["confidence"] == 0.85
+
+
+# ---------------------------------------------------------------------------
 # No-tool turns
 # ---------------------------------------------------------------------------
 

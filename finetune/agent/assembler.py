@@ -70,6 +70,14 @@ def _render_user_message(
     if action == "greet":
         return rng.choice(_GREETING_USER_MESSAGES)
 
+    # Document upload
+    if action == "process_document":
+        from finetune.agent.conversation_templates import DOCUMENT_TYPE_DISPLAY
+        upload_info = turn.user_fields.get("_document_upload", {})
+        doc_type = upload_info.get("document_type", "document")
+        display_name = DOCUMENT_TYPE_DISPLAY.get(doc_type, doc_type)
+        return render_user_template("upload_document", seed=seed, document_type=display_name)
+
     # Bulk extract
     if action == "bulk_extract":
         return render_bulk_message(turn.user_fields, seed=seed)
@@ -282,6 +290,29 @@ def _render_assistant_message(
             seed=seed,
             current_phase=turn.phase,
             next_topic=turn.assistant_should_ask,
+        )
+
+    # Document processing acknowledgement
+    if action == "process_document":
+        from finetune.agent.conversation_templates import DOCUMENT_TYPE_DISPLAY
+        upload_info = turn.user_fields.get("_document_upload", {})
+        doc_type = upload_info.get("document_type", "document")
+        display_name = DOCUMENT_TYPE_DISPLAY.get(doc_type, doc_type)
+        # Summarize extracted fields
+        extracted = upload_info.get("extracted_fields", {})
+        if extracted:
+            summary_parts = [f"{k}: {v}" for k, v in list(extracted.items())[:5]]
+            extracted_summary = ", ".join(summary_parts)
+            if len(extracted) > 5:
+                extracted_summary += f" (and {len(extracted) - 5} more fields)"
+        else:
+            extracted_summary = "document processed"
+        return render_assistant_template(
+            "acknowledge_document",
+            seed=seed,
+            document_type=display_name,
+            extracted_summary=extracted_summary,
+            next_question=turn.assistant_should_ask,
         )
 
     # Gap analysis
@@ -591,16 +622,33 @@ def assemble_conversation(
 # ---------------------------------------------------------------------------
 
 
+def _estimate_tokens(messages: list[dict]) -> int:
+    """Estimate token count from messages using json.dumps for accuracy.
+
+    This matches how tokenizers see the data: all JSON structure, keys,
+    values, and formatting contribute to token count. Uses ~4 chars/token
+    as a conservative estimate for English + JSON.
+    """
+    import json as _json
+    total = 0
+    for msg in messages:
+        # Count the full serialized message including all structure
+        total += len(_json.dumps(msg, ensure_ascii=False)) // 4
+    return total
+
+
 def assemble_windowed_conversations(
     scenario: ConversationScenario,
     window_size: int = 10,
     overlap: int = 2,
     seed: int = 42,
+    max_tokens: int = 7000,
 ) -> list[dict]:
     """Create overlapping windowed training examples from long conversations.
 
     Each window gets a fresh system prompt with accumulated form_state up to
-    that point in the conversation.
+    that point in the conversation. Windows are capped at both window_size
+    turns AND max_tokens (estimated), whichever is smaller.
 
     For conversations shorter than window_size turns, returns a single window
     containing the full conversation.
@@ -610,6 +658,8 @@ def assemble_windowed_conversations(
         window_size: Maximum number of turns per window.
         overlap: Number of overlapping turns between consecutive windows.
         seed: Random seed for reproducibility.
+        max_tokens: Soft token cap per window (estimated). Defaults to 7000
+            to stay safely under the 8192 training seq_len.
 
     Returns:
         A list of conversation dicts, each with "messages" and "metadata".
@@ -660,6 +710,7 @@ def assemble_windowed_conversations(
         tools_used: set[str] = set()
         window_rng = random.Random(seed + start)
 
+        actual_turns_used = 0
         for turn in window_skeleton:
             if not phases_seen or phases_seen[-1] != turn.phase:
                 phases_seen.append(turn.phase)
@@ -706,6 +757,14 @@ def assemble_windowed_conversations(
                 )
                 messages.append({"role": "assistant", "content": assistant_content})
 
+            actual_turns_used += 1
+
+            # Token-aware early stop: if we've exceeded the budget, stop
+            # adding more turns to this window. Need at least 2 turns for
+            # meaningful training signal (user + assistant with tool calls).
+            if _estimate_tokens(messages) >= max_tokens and actual_turns_used >= 2:
+                break
+
         # Ensure last message is assistant with content
         if (
             messages[-1]["role"] != "assistant"
@@ -721,7 +780,8 @@ def assemble_windowed_conversations(
                 }
             )
 
-        difficulty, curriculum_phase = _classify_difficulty(scenario, window_skeleton)
+        used_skeleton = window_skeleton[:actual_turns_used]
+        difficulty, curriculum_phase = _classify_difficulty(scenario, used_skeleton)
 
         metadata = {
             "scenario_id": scenario.scenario_id,
@@ -729,18 +789,20 @@ def assemble_windowed_conversations(
             "tools_used": sorted(tools_used),
             "difficulty": difficulty,
             "curriculum_phase": curriculum_phase,
-            "turn_count": len(window_skeleton),
+            "turn_count": actual_turns_used,
             "delivery_style": scenario.delivery_style,
             "user_persona": scenario.user_persona,
             "window_index": len(windows),
             "window_start_turn": start,
-            "window_end_turn": end,
+            "window_end_turn": start + actual_turns_used,
         }
 
         windows.append({"messages": messages, "metadata": metadata})
 
-        if end >= len(skeleton):
+        actual_end = start + actual_turns_used
+        if actual_end >= len(skeleton):
             break
-        start += step
+        # Advance by actual turns used minus overlap
+        start += max(1, actual_turns_used - overlap)
 
     return windows

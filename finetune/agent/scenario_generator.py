@@ -57,6 +57,7 @@ class ConversationScenario:
     assigned_forms: list
     delivery_style: str
     user_persona: str
+    document_uploads: List[Dict[str, Any]] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -533,6 +534,111 @@ def _random_coverages(rng: random.Random, lobs: List[str]) -> List[dict]:
 
 
 # ---------------------------------------------------------------------------
+# Document upload generation
+# ---------------------------------------------------------------------------
+
+_FILE_EXTENSIONS = {
+    "loss_run": [".pdf", ".pdf", ".pdf", ".xlsx"],
+    "drivers_license": [".jpg", ".png", ".jpeg", ".pdf"],
+    "vehicle_registration": [".jpg", ".png", ".pdf"],
+    "business_certificate": [".pdf", ".pdf", ".jpg"],
+    "prior_declaration": [".pdf"],
+    "acord_form": [".pdf"],
+}
+
+
+def _generate_document_uploads(
+    rng: random.Random,
+    loss_history: List[dict],
+    drivers: List[dict],
+    vehicles: List[dict],
+    prior_insurance: List[dict],
+) -> List[Dict[str, Any]]:
+    """Generate realistic document upload dicts for ~40% of scenarios.
+
+    Returns a list of dicts, each with document_type, file_path, and
+    extracted_fields that the document would yield.
+    """
+    uploads: List[Dict[str, Any]] = []
+
+    # Decide if this scenario gets document uploads (~40% chance)
+    if rng.random() > 0.40:
+        return uploads
+
+    # Loss run upload if we have loss history
+    if loss_history:
+        ext = rng.choice(_FILE_EXTENSIONS["loss_run"])
+        year = rng.choice(["2023", "2024", "2025"])
+        extracted: Dict[str, Any] = {}
+        for i, lo in enumerate(loss_history, start=1):
+            extracted[f"loss_{i}_date"] = lo.get("date", "")
+            extracted[f"loss_{i}_amount"] = lo.get("amount", "")
+            extracted[f"loss_{i}_description"] = lo.get("description", "")
+        uploads.append({
+            "document_type": "loss_run",
+            "file_path": f"/uploads/loss_run_{year}{ext}",
+            "extracted_fields": extracted,
+        })
+
+    # Driver's license uploads (1-2 if we have drivers)
+    if drivers:
+        dl_count = min(len(drivers), rng.randint(1, 2))
+        for di in range(dl_count):
+            d = drivers[di]
+            ext = rng.choice(_FILE_EXTENSIONS["drivers_license"])
+            name_slug = d["full_name"].lower().replace(" ", "_")
+            uploads.append({
+                "document_type": "drivers_license",
+                "file_path": f"/uploads/dl_{name_slug}{ext}",
+                "extracted_fields": {
+                    f"driver_{di + 1}_name": d["full_name"],
+                    f"driver_{di + 1}_dob": d["dob"],
+                    f"driver_{di + 1}_license_number": d["license_number"],
+                    f"driver_{di + 1}_license_state": d["license_state"],
+                },
+            })
+
+    # Vehicle registration (optional, ~50% if we have vehicles)
+    if vehicles and rng.random() < 0.50:
+        v = vehicles[0]
+        ext = rng.choice(_FILE_EXTENSIONS["vehicle_registration"])
+        uploads.append({
+            "document_type": "vehicle_registration",
+            "file_path": f"/uploads/vehicle_reg_{v['vin'][-6:]}{ext}",
+            "extracted_fields": {
+                "vehicle_1_year": v["year"],
+                "vehicle_1_make": v["make"],
+                "vehicle_1_model": v["model"],
+                "vehicle_1_vin": v["vin"],
+            },
+        })
+
+    # Prior declaration (optional, ~30% if we have prior insurance)
+    if prior_insurance and rng.random() < 0.30:
+        ext = rng.choice(_FILE_EXTENSIONS["prior_declaration"])
+        p = prior_insurance[0]
+        uploads.append({
+            "document_type": "prior_declaration",
+            "file_path": f"/uploads/prior_dec_page{ext}",
+            "extracted_fields": {
+                "prior_1_carrier": p["carrier_name"],
+                "prior_1_premium": p["premium"],
+            },
+        })
+
+    # Business certificate (optional, ~20%)
+    if rng.random() < 0.20:
+        ext = rng.choice(_FILE_EXTENSIONS["business_certificate"])
+        uploads.append({
+            "document_type": "business_certificate",
+            "file_path": f"/uploads/business_cert{ext}",
+            "extracted_fields": {},
+        })
+
+    return uploads
+
+
+# ---------------------------------------------------------------------------
 # Business-name generation
 # ---------------------------------------------------------------------------
 
@@ -741,6 +847,11 @@ def _build_scenario(
     # Forms
     assigned_forms = _forms_for_lobs(lob_combo)
 
+    # Document uploads (~40% of scenarios)
+    document_uploads = _generate_document_uploads(
+        rng, loss_history, drivers, vehicles, prior_insurance,
+    )
+
     return ConversationScenario(
         scenario_id=f"scenario_{idx:04d}",
         business=business,
@@ -755,4 +866,5 @@ def _build_scenario(
         assigned_forms=assigned_forms,
         delivery_style=rng.choice(DELIVERY_STYLES),
         user_persona=rng.choice(USER_PERSONAS),
+        document_uploads=document_uploads,
     )

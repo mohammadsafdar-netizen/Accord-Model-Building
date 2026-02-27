@@ -186,6 +186,16 @@ USER_TEMPLATES: Dict[str, List[str]] = {
         "All the info: {info}",
         "I'll send you everything - {info}",
     ],
+
+    # --- Document uploads ---
+    "upload_document": [
+        "I'm uploading my {document_type}",
+        "Here's the {document_type} you asked for",
+        "Let me send you the {document_type}",
+        "I've got the {document_type} ready, uploading now",
+        "Attached is the {document_type}",
+        "Here's a copy of our {document_type}",
+    ],
 }
 
 
@@ -273,6 +283,28 @@ ASSISTANT_TEMPLATES: Dict[str, List[str]] = {
         "That wraps up {current_phase}. Moving on to {next_topic}.",
         "Perfect, {current_phase} details are all set. Next up: {next_topic}.",
     ],
+
+    # --- Document acknowledgement ---
+    "acknowledge_document": [
+        "I've received your {document_type} and extracted the relevant information. {extracted_summary}. {next_question}",
+        "Thank you for uploading the {document_type}. I've processed it and found: {extracted_summary}. {next_question}",
+        "Got it, I've analyzed your {document_type}. Here's what I found: {extracted_summary}. {next_question}",
+        "Your {document_type} has been processed successfully. I extracted: {extracted_summary}. {next_question}",
+    ],
+}
+
+
+# ---------------------------------------------------------------------------
+# Document type display names
+# ---------------------------------------------------------------------------
+
+DOCUMENT_TYPE_DISPLAY: Dict[str, str] = {
+    "loss_run": "loss run report",
+    "drivers_license": "driver's license",
+    "vehicle_registration": "vehicle registration",
+    "business_certificate": "business certificate",
+    "prior_declaration": "prior insurance declaration",
+    "acord_form": "ACORD form",
 }
 
 

@@ -199,3 +199,62 @@ def test_bind_request_phase_present():
     skeleton = build_skeleton(scenario)
     phases = [t.phase for t in skeleton]
     assert "bind_request" in phases
+
+
+# ---------------------------------------------------------------------------
+# Document upload turns
+# ---------------------------------------------------------------------------
+
+
+def _make_scenario_with_uploads():
+    """Find a scenario that has document_uploads."""
+    scenarios = generate_scenarios()
+    for s in scenarios:
+        if s.document_uploads:
+            return s
+    # Fallback: should not happen with 500+ scenarios at 40%
+    pytest.skip("No scenario with document_uploads found")
+
+
+def test_skeleton_includes_document_upload_turns():
+    """Scenarios with document_uploads should produce process_document turns."""
+    scenario = _make_scenario_with_uploads()
+    skeleton = build_skeleton(scenario)
+    doc_turns = [t for t in skeleton if t.action == "process_document"]
+    assert len(doc_turns) >= 1
+    for dt in doc_turns:
+        assert "process_document" in dt.tools_to_call
+        assert dt.phase == "form_specific"
+
+
+def test_document_upload_turns_have_upload_data():
+    """Document upload turns should carry _document_upload in user_fields."""
+    scenario = _make_scenario_with_uploads()
+    skeleton = build_skeleton(scenario)
+    doc_turns = [t for t in skeleton if t.action == "process_document"]
+    for dt in doc_turns:
+        assert "_document_upload" in dt.user_fields
+        upload = dt.user_fields["_document_upload"]
+        assert "document_type" in upload
+        assert "file_path" in upload
+        assert "extracted_fields" in upload
+
+
+def test_document_upload_turns_count_matches_scenario():
+    """Number of process_document turns should match document_uploads count."""
+    scenario = _make_scenario_with_uploads()
+    skeleton = build_skeleton(scenario)
+    doc_turns = [t for t in skeleton if t.action == "process_document"]
+    assert len(doc_turns) == len(scenario.document_uploads)
+
+
+def test_document_upload_turns_are_phase_scoped():
+    """Document upload turns should only use tools allowed in form_specific."""
+    scenario = _make_scenario_with_uploads()
+    skeleton = build_skeleton(scenario)
+    doc_turns = [t for t in skeleton if t.action == "process_document"]
+    for dt in doc_turns:
+        for tool in dt.tools_to_call:
+            assert tool in PHASE_TOOLS["form_specific"], (
+                f"Tool '{tool}' not allowed in form_specific phase"
+            )

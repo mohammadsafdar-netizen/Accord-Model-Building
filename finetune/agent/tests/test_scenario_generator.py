@@ -143,6 +143,65 @@ def test_property_scenarios_have_locations(scenarios):
 
 
 # ------------------------------------------------------------------
+# Document uploads
+# ------------------------------------------------------------------
+
+def test_scenarios_have_document_uploads(scenarios):
+    """At least 25% of scenarios should have document uploads."""
+    has_uploads = [s for s in scenarios if s.document_uploads]
+    assert len(has_uploads) >= len(scenarios) * 0.25, (
+        f"Only {len(has_uploads)}/{len(scenarios)} scenarios have uploads "
+        f"({100 * len(has_uploads) / len(scenarios):.1f}%)"
+    )
+
+
+def test_document_upload_structure(scenarios):
+    """Each document upload should have required keys."""
+    for s in scenarios:
+        for doc in s.document_uploads:
+            assert "document_type" in doc, f"Missing document_type in {s.scenario_id}"
+            assert "file_path" in doc, f"Missing file_path in {s.scenario_id}"
+            assert "extracted_fields" in doc, f"Missing extracted_fields in {s.scenario_id}"
+
+
+def test_document_upload_types_valid(scenarios):
+    """Document types should be from the known set."""
+    valid_types = {"loss_run", "drivers_license", "vehicle_registration",
+                   "business_certificate", "prior_declaration", "acord_form"}
+    for s in scenarios:
+        for doc in s.document_uploads:
+            assert doc["document_type"] in valid_types, (
+                f"Invalid document_type '{doc['document_type']}' in {s.scenario_id}"
+            )
+
+
+def test_loss_run_upload_has_loss_fields(scenarios):
+    """Loss run uploads should have loss-related extracted fields."""
+    for s in scenarios:
+        for doc in s.document_uploads:
+            if doc["document_type"] == "loss_run":
+                assert doc["extracted_fields"], (
+                    f"Loss run upload in {s.scenario_id} should have extracted fields"
+                )
+                assert any(k.startswith("loss_") for k in doc["extracted_fields"]), (
+                    f"Loss run upload in {s.scenario_id} should have loss_* fields"
+                )
+
+
+def test_drivers_license_upload_has_driver_fields(scenarios):
+    """Driver's license uploads should have driver-related extracted fields."""
+    for s in scenarios:
+        for doc in s.document_uploads:
+            if doc["document_type"] == "drivers_license":
+                assert doc["extracted_fields"], (
+                    f"Driver's license upload in {s.scenario_id} should have extracted fields"
+                )
+                assert any(k.startswith("driver_") for k in doc["extracted_fields"]), (
+                    f"Driver's license upload in {s.scenario_id} should have driver_* fields"
+                )
+
+
+# ------------------------------------------------------------------
 # Reproducibility
 # ------------------------------------------------------------------
 

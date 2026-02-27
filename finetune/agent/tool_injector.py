@@ -262,7 +262,7 @@ def _inject_save_fields(
     for raw_name, raw_value in turn.user_fields.items():
         # Skip non-data fields (e.g. "confirmation", "bind_confirmation")
         if raw_name in ("confirmation", "bind_confirmation", "selected_quote",
-                        "insurance_needs"):
+                        "insurance_needs", "_document_upload"):
             continue
 
         canonical = _resolve_alias(raw_name)
@@ -391,6 +391,91 @@ def _inject_fill_forms(
     return _make_interaction("fill_forms", args, resp)
 
 
+def _inject_process_document(
+    turn: TurnSkeleton,
+    form_state: dict,
+) -> Tuple[List[dict], dict]:
+    """Generate process_document interaction for a document upload turn.
+
+    Returns (interactions, updated_form_state).
+    The first interaction is always the process_document call/response.
+    Subsequent interactions are save_field calls for each extracted field.
+    """
+    upload_info = turn.user_fields.get("_document_upload", {})
+    file_path = upload_info.get("file_path", "/uploads/document.pdf")
+    document_type = upload_info.get("document_type", "other")
+    extracted_fields = upload_info.get("extracted_fields", {})
+
+    # process_document call
+    args = {"file_path": file_path}
+
+    # Build realistic response based on document type
+    resp_fields = {}
+    loss_history = []
+    summary = f"Processed {document_type}"
+
+    if document_type == "loss_run":
+        # Loss run extracts loss history entries
+        for k, v in extracted_fields.items():
+            if k.startswith("loss_"):
+                loss_history.append({"field": k, "value": v})
+            else:
+                resp_fields[k] = v
+        summary = f"Loss run with {len(loss_history)} claim entries"
+    else:
+        resp_fields = dict(extracted_fields)
+        summary = f"{document_type} with {len(resp_fields)} extracted fields"
+
+    response = {
+        "status": "success",
+        "document_type": document_type,
+        "fields": resp_fields,
+        "summary": summary,
+    }
+    if loss_history:
+        response["loss_history"] = loss_history
+
+    process_interaction = _make_interaction("process_document", args, response)
+
+    # Also save extracted fields into form_state
+    interactions = [process_interaction]
+    new_state = dict(form_state)
+
+    for field_name, value in extracted_fields.items():
+        canonical = _resolve_alias(field_name)
+        normalized = _normalize_value(canonical, str(value))
+        source = "document_ocr"
+        confidence = _score_confidence(source)
+
+        # Skip if already exists with same value
+        existing = new_state.get(canonical)
+        if existing and existing.get("value") == normalized:
+            continue
+
+        save_args = {
+            "field_name": canonical,
+            "value": normalized,
+            "source": source,
+            "status": "pending",
+        }
+        save_resp = {
+            "status": "saved",
+            "field_name": canonical,
+            "value": normalized,
+            "confidence": confidence,
+        }
+        interactions.append(_make_interaction("save_field", save_args, save_resp))
+
+        new_state[canonical] = {
+            "value": normalized,
+            "confidence": confidence,
+            "source": source,
+            "status": "confirmed",
+        }
+
+    return interactions, new_state
+
+
 def _inject_select_quote(
     turn: TurnSkeleton,
     scenario: ConversationScenario,
@@ -482,6 +567,15 @@ def inject_tool_calls(
     has_fill = "fill_forms" in tool_set
     has_select = "select_quote" in tool_set
     has_bind = "submit_bind_request" in tool_set
+    has_process_doc = "process_document" in tool_set
+
+    # 0. process_document — handles document upload + saves extracted fields
+    if has_process_doc and turn.user_fields.get("_document_upload"):
+        doc_interactions, new_state = _inject_process_document(turn, new_state)
+        interactions.extend(doc_interactions)
+        # Skip regular save_field for this turn since _inject_process_document
+        # already handles saving extracted fields
+        has_save = False
 
     # 1. save_field — one per user field
     if has_save and turn.user_fields:

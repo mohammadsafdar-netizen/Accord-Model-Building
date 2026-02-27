@@ -61,6 +61,22 @@ class CurriculumConfig:
             PhaseConfig("error_specific", data_dir / "error_examples.jsonl", epochs=1, lr=5e-5),
         ])
 
+    @classmethod
+    def default_agent_3phase(cls, data_dir: Path) -> CurriculumConfig:
+        """Create agent-specific 3-phase curriculum: foundation → complex → error-specific.
+
+        Phase 1 (foundation): Basic conversations, tool usage, phase transitions.
+        Phase 2 (complex): Multi-tool chains, edge cases, long conversations.
+        Phase 3 (error-specific): Error recovery, validation failures, ambiguous inputs.
+
+        LR decays across phases (2e-4 → 1e-4 → 5e-5) to prevent forgetting.
+        """
+        return cls(phases=[
+            PhaseConfig("agent_foundation", data_dir / "agent_train_phase1.jsonl", epochs=2, lr=2e-4),
+            PhaseConfig("agent_complex", data_dir / "agent_train_phase2.jsonl", epochs=2, lr=1e-4),
+            PhaseConfig("agent_error_specific", data_dir / "agent_train_phase3.jsonl", epochs=1, lr=5e-5),
+        ])
+
     def to_dict(self) -> dict:
         return {"phases": [p.to_dict() for p in self.phases]}
 
